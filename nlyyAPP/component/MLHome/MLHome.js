@@ -18,6 +18,13 @@ import {
 var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../entity/Users');
 var MLTableCell = require('../MLTableCell/MLTableCell');
+var PatientRM = require('../受试者随机/MLPatientRM');
+var DrugsAI = require('../药物管理/MLDrugsAI');
+var FollowUpAI = require('../随访管理/MLFollowUpAI');
+var Unblinding = require('../揭盲/MLUnblinding');
+var StopEntry = require('../停止入组/MLStopEntry');
+var ResearchAI = require('../研究管理/MLResearchAI');
+var Helper = require('../小帮手/MLHelper');
 
 var Home = React.createClass({
     getInitialState() {
@@ -26,27 +33,32 @@ var Home = React.createClass({
 
         //判断用户类别
         if (Users.Users.UserFun == 'H1' || Users.Users.UserFun == 'H2' ||
-            Users.Users.UserFun == 'S1' || Users.Users.UserFun == 'M1' ||
-            Users.Users.UserFun == 'M3'){
+            Users.Users.UserFun == 'H3' || Users.Users.UserFun == 'S1' ||
+            Users.Users.UserFun == 'M1' || Users.Users.UserFun == 'M3'){
             tableData.push('受试者随机')
         }
         if (Users.Users.UserFun == 'H4' || Users.Users.UserFun == 'M6' ||
-                  Users.Users.UserFun == 'M1'){
+            Users.Users.UserFun == 'M1' || Users.Users.UserFun == 'M7'){
             tableData.push('药品管理')
         }
-        if (Users.Users.UserFun == 'H2'){
+        if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' ||
+            Users.Users.UserFun == 'S1'){
             tableData.push('随访管理')
         }
-        if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'C1' ||
-                  Users.Users.UserFun == 'M5'){
+        if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' ||
+            Users.Users.UserFun == 'S1' || Users.Users.UserFun == 'C1' ||
+            Users.Users.UserFun == 'M5'){
             tableData.push('揭盲')
         }
-        if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'C1'){
+        if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' ||
+            Users.Users.UserFun == 'C1' || Users.Users.UserFun == 'S1' ||
+            Users.Users.UserFun == 'M7'){
             tableData.push('停止入组')
         }
-        if (Users.Users.UserFun == 'H1' || Users.Users.UserFun == 'M3' ||
-            Users.Users.UserFun == 'M2' || Users.Users.UserFun == 'C1'){
-            tableData.push('研究下线')
+        if (Users.Users.UserFun == 'H1' || Users.Users.UserFun == 'M4' ||
+            Users.Users.UserFun == 'M3' || Users.Users.UserFun == 'M2' ||
+            Users.Users.UserFun == 'C1'){
+            tableData.push('研究管理')
         }
         tableData.push('小助手')
 
@@ -80,11 +92,43 @@ var Home = React.createClass({
         return(
             <TouchableOpacity onPress={()=>{
                 //设置数据
-                console.log(Users.Users)
+                console.log('点击'+rowData);
                 // 页面的切换
-                this.props.navigator.push({
-                    component: Home, // 具体路由的版块
-                });
+                if (rowData == "受试者随机"){
+                    this.props.navigator.push({
+                        component: PatientRM, // 具体路由的版块
+                    });
+                }
+                if (rowData == "药品管理"){
+                    this.props.navigator.push({
+                        component: DrugsAI, // 具体路由的版块
+                    });
+                }
+                if (rowData == "随访管理"){
+                    this.props.navigator.push({
+                        component: FollowUpAI, // 具体路由的版块
+                    });
+                }
+                if (rowData == "揭盲"){
+                    this.props.navigator.push({
+                        component: Unblinding, // 具体路由的版块
+                    });
+                }
+                if (rowData == "停止入组"){
+                    this.props.navigator.push({
+                        component: StopEntry, // 具体路由的版块
+                    });
+                }
+                if (rowData == "研究管理"){
+                    this.props.navigator.push({
+                        component: ResearchAI, // 具体路由的版块
+                    });
+                }
+                if (rowData == "小助手"){
+                    this.props.navigator.push({
+                        component: Helper, // 具体路由的版块
+                    });
+                }
             }}>
                 <MLTableCell title={rowData}/>
             </TouchableOpacity>
