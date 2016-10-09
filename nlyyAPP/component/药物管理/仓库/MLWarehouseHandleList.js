@@ -19,6 +19,8 @@ var Users = require('../../../entity/Users');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var PatientRM = require('../../受试者随机/MLPatientRM');
 var Changku = require('../../../entity/Changku');
+//分配药物号
+var XuanzheCKZX = require('./MLXuanzheCKZX');
 
 var WarehouseHandleList = React.createClass({
     getInitialState() {
@@ -67,12 +69,17 @@ var WarehouseHandleList = React.createClass({
     renderRow(rowData){
         return(
             <TouchableOpacity onPress={()=>{
-                //设置数据
-                console.log(Users.Users)
                 // 页面的切换
-                this.props.navigator.push({
-                    component: PatientRM, // 具体路由的版块
-                });
+                console.log(rowData);
+                if (rowData.title == "分配药物号"){
+                    this.props.navigator.push({
+                        component: XuanzheCKZX, // 具体路由的版块
+                    });
+                }else{
+                    this.props.navigator.push({
+                        component: XuanzheCKZX, // 具体路由的版块
+                    });
+                }
             }}>
                 <MLTableCell title={rowData.title} iconTitl={rowData.imageTitle} iconColor={rowData.iconColor}/>
             </TouchableOpacity>
