@@ -22,6 +22,9 @@ var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../entity/Users');
 var MLTableCell = require('../MLTableCell/MLTableCell');
 var PatientRM = require('../受试者随机/MLPatientRM');
+var ResearchCore = require('./研究中心/MLResearchCore');
+var Warehouse = require('./仓库/MLWarehouse');
+var users = require('../../entity/Users')
 
 var DrugsAI = React.createClass({
     getInitialState() {
@@ -79,12 +82,21 @@ var DrugsAI = React.createClass({
     renderRow(rowData){
         return(
             <TouchableOpacity onPress={()=>{
-                //设置数据
-                console.log(Users.Users)
-                // 页面的切换
-                this.props.navigator.push({
-                    component: PatientRM, // 具体路由的版块
-                });
+                if(rowData == "仓库") {
+                    console.log(users);
+                    //设置数据
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: Warehouse, // 具体路由的版块
+                    });
+                }
+                if(rowData == "研究中心") {
+                    //设置数据
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: ResearchCore, // 具体路由的版块
+                    });
+                }
             }}>
                 <MLTableCell title={rowData}/>
             </TouchableOpacity>

@@ -35,32 +35,32 @@ var Home = React.createClass({
         if (Users.Users.UserFun == 'H1' || Users.Users.UserFun == 'H2' ||
             Users.Users.UserFun == 'H3' || Users.Users.UserFun == 'S1' ||
             Users.Users.UserFun == 'M1' || Users.Users.UserFun == 'M3'){
-            tableData.push('受试者随机')
+            tableData.push({title:'受试者随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'})
         }
         if (Users.Users.UserFun == 'H4' || Users.Users.UserFun == 'M6' ||
             Users.Users.UserFun == 'M1' || Users.Users.UserFun == 'M7'){
-            tableData.push('药品管理')
+            tableData.push({title:'药品管理',imageTitle:"medkit",iconColor:'rgba(0,136,212,1.0)'})
         }
         if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' ||
             Users.Users.UserFun == 'S1'){
-            tableData.push('随访管理')
+            tableData.push({title:'随访管理',imageTitle:"phone",iconColor:'rgba(0,136,212,1.0)'})
         }
         if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' ||
             Users.Users.UserFun == 'S1' || Users.Users.UserFun == 'C1' ||
             Users.Users.UserFun == 'M5'){
-            tableData.push('揭盲')
+            tableData.push({title:'揭盲',imageTitle:"eye",iconColor:'rgba(0,136,212,1.0)'})
         }
         if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' ||
             Users.Users.UserFun == 'C1' || Users.Users.UserFun == 'S1' ||
             Users.Users.UserFun == 'M7'){
-            tableData.push('停止入组')
+            tableData.push({title:'停止入组',imageTitle:"info",iconColor:'rgba(0,136,212,1.0)'})
         }
         if (Users.Users.UserFun == 'H1' || Users.Users.UserFun == 'M4' ||
             Users.Users.UserFun == 'M3' || Users.Users.UserFun == 'M2' ||
             Users.Users.UserFun == 'C1'){
-            tableData.push('研究管理')
+            tableData.push({title:'研究管理',imageTitle:"key",iconColor:'rgba(0,136,212,1.0)'})
         }
-        tableData.push('小助手')
+        tableData.push({title:'小助手',imageTitle:"th-list",iconColor:'rgba(0,136,212,1.0)'})
 
         //ListView设置
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
@@ -92,45 +92,45 @@ var Home = React.createClass({
         return(
             <TouchableOpacity onPress={()=>{
                 //设置数据
-                console.log('点击'+rowData);
+                console.log('点击'+rowData.title);
                 // 页面的切换
-                if (rowData == "受试者随机"){
+                if (rowData.title == "受试者随机"){
                     this.props.navigator.push({
                         component: PatientRM, // 具体路由的版块
                     });
                 }
-                if (rowData == "药品管理"){
+                if (rowData.title == "药品管理"){
                     this.props.navigator.push({
                         component: DrugsAI, // 具体路由的版块
                     });
                 }
-                if (rowData == "随访管理"){
+                if (rowData.title == "随访管理"){
                     this.props.navigator.push({
                         component: FollowUpAI, // 具体路由的版块
                     });
                 }
-                if (rowData == "揭盲"){
+                if (rowData.title == "揭盲"){
                     this.props.navigator.push({
                         component: Unblinding, // 具体路由的版块
                     });
                 }
-                if (rowData == "停止入组"){
+                if (rowData.title == "停止入组"){
                     this.props.navigator.push({
                         component: StopEntry, // 具体路由的版块
                     });
                 }
-                if (rowData == "研究管理"){
+                if (rowData.title == "研究管理"){
                     this.props.navigator.push({
                         component: ResearchAI, // 具体路由的版块
                     });
                 }
-                if (rowData == "小助手"){
+                if (rowData.title == "小助手"){
                     this.props.navigator.push({
                         component: Helper, // 具体路由的版块
                     });
                 }
             }}>
-                <MLTableCell title={rowData}/>
+                <MLTableCell title={rowData.title} iconTitl={rowData.imageTitle} iconColor={rowData.iconColor}/>
             </TouchableOpacity>
         )
     },

@@ -28,6 +28,7 @@ var MLTableCell = React.createClass({
     getDefaultProps(){
         return{
             iconTitl:'',//左侧图标
+            iconColor:null,//左侧图标
             title: '',  // 主标题
             subTitle:'',//副标题
             rightTitle: '',//右侧文字
@@ -56,32 +57,55 @@ var MLTableCell = React.createClass({
     renderLeftIcon(){
         if (this.props.iconTitl != ''){
             return(
-                <Icon name="angle-left" size={30} color="#900" style={{position:'absolute', left:10, bottom:7}}/>
+                <Icon name={this.props.iconTitl} size={20} color={this.props.iconColor} style={{position:'absolute', left:10, bottom:12}}/>
             )
         }
     },
 
     //设置左边两行文字
     renderLeftText(){
-        if (this.props.subTitle != ''){
-            return(
-                <View style={{marginLeft:30}}>
-                    <Text >
-                        {this.props.title}
-                    </Text>
-                    <Text style={{marginTop:Platform.OS == 'ios' ? 5: 0}}>
-                        {this.props.subTitle}
-                    </Text>
-                </View>
-            )
-        }else {
-            return(
-                <View style={{marginLeft:30}}>
-                    <Text>
-                        {this.props.title}
-                    </Text>
-                </View>
-            )
+        if (this.props.iconTitl != ''){
+            if (this.props.subTitle != ''){
+                return(
+                    <View style={{marginLeft:40}}>
+                        <Text >
+                            {this.props.title}
+                        </Text>
+                        <Text style={{marginTop:Platform.OS == 'ios' ? 5: 0}}>
+                            {this.props.subTitle}
+                        </Text>
+                    </View>
+                )
+            }else {
+                return(
+                    <View style={{marginLeft:40}}>
+                        <Text>
+                            {this.props.title}
+                        </Text>
+                    </View>
+                )
+            }
+        }else{
+            if (this.props.subTitle != ''){
+                return(
+                    <View style={{marginLeft:10}}>
+                        <Text >
+                            {this.props.title}
+                        </Text>
+                        <Text style={{marginTop:Platform.OS == 'ios' ? 5: 0}}>
+                            {this.props.subTitle}
+                        </Text>
+                    </View>
+                )
+            }else {
+                return(
+                    <View style={{marginLeft:10}}>
+                        <Text>
+                            {this.props.title}
+                        </Text>
+                    </View>
+                )
+            }
         }
     },
 
