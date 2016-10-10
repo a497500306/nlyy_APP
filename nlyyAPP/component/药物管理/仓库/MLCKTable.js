@@ -8,7 +8,8 @@ import {
     View,
     TouchableOpacity,
     Navigator,
-    ListView
+    ListView,
+    Alert
 } from 'react-native';
 
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
@@ -75,8 +76,14 @@ var CKTable = React.createClass({
             .catch((error) => {//错误
                 //移除等待,弹出错误
                 this.setState({animating:false});
-                this.setState({cuowu:true});
-
+                //错误
+                Alert.alert(
+                    '请检查您的网络',
+                    null,
+                    [
+                        {text: '确定'}
+                    ]
+                )
             });
     },
     // getInitialState() {

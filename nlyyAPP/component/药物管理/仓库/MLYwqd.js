@@ -164,11 +164,114 @@ var Ywqd = React.createClass({
     },
     //点击确定
     getLogin(){
+        console.log(this.props.navigator.getCurrentRoutes());
+        this.setState({animating:true});
+        //发送登录网络请求
+        fetch(settings.fwqUrl + "/app/getAssignYwhgsfp", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json; charset=utf-8',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id : FPQDData.FPQDData.id,
+            })
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson)
+                if (responseJson.isSucceed == 400){
+                    //移除等待
+                    this.setState({quxiaoanimating:false});
+                    Alert.alert(
+                        '操作完成,请到邮箱中查看运送信息',
+                        null,
+                        [
+                            {text: '确定', onPress: () => this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[4])}
+                        ]
+                    )
 
+                }else{
+                    //移除等待
+                    this.setState({animating:false});
+                    this.setState({cuowu:false});
+                    //错误
+                    Alert.alert(
+                        responseJson.msg,
+                        null,
+                        [
+                            {text: '确定', onPress: () => this.props.navigator.pop()}
+                        ]
+                    )
+                }
+            })
+            .catch((error) => {//错误
+                //移除等待,弹出错误
+                this.setState({animating:false});
+                //错误
+                Alert.alert(
+                    '请检查您的网络',
+                    null,
+                    [
+                        {text: '确定'}
+                    ]
+                )
+            });
     },
     //点击取消
     getQuxiao(){
+        this.setState({quxiaoanimating:true});
+        //发送登录网络请求
+        fetch(settings.fwqUrl + "/app/getCancelYwhgsfp", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json; charset=utf-8',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id : FPQDData.FPQDData.id,
+            })
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson)
+                if (responseJson.isSucceed == 400){
+                    //移除等待
+                    this.setState({quxiaoanimating:false});
+                    Alert.alert(
+                        '操作完成',
+                        null,
+                        [
+                            {text: '确定', onPress: () => this.props.navigator.pop()}
+                        ]
+                    )
 
+                }else{
+                    //移除等待
+                    this.setState({animating:false});
+                    this.setState({cuowu:false});
+                    //错误
+                    Alert.alert(
+                        responseJson.msg,
+                        null,
+                        [
+                            {text: '确定', onPress: () => this.props.navigator.pop()}
+                        ]
+                    )
+                }
+            })
+            .catch((error) => {//错误
+                //移除等待,弹出错误
+                this.setState({quxiaoanimating:false});
+                //错误
+                Alert.alert(
+                    '请检查您的网络',
+                    null,
+                    [
+                        {text: '确定'}
+                    ]
+                )
+            });
     }
 
 
