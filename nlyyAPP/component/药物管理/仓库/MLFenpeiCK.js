@@ -22,6 +22,11 @@ var Qdfp = require('./分配方案/MLQdfp');
 var Zgjhqdfp = require('./分配方案/MLZgjhqdfp');
 
 var FenpeiCK = React.createClass({
+    getDefaultProps(){
+        return{
+            Address:null,//地址数据
+        }
+    },
     getInitialState() {
 
         var tableData = [];
@@ -41,6 +46,7 @@ var FenpeiCK = React.createClass({
     },
 
     render() {
+        console.log(this.props.Address)
         return (
             <View style={styles.container}>
                 <MLNavigatorBar title={'分配到仓库'} isBack={true} backFunc={() => {

@@ -21,6 +21,7 @@ var Changku = require('../../../entity/Changku');
 var settings = require('../../../settings');
 var WarehouseHandleList = require('./MLWarehouseHandleList');
 var FPZhongxin = require('./保存数据/FPZhongxin');
+var FPChangku = require('./保存数据/FPChangku');
 var FenpeiZX = require('./MLFenpeiZX');
 
 var ZXTable = React.createClass({
@@ -134,6 +135,7 @@ var ZXTable = React.createClass({
             <TouchableOpacity onPress={()=>{
                 //设置数据
                 FPZhongxin.FPZhongxin = rowData;
+                FPChangku.FPChangku = null;
                 // 页面的切换
                 this.props.navigator.push({
                     component: FenpeiZX, // 具体路由的版块

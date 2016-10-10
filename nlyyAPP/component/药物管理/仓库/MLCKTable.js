@@ -21,6 +21,7 @@ var Changku = require('../../../entity/Changku');
 var settings = require('../../../settings');
 var WarehouseHandleList = require('./MLWarehouseHandleList');
 var FPChangku = require('./保存数据/FPChangku');
+var FPZhongxin = require('./保存数据/FPZhongxin');
 var FengpeiCK = require('./MLFenpeiCK');
 
 var CKTable = React.createClass({
@@ -134,12 +135,13 @@ var CKTable = React.createClass({
             <TouchableOpacity onPress={()=>{
                 //设置数据
                 FPChangku.FPChangku = rowData;
+                FPZhongxin.FPZhongxin = null;
                 // 页面的切换
                 this.props.navigator.push({
                     component: FengpeiCK, // 具体路由的版块
                 });
             }}>
-                <MLTableCell title={rowData.DepotCity}/>
+                <MLTableCell title={rowData.DepotName}/>
             </TouchableOpacity>
         )
     },
