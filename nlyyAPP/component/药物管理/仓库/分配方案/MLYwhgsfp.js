@@ -73,7 +73,6 @@ var Ywhgsfp = React.createClass({
 
     //点击确定
     getLogin(){
-        //判断是否输入正确
         if (check(this.state.shuliang) == 1){
             this.setState({animating:true});
             //发送网络请求

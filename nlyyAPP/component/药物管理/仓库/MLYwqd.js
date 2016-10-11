@@ -242,7 +242,7 @@ var Ywqd = React.createClass({
                         '操作完成',
                         null,
                         [
-                            {text: '确定', onPress: () => this.props.navigator.pop()}
+                            {text: '确定', onPress: () => this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[7])}
                         ]
                     )
 
