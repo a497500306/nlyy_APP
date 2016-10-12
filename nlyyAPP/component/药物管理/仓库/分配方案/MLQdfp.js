@@ -87,8 +87,8 @@ var Qdfp = React.createClass({
         if (this.state.diwei == ''){
             //错误
             Alert.alert(
+                '提示:',
                 '请填写完整',
-                null,
                 [
                     {text: '确定'}
                 ]
@@ -97,8 +97,8 @@ var Qdfp = React.createClass({
         }
         if (this.state.gaowei == ''){
             Alert.alert(
+                '提示:',
                 '请填写完整',
-                null,
                 [
                     {text: '确定'}
                 ]
@@ -107,8 +107,8 @@ var Qdfp = React.createClass({
         }
         if (this.state.gaowei < this.state.diwei){
             Alert.alert(
+                '提示:',
                 '填写数据错误,高位低于低位',
-                null,
                 [
                     {text: '确定'}
                 ]
@@ -139,8 +139,8 @@ var Qdfp = React.createClass({
                 if (responseJson.isSucceed != 400){
                     //错误
                     Alert.alert(
+                        '提示:',
                         responseJson.msg,
-                        null,
                         [
                             {text: '确定'}
                         ]
@@ -160,8 +160,8 @@ var Qdfp = React.createClass({
                 console.log(error),
                     //错误
                     Alert.alert(
+                        '提示:',
                         '请检查您的网络',
-                        null,
                         [
                             {text: '确定'}
                         ]

@@ -60,8 +60,8 @@ var Yqsywqd = React.createClass({
                     this.setState({animating:false});
                     //错误
                     Alert.alert(
+                        '提示:',
                         responseJson.msg,
-                        null,
                         [
                             {text: '确定'}
                         ]
@@ -86,8 +86,8 @@ var Yqsywqd = React.createClass({
                 this.setState({animating:false});
                 //错误
                 Alert.alert(
+                    '提示:',
                     '请检查您的网络',
-                    null,
                     [
                         {text: '确定'}
                     ]
@@ -132,25 +132,76 @@ var Yqsywqd = React.createClass({
                 FPQDData.FPQDData = rowData
                 //错误
                 Alert.alert(
+                    '提示:',
                     '请选择功能',
-                    null,
                     [
                         {text: '操作该批次药物号', onPress: () => {
                             //设置数据
                             // 页面的切换
                             this.props.navigator.push({
-                                name:'分配清单',
+                                name:'sdfljsdf',
                                 component: NewYwqd, // 具体路由的版块
+                                //传递参数
+                                passProps:{
+                                    DrugId : rowData.id,
+                                    UsedAddressId : rowData.Address.id
+                                },
                             });
                         }},
 
+
                         {text: '全部激活', onPress: () => {
-                            //设置数据
-                            // 页面的切换
-                            this.props.navigator.push({
-                                name:'分配清单',
-                                component: NewYwqd, // 具体路由的版块
-                            });
+                            this.setState({animating:true});
+                            //网络请求
+                            fetch(settings.fwqUrl + "/app/getAllOnActivation", {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json; charset=utf-8',
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    DrugId : rowData.id,
+                                    UsedAddressId : rowData.Address.id
+                                })
+                            })
+                                .then((response) => response.json())
+                                .then((responseJson) => {
+                                    console.log(responseJson)
+                                    if (responseJson.isSucceed != 400){
+                                        //移除等待
+                                        this.setState({animating:false});
+                                        //错误
+                                        Alert.alert(
+                                            '提示:',
+                                            responseJson.msg,
+                                            [
+                                                {text: '确定'}
+                                            ]
+                                        )
+                                    }else{
+                                        //ListView设置
+                                        this.setState({animating:false});
+                                        Alert.alert(
+                                            '提示:',
+                                            responseJson.msg,
+                                            [
+                                                {text: '确定'}
+                                            ]
+                                        )
+                                    }
+                                })
+                                .catch((error) => {//错误
+                                    //移除等待,弹出错误
+                                    this.setState({animating:false});
+                                    //错误
+                                    Alert.alert(
+                                        '提示:',
+                                        '请检查您的网络',
+                                        [
+                                            {text: '确定'}
+                                        ]
+                                    )
+                                });
                         }},
 
                         {text: '取消'}

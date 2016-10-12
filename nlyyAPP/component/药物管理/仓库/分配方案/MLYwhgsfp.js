@@ -96,6 +96,7 @@ var Ywhgsfp = React.createClass({
                     if (responseJson.isSucceed != 400){
                         //错误
                         Alert.alert(
+                            '提示:',
                             responseJson.msg,
                             null,
                             [
@@ -117,8 +118,8 @@ var Ywhgsfp = React.createClass({
                     console.log(error),
                         //错误
                         Alert.alert(
+                            '提示:',
                             '请检查您的网络111',
-                            null,
                             [
                                 {text: '确定'}
                             ]
@@ -127,8 +128,8 @@ var Ywhgsfp = React.createClass({
         }else{
             //错误
             Alert.alert(
+                '提示:',
                 '请输入正确的正整数',
-                null,
                 [
                     {text: '确定'}
                 ]

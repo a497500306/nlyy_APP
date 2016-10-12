@@ -82,8 +82,8 @@ var Zgfp = React.createClass({
                 this.setState({animating:false});
                 //错误
                 Alert.alert(
+                    '提示:',
                     '请检查您的网络',
-                    null,
                     [
                         {text: '确定'}
                     ]
@@ -206,8 +206,8 @@ var Zgfp = React.createClass({
                     if (responseJson.isSucceed != 400){
                         //错误
                         Alert.alert(
+                            '提示:',
                             responseJson.msg,
-                            null,
                             [
                                 {text: '确定'}
                             ]
@@ -227,8 +227,8 @@ var Zgfp = React.createClass({
                     console.log(error),
                         //错误
                         Alert.alert(
+                            '提示:',
                             '请检查您的网络111',
-                            null,
                             [
                                 {text: '确定'}
                             ]
@@ -237,8 +237,8 @@ var Zgfp = React.createClass({
         }else{
             //错误
             Alert.alert(
+                '提示:',
                 '请选择最少一个药物号',
-                null,
                 [
                     {text: '确定'}
                 ]

@@ -30,10 +30,9 @@ var Ywqd = require('../MLYwqd');
 var FPChangku = require('../保存数据/FPChangku');
 var FPZhongxin = require('../保存数据/FPZhongxin');
 var FPQDData = require('../保存数据/FPQDData');
-var FPZgjhqdfp = require('../保存数据/FPZgjhqdfp');
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-var ZgjhqdfpQD = React.createClass({
+var YwghgCK = React.createClass({
     //初始化设置
     getInitialState() {
         return {
@@ -69,12 +68,6 @@ var ZgjhqdfpQD = React.createClass({
                     var tableData = [];
                     for (var i = 0 ; i < responseJson.data.length ; i++){
                         var changku = responseJson.data[i];
-                        for(var j = 0 ; j < FPZgjhqdfp.FPZgjhqdfp.length ; j++){
-                            if (changku.id == FPZgjhqdfp.FPZgjhqdfp[j].id){
-                                changku.isSelected = true
-                                this.state.xuanzhongData.push(changku.id)
-                            }
-                        }
                         tableData.push(changku)
                     }
                     this.state.tableData = tableData;
@@ -104,7 +97,7 @@ var ZgjhqdfpQD = React.createClass({
         if (this.state.animating == true){
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'逐个结合区段分配'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'药物清单'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
 
@@ -116,7 +109,7 @@ var ZgjhqdfpQD = React.createClass({
         }else{
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'逐个结合区段分配'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'药物清单'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
                     <ListView
@@ -281,5 +274,5 @@ const styles = StyleSheet.create({
 });
 
 // 输出组件类
-module.exports = ZgjhqdfpQD;
+module.exports = YwghgCK;
 

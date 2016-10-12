@@ -61,8 +61,8 @@ var Ysdywqd = React.createClass({
                     this.setState({animating:false});
                     //错误
                     Alert.alert(
+                        '提示:',
                         responseJson.msg,
-                        null,
                         [
                             {text: '确定'}
                         ]
@@ -87,8 +87,8 @@ var Ysdywqd = React.createClass({
                 this.setState({animating:false});
                 //错误
                 Alert.alert(
+                    '提示:',
                     '请检查您的网络',
-                    null,
                     [
                         {text: '确定'}
                     ]
@@ -133,8 +133,8 @@ var Ysdywqd = React.createClass({
                 FPQDData.FPQDData = rowData
                 //错误
                 Alert.alert(
+                    '提示:',
                     '请选择功能',
-                    null,
                     [
                         {text: '查看清单', onPress: () => {
                             //设置数据
