@@ -21,7 +21,11 @@ var PatientRM = require('../../受试者随机/MLPatientRM');
 var Changku = require('../../../entity/Changku');
 //分配药物号
 var XuanzheCKZX = require('./MLXuanzheCKZX');
-
+var Dysywqd = require('./物流模块/MLDysywqd');
+var Yszywqd = require('./物流模块/MLYszywqd');
+var Ysdywqd = require('./物流模块/MLYsdywqd');
+var Dqsywqd = require('./物流模块/MLDqsywqd');
+var Yqsywqd = require('./物流模块/MLYqsywqd');
 var WarehouseHandleList = React.createClass({
     getInitialState() {
 
@@ -75,9 +79,25 @@ var WarehouseHandleList = React.createClass({
                     this.props.navigator.push({
                         component: XuanzheCKZX, // 具体路由的版块
                     });
-                }else{
+                }else if (rowData.title == "待运送药物清单"){
                     this.props.navigator.push({
-                        component: XuanzheCKZX, // 具体路由的版块
+                        component: Dysywqd, // 具体路由的版块
+                    });
+                }else if (rowData.title == "运送中药物清单"){
+                    this.props.navigator.push({
+                        component: Yszywqd, // 具体路由的版块
+                    });
+                }else if (rowData.title == "已送达药物清单"){
+                    this.props.navigator.push({
+                        component: Ysdywqd, // 具体路由的版块
+                    });
+                }else if (rowData.title == "待签收药物清单"){
+                    this.props.navigator.push({
+                        component: Dqsywqd, // 具体路由的版块
+                    });
+                }else if (rowData.title == "已签收药物清单"){
+                    this.props.navigator.push({
+                        component: Yqsywqd, // 具体路由的版块
                     });
                 }
             }}>

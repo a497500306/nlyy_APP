@@ -28,7 +28,7 @@ var FPChangku = require('./保存数据/FPChangku');
 var FPZhongxin = require('./保存数据/FPZhongxin');
 var Changku = require('../../../entity/Changku')
 
-var Ywqd = React.createClass({
+var NewYwqd = React.createClass({
     getInitialState() {
         return {
             animating: false,//是否显示菊花
@@ -52,57 +52,35 @@ var Ywqd = React.createClass({
                         this.props.navigator.pop()
                     }}/>
                     <ScrollView>
-                    <View style={{backgroundColor: 'white'}}>
-                        <Text style={[styles.textStyles, {color:'red'}]}>
-                            {'清单仅会保留5分钟,请尽快操作'}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'研究简称:' +  FPQDData.FPQDData.Users.StudNameS}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'仓库编号:' + FPQDData.FPQDData.Address.DepotID}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'仓库名称:' + FPQDData.FPQDData.Address.DepotName}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'仓库地址:' + FPQDData.FPQDData.Address.DepotCity + " " + FPQDData.FPQDData.Address.DepotAdd}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'仓管员姓名:' + FPQDData.FPQDData.Address.DepotKper}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'仓管员手机号:' + FPQDData.FPQDData.Address.DepotMP}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'药物号:'}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {yaowuhao}
-                        </Text>
-                        <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getLogin}>
-                            <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
-                                确 定
+                        <View style={{backgroundColor: 'white'}}>
+                            <Text style={[styles.textStyles, {color:'red'}]}>
+                                {'清单仅会保留5分钟,请尽快操作'}
                             </Text>
-                            <ActivityIndicator
-                                animating={this.state.animating}
-                                style={[styles.centering, {height: 30}]}
-                                size="small"
-                                color="white"
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.quxiaoBtnStyle} onPress={this.getQuxiao}>
-                            <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
-                                取 消
+                            <Text style={styles.textStyles}>
+                                {'研究简称:' +  FPQDData.FPQDData.Users.StudNameS}
                             </Text>
-                            <ActivityIndicator
-                                animating={this.state.quxiaoanimating}
-                                style={[styles.centering, {height: 30}]}
-                                size="small"
-                                color="white"
-                            />
-                        </TouchableOpacity>
-                    </View>
+                            <Text style={styles.textStyles}>
+                                {'仓库编号:' + FPQDData.FPQDData.Address.DepotID}
+                            </Text>
+                            <Text style={styles.textStyles}>
+                                {'仓库名称:' + FPQDData.FPQDData.Address.DepotName}
+                            </Text>
+                            <Text style={styles.textStyles}>
+                                {'仓库地址:' + FPQDData.FPQDData.Address.DepotCity + " " + FPQDData.FPQDData.Address.DepotAdd}
+                            </Text>
+                            <Text style={styles.textStyles}>
+                                {'仓管员姓名:' + FPQDData.FPQDData.Address.DepotKper}
+                            </Text>
+                            <Text style={styles.textStyles}>
+                                {'仓管员手机号:' + FPQDData.FPQDData.Address.DepotMP}
+                            </Text>
+                            <Text style={styles.textStyles}>
+                                {'药物号:'}
+                            </Text>
+                            <Text style={styles.textStyles}>
+                                {yaowuhao}
+                            </Text>
+                        </View>
                     </ScrollView>
                 </View>
             );
@@ -113,51 +91,29 @@ var Ywqd = React.createClass({
                         this.props.navigator.pop()
                     }}/>
                     <ScrollView>
-                    <View style={{backgroundColor: 'white'}}>
-                        <Text style={[styles.textStyles, {color:'red'}]}>
-                            {'清单仅会保留5分钟,请尽快操作'}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'研究简称:' + FPQDData.FPQDData.Users.StudNameS}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'中心编号:' + FPQDData.FPQDData.Address.SiteID}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'中心名称:' + FPQDData.FPQDData.Address.SiteNam}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'中心地址:' + FPQDData.FPQDData.Address.SiteCity + " " + FPQDData.FPQDData.Address.SiteAdd}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'药物号:'}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {yaowuhao}
-                        </Text>
-                        <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getLogin}>
-                            <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
-                                确 定
+                        <View style={{backgroundColor: 'white'}}>
+                            <Text style={[styles.textStyles, {color:'red'}]}>
+                                {'清单仅会保留5分钟,请尽快操作'}
                             </Text>
-                            <ActivityIndicator
-                                animating={this.state.animating}
-                                style={[styles.centering, {height: 30}]}
-                                size="small"
-                                color="white"
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.quxiaoBtnStyle} onPress={this.getQuxiao}>
-                            <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
-                                取 消
+                            <Text style={styles.textStyles}>
+                                {'研究简称:' + FPQDData.FPQDData.Users.StudNameS}
                             </Text>
-                            <ActivityIndicator
-                                animating={this.state.quxiaoanimating}
-                                style={[styles.centering, {height: 30}]}
-                                size="small"
-                                color="white"
-                            />
-                        </TouchableOpacity>
-                    </View>
+                            <Text style={styles.textStyles}>
+                                {'中心编号:' + FPQDData.FPQDData.Address.SiteID}
+                            </Text>
+                            <Text style={styles.textStyles}>
+                                {'中心名称:' + FPQDData.FPQDData.Address.SiteNam}
+                            </Text>
+                            <Text style={styles.textStyles}>
+                                {'中心地址:' + FPQDData.FPQDData.Address.SiteCity + " " + FPQDData.FPQDData.Address.SiteAdd}
+                            </Text>
+                            <Text style={styles.textStyles}>
+                                {'药物号:'}
+                            </Text>
+                            <Text style={styles.textStyles}>
+                                {yaowuhao}
+                            </Text>
+                        </View>
                     </ScrollView>
                 </View>
             );
@@ -326,6 +282,6 @@ const styles = StyleSheet.create({
 });
 
 // 输出组件类
-module.exports = Ywqd;
+module.exports = NewYwqd;
 
 

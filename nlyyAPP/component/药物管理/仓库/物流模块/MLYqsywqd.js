@@ -1,4 +1,8 @@
-
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
 
 import React, { Component } from 'react';
 import {
@@ -12,42 +16,40 @@ import {
     Alert
 } from 'react-native';
 
-var Users = require('../../../entity/Users');
-var MLTableCell = require('../../MLTableCell/MLTableCell');
-var PatientRM = require('../../受试者随机/MLPatientRM');
-var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
-var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
-var Users = require('../../../entity/Users');
-var Changku = require('../../../entity/Changku');
-var settings = require('../../../settings');
-var WarehouseHandleList = require('./MLWarehouseHandleList');
-var FPChangku = require('./保存数据/FPChangku');
-var FPZhongxin = require('./保存数据/FPZhongxin');
-var FengpeiCK = require('./MLFenpeiCK');
+//时间操作
+var moment = require('moment');
+moment().format();
 
-var CKTable = React.createClass({
+var MLNavigatorBar = require('../../../MLNavigatorBar/MLNavigatorBar');
+var MLActivityIndicatorView = require('../../../MLActivityIndicatorView/MLActivityIndicatorView');
+var MLTableCell = require('../../../MLTableCell/MLTableCell');
+var Users = require('../../../../entity/Users');
+var settings = require('../../../../settings');
+var Changku = require('../../../../entity/Changku');
+var NewYwqd = require('../MLNewYwqd');
+var FPQDData = require('../保存数据/FPQDData');
 
+
+var Yqsywqd = React.createClass({
     //初始化设置
     getInitialState() {
         return {
             //ListView设置
             dataSource: null,
             animating: true,//是否显示菊花
-            cuowu: false,//是否显示错误
         }
     },
-
     //耗时操作,网络请求
     componentDidMount(){
-        //发送登录网络请求
-        fetch(settings.fwqUrl + "/app/getFengWarehouse", {
+        //网络请求
+        fetch(settings.fwqUrl + "/app/getYqsywqd", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json; charset=utf-8',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                StudyID : Users.Users.StudyID,
+                AddressId : Changku.Changku.id,
             })
         })
             .then((response) => response.json())
@@ -56,7 +58,14 @@ var CKTable = React.createClass({
                 if (responseJson.isSucceed != 400){
                     //移除等待
                     this.setState({animating:false});
-                    this.setState({cuowu:true});
+                    //错误
+                    Alert.alert(
+                        responseJson.msg,
+                        null,
+                        [
+                            {text: '确定'}
+                        ]
+                    )
                 }else{
                     //ListView设置
 
@@ -70,7 +79,6 @@ var CKTable = React.createClass({
                     this.setState({dataSource: ds.cloneWithRows(tableData)});
                     //移除等待
                     this.setState({animating:false});
-                    this.setState({cuowu:false});
                 }
             })
             .catch((error) => {//错误
@@ -86,30 +94,12 @@ var CKTable = React.createClass({
                 )
             });
     },
-    // getInitialState() {
-
-
-    // },
-
     render() {
         if (this.state.animating == true){
             return (
                 <View style={styles.container}>
 
-                    <MLNavigatorBar title={'选择仓库'} isBack={true} backFunc={() => {
-                        this.props.navigator.pop()
-                    }}/>
-
-                    {/*设置完了加载的菊花*/}
-                    <MLActivityIndicatorView />
-                </View>
-
-            );
-        }else if(this.state.cuowu == true){
-            return (
-                <View style={styles.container}>
-
-                    <MLNavigatorBar title={'选择仓库'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'已签收药物清单'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
 
@@ -122,7 +112,7 @@ var CKTable = React.createClass({
             return (
                 <View style={styles.container}>
 
-                    <MLNavigatorBar title={'选择仓库'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'已签收药物清单'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
 
@@ -135,20 +125,39 @@ var CKTable = React.createClass({
             );
         }
     },
-
     //返回具体的cell
     renderRow(rowData){
         return(
             <TouchableOpacity onPress={()=>{
-                //设置数据
-                FPChangku.FPChangku = rowData;
-                FPZhongxin.FPZhongxin = null;
-                // 页面的切换
-                this.props.navigator.push({
-                    component: FengpeiCK, // 具体路由的版块
-                });
+                FPQDData.FPQDData = rowData
+                //错误
+                Alert.alert(
+                    '请选择功能',
+                    null,
+                    [
+                        {text: '操作该批次药物号', onPress: () => {
+                            //设置数据
+                            // 页面的切换
+                            this.props.navigator.push({
+                                name:'分配清单',
+                                component: NewYwqd, // 具体路由的版块
+                            });
+                        }},
+
+                        {text: '全部激活', onPress: () => {
+                            //设置数据
+                            // 页面的切换
+                            this.props.navigator.push({
+                                name:'分配清单',
+                                component: NewYwqd, // 具体路由的版块
+                            });
+                        }},
+
+                        {text: '取消'}
+                    ]
+                )
             }}>
-                <MLTableCell title={rowData.DepotName}/>
+                <MLTableCell title={moment(rowData.Date).format('YYYY-MM-DD HH:mm:ss')}/>
             </TouchableOpacity>
         )
     },
@@ -168,9 +177,5 @@ const styles = StyleSheet.create({
         margin: 10,
     }
 });
-
 // 输出组件类
-module.exports = CKTable;
-
-
-
+module.exports = Yqsywqd;
