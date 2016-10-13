@@ -27,6 +27,7 @@ var Ywqd = require('../MLYwqd');
 var FPChangku = require('../保存数据/FPChangku');
 var FPZhongxin = require('../保存数据/FPZhongxin');
 var FPQDData = require('../保存数据/FPQDData');
+var Changku = require('../../../../entity/Changku');
 
 var Ywhgsfp = React.createClass({
     getInitialState() {
@@ -87,7 +88,10 @@ var Ywhgsfp = React.createClass({
                     Number : this.state.shuliang,
                     Users : Users.Users,
                     Address : FPChangku.FPChangku == null ? FPZhongxin.FPZhongxin : FPChangku.FPChangku,
-                    Type : FPChangku.FPChangku == null ? 2 : 1
+                    Type : FPChangku.FPChangku == null ? 2 : 1,
+                    DepotGNYN : Changku.Changku == null ? 0 : Changku.Changku.DepotGNYN,//是否为主仓库:1是,0不是
+                    DepotBrYN : Changku.Changku == null ? 0 : Changku.Changku.DepotBrYN,//是否为分仓库:1是,0不是
+                    DepotId : Changku.Changku == null ? 0 : Changku.Changku.id,
                 })
             })
                 .then((response) => response.json())

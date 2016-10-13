@@ -35,6 +35,11 @@ var Ywqd = React.createClass({
             quxiaoanimating: false,//是否显示菊花
         }
     },
+    getDefaultProps(){
+        return {
+            isBtn : true,
+        }
+    },
     render() {
         console.log(FPQDData.FPQDData)
         var yaowuhao = '';
@@ -46,121 +51,197 @@ var Ywqd = React.createClass({
             }
         }
         if (FPQDData.FPQDData.Type == 1){//有仓库数据
-            return (
-                <View style={styles.container}>
-                    <MLNavigatorBar title={'分配清单'} isBack={true} backFunc={() => {
-                        this.props.navigator.pop()
-                    }}/>
-                    <ScrollView>
-                    <View style={{backgroundColor: 'white'}}>
-                        <Text style={[styles.textStyles, {color:'red'}]}>
-                            {'清单仅会保留5分钟,请尽快操作'}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'研究简称:' +  FPQDData.FPQDData.Users.StudNameS}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'仓库编号:' + FPQDData.FPQDData.Address.DepotID}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'仓库名称:' + FPQDData.FPQDData.Address.DepotName}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'仓库地址:' + FPQDData.FPQDData.Address.DepotCity + " " + FPQDData.FPQDData.Address.DepotAdd}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'仓管员姓名:' + FPQDData.FPQDData.Address.DepotKper}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'仓管员手机号:' + FPQDData.FPQDData.Address.DepotMP}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'药物号:'}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {yaowuhao}
-                        </Text>
-                        <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getLogin}>
-                            <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
-                                确 定
-                            </Text>
-                            <ActivityIndicator
-                                animating={this.state.animating}
-                                style={[styles.centering, {height: 30}]}
-                                size="small"
-                                color="white"
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.quxiaoBtnStyle} onPress={this.getQuxiao}>
-                            <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
-                                取 消
-                            </Text>
-                            <ActivityIndicator
-                                animating={this.state.quxiaoanimating}
-                                style={[styles.centering, {height: 30}]}
-                                size="small"
-                                color="white"
-                            />
-                        </TouchableOpacity>
+            if (this.props.isBtn == true){
+                return (
+                    <View style={styles.container}>
+                        <MLNavigatorBar title={'分配清单'} isBack={true} backFunc={() => {
+                            this.props.navigator.pop()
+                        }}/>
+                        <ScrollView>
+                            <View style={{backgroundColor: 'white'}}>
+                                <Text style={[styles.textStyles, {color:'red'}]}>
+                                    {'清单仅会保留5分钟,请尽快操作'}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'研究简称:' +  FPQDData.FPQDData.Users.StudNameS}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'仓库编号:' + FPQDData.FPQDData.Address.DepotID}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'仓库名称:' + FPQDData.FPQDData.Address.DepotName}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'仓库地址:' + FPQDData.FPQDData.Address.DepotCity + " " + FPQDData.FPQDData.Address.DepotAdd}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'仓管员姓名:' + FPQDData.FPQDData.Address.DepotKper}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'仓管员手机号:' + FPQDData.FPQDData.Address.DepotMP}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'药物号:'}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {yaowuhao}
+                                </Text>
+                                <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getLogin}>
+                                    <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
+                                        确 定
+                                    </Text>
+                                    <ActivityIndicator
+                                        animating={this.state.animating}
+                                        style={[styles.centering, {height: 30}]}
+                                        size="small"
+                                        color="white"
+                                    />
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.quxiaoBtnStyle} onPress={this.getQuxiao}>
+                                    <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
+                                        取 消
+                                    </Text>
+                                    <ActivityIndicator
+                                        animating={this.state.quxiaoanimating}
+                                        style={[styles.centering, {height: 30}]}
+                                        size="small"
+                                        color="white"
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                        </ScrollView>
                     </View>
-                    </ScrollView>
-                </View>
-            );
+                );
+            }else {
+                return (
+                    <View style={styles.container}>
+                        <MLNavigatorBar title={'分配清单'} isBack={true} backFunc={() => {
+                            this.props.navigator.pop()
+                        }}/>
+                        <ScrollView>
+                            <View style={{backgroundColor: 'white'}}>
+                                <Text style={[styles.textStyles, {color:'red'}]}>
+                                    {'清单仅会保留5分钟,请尽快操作'}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'研究简称:' +  FPQDData.FPQDData.Users.StudNameS}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'仓库编号:' + FPQDData.FPQDData.Address.DepotID}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'仓库名称:' + FPQDData.FPQDData.Address.DepotName}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'仓库地址:' + FPQDData.FPQDData.Address.DepotCity + " " + FPQDData.FPQDData.Address.DepotAdd}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'仓管员姓名:' + FPQDData.FPQDData.Address.DepotKper}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'仓管员手机号:' + FPQDData.FPQDData.Address.DepotMP}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'药物号:'}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {yaowuhao}
+                                </Text>
+                            </View>
+                        </ScrollView>
+                    </View>
+                );
+            }
         }else{//有中心数据
-            return (
-                <View style={styles.container}>
-                    <MLNavigatorBar title={'分配清单'} isBack={true} backFunc={() => {
-                        this.props.navigator.pop()
-                    }}/>
-                    <ScrollView>
-                    <View style={{backgroundColor: 'white'}}>
-                        <Text style={[styles.textStyles, {color:'red'}]}>
-                            {'清单仅会保留5分钟,请尽快操作'}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'研究简称:' + FPQDData.FPQDData.Users.StudNameS}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'中心编号:' + FPQDData.FPQDData.Address.SiteID}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'中心名称:' + FPQDData.FPQDData.Address.SiteNam}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'中心地址:' + FPQDData.FPQDData.Address.SiteCity + " " + FPQDData.FPQDData.Address.SiteAdd}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {'药物号:'}
-                        </Text>
-                        <Text style={styles.textStyles}>
-                            {yaowuhao}
-                        </Text>
-                        <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getLogin}>
-                            <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
-                                确 定
-                            </Text>
-                            <ActivityIndicator
-                                animating={this.state.animating}
-                                style={[styles.centering, {height: 30}]}
-                                size="small"
-                                color="white"
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.quxiaoBtnStyle} onPress={this.getQuxiao}>
-                            <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
-                                取 消
-                            </Text>
-                            <ActivityIndicator
-                                animating={this.state.quxiaoanimating}
-                                style={[styles.centering, {height: 30}]}
-                                size="small"
-                                color="white"
-                            />
-                        </TouchableOpacity>
+            if (this.props.isBtn == true) {
+                return (
+                    <View style={styles.container}>
+                        <MLNavigatorBar title={'分配清单'} isBack={true} backFunc={() => {
+                            this.props.navigator.pop()
+                        }}/>
+                        <ScrollView>
+                            <View style={{backgroundColor: 'white'}}>
+                                <Text style={[styles.textStyles, {color:'red'}]}>
+                                    {'清单仅会保留5分钟,请尽快操作'}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'研究简称:' + FPQDData.FPQDData.Users.StudNameS}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'中心编号:' + FPQDData.FPQDData.Address.SiteID}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'中心名称:' + FPQDData.FPQDData.Address.SiteNam}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'中心地址:' + FPQDData.FPQDData.Address.SiteCity + " " + FPQDData.FPQDData.Address.SiteAdd}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'药物号:'}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {yaowuhao}
+                                </Text>
+                                <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getLogin}>
+                                    <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
+                                        确 定
+                                    </Text>
+                                    <ActivityIndicator
+                                        animating={this.state.animating}
+                                        style={[styles.centering, {height: 30}]}
+                                        size="small"
+                                        color="white"
+                                    />
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.quxiaoBtnStyle} onPress={this.getQuxiao}>
+                                    <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
+                                        取 消
+                                    </Text>
+                                    <ActivityIndicator
+                                        animating={this.state.quxiaoanimating}
+                                        style={[styles.centering, {height: 30}]}
+                                        size="small"
+                                        color="white"
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                        </ScrollView>
                     </View>
-                    </ScrollView>
-                </View>
-            );
+                );
+            }else{
+                return (
+                    <View style={styles.container}>
+                        <MLNavigatorBar title={'分配清单'} isBack={true} backFunc={() => {
+                            this.props.navigator.pop()
+                        }}/>
+                        <ScrollView>
+                            <View style={{backgroundColor: 'white'}}>
+                                <Text style={[styles.textStyles, {color:'red'}]}>
+                                    {'清单仅会保留5分钟,请尽快操作'}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'研究简称:' + FPQDData.FPQDData.Users.StudNameS}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'中心编号:' + FPQDData.FPQDData.Address.SiteID}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'中心名称:' + FPQDData.FPQDData.Address.SiteNam}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'中心地址:' + FPQDData.FPQDData.Address.SiteCity + " " + FPQDData.FPQDData.Address.SiteAdd}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {'药物号:'}
+                                </Text>
+                                <Text style={styles.textStyles}>
+                                    {yaowuhao}
+                                </Text>
+                            </View>
+                        </ScrollView>
+                    </View>
+                );
+            }
         }
     },
     //点击确定
@@ -233,6 +314,10 @@ var Ywqd = React.createClass({
             },
             body: JSON.stringify({
                 id : FPQDData.FPQDData.id,
+                DepotGNYN : Changku.Changku == null ? 0 : Changku.Changku.DepotGNYN,//是否为主仓库:1是,0不是
+                DepotBrYN : Changku.Changku == null ? 0 : Changku.Changku.DepotBrYN,//是否为分仓库:1是,0不是
+                DepotId : Changku.Changku == null ? 0 : Changku.Changku.id,
+
             })
         })
             .then((response) => response.json())

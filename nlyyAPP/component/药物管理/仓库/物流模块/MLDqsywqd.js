@@ -26,7 +26,7 @@ var MLTableCell = require('../../../MLTableCell/MLTableCell');
 var Users = require('../../../../entity/Users');
 var settings = require('../../../../settings');
 var Changku = require('../../../../entity/Changku');
-var NewYwqd = require('../MLNewYwqd');
+var Ywqd = require('../MLYwqd');
 var FPQDData = require('../保存数据/FPQDData');
 
 
@@ -140,7 +140,11 @@ var Dqsywqd = React.createClass({
                             // 页面的切换
                             this.props.navigator.push({
                                 name:'分配清单',
-                                component: NewYwqd, // 具体路由的版块
+                                component: Ywqd, // 具体路由的版块
+                                //传递参数
+                                passProps:{
+                                    isBtn : false
+                                },
                             });
                         }},
 
@@ -177,7 +181,9 @@ var Dqsywqd = React.createClass({
                                             '提示:',
                                             '成功',
                                             [
-                                                {text: '确定'}
+                                                {text: '确定',onPress: () => {
+                                                    this.props.navigator.pop()
+                                                }}
                                             ]
                                         )
                                     }

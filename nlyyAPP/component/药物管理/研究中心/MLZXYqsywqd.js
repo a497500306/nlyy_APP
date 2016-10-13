@@ -20,17 +20,18 @@ import {
 var moment = require('moment');
 moment().format();
 
-var MLNavigatorBar = require('../../../MLNavigatorBar/MLNavigatorBar');
-var MLActivityIndicatorView = require('../../../MLActivityIndicatorView/MLActivityIndicatorView');
-var MLTableCell = require('../../../MLTableCell/MLTableCell');
-var Users = require('../../../../entity/Users');
-var settings = require('../../../../settings');
-var Changku = require('../../../../entity/Changku');
-var Ywqd = require('../MLYwqd');
-var FPQDData = require('../保存数据/FPQDData');
+var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
+var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
+var MLTableCell = require('../../MLTableCell/MLTableCell');
+var Users = require('../../../entity/Users');
+var settings = require('../../../settings');
+var Changku = require('../../../entity/Changku');
+var NewYwqd = require('../仓库/MLNewYwqd');
+var ZXNewYwqd = require('./MLZXNewYwqd');
+var FPQDData = require('../仓库/保存数据/FPQDData');
 
 
-var Yszywqd = React.createClass({
+var ZXYqsywqd = React.createClass({
     //初始化设置
     getInitialState() {
         return {
@@ -42,15 +43,16 @@ var Yszywqd = React.createClass({
     //耗时操作,网络请求
     componentDidMount(){
         //网络请求
-        fetch(settings.fwqUrl + "/app/getYszywqd", {
+        fetch(settings.fwqUrl + "/app/getZXYqsywqd", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json; charset=utf-8',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                UsedAddressId : Changku.Changku.id,
-                UserId : Users.Users.id,
+                StudyID : Users.Users.StudyID,
+                UserSiteYN : Users.Users.UserSiteYN,
+                UserSite : Users.Users.UserSite,
             })
         })
             .then((response) => response.json())
@@ -100,7 +102,7 @@ var Yszywqd = React.createClass({
             return (
                 <View style={styles.container}>
 
-                    <MLNavigatorBar title={'运送中药物清单'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'已签收药物清单'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
 
@@ -113,7 +115,7 @@ var Yszywqd = React.createClass({
             return (
                 <View style={styles.container}>
 
-                    <MLNavigatorBar title={'运送中药物清单'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'已签收药物清单'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
 
@@ -136,17 +138,73 @@ var Yszywqd = React.createClass({
                     '提示:',
                     '请选择功能',
                     [
-                        {text: '查看清单', onPress: () => {
+                        {text: '操作该批次药物号', onPress: () => {
                             //设置数据
                             // 页面的切换
                             this.props.navigator.push({
-                                name:'分配清单',
-                                component: Ywqd, // 具体路由的版块
+                                name:'sdfljsdf',
+                                component: ZXNewYwqd, // 具体路由的版块
                                 //传递参数
                                 passProps:{
-                                    isBtn : false
+                                    DrugId : rowData.id,
+                                    UsedAddressId : rowData.Address.id
                                 },
                             });
+                        }},
+
+
+                        {text: '全部激活', onPress: () => {
+                            this.setState({animating:true});
+                            //网络请求
+                            fetch(settings.fwqUrl + "/app/getZXAllOnActivation", {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json; charset=utf-8',
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    DrugId : rowData.id,
+                                    UsedCoreId : Users.Users.UserSite
+                                })
+                            })
+                                .then((response) => response.json())
+                                .then((responseJson) => {
+                                    console.log(responseJson)
+                                    if (responseJson.isSucceed != 400){
+                                        //移除等待
+                                        this.setState({animating:false});
+                                        //错误
+                                        Alert.alert(
+                                            '提示:',
+                                            responseJson.msg,
+                                            [
+                                                {text: '确定'}
+                                            ]
+                                        )
+                                    }else{
+                                        //ListView设置
+                                        this.setState({animating:false});
+                                        Alert.alert(
+                                            '提示:',
+                                            responseJson.msg,
+                                            [
+                                                {text: '确定'}
+                                            ]
+                                        )
+                                    }
+                                })
+                                .catch((error) => {//错误
+                                    //移除等待,弹出错误
+                                    this.setState({animating:false});
+                                    //错误
+                                    Alert.alert(
+                                        '提示:',
+                                        '请检查您的网络',
+                                        [
+                                            {text: '确定'}
+                                        ]
+                                    )
+                                });
                         }},
 
                         {text: '取消'}
@@ -174,4 +232,4 @@ const styles = StyleSheet.create({
     }
 });
 // 输出组件类
-module.exports = Yszywqd;
+module.exports = ZXYqsywqd;

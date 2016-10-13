@@ -30,6 +30,7 @@ var Ywqd = require('../MLYwqd');
 var FPChangku = require('../保存数据/FPChangku');
 var FPZhongxin = require('../保存数据/FPZhongxin');
 var FPQDData = require('../保存数据/FPQDData');
+var Changku = require('../../../../entity/Changku');
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 var Zgfp = React.createClass({
@@ -47,6 +48,8 @@ var Zgfp = React.createClass({
 
     //耗时操作,网络请求
     componentDidMount(){
+        console.log('逐个分配');
+        console.log(FPChangku.FPChangku);
         //发送登录网络请求
         fetch(settings.fwqUrl + "/app/getAllDrug", {
             method: 'POST',
@@ -55,7 +58,10 @@ var Zgfp = React.createClass({
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                StudyID : Users.Users.StudyID
+                StudyID : Users.Users.StudyID,
+                DepotGNYN : Changku.Changku == null ? 0 : Changku.Changku.DepotGNYN,//是否为主仓库:1是,0不是
+                DepotBrYN : Changku.Changku == null ? 0 : Changku.Changku.DepotBrYN,//是否为分仓库:1是,0不是
+                DepotId : Changku.Changku == null ? 0 : Changku.Changku.id,
             })
         })
             .then((response) => response.json())
@@ -197,7 +203,10 @@ var Zgfp = React.createClass({
                     ids: this.state.xuanzhongData,
                     Users : Users.Users,
                     Address : FPChangku.FPChangku == null ? FPZhongxin.FPZhongxin : FPChangku.FPChangku,
-                    Type : FPChangku.FPChangku == null ? 2 : 1
+                    Type : FPChangku.FPChangku == null ? 2 : 1,
+                    DepotGNYN : Changku.Changku == null ? 0 : Changku.Changku.DepotGNYN,//是否为主仓库:1是,0不是
+                    DepotBrYN : Changku.Changku == null ? 0 : Changku.Changku.DepotBrYN,//是否为分仓库:1是,0不是
+                    DepotId : Changku.Changku == null ? 0 : Changku.Changku.id,
                 })
             })
                 .then((response) => response.json())

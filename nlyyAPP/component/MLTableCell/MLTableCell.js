@@ -31,7 +31,9 @@ var MLTableCell = React.createClass({
             iconColor:null,//左侧图标
             title: '',  // 主标题
             subTitle:'',//副标题
+            subTitleColor:'red',//副标题文字颜色
             rightTitle: '',//右侧文字
+            rightTitleColor: 'red',//右侧文字颜色
             isArrow:true,//是否显示箭头
             cellHeight : 40,
             data:null, //数据
@@ -71,7 +73,7 @@ var MLTableCell = React.createClass({
                         <Text >
                             {this.props.title}
                         </Text>
-                        <Text style={{marginTop:Platform.OS == 'ios' ? 5: 0}}>
+                        <Text style={[{marginTop:Platform.OS == 'ios' ? 5: 0},{color:this.props.subTitleColor}]}>
                             {this.props.subTitle}
                         </Text>
                     </View>
@@ -92,7 +94,7 @@ var MLTableCell = React.createClass({
                         <Text >
                             {this.props.title}
                         </Text>
-                        <Text style={{marginTop:Platform.OS == 'ios' ? 5: 0}}>
+                        <Text style={[{marginTop:Platform.OS == 'ios' ? 5: 0},{color:this.props.subTitleColor}]}>
                             {this.props.subTitle}
                         </Text>
                     </View>
@@ -113,7 +115,7 @@ var MLTableCell = React.createClass({
     renderRightText(){
         return(
             <View style={{position:'absolute', right:30, top:16}}>
-                <Text>
+                <Text style={{color:this.props.rightTitleColor}}>
                     {this.props.rightTitle}
                 </Text>
             </View>

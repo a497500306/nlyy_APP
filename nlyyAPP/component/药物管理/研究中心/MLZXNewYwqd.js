@@ -25,10 +25,10 @@ var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../../entity/Users');
 var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
-var Ywqd = require('./MLYwqd');
-var FPChangku = require('./保存数据/FPChangku');
-var FPZhongxin = require('./保存数据/FPZhongxin');
-var FPQDData = require('./保存数据/FPQDData');
+var Ywqd = require('../仓库/MLYwqd');
+var FPChangku = require('../仓库/保存数据/FPChangku');
+var FPZhongxin = require('../仓库/保存数据/FPZhongxin');
+var FPQDData = require('../仓库/保存数据/FPQDData');
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 var NewYwqd = React.createClass({
@@ -58,7 +58,7 @@ var NewYwqd = React.createClass({
             UsedAddressId : this.props.UsedAddressId,
         })
         //发送登录网络请求
-        fetch(settings.fwqUrl + "/app/getAllOnDrug", {
+        fetch(settings.fwqUrl + "/app/getZXAllOnDrug", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json; charset=utf-8',
@@ -66,7 +66,7 @@ var NewYwqd = React.createClass({
             },
             body: JSON.stringify({
                 DrugId : this.props.DrugId,
-                UsedAddressId : this.props.UsedAddressId
+                UsedCoreId : Users.Users.UserSite
             })
         })
             .then((response) => response.json())
@@ -187,7 +187,10 @@ var NewYwqd = React.createClass({
 
                     console.log(this.state.xuanzhongData)
                 }}>
-                    <MLTableCell title={rowData.DrugNum} isArrow = {false}  iconTitl='check' iconColor='rgba(0,136,212,1.0)'/>
+                    <MLTableCell title={rowData.DrugNum} subTitle={rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  ' + rowData.DDrugDMNumYN == 1 ? '废弃' : '123'}
+                                 rightTitle={rowData.DDrugUseAYN == 1 ?'已使用' : '未使用'} isArrow = {false}  iconTitl='check' iconColor='rgba(0,136,212,1.0)'
+                                 rightTitleColor = {rowData.DDrugUseAYN == 1 ?'red' : 'gray'} subTitleColor={rowData.DDrugNumAYN == 1 ?'red  ' : 'gray '}
+                    />
                 </TouchableOpacity>
             )
         }else{
@@ -204,7 +207,10 @@ var NewYwqd = React.createClass({
                     console.log(this.state.xuanzhongData)
                     this.state.title = '确 定( ' + this.state.xuanzhongData.length + ' )'
                 }}>
-                    <MLTableCell title={rowData.DrugNum} isArrow = {false}/>
+                    <MLTableCell title={rowData.DrugNum} subTitle={rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  ' + rowData.DDrugDMNumYN == 1 ? '废弃' : '123'}
+                                 rightTitle={rowData.DDrugUseAYN == 1 ?'已使用' : '未使用'} isArrow = {false}
+                                 rightTitleColor = {rowData.DDrugUseAYN == 1 ?'red' : 'gray'} subTitleColor={rowData.DDrugNumAYN == 1 ?'red' : 'gray'}
+                    />
                 </TouchableOpacity>
             )
         }

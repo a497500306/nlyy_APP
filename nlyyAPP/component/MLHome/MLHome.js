@@ -39,7 +39,7 @@ var Home = React.createClass({
         }
         if (Users.Users.UserFun == 'H4' || Users.Users.UserFun == 'M6' ||
             Users.Users.UserFun == 'M1' || Users.Users.UserFun == 'M7'){
-            tableData.push({title:'药品管理',imageTitle:"medkit",iconColor:'rgba(0,136,212,1.0)'})
+            tableData.push({title:'药物管理',imageTitle:"medkit",iconColor:'rgba(0,136,212,1.0)'})
         }
         if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' ||
             Users.Users.UserFun == 'S1'){
@@ -99,7 +99,7 @@ var Home = React.createClass({
                         component: PatientRM, // 具体路由的版块
                     });
                 }
-                if (rowData.title == "药品管理"){
+                if (rowData.title == "药物管理"){
                     this.props.navigator.push({
                         component: DrugsAI, // 具体路由的版块
                     });

@@ -31,6 +31,7 @@ var FPChangku = require('../保存数据/FPChangku');
 var FPZhongxin = require('../保存数据/FPZhongxin');
 var FPQDData = require('../保存数据/FPQDData');
 var FPZgjhqdfp = require('../保存数据/FPZgjhqdfp');
+var Changku = require('../../../../entity/Changku');
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 var ZgjhqdfpQD = React.createClass({
@@ -56,7 +57,13 @@ var ZgjhqdfpQD = React.createClass({
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                StudyID : Users.Users.StudyID
+                StudyID : Users.Users.StudyID,
+                Users : Users.Users,
+                Address : FPChangku.FPChangku == null ? FPZhongxin.FPZhongxin : FPChangku.FPChangku,
+                Type : FPChangku.FPChangku == null ? 2 : 1,
+                DepotGNYN : Changku.Changku == null ? 0 : Changku.Changku.DepotGNYN,//是否为主仓库:1是,0不是
+                DepotBrYN : Changku.Changku == null ? 0 : Changku.Changku.DepotBrYN,//是否为分仓库:1是,0不是
+                DepotId : Changku.Changku == null ? 0 : Changku.Changku.id,
             })
         })
             .then((response) => response.json())
@@ -204,7 +211,10 @@ var ZgjhqdfpQD = React.createClass({
                     ids: this.state.xuanzhongData,
                     Users : Users.Users,
                     Address : FPChangku.FPChangku == null ? FPZhongxin.FPZhongxin : FPChangku.FPChangku,
-                    Type : FPChangku.FPChangku == null ? 2 : 1
+                    Type : FPChangku.FPChangku == null ? 2 : 1,
+                    DepotGNYN : Changku.Changku == null == null ? 0 : Changku.Changku.DepotGNYN,//是否为主仓库:1是,0不是
+                    DepotBrYN : Changku.Changku == null == null ? 0 : Changku.Changku.DepotBrYN,//是否为分仓库:1是,0不是
+                    DepotId : Changku.Changku == null == null ? 0 : Changku.Changku.id,
                 })
             })
                 .then((response) => response.json())

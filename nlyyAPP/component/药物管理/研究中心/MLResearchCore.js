@@ -15,6 +15,9 @@ var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../../entity/Users');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var PatientRM = require('../../受试者随机/MLPatientRM');
+var ZXDqsywqd = require('./MLZXDqsywqd');
+var ZXYqsywqd = require('./MLZXYqsywqd');
+var Ywhgl = require('./MLYwhgl')
 
 var ResearchCore = React.createClass({
     getInitialState() {
@@ -22,7 +25,7 @@ var ResearchCore = React.createClass({
         var tableData = [];
 
         //判断用户类别
-        tableData.push('代签收药物清单')
+        tableData.push('待签收药物清单')
         tableData.push('已签收药物清单')
         tableData.push('药物号管理')
 
@@ -37,7 +40,7 @@ var ResearchCore = React.createClass({
     render() {
         return (
             <View style={styles.container}>
-                <MLNavigatorBar title={'小助手'} isBack={true} backFunc={() => {
+                <MLNavigatorBar title={'研究中心'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
                 }}/>
                 <ListView
@@ -53,18 +56,47 @@ var ResearchCore = React.createClass({
 
     //返回具体的cell
     renderRow(rowData){
-        return(
-            <TouchableOpacity onPress={()=>{
-                //设置数据
-                console.log(Users.Users)
-                // 页面的切换
-                this.props.navigator.push({
-                    component: PatientRM, // 具体路由的版块
-                });
-            }}>
-                <MLTableCell title={rowData}/>
-            </TouchableOpacity>
-        )
+
+        if (rowData == '待签收药物清单'){
+            return(
+                <TouchableOpacity onPress={()=>{
+                    //设置数据
+                    console.log(Users.Users)
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: ZXDqsywqd, // 具体路由的版块
+                    });
+                }}>
+                    <MLTableCell title={rowData}/>
+                </TouchableOpacity>
+            )
+        }else if(rowData == '已签收药物清单'){
+            return(
+                <TouchableOpacity onPress={()=>{
+                    //设置数据
+                    console.log(Users.Users)
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: ZXYqsywqd, // 具体路由的版块
+                    });
+                }}>
+                    <MLTableCell title={rowData}/>
+                </TouchableOpacity>
+            )
+        }else if (rowData == '药物号管理'){
+            return(
+                <TouchableOpacity onPress={()=>{
+                    //设置数据
+                    console.log(Users.Users)
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: Ywhgl, // 具体路由的版块
+                    });
+                }}>
+                    <MLTableCell title={rowData}/>
+                </TouchableOpacity>
+            )
+        }
     },
 });
 
