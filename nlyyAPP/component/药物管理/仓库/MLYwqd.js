@@ -59,9 +59,6 @@ var Ywqd = React.createClass({
                         }}/>
                         <ScrollView>
                             <View style={{backgroundColor: 'white'}}>
-                                <Text style={[styles.textStyles, {color:'red'}]}>
-                                    {'清单仅会保留5分钟,请尽快操作'}
-                                </Text>
                                 <Text style={styles.textStyles}>
                                     {'研究简称:' +  FPQDData.FPQDData.Users.StudNameS}
                                 </Text>
@@ -120,9 +117,6 @@ var Ywqd = React.createClass({
                         }}/>
                         <ScrollView>
                             <View style={{backgroundColor: 'white'}}>
-                                <Text style={[styles.textStyles, {color:'red'}]}>
-                                    {'清单仅会保留5分钟,请尽快操作'}
-                                </Text>
                                 <Text style={styles.textStyles}>
                                     {'研究简称:' +  FPQDData.FPQDData.Users.StudNameS}
                                 </Text>
@@ -161,9 +155,6 @@ var Ywqd = React.createClass({
                         }}/>
                         <ScrollView>
                             <View style={{backgroundColor: 'white'}}>
-                                <Text style={[styles.textStyles, {color:'red'}]}>
-                                    {'清单仅会保留5分钟,请尽快操作'}
-                                </Text>
                                 <Text style={styles.textStyles}>
                                     {'研究简称:' + FPQDData.FPQDData.Users.StudNameS}
                                 </Text>
@@ -216,9 +207,6 @@ var Ywqd = React.createClass({
                         }}/>
                         <ScrollView>
                             <View style={{backgroundColor: 'white'}}>
-                                <Text style={[styles.textStyles, {color:'red'}]}>
-                                    {'清单仅会保留5分钟,请尽快操作'}
-                                </Text>
                                 <Text style={styles.textStyles}>
                                     {'研究简称:' + FPQDData.FPQDData.Users.StudNameS}
                                 </Text>

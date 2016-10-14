@@ -187,7 +187,7 @@ var NewYwqd = React.createClass({
 
                     console.log(this.state.xuanzhongData)
                 }}>
-                    <MLTableCell title={rowData.DrugNum} subTitle={rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  ' + rowData.DDrugDMNumYN == 1 ? '废弃' : '123'}
+                    <MLTableCell title={rowData.DrugNum} subTitle={(rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  ') + (rowData.DDrugDMNumYN == 1 ? '已废弃' : ' ')}
                                  rightTitle={rowData.DDrugUseAYN == 1 ?'已使用' : '未使用'} isArrow = {false}  iconTitl='check' iconColor='rgba(0,136,212,1.0)'
                                  rightTitleColor = {rowData.DDrugUseAYN == 1 ?'red' : 'gray'} subTitleColor={rowData.DDrugNumAYN == 1 ?'red  ' : 'gray '}
                     />
@@ -207,7 +207,7 @@ var NewYwqd = React.createClass({
                     console.log(this.state.xuanzhongData)
                     this.state.title = '确 定( ' + this.state.xuanzhongData.length + ' )'
                 }}>
-                    <MLTableCell title={rowData.DrugNum} subTitle={rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  ' + rowData.DDrugDMNumYN == 1 ? '废弃' : '123'}
+                    <MLTableCell title={rowData.DrugNum} subTitle={(rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  ') + (rowData.DDrugDMNumYN == 1 ? '已废弃' : ' ')}
                                  rightTitle={rowData.DDrugUseAYN == 1 ?'已使用' : '未使用'} isArrow = {false}
                                  rightTitleColor = {rowData.DDrugUseAYN == 1 ?'red' : 'gray'} subTitleColor={rowData.DDrugNumAYN == 1 ?'red' : 'gray'}
                     />

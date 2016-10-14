@@ -25,6 +25,8 @@ var PatientRM = require('../受试者随机/MLPatientRM');
 var ResearchCore = require('./研究中心/MLResearchCore');
 var Warehouse = require('./仓库/MLWarehouse');
 var users = require('../../entity/Users')
+var Cxzxywqk = require('./查询中心药物情况/MLCxzxywqk')
+var CxywhSR = require('./查询药物号/MLCxywhSR')
 
 var DrugsAI = React.createClass({
     getInitialState() {
@@ -95,6 +97,21 @@ var DrugsAI = React.createClass({
                     // 页面的切换
                     this.props.navigator.push({
                         component: ResearchCore, // 具体路由的版块
+                    });
+                }
+                if (rowData == '查询--查询中心药物情况'){
+                    //设置数据
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: Cxzxywqk, // 具体路由的版块
+                    });
+
+                }
+                if (rowData == '查询--查询药物号'){
+                    //设置数据
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: CxywhSR, // 具体路由的版块
                     });
                 }
             }}>
