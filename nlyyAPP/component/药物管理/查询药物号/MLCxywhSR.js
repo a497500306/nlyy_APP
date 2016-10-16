@@ -23,6 +23,7 @@ var {width, height} = Dimensions.get('window');
 var settings = require("../../../settings");
 var Users = require('../../../entity/Users');
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
+var Cxywh = require('./MLCxywh')
 
 var CxywhSR = React.createClass({
     getInitialState() {
@@ -71,20 +72,41 @@ var CxywhSR = React.createClass({
     getLogin(){
             this.setState({animating:true});
             //发送网络请求
-            fetch(settings.fwqUrl + "/app/getYwhgsfp", {
+            fetch(settings.fwqUrl + "/app/getDrugWLData", {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json; charset=utf-8',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-
+                    'StudyID' : Users.Users.StudyID,
+                    'DrugNum' : this.state.shuliang
                 })
             })
                 .then((response) => response.json())
                 .then((responseJson) => {
                     this.setState({animating:false});
-
+                    console.log(responseJson)
+                    if (responseJson.isSucceed == 400) {
+                        // 页面的切换
+                        this.props.navigator.push({
+                            name:'分配清单',
+                            component: Cxywh, // 具体路由的版块
+                            //传递参数
+                            passProps:{
+                                datas : responseJson.data
+                            },
+                        });
+                    }else {
+                        //错误
+                        Alert.alert(
+                            '提示:',
+                            responseJson.msg,
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                    }
                 })
                 .catch((error) => {//错误
                     this.setState({animating:false});

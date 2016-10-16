@@ -7,10 +7,15 @@ import {
     View,
     TouchableOpacity,
     Navigator,
-    ListView,
+    ScrollView,
     Alert
 } from 'react-native';
+//时间操作
+var moment = require('moment');
+moment().format();
 
+var Dimensions = require('Dimensions');
+var {width, height} = Dimensions.get('window');
 var settings = require('../../../settings');
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../../entity/Users');
@@ -28,97 +33,136 @@ var Cxywh = React.createClass({
             data:null
         }
     },
-
-    //耗时操作,网络请求
-    componentDidMount(){
-        //发送登录网络请求
-        fetch(settings.fwqUrl + "/app/getDrugWLData", {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json; charset=utf-8',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                StudyID : Users.Users.StudyID,
-                UsedCoreId : Users.Users.UserSite,
-            })
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                console.log(responseJson)
-                if (responseJson.isSucceed == 400){
-
-                    //移除等待
-                    this.setState({animating:false});
-                }else {
-                    //移除等待
-                    this.setState({animating:false});
-                    //错误
-                    Alert.alert(
-                        '提示:',
-                        '请检查您的网络',
-                        [
-                            {text: '确定'}
-                        ]
-                    )
-                }
-
-            })
-            .catch((error) => {//错误
-                //移除等待,弹出错误
-                this.setState({animating:false});
-                //错误
-                Alert.alert(
-                    '提示:',
-                    '请检查您的网络',
-                    [
-                        {text: '确定'}
-                    ]
-                )
-
-            });
+    getDefaultProps(){
+        return {
+            datas : null,
+        }
     },
     render() {
-        if (this.state.animating == true){
-            return (
-                <View style={styles.container}>
-                    <MLNavigatorBar title={'查询药物号'} isBack={true} backFunc={() => {
-                        this.props.navigator.pop()
-                    }}/>
-
-                    {/*设置完了加载的菊花*/}
-                    <MLActivityIndicatorView />
-                </View>
-
-            );
-        }else{
             return (
                 <View style={styles.container}>
                     <MLNavigatorBar title={'查询药物号'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
                     <ScrollView>
-
+                        {/*设置箭头*/}
+                        {this.tableCell()}
                     </ScrollView>
                 </View>
 
             );
-        }
     },
-});
+    tableCell(){
+        var cells = []
+        console.log(this.props.datas)
+        if (this.props.datas.drugs.length != 0){
+            cells.push(
+                <View key={1} style={styles.zongView}>
+                    <View key={2} style={styles.xiantiaoViewStyle}>
+                        <View key={3} style={{flex: 1,marginLeft:20,width: 2, height: 50,backgroundColor: 'rgba(183,183,183,1.0)'}}/>
+                        <View key={4} style={{position:'absolute', left:18, top:12,width: 6,borderRadius:2.5, height: 6,backgroundColor: 'rgba(183,183,183,1.0)'}} />
+                        {/*<View key={key + j + '.' + 4} style={{marginLeft:20,width: 2, height: 150,backgroundColor: 'steelblue'}}/>*/}
+                    </View>
+                    <View key={5} style={{backgroundColor: 'white',width: width - 42}}>
+                        <Text key={6} style={{marginTop:10,fontSize: 16,}}>该药物号还未出仓</Text>
+                        <View key={8} style={{backgroundColor: 'rgba(244,244,244,1.0)',marginTop:10,width: width - 42,height: 1}}/>
+                    </View>
+                </View>
+            )
+        }else {
+            for (var i = 0 ; i < this.props.datas.DYSDrugs.length ; i++){
+                var key = (i + 1) * 10;
+                var  jj = 1;
+                if (this.props.datas.YSZDrugs.length > 0){
+                    jj = 2
+                }
+                if (this.props.datas.YSZDrugs[i].isSign == 1){
+                    jj = 3
+                }
+                if (this.props.datas.drugCKs.length > 0){
+                    jj = 4
+                }
+                for (var j = 0 ; j < jj ; j++){
+                    var str = '';
+                    var dataStr = '';
+                    if (j == 0) {
+                        str = '已在' + this.props.datas.DYSDrugs[i].UsedAddress.DepotName + '中分配药物号';
+                        dataStr = moment(this.props.datas.DYSDrugs[i].Date).format('YYYY-MM-DD HH:mm:ss')
+                    }else if (j == 1) {
+                        str = this.props.datas.DYSDrugs[i].UsedAddress.DepotName + '发出成功';
+                        dataStr = moment(this.props.datas.DYSDrugs[i].DeliveryDate).format('YYYY-MM-DD HH:mm:ss')
+                    }else if (j == 2) {
+                        if (this.props.datas.YSZDrugs[i].Address.DepotName != null){
+                            str = this.props.datas.YSZDrugs[i].Address.DepotName + '已接受';
+                            dataStr = moment(this.props.datas.DYSDrugs[i].SignDate).format('YYYY-MM-DD HH:mm:ss')
+                        }else {
+                            str = this.props.datas.YSZDrugs[i].Address.SiteNam + '已接受';
+                            dataStr = moment(this.props.datas.DYSDrugs[i].SignDate).format('YYYY-MM-DD HH:mm:ss')
+                        }
+                    }else if (j ==3) {
+                        if (i == this.props.datas.DYSDrugs.length - 1){//显示状态
+                            if (this.props.datas.drugCKs[0].DDrugNumAYN == 1){
 
+                            }else{
+                                
+                            }
+                            if (this.props.datas.drugCKs[0].DDrugNumAYN == 1){
+
+                            }
+
+                        }else{//显示已激活
+                            if (this.props.datas.YSZDrugs[i].Address.DepotName != null){
+                                str = this.props.datas.YSZDrugs[i].Address.DepotName + '激活';
+                                dataStr = moment(this.props.datas.DYSDrugs[i].SignDate).format('YYYY-MM-DD HH:mm:ss')
+                            }else {
+                                str = this.props.datas.YSZDrugs[i].Address.SiteNam + '激活';
+                                dataStr = moment(this.props.datas.DYSDrugs[i].SignDate).format('YYYY-MM-DD HH:mm:ss')
+                            }
+                        }
+                    }
+                    cells.push(
+                        <View key={key + j + '.' + 5} style={styles.zongView}>
+                            <View key={key + j + '.' + 1} style={styles.xiantiaoViewStyle}>
+                                <View key={key + j + '.' + 2} style={{flex: 1,marginLeft:20,width: 2, height: 50,backgroundColor: 'rgba(183,183,183,1.0)'}}/>
+                                <View key={key + j + '.' + 3} style={{position:'absolute', left:18, top:12,width: 6,borderRadius:2.5, height: 6,backgroundColor: 'rgba(183,183,183,1.0)'}} />
+                                {/*<View key={key + j + '.' + 4} style={{marginLeft:20,width: 2, height: 150,backgroundColor: 'steelblue'}}/>*/}
+                            </View>
+                            <View key={key + j} style={{backgroundColor: 'white',width: width - 42}}>
+                                <Text key={key + j + '.' + 6} style={{marginTop:10,fontSize: 16,}}>{str}</Text>
+                                <Text key={key + j + '.' + 7} style={{color: 'rgba(183,183,183,1.0)',marginTop:6,fontSize: 12,}}>{dataStr}</Text>
+                                <View key={key + j} style={{backgroundColor: 'rgba(244,244,244,1.0)',marginTop:10,width: width - 42,height: 1}}/>
+                            </View>
+                        </View>
+                    )
+                }
+            }
+        }
+        return cells;
+    }
+});
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         // justifyContent: 'center',
         // alignItems: 'center',
-        backgroundColor: 'rgba(233,234,239,1.0)',
+        backgroundColor: 'white',
+    },
+    xiantiaoViewStyle:{
+        width: 42,
+        backgroundColor: 'white',
     },
     welcome: {
         fontSize: 20,
         textAlign: 'center',
         margin: 10,
+    },
+    zongView: {
+        backgroundColor: 'white',
+        // 设置主轴的方向
+        flexDirection:'row',
+        // 垂直居中 ---> 设置侧轴的对齐方式
+        alignItems:'center'
     }
 });
 
