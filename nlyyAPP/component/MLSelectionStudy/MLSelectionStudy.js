@@ -83,6 +83,52 @@ var SelectionStudy = React.createClass({
 
     //返回具体的cell
     renderRow(rowData){
+        var userFunStr = '';
+        if (rowData.UserFun == 'H1') {
+            userFunStr = '全国PI'
+        }
+        if (rowData.UserFun == 'H2') {
+            userFunStr = '中心PI'
+        }
+        if (rowData.UserFun == 'H3') {
+            userFunStr = 'Subi'
+        }
+        if (rowData.UserFun == 'H4') {
+            userFunStr = '药物管理员'
+        }
+        if (rowData.UserFun == 'S1') {
+            userFunStr = 'CRC'
+        }
+        if (rowData.UserFun == 'M1') {
+            userFunStr = 'PM'
+        }
+        if (rowData.UserFun == 'M2') {
+            userFunStr = '医学部'
+        }
+        if (rowData.UserFun == 'M3') {
+            userFunStr = '统计部'
+        }
+        if (rowData.UserFun == 'M4') {
+            userFunStr = 'DM'
+        }
+        if (rowData.UserFun == 'M5') {
+            userFunStr = '安全专员'
+        }
+        if (rowData.UserFun == 'M6') {
+            userFunStr = '药品仓管员'
+        }
+        if (rowData.UserFun == 'M7') {
+            userFunStr = 'CRA'
+        }
+        if (rowData.UserFun == 'C1') {
+            userFunStr = '随机化专员'
+        }
+        if (rowData.UserFun == '15') {
+            userFunStr = '物流人员'
+        }
+        if (rowData.UserFun == 'X9') {
+            userFunStr = '其他'
+        }
         return(
             <TouchableOpacity onPress={()=>{
                 //发送登录网络请求
@@ -136,7 +182,7 @@ var SelectionStudy = React.createClass({
                     });
 
             }}>
-                 <MLTableCell title={rowData.SponsorS} subTitle={rowData.StudNameS}/>
+                 <MLTableCell title={rowData.SponsorS} subTitle={rowData.StudNameS} subTitleColor={'gray'} rightTitle={userFunStr}/>
             </TouchableOpacity>
         )
     },
@@ -144,7 +190,53 @@ var SelectionStudy = React.createClass({
     tableCell(){
         var cells = [];
         for (var i = 0 ; i < UserData.data.length ; i++){
-            cells.push(<MLTableCell key={i} title={UserData.data[i].SponsorS} subTitle={UserData.data[i].StudNameS} data={UserData.data[i]}/>)
+            var userFunStr = '123';
+            if (UserData.data[i].UserFun == 'H1') {
+                userFunStr = '全国PI'
+            }
+            if (UserData.data[i].UserFun == 'H2') {
+                userFunStr = '中心PI'
+            }
+            if (UserData.data[i].UserFun == 'H3') {
+                userFunStr = 'Subi'
+            }
+            if (UserData.data[i].UserFun == 'H4') {
+                userFunStr = '药物管理员'
+            }
+            if (UserData.data[i].UserFun == 'S1') {
+                userFunStr = 'CRC'
+            }
+            if (UserData.data[i].UserFun == 'M1') {
+                userFunStr = 'PM'
+            }
+            if (UserData.data[i].UserFun == 'M2') {
+                userFunStr = '医学部'
+            }
+            if (UserData.data[i].UserFun == 'M3') {
+                userFunStr = '统计部'
+            }
+            if (UserData.data[i].UserFun == 'M4') {
+                userFunStr = 'DM'
+            }
+            if (UserData.data[i].UserFun == 'M5') {
+                userFunStr = '安全专员'
+            }
+            if (UserData.data[i].UserFun == 'M6') {
+                userFunStr = '药品仓管员'
+            }
+            if (UserData.data[i].UserFun == 'M7') {
+                userFunStr = 'CRA'
+            }
+            if (UserData.data[i].UserFun == 'C1') {
+                userFunStr = '随机化专员'
+            }
+            if (UserData.data[i].UserFun == '15') {
+                userFunStr = '物流人员'
+            }
+            if (UserData.data[i].UserFun == 'X9') {
+                userFunStr = '其他'
+            }
+            cells.push(<MLTableCell key={i} title={UserData.data[i].SponsorS} subTitle={UserData.data[i].StudNameS} rightTitle={UserData.data[i].UserFun} data={UserData.data[i]}/>)
         }
         return cells
     },
