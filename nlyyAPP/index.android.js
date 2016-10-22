@@ -14,12 +14,13 @@ import {
 } from 'react-native';
 
 var Main = require('./component/MLMain/MLMain');
+var lll = require('./component/安卓启动页/MLLaunchImage');
 
 class nlyyAPP extends Component {
   render() {
     return (
         <Navigator
-            initialRoute={{name:'启动页',component:Main}}
+            initialRoute={{name:'启动页',component:lll}}
             configureScene={()=>{
               return Navigator.SceneConfigs.PushFromRight;
             }}

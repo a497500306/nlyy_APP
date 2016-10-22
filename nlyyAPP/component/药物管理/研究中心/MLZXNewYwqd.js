@@ -263,7 +263,8 @@ var NewYwqd = React.createClass({
                                         '提示:',
                                         responseJson.msg,
                                         [
-                                            {text: '确定'}
+
+                                            {text: '确定', onPress: () => this.props.navigator.pop()}
                                         ]
                                     )
                                 }
@@ -312,7 +313,8 @@ var NewYwqd = React.createClass({
                                         '提示:',
                                         responseJson.msg,
                                         [
-                                            {text: '确定'}
+
+                                            {text: '确定', onPress: () => this.props.navigator.pop()}
                                         ]
                                     )
                                 }

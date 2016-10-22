@@ -23,9 +23,10 @@ var {width, height} = Dimensions.get('window');
 var settings = require("../../../settings");
 var Users = require('../../../entity/Users');
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
-var Cxywh = require('./MLCxywh')
+var Qsjh = require('../取随机号/MLQsjh')
 
-var CxywhSR = React.createClass({
+var Mhcx = React.createClass({
+
     getInitialState() {
         return {
             shuliang:"",
@@ -36,14 +37,14 @@ var CxywhSR = React.createClass({
     render() {
         return (
             <View style={styles.container}>
-                <MLNavigatorBar title={'查询药物号'} isBack={true} backFunc={() => {
+                <MLNavigatorBar title={'模糊查询'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
                 }}/>
 
                 <View style={styles.zongViewStyle}>
                     <TextInput style={styles.zhanghaoStyle}
                                textalign="center"
-                               placeholder="请输入药物号"
+                               placeholder="请输入受试者编号/姓名缩写/性别/手机号..."
                                keyboardType="numeric"
                                clearButtonMode="always"
                                onChangeText={this.onZhanghao}//获取输入
@@ -70,56 +71,54 @@ var CxywhSR = React.createClass({
 
     //点击确定
     getLogin(){
-            this.setState({animating:true});
-            //发送网络请求
-            fetch(settings.fwqUrl + "/app/getDrugWLData", {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json; charset=utf-8',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    'StudyID' : Users.Users.StudyID,
-                    'DrugNum' : this.state.shuliang
-                })
+        this.setState({animating:true});
+        //发送网络请求
+        fetch(settings.fwqUrl + "/app/getVagueBasicsData", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json; charset=utf-8',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                str : this.state.shuliang,
+                SiteID : Users.Users.UserSite,
+                StudyID : Users.Users.StudyID
             })
-                .then((response) => response.json())
-                .then((responseJson) => {
-                    this.setState({animating:false});
-                    console.log(responseJson)
-                    if (responseJson.isSucceed == 400) {
-                        // 页面的切换
-                        this.props.navigator.push({
-                            name:'分配清单',
-                            component: Cxywh, // 具体路由的版块
-                            //传递参数
-                            passProps:{
-                                datas : responseJson
-                            },
-                        });
-                    }else {
-                        //错误
-                        Alert.alert(
-                            '提示:',
-                            responseJson.msg,
-                            [
-                                {text: '确定'}
-                            ]
-                        )
-                    }
-                })
-                .catch((error) => {//错误
-                    this.setState({animating:false});
-                    console.log(error),
-                        //错误
-                        Alert.alert(
-                            '提示:',
-                            '请检查您的网络111',
-                            [
-                                {text: '确定'}
-                            ]
-                        )
-                });
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({animating:false});
+                if (responseJson.data.length == 0) {
+                    Alert.alert(
+                        '提示:',
+                        '未查到相关数据',
+                        [
+                            {text: '确定'}
+                        ]
+                    )
+                }else{
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: Qsjh, // 具体路由的版块
+                        //传递参数
+                        passProps:{
+                            data:responseJson.data
+                        }
+                    });
+                }
+            })
+            .catch((error) => {//错误
+                this.setState({animating:false});
+                console.log(error),
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        '请检查您的网络111',
+                        [
+                            {text: '确定'}
+                        ]
+                    )
+            });
     }
 });
 
@@ -166,5 +165,5 @@ const styles = StyleSheet.create({
 });
 
 // 输出组件类
-module.exports = CxywhSR;
+module.exports = Mhcx;
 

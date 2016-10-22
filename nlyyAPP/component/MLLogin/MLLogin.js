@@ -14,7 +14,8 @@ import {
     TouchableOpacity,
     TextInput,
     Platform,
-    ActivityIndicator
+    ActivityIndicator,
+    Image
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -109,8 +110,11 @@ var login = React.createClass({
                 </View>
                 <View style={styles.biaoshiStyle}>
                     <Text style={{color:'gray',fontSize: 14}}>诺兰医药科技有限公司</Text>
-                    <Text style={{color:'gray',fontSize: 14,marginTop:5,}}>随着走研究管理和随机平台</Text>
-                    <Icon name="angle-left" size={30} color="#900" />
+                    <Text style={{color:'gray',fontSize: 14,marginTop:10,}}>随着走研究管理和随机平台</Text>
+                    <Image
+                        style={{width:44, height:44,marginTop:10,marginBottom:20}}
+                        source={require('../../logo1025.png')}
+                    />
                 </View>
             </View>
         )

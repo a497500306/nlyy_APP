@@ -29,16 +29,19 @@ var Helper = require('../小帮手/MLHelper');
 var Home = React.createClass({
     getInitialState() {
 
+        console.log(Users.Users)
         var tableData = [];
 
         //判断用户类别
         if (Users.Users.UserFun == 'H1' || Users.Users.UserFun == 'H2' ||
             Users.Users.UserFun == 'H3' || Users.Users.UserFun == 'S1' ||
-            Users.Users.UserFun == 'M1' || Users.Users.UserFun == 'M3'){
+            Users.Users.UserFun == 'M7' || Users.Users.UserFun == 'M3'){
             tableData.push({title:'受试者随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'})
         }
         if (Users.Users.UserFun == 'H4' || Users.Users.UserFun == 'M6' ||
-            Users.Users.UserFun == 'M1' || Users.Users.UserFun == 'M7'){
+            Users.Users.UserFun == 'M1' || Users.Users.UserFun == 'M7' ||
+            Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' ||
+            Users.Users.UserFun == 'S1'){
             tableData.push({title:'药物管理',imageTitle:"medkit",iconColor:'rgba(0,136,212,1.0)'})
         }
         if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' ||

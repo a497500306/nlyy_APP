@@ -21,6 +21,9 @@ var UserData = require('../../entity/UserData');
 var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
 var MLTableCell = require('../MLTableCell/MLTableCell');
 var Users = require('../../entity/Users');
+var study = require('../../entity/study');
+var researchParameter = require('../../entity/researchParameter');
+var settings = require("../../settings");
 
 var SelectionStudy = React.createClass({
 
@@ -82,14 +85,56 @@ var SelectionStudy = React.createClass({
     renderRow(rowData){
         return(
             <TouchableOpacity onPress={()=>{
-                //设置数据
-                Users.Users = rowData,
-                    console.log(rowData)
-                    console.log(Users.Users)
-                // 页面的切换
-                this.props.navigator.push({
-                    component: Home, // 具体路由的版块
-                });
+                //发送登录网络请求
+                fetch(settings.fwqUrl + "/app/getStudyAndResearchParameter", {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json; charset=utf-8',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        StudyID: rowData.StudyID
+                    })
+                })
+                    .then((response) => response.json())
+                    .then((responseJson) => {
+                        if (responseJson.isSucceed == 200){
+                            //错误
+                            Alert.alert(
+                                responseJson.msg,
+                                null,
+                                [
+                                    {text: '确定'}
+                                ]
+                            )
+                        }else {
+                            console.log(responseJson)
+                            //设置数据
+                            Users.Users = rowData,
+                            researchParameter.researchParameter = responseJson.researchParameter,
+                            study.study = responseJson.study,
+                                console.log(Users.Users)
+                            console.log(study.study)
+                            console.log(researchParameter.researchParameter)
+                            // 页面的切换
+                            this.props.navigator.push({
+                            component: Home, // 具体路由的版块
+                            });
+                        }
+                    })
+                    .catch((error) => {//错误
+                        this.setState({animating:false});
+                        console.log(error),
+                            //错误
+                            Alert.alert(
+                                '请检查您的网络111',
+                                null,
+                                [
+                                    {text: '确定'}
+                                ]
+                            )
+                    });
+
             }}>
                  <MLTableCell title={rowData.SponsorS} subTitle={rowData.StudNameS}/>
             </TouchableOpacity>
