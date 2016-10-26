@@ -244,6 +244,14 @@ var Cxzxywqk = React.createClass({
 
     //耗时操作,网络请求
     componentDidMount(){
+        var UserSite = '';
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserSite != null) {
+                UserSite = Users.Users[i].UserSite
+            }
+        }
+        console.log('UserSite')
+        console.log(UserSite)
         //发送登录网络请求
         fetch(settings.fwqUrl + "/app/getSiteDrugData", {
             method: 'POST',
@@ -252,8 +260,8 @@ var Cxzxywqk = React.createClass({
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                StudyID : Users.Users.StudyID,
-                UsedCoreId : Users.Users.UserSite,
+                StudyID : Users.Users[0].StudyID,
+                UsedCoreId : UserSite,
             })
         })
             .then((response) => response.json())

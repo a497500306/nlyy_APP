@@ -15,6 +15,8 @@ import {
 
 /**----导入外部的组件----**/
 var Main = require('../../component/MLMain/MLMain');
+var Dimensions = require('Dimensions');
+var {width, height} = Dimensions.get('window');
 
 var Launch = React.createClass({
     render() {

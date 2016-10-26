@@ -57,8 +57,8 @@ var ZgjhqdfpQD = React.createClass({
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                StudyID : Users.Users.StudyID,
-                Users : Users.Users,
+                StudyID : Users.Users[0].StudyID,
+                Users : Users.Users[0],
                 Address : FPChangku.FPChangku == null ? FPZhongxin.FPZhongxin : FPChangku.FPChangku,
                 Type : FPChangku.FPChangku == null ? 2 : 1,
                 DepotGNYN : Changku.Changku == null ? 0 : Changku.Changku.DepotGNYN,//是否为主仓库:1是,0不是

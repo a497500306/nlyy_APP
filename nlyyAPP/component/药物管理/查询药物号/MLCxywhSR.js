@@ -79,7 +79,7 @@ var CxywhSR = React.createClass({
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    'StudyID' : Users.Users.StudyID,
+                    'StudyID' : Users.Users[0].StudyID,
                     'DrugNum' : this.state.shuliang
                 })
             })

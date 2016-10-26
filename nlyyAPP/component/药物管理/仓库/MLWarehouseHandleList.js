@@ -14,6 +14,9 @@ import {
     ListView
 } from 'react-native';
 
+var Dimensions = require('Dimensions');
+var {width, height} = Dimensions.get('window');
+import Icon from 'react-native-vector-icons/FontAwesome';
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../../entity/Users');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
@@ -50,6 +53,7 @@ var WarehouseHandleList = React.createClass({
         //ListView设置
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
         return {
+            tableData : tableData,
             //ListView设置
             dataSource: ds.cloneWithRows(tableData)
         }
@@ -62,8 +66,11 @@ var WarehouseHandleList = React.createClass({
                     this.props.navigator.pop()
                 }}/>
                 <ListView
+                    pageSize={this.state.tableData.length}
+                    contentContainerStyle={styles.list}
                     dataSource={this.state.dataSource}//数据源
                     renderRow={this.renderRow}
+                    showsVerticalScrollIndicator={false}
                 />
             </View>
         );
@@ -101,7 +108,14 @@ var WarehouseHandleList = React.createClass({
                     });
                 }
             }}>
-                <MLTableCell title={rowData.title} iconTitl={rowData.imageTitle} iconColor={rowData.iconColor}/>
+                <View>
+                    <View style={styles.row}>
+                        <Icon name={rowData.imageTitle} size={60} color={rowData.iconColor} style={styles.thumb}/>
+                        <Text style={styles.text}>
+                            {rowData.title}
+                        </Text>
+                    </View>
+                </View>
             </TouchableOpacity>
         )
     },
@@ -115,11 +129,33 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         backgroundColor: 'rgba(233,234,239,1.0)',
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    }
+    thumb: {
+        width: 65,
+        height: 65
+    },
+    text: {
+        flex: 1,
+        marginTop: 15,
+        fontWeight: 'bold',
+        marginBottom:15,
+    },
+    row: {
+        justifyContent: 'center',
+        padding: 5,
+        width: width/2,
+        backgroundColor: '#F6F6F6',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#CCC'
+    },
+    list: {
+        alignItems:'flex-start',
+        width:width,
+        // justifyContent: 'space-around',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    },
+
 });
 
 // 输出组件类

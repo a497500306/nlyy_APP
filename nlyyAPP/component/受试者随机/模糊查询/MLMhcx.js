@@ -71,6 +71,12 @@ var Mhcx = React.createClass({
 
     //点击确定
     getLogin(){
+        var UserSite = '';
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserSite != null) {
+                UserSite = Users.Users[i].UserSite
+            }
+        }
         this.setState({animating:true});
         //发送网络请求
         fetch(settings.fwqUrl + "/app/getVagueBasicsData", {
@@ -81,8 +87,8 @@ var Mhcx = React.createClass({
             },
             body: JSON.stringify({
                 str : this.state.shuliang,
-                SiteID : Users.Users.UserSite,
-                StudyID : Users.Users.StudyID
+                SiteID : UserSite,
+                StudyID : Users.Users[0].StudyID
             })
         })
             .then((response) => response.json())

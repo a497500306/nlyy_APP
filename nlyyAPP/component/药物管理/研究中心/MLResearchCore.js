@@ -11,6 +11,10 @@ import {
     ListView
 } from 'react-native';
 
+var Dimensions = require('Dimensions');
+var {width, height} = Dimensions.get('window');
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../../entity/Users');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
@@ -25,13 +29,15 @@ var ResearchCore = React.createClass({
         var tableData = [];
 
         //判断用户类别
-        tableData.push('待签收药物清单')
-        tableData.push('已签收药物清单')
-        tableData.push('药物号管理')
+
+        tableData.push({title:'待签收药物清单',imageTitle:"pencil",iconColor:'rgba(0,136,212,1.0)'})
+        tableData.push({title:'已签收药物清单',imageTitle:"heart",iconColor:'rgba(0,136,212,1.0)'})
+        tableData.push({title:'药物号管理',imageTitle:"th",iconColor:'rgba(0,136,212,1.0)'})
 
         //ListView设置
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
         return {
+            tableData : tableData,
             //ListView设置
             dataSource: ds.cloneWithRows(tableData)
         }
@@ -44,8 +50,11 @@ var ResearchCore = React.createClass({
                     this.props.navigator.pop()
                 }}/>
                 <ListView
+                    pageSize={this.state.tableData.length}
+                    contentContainerStyle={styles.list}
                     dataSource={this.state.dataSource}//数据源
                     renderRow={this.renderRow}
+                    showsVerticalScrollIndicator={false}
                 />
                 {/*<ScrollView>*/}
                 {/*{this.tableCell()}*/}
@@ -57,7 +66,7 @@ var ResearchCore = React.createClass({
     //返回具体的cell
     renderRow(rowData){
 
-        if (rowData == '待签收药物清单'){
+        if (rowData.title == '待签收药物清单'){
             return(
                 <TouchableOpacity onPress={()=>{
                     //设置数据
@@ -67,10 +76,17 @@ var ResearchCore = React.createClass({
                         component: ZXDqsywqd, // 具体路由的版块
                     });
                 }}>
-                    <MLTableCell title={rowData}/>
+                    <View>
+                        <View style={styles.row}>
+                            <Icon name={rowData.imageTitle} size={60} color={rowData.iconColor} style={styles.thumb}/>
+                            <Text style={styles.text}>
+                                {rowData.title}
+                            </Text>
+                        </View>
+                    </View>
                 </TouchableOpacity>
             )
-        }else if(rowData == '已签收药物清单'){
+        }else if(rowData.title == '已签收药物清单'){
             return(
                 <TouchableOpacity onPress={()=>{
                     //设置数据
@@ -80,10 +96,17 @@ var ResearchCore = React.createClass({
                         component: ZXYqsywqd, // 具体路由的版块
                     });
                 }}>
-                    <MLTableCell title={rowData}/>
+                    <View>
+                        <View style={styles.row}>
+                            <Icon name={rowData.imageTitle} size={60} color={rowData.iconColor} style={styles.thumb}/>
+                            <Text style={styles.text}>
+                                {rowData.title}
+                            </Text>
+                        </View>
+                    </View>
                 </TouchableOpacity>
             )
-        }else if (rowData == '药物号管理'){
+        }else if (rowData.title == '药物号管理'){
             return(
                 <TouchableOpacity onPress={()=>{
                     //设置数据
@@ -93,7 +116,14 @@ var ResearchCore = React.createClass({
                         component: Ywhgl, // 具体路由的版块
                     });
                 }}>
-                    <MLTableCell title={rowData}/>
+                    <View>
+                        <View style={styles.row}>
+                            <Icon name={rowData.imageTitle} size={60} color={rowData.iconColor} style={styles.thumb}/>
+                            <Text style={styles.text}>
+                                {rowData.title}
+                            </Text>
+                        </View>
+                    </View>
                 </TouchableOpacity>
             )
         }
@@ -108,11 +138,32 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         backgroundColor: 'rgba(233,234,239,1.0)',
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    }
+    thumb: {
+        width: 65,
+        height: 65
+    },
+    text: {
+        flex: 1,
+        marginTop: 15,
+        fontWeight: 'bold',
+        marginBottom:15,
+    },
+    row: {
+        justifyContent: 'center',
+        padding: 5,
+        width: width/2,
+        backgroundColor: '#F6F6F6',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#CCC'
+    },
+    list: {
+        alignItems:'flex-start',
+        width:width,
+        // justifyContent: 'space-around',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    },
 });
 
 // 输出组件类

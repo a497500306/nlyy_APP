@@ -17,7 +17,9 @@ import {
     Navigator,
     ListView
 } from 'react-native';
-
+var Dimensions = require('Dimensions');
+var {width, height} = Dimensions.get('window');
+import Icon from 'react-native-vector-icons/FontAwesome';
 var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../entity/Users');
 var MLTableCell = require('../MLTableCell/MLTableCell');
@@ -31,33 +33,89 @@ var CxywhSR = require('./查询药物号/MLCxywhSR')
 var DrugsAI = React.createClass({
     getInitialState() {
 
-        var tableData = [];
 
-        //判断用户类别
-        if (Users.Users.UserFun == 'M6'){
-            tableData.push('仓库')
-        }
-        if (Users.Users.UserFun == 'H4'){
-            tableData.push('研究中心')
-        }
-        if (Users.Users.UserFun == 'M1' || Users.Users.UserFun == 'H4' ||
-            Users.Users.UserFun == 'M6' || Users.Users.UserFun == 'M7' ){
-            tableData.push('查询--查询中心药物情况')
-        }
-        if (Users.Users.UserFun == 'H4' || Users.Users.UserFun == 'M6' ||
-            Users.Users.UserFun == 'M7'){
-            tableData.push('查询--查询药物号')
-        }
-        if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' || Users.Users.UserFun == 'S1'){
-            tableData.push('补充药物号')
-        }
-        if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' || Users.Users.UserFun == 'S1'){
-            tableData.push('取药物号历史')
+        var tableData = [];
+        for (var i = 0 ; i < Users.Users.length ; i++){
+            var data = Users.Users[i];
+            //判断用户类别
+            //判断用户类别
+            if (data.UserFun == 'M6'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j].title == '仓库'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push({title:'仓库',imageTitle:"database",iconColor:'rgba(0,136,212,1.0)'})
+                }
+                // if (tableData.indexOf({title:'受试者随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'}) == -1){
+                //     tableData.push({title:'受试者随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'})
+                // }
+            }
+            if (data.UserFun == 'H4'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j].title == '研究中心'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push({title:'研究中心',imageTitle:"hospital-o",iconColor:'rgba(0,136,212,1.0)'})
+                }
+            }
+            if (data.UserFun == 'M1' || data.UserFun == 'H4' ||
+                data.UserFun == 'M6' || data.UserFun == 'M7' ){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j].title == '查询中心药物情况'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push({title:'查询中心药物情况',imageTitle:"search",iconColor:'rgba(0,136,212,1.0)'})
+                }
+            }
+            if (data.UserFun == 'H4' || data.UserFun == 'M6' ||
+                data.UserFun == 'M7'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j].title == '查询药物号'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push({title:'查询药物号',imageTitle:"search",iconColor:'rgba(0,136,212,1.0)'})
+                }
+            }
+            if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j].title == '补充药物号'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push({title:'补充药物号',imageTitle:"male",iconColor:'rgba(0,136,212,1.0)'})
+                }
+            }
+            if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j].title == '取药物号历史'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push({title:'取药物号历史',imageTitle:"list-alt",iconColor:'rgba(0,136,212,1.0)'})
+                }
+            }
         }
 
         //ListView设置
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
         return {
+            tableData:tableData,
             //ListView设置
             dataSource: ds.cloneWithRows(tableData)
         }
@@ -70,8 +128,11 @@ var DrugsAI = React.createClass({
                     this.props.navigator.pop()
                 }}/>
                 <ListView
+                    pageSize={this.state.tableData.length}
+                    contentContainerStyle={styles.list}
                     dataSource={this.state.dataSource}//数据源
                     renderRow={this.renderRow}
+                    showsVerticalScrollIndicator={false}
                 />
                 {/*<ScrollView>*/}
                 {/*{this.tableCell()}*/}
@@ -84,7 +145,7 @@ var DrugsAI = React.createClass({
     renderRow(rowData){
         return(
             <TouchableOpacity onPress={()=>{
-                if(rowData == "仓库") {
+                if(rowData.title == "仓库") {
                     console.log(users);
                     //设置数据
                     // 页面的切换
@@ -92,14 +153,14 @@ var DrugsAI = React.createClass({
                         component: Warehouse, // 具体路由的版块
                     });
                 }
-                if(rowData == "研究中心") {
+                if(rowData.title  == "研究中心") {
                     //设置数据
                     // 页面的切换
                     this.props.navigator.push({
                         component: ResearchCore, // 具体路由的版块
                     });
                 }
-                if (rowData == '查询--查询中心药物情况'){
+                if (rowData.title  == '查询中心药物情况'){
                     //设置数据
                     // 页面的切换
                     this.props.navigator.push({
@@ -107,7 +168,7 @@ var DrugsAI = React.createClass({
                     });
 
                 }
-                if (rowData == '查询--查询药物号'){
+                if (rowData.title  == '查询药物号'){
                     //设置数据
                     // 页面的切换
                     this.props.navigator.push({
@@ -115,7 +176,14 @@ var DrugsAI = React.createClass({
                     });
                 }
             }}>
-                <MLTableCell title={rowData}/>
+                <View>
+                    <View style={styles.row}>
+                        <Icon name={rowData.imageTitle} size={60} color={rowData.iconColor} style={styles.thumb}/>
+                        <Text style={styles.text}>
+                            {rowData.title}
+                        </Text>
+                    </View>
+                </View>
             </TouchableOpacity>
         )
     },
@@ -128,6 +196,32 @@ const styles = StyleSheet.create({
         // justifyContent: 'center',
         // alignItems: 'center',
         backgroundColor: 'rgba(233,234,239,1.0)',
+    },
+    thumb: {
+        width: 65,
+        height: 65
+    },
+    text: {
+        flex: 1,
+        marginTop: 15,
+        fontWeight: 'bold',
+        marginBottom:15,
+    },
+    row: {
+        justifyContent: 'center',
+        padding: 5,
+        width: width/2,
+        backgroundColor: '#F6F6F6',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#CCC'
+    },
+    list: {
+        alignItems:'flex-start',
+        width:width,
+        // justifyContent: 'space-around',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
     },
     welcome: {
         fontSize: 20,

@@ -42,6 +42,18 @@ var ZXYqsywqd = React.createClass({
     },
     //耗时操作,网络请求
     componentDidMount(){
+        var UserSite = '';
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserSite != null) {
+                UserSite = Users.Users[i].UserSite
+            }
+        }
+        var UserSiteYN = '';
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserSiteYN != null) {
+                UserSiteYN = Users.Users[i].UserSiteYN
+            }
+        }
         //网络请求
         fetch(settings.fwqUrl + "/app/getZXYqsywqd", {
             method: 'POST',
@@ -50,9 +62,9 @@ var ZXYqsywqd = React.createClass({
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                StudyID : Users.Users.StudyID,
-                UserSiteYN : Users.Users.UserSiteYN,
-                UserSite : Users.Users.UserSite,
+                StudyID : Users.Users[0].StudyID,
+                UserSiteYN : UserSiteYN,
+                UserSite : UserSite,
             })
         })
             .then((response) => response.json())
@@ -130,6 +142,12 @@ var ZXYqsywqd = React.createClass({
     },
     //返回具体的cell
     renderRow(rowData){
+        var UserSite = '';
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserSite != null) {
+                UserSite = Users.Users[i].UserSite
+            }
+        }
         return(
             <TouchableOpacity onPress={()=>{
                 FPQDData.FPQDData = rowData
@@ -164,7 +182,7 @@ var ZXYqsywqd = React.createClass({
                                 },
                                 body: JSON.stringify({
                                     DrugId : rowData.id,
-                                    UsedCoreId : Users.Users.UserSite
+                                    UsedCoreId : UserSite
                                 })
                             })
                                 .then((response) => response.json())

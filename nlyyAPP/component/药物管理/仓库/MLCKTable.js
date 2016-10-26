@@ -47,7 +47,7 @@ var CKTable = React.createClass({
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                StudyID : Users.Users.StudyID,
+                StudyID : Users.Users[0].StudyID,
             })
         })
             .then((response) => response.json())

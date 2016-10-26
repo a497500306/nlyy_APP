@@ -12,9 +12,13 @@ import {
     View,
     TouchableOpacity,
     Navigator,
-    ListView
+    ListView,
+    TouchableHighlight
 } from 'react-native';
 
+var Dimensions = require('Dimensions');
+var {width, height} = Dimensions.get('window');
+import Icon from 'react-native-vector-icons/FontAwesome';
 var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../entity/Users');
 var MLTableCell = require('../MLTableCell/MLTableCell');
@@ -31,43 +35,100 @@ var Home = React.createClass({
 
         console.log(Users.Users)
         var tableData = [];
-
-        //判断用户类别
-        if (Users.Users.UserFun == 'H1' || Users.Users.UserFun == 'H2' ||
-            Users.Users.UserFun == 'H3' || Users.Users.UserFun == 'S1' ||
-            Users.Users.UserFun == 'M7' || Users.Users.UserFun == 'M3'){
-            tableData.push({title:'受试者随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'})
-        }
-        if (Users.Users.UserFun == 'H4' || Users.Users.UserFun == 'M6' ||
-            Users.Users.UserFun == 'M1' || Users.Users.UserFun == 'M7' ||
-            Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' ||
-            Users.Users.UserFun == 'S1'){
-            tableData.push({title:'药物管理',imageTitle:"medkit",iconColor:'rgba(0,136,212,1.0)'})
-        }
-        if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' ||
-            Users.Users.UserFun == 'S1'){
-            tableData.push({title:'随访管理',imageTitle:"phone",iconColor:'rgba(0,136,212,1.0)'})
-        }
-        if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' ||
-            Users.Users.UserFun == 'S1' || Users.Users.UserFun == 'C1' ||
-            Users.Users.UserFun == 'M5'){
-            tableData.push({title:'揭盲',imageTitle:"eye",iconColor:'rgba(0,136,212,1.0)'})
-        }
-        if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' ||
-            Users.Users.UserFun == 'C1' || Users.Users.UserFun == 'S1' ||
-            Users.Users.UserFun == 'M7'){
-            tableData.push({title:'停止入组',imageTitle:"info",iconColor:'rgba(0,136,212,1.0)'})
-        }
-        if (Users.Users.UserFun == 'H1' || Users.Users.UserFun == 'M4' ||
-            Users.Users.UserFun == 'M3' || Users.Users.UserFun == 'M2' ||
-            Users.Users.UserFun == 'C1'){
-            tableData.push({title:'研究管理',imageTitle:"key",iconColor:'rgba(0,136,212,1.0)'})
+        for (var i = 0 ; i < Users.Users.length ; i++){
+            var data = Users.Users[i];
+            //判断用户类别
+            if (data.UserFun == 'H1' || data.UserFun == 'H2' ||
+                data.UserFun == 'H3' || data.UserFun == 'S1' ||
+                data.UserFun == 'M7' || data.UserFun == 'M3'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j].title == '受试者随机'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push({title:'受试者随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'})
+                }
+                // if (tableData.indexOf({title:'受试者随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'}) == -1){
+                //     tableData.push({title:'受试者随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'})
+                // }
+            }
+            if (data.UserFun == 'H4' || data.UserFun == 'M6' ||
+                data.UserFun == 'M1' || data.UserFun == 'M7' ||
+                data.UserFun == 'H2' || data.UserFun == 'H3' ||
+                data.UserFun == 'S1'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j].title == '药物管理'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push({title:'药物管理',imageTitle:"medkit",iconColor:'rgba(0,136,212,1.0)'})
+                }
+                // if (tableData.indexOf({title:'药物管理',imageTitle:"medkit",iconColor:'rgba(0,136,212,1.0)'}) == -1){
+                //     tableData.push({title:'药物管理',imageTitle:"medkit",iconColor:'rgba(0,136,212,1.0)'})
+                // }
+            }
+            if (data.UserFun == 'H2' || data.UserFun == 'H3' ||
+                data.UserFun == 'S1'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j].title == '随访管理'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push({title:'随访管理',imageTitle:"phone",iconColor:'rgba(0,136,212,1.0)'})
+                }
+            }
+            if (data.UserFun == 'H2' || data.UserFun == 'H3' ||
+                data.UserFun == 'S1' || data.UserFun == 'C1' ||
+                data.UserFun == 'M5'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j].title == '揭盲'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push({title:'揭盲',imageTitle:"eye",iconColor:'rgba(0,136,212,1.0)'})
+                }
+            }
+            if (data.UserFun == 'H2' || data.UserFun == 'H3' ||
+                data.UserFun == 'C1' || data.UserFun == 'S1' ||
+                data.UserFun == 'M7'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j].title == '停止入组'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push({title:'停止入组',imageTitle:"info",iconColor:'rgba(0,136,212,1.0)'})
+                }
+            }
+            if (data.UserFun == 'H1' || data.UserFun == 'M4' ||
+                data.UserFun == 'M3' || data.UserFun == 'M2' ||
+                data.UserFun == 'C1'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j].title == '研究管理'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push({title:'研究管理',imageTitle:"key",iconColor:'rgba(0,136,212,1.0)'})
+                }
+            }
         }
         tableData.push({title:'小助手',imageTitle:"th-list",iconColor:'rgba(0,136,212,1.0)'})
 
         //ListView设置
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
         return {
+            tableData : tableData,
             //ListView设置
             dataSource: ds.cloneWithRows(tableData)
         }
@@ -80,8 +141,11 @@ var Home = React.createClass({
                     this.props.navigator.pop()
                 }}/>
                 <ListView
+                    pageSize={this.state.tableData.length}
+                    contentContainerStyle={styles.list}
                     dataSource={this.state.dataSource}//数据源
                     renderRow={this.renderRow}
+                    showsVerticalScrollIndicator={false}
                 />
                 {/*<ScrollView>*/}
                 {/*{this.tableCell()}*/}
@@ -92,10 +156,10 @@ var Home = React.createClass({
 
     //返回具体的cell
     renderRow(rowData){
+        console.log('点击'+rowData.title);
         return(
             <TouchableOpacity onPress={()=>{
                 //设置数据
-                console.log('点击'+rowData.title);
                 // 页面的切换
                 if (rowData.title == "受试者随机"){
                     this.props.navigator.push({
@@ -133,7 +197,15 @@ var Home = React.createClass({
                     });
                 }
             }}>
-                <MLTableCell title={rowData.title} iconTitl={rowData.imageTitle} iconColor={rowData.iconColor}/>
+                <View>
+                    <View style={styles.row}>
+                        <Icon name={rowData.imageTitle} size={60} color={rowData.iconColor} style={styles.thumb}/>
+                        <Text style={styles.text}>
+                            {rowData.title}
+                        </Text>
+                    </View>
+                </View>
+                {/*<MLTableCell title={rowData.title} iconTitl={rowData.imageTitle} iconColor={rowData.iconColor}/>*/}
             </TouchableOpacity>
         )
     },
@@ -141,17 +213,38 @@ var Home = React.createClass({
 
 
 const styles = StyleSheet.create({
+    thumb: {
+        width: 65,
+        height: 65
+    },
+    text: {
+        flex: 1,
+        marginTop: 15,
+        fontWeight: 'bold',
+        marginBottom:15,
+    },
+    row: {
+        justifyContent: 'center',
+        padding: 5,
+        width: width/2,
+        backgroundColor: '#F6F6F6',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#CCC'
+    },
+    list: {
+        alignItems:'flex-start',
+        width:width,
+        // justifyContent: 'space-around',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    },
     container: {
         flex: 1,
         // justifyContent: 'center',
         // alignItems: 'center',
         backgroundColor: 'rgba(233,234,239,1.0)',
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    }
 });
 
 // 输出组件类

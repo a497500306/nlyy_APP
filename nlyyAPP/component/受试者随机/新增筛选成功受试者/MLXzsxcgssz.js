@@ -465,6 +465,12 @@ var Xzsxcgssz = React.createClass({
         this.setState({
             animating: true
         })
+        var UserSite = '';
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserSite != null) {
+                UserSite = Users.Users[i].UserSite
+            }
+        }
         //获取中心数据网络请求
         fetch(settings.fwqUrl + "/app/getSingleSite", {
             method: 'POST',
@@ -473,8 +479,8 @@ var Xzsxcgssz = React.createClass({
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                StudyID: Users.Users.StudyID,
-                UserSite:Users.Users.UserSite
+                StudyID: Users.Users[0].StudyID,
+                UserSite:UserSite
             })
         })
             .then((response) => response.json())

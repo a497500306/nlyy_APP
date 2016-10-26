@@ -101,7 +101,7 @@ var XzsxcgsszQR = React.createClass({
     renderRow(rowData){
         if(rowData == "研究编号") {
             return(
-                <MLTableCell title={rowData} rightTitle={Users.Users.StudyID} isArrow={false}/>
+                <MLTableCell title={rowData} rightTitle={study.study.StudyID} isArrow={false}/>
             )
         }
         if(rowData == "中心编号") {

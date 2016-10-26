@@ -41,12 +41,33 @@ var SelectionStudy = React.createClass({
     },
 
     getInitialState() {
+        //[[研究A],[研究B]] 研究A:身份A,身份B ==[[身份A,身份B],[身份A,身份B]]
+        var datas = [];
+        for (var i = 0 ; i < UserData.data.length ; i++){
+            if (datas.length == 0){
+                datas.push([UserData.data[i]])
+            }else {
+                var isYj = false;
+                for (var j = 0 ; j < datas.length ; j++ ){
+                    console.log('newData')
+                    console.log(datas[j][0])
+                    var newData = datas[j][0];
+                    if (newData.StudySeq == UserData.data[i].StudySeq){
+                        isYj = true;
+                        datas[j].push(UserData.data[i])
+                    }
+                }
+                if (isYj = false){
+                    datas.push([UserData.data[i]])
+                }
+            }
+        }
+        console.log(datas)
         //ListView设置
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-
         return {
             //ListView设置
-            dataSource: ds.cloneWithRows(UserData.data),
+            dataSource: ds.cloneWithRows(datas),
 
             phone:"",
             animating: false,//是否显示菊花
@@ -83,52 +104,6 @@ var SelectionStudy = React.createClass({
 
     //返回具体的cell
     renderRow(rowData){
-        var userFunStr = '';
-        if (rowData.UserFun == 'H1') {
-            userFunStr = '全国PI'
-        }
-        if (rowData.UserFun == 'H2') {
-            userFunStr = '中心PI'
-        }
-        if (rowData.UserFun == 'H3') {
-            userFunStr = 'Subi'
-        }
-        if (rowData.UserFun == 'H4') {
-            userFunStr = '药物管理员'
-        }
-        if (rowData.UserFun == 'S1') {
-            userFunStr = 'CRC'
-        }
-        if (rowData.UserFun == 'M1') {
-            userFunStr = 'PM'
-        }
-        if (rowData.UserFun == 'M2') {
-            userFunStr = '医学部'
-        }
-        if (rowData.UserFun == 'M3') {
-            userFunStr = '统计部'
-        }
-        if (rowData.UserFun == 'M4') {
-            userFunStr = 'DM'
-        }
-        if (rowData.UserFun == 'M5') {
-            userFunStr = '安全专员'
-        }
-        if (rowData.UserFun == 'M6') {
-            userFunStr = '药品仓管员'
-        }
-        if (rowData.UserFun == 'M7') {
-            userFunStr = 'CRA'
-        }
-        if (rowData.UserFun == 'C1') {
-            userFunStr = '随机化专员'
-        }
-        if (rowData.UserFun == '15') {
-            userFunStr = '物流人员'
-        }
-        if (rowData.UserFun == 'X9') {
-            userFunStr = '其他'
-        }
         return(
             <TouchableOpacity onPress={()=>{
                 //发送登录网络请求
@@ -139,7 +114,7 @@ var SelectionStudy = React.createClass({
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        StudyID: rowData.StudyID
+                        StudyID: rowData[0].StudyID
                     })
                 })
                     .then((response) => response.json())
@@ -154,14 +129,10 @@ var SelectionStudy = React.createClass({
                                 ]
                             )
                         }else {
-                            console.log(responseJson)
                             //设置数据
                             Users.Users = rowData,
                             researchParameter.researchParameter = responseJson.researchParameter,
                             study.study = responseJson.study,
-                                console.log(Users.Users)
-                            console.log(study.study)
-                            console.log(researchParameter.researchParameter)
                             // 页面的切换
                             this.props.navigator.push({
                             component: Home, // 具体路由的版块
@@ -182,7 +153,7 @@ var SelectionStudy = React.createClass({
                     });
 
             }}>
-                 <MLTableCell title={rowData.SponsorS} subTitle={rowData.StudNameS} subTitleColor={'gray'} rightTitle={userFunStr}/>
+                 <MLTableCell title={rowData[0].SponsorS} subTitle={rowData[0].StudNameS} subTitleColor={'gray'}/>
             </TouchableOpacity>
         )
     },

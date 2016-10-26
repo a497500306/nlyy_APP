@@ -84,20 +84,22 @@ var MLModal = React.createClass({
       var inputs = [];
         for (var i = 0 ; i < this.props.placeholders.length ; i++){
             inputs.push(
-                <TextInput style={styles.zhanghaoStyle}
-                           textalign="center"
-                           placeholder={this.props.placeholders[i]}
-                           keyboardType="numeric"
-                           clearButtonMode="always"
-                           onChangeText={(text) => {
-                               //返回出去
-                               this.setState({
-                                   titles:text
-                               })
+                <View key={i + 'view'} style={{ borderBottomColor: 'gray', borderBottomWidth: 1, }}>
+                    <TextInput style={styles.zhanghaoStyle}
+                               textalign="center"
+                               placeholder={this.props.placeholders[i]}
+                               keyboardType="numeric"
+                               clearButtonMode="always"
+                               onChangeText={(text) => {
+                                   //返回出去
+                                   this.setState({
+                                       titles:text
+                                   })
 
-                           }}//获取输入
-                           key={i}
-                />
+                               }}//获取输入
+                               key={i}
+                    />
+                </View>
             )
         }
         return inputs
@@ -149,14 +151,12 @@ const styles = StyleSheet.create({
     },
     zhanghaoStyle: {
         width:width - 80,
-        height: 30,
+        height: 40,
         marginTop:20,
         marginLeft:20,
         backgroundColor:'white',
         paddingLeft:10,
         fontSize: 14,
-        borderColor: 'gray',
-        borderWidth: 1,
         // 设置圆角
         borderRadius:5,
     },

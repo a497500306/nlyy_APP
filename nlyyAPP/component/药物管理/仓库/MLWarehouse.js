@@ -35,6 +35,18 @@ var Warehouse = React.createClass({
 
     //耗时操作,网络请求
     componentDidMount(){
+        var UserDepotYN = '';
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserDepotYN != null) {
+                UserDepotYN = Users.Users[i].UserDepotYN
+            }
+        }
+        var UserDepot = '';
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserDepot != null) {
+                UserDepot = Users.Users[i].UserDepot
+            }
+        }
         //发送登录网络请求
         fetch(settings.fwqUrl + "/app/getWarehouse", {
             method: 'POST',
@@ -43,10 +55,9 @@ var Warehouse = React.createClass({
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                id: Users.Users.id,
-                StudyID : Users.Users.StudyID,
-                UserDepotYN : Users.Users.UserDepotYN,
-                UserDepot : Users.Users.UserDepot
+                StudyID : Users.Users[0].StudyID,
+                UserDepotYN : UserDepotYN,
+                UserDepot : UserDepot
             })
         })
             .then((response) => response.json())
