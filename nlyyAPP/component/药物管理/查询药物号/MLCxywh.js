@@ -80,7 +80,8 @@ var Cxywh = React.createClass({
                         </View>
                         <View key={i + '.' + 8} style={{backgroundColor: 'white',width: width - 42}}>
                             <Text key={i + '.' + 6} style={{marginTop:10,fontSize: 16,}}>{this.props.datas.data.drugStrs[i]}</Text>
-                            <Text key={i + '.' + 7} style={{color: 'rgba(183,183,183,1.0)',marginTop:6,fontSize: 12,}}>{moment(this.props.datas.data.drugDate[i]).format('YYYY-MM-DD HH:mm:ss')}</Text>
+                            <Text key={i + '.' + 7} style={{color: 'rgba(183,183,183,1.0)',marginTop:6,fontSize: 12,}}>
+                                {moment(this.props.datas.data.drugDate[i]).format('YYYY-MM-DD HH:mm:ss')}</Text>
                             <View key={i + '.' + 9} style={{backgroundColor: 'rgba(244,244,244,1.0)',marginTop:10,width: width - 42,height: 1}}/>
                         </View>
                     </View>

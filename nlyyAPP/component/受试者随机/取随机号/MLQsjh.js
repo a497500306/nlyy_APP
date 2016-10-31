@@ -44,6 +44,12 @@ var Qsjh = React.createClass({
     },
     //耗时操作,网络请求
     componentDidMount(){
+        var UserSite = '';
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserSite != null) {
+                UserSite = Users.Users[i].UserSite
+            }
+        }
         if (this.props.data == null) {
 
             this.setState({
@@ -58,8 +64,8 @@ var Qsjh = React.createClass({
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    SiteID : Users.Users.UserSite,
-                    StudyID : Users.Users.StudyID
+                    SiteID : UserSite,
+                    StudyID : Users.Users[0].StudyID
                 })
             })
                 .then((response) => response.json())

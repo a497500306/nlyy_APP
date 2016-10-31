@@ -35,18 +35,47 @@ var PatientRM = require('../受试者随机/MLPatientRM');
 var ResearchAI = React.createClass({
     getInitialState() {
 
-        var tableData = [];
 
-        //判断用户类别
-        if (Users.Users.UserFun == 'M1' || Users.Users.UserFun == 'H1' || Users.Users.UserFun == 'M4' ||
-            Users.Users.UserFun == 'M2' || Users.Users.UserFun == 'M3' || Users.Users.UserFun == 'C1'){
-            tableData.push('研究下线')
-        }
-        if (Users.Users.UserFun == 'H1' || Users.Users.UserFun == 'PM'){
-            tableData.push('查询子研究受试者例数')
-        }
-        if (Users.Users.UserFun == 'H1' || Users.Users.UserFun == 'PM'){
-            tableData.push('查询延长期研究受试者例数')
+        var tableData = [];
+        for (var i = 0 ; i < Users.Users.length ; i++){
+            var data = Users.Users[i];
+            //判断用户类别
+            if (data.UserFun == 'M1' || data.UserFun == 'H1' || data.UserFun == 'M4' ||
+                data.UserFun == 'M2' || data.UserFun == 'M3' || data.UserFun == 'C1'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j] == '研究下线'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push('研究下线')
+                }
+            }
+            //判断用户类别
+            if (data.UserFun == 'H1' || data.UserFun == 'M1'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j] == '查询子研究受试者例数'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push('查询子研究受试者例数')
+                }
+            }
+            //判断用户类别
+            if (data.UserFun == 'H1' || data.UserFun == 'M1'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j] == '查询延长期研究受试者例数'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push('查询延长期研究受试者例数')
+                }
+            }
         }
 
         //ListView设置
@@ -78,8 +107,6 @@ var ResearchAI = React.createClass({
     renderRow(rowData){
         return(
             <TouchableOpacity onPress={()=>{
-                //设置数据
-                console.log(Users.Users)
                 // 页面的切换
                 this.props.navigator.push({
                     component: PatientRM, // 具体路由的版块

@@ -27,14 +27,14 @@ import {
     ListView
 } from 'react-native';
 
-var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
-var Users = require('../../entity/Users');
-var MLTableCell = require('../MLTableCell/MLTableCell');
-var PatientRM = require('../受试者随机/MLPatientRM');
-var Dgzx = require('./单个中心/MLDgzx')
-var Zgyj = require('./整个研究/MLZgyj')
-
-var StopEntry = React.createClass({
+var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
+var Users = require('../../../entity/Users');
+var MLTableCell = require('../../MLTableCell/MLTableCell');
+var PatientRM = require('../../受试者随机/MLPatientRM');
+var TzrzZxTable = require('./MLTzrzZxTable')
+var Dshlb = require('./MLDshlb')
+var DshlbYtzrzLB = require('./MLDgzxYtzrzLB')
+var Dgzx = React.createClass({
     getInitialState() {
 
         var tableData = [];
@@ -42,37 +42,49 @@ var StopEntry = React.createClass({
             var data = Users.Users[i];
             //判断用户类别
             if (data.UserFun == 'H2' || data.UserFun == 'H3' ||
-                data.UserFun == 'S1' || data.UserFun == 'M7' ||
-                data.UserFun == 'M1' || data.UserFun == 'C1'){
+                data.UserFun == 'S1' || data.UserFun == 'M7'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
-                    if (tableData[j] == '单个中心'){
+                    if (tableData[j] == '申请'){
                         isY = true;
                     }
                 }
                 if (isY == false){
-                    tableData.push('单个中心')
+                    tableData.push('申请')
                 }
             }
             //判断用户类别
-            if (data.UserFun == 'M1' || data.UserFun == 'H1' ||
-                data.UserFun == 'M4' || data.UserFun == 'M2' ||
-                data.UserFun == 'M3' || data.UserFun == 'C1'){
+            if (data.UserFun == 'M1' || data.UserFun == 'C1'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
-                    if (tableData[j] == '整个研究'){
+                    if (tableData[j] == '审核列表'){
                         isY = true;
                     }
                 }
                 if (isY == false){
-                    tableData.push('整个研究')
+                    tableData.push('审核列表')
+                }
+            }
+            //判断用户类别
+            if (data.UserFun == 'H2' || data.UserFun == 'H3' ||
+                data.UserFun == 'S1' || data.UserFun == 'M7'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j] == '已停止入组中心列表'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push('已停止入组中心列表')
                 }
             }
         }
 
+        console.log(tableData)
         //ListView设置
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
         return {
+            tableData : tableData,
             //ListView设置
             dataSource: ds.cloneWithRows(tableData)
         }
@@ -81,7 +93,7 @@ var StopEntry = React.createClass({
     render() {
         return (
             <View style={styles.container}>
-                <MLNavigatorBar title={'停止入组'} isBack={true} backFunc={() => {
+                <MLNavigatorBar title={'单个中心'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
                 }}/>
                 <ListView
@@ -99,20 +111,22 @@ var StopEntry = React.createClass({
     renderRow(rowData){
         return(
             <TouchableOpacity onPress={()=>{
-                if (rowData == '单个中心'){
-                    //设置数据
-                    console.log(Users.Users)
+                if (rowData == '申请'){
                     // 页面的切换
                     this.props.navigator.push({
-                        component: Dgzx, // 具体路由的版块
+                        component: TzrzZxTable, // 具体路由的版块
                     });
                 }
-                if (rowData == '整个研究'){
-                    //设置数据
-                    console.log(Users.Users)
+                if (rowData == '审核列表'){
                     // 页面的切换
                     this.props.navigator.push({
-                        component: Zgyj, // 具体路由的版块
+                        component: Dshlb, // 具体路由的版块
+                    });
+                }
+                if (rowData == '已停止入组中心列表'){
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: DshlbYtzrzLB, // 具体路由的版块
                     });
                 }
             }}>
@@ -138,4 +152,4 @@ const styles = StyleSheet.create({
 });
 
 // 输出组件类
-module.exports = StopEntry;
+module.exports = Dgzx;

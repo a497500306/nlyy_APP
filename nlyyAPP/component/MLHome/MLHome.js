@@ -98,7 +98,9 @@ var Home = React.createClass({
             }
             if (data.UserFun == 'H2' || data.UserFun == 'H3' ||
                 data.UserFun == 'C1' || data.UserFun == 'S1' ||
-                data.UserFun == 'M7'){
+                data.UserFun == 'M7' || data.UserFun == 'M1' ||
+                data.UserFun == 'H1' || data.UserFun == 'M4' ||
+                data.UserFun == 'M2'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
                     if (tableData[j].title == '停止入组'){
@@ -109,9 +111,8 @@ var Home = React.createClass({
                     tableData.push({title:'停止入组',imageTitle:"info",iconColor:'rgba(0,136,212,1.0)'})
                 }
             }
-            if (data.UserFun == 'H1' || data.UserFun == 'M4' ||
-                data.UserFun == 'M3' || data.UserFun == 'M2' ||
-                data.UserFun == 'C1'){
+            if (data.UserFun == 'M1' || data.UserFun == 'H1' || data.UserFun == 'M4' ||
+                data.UserFun == 'M2' || data.UserFun == 'M3' || data.UserFun == 'C1'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
                     if (tableData[j].title == '研究管理'){
