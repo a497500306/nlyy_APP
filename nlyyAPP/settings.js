@@ -3,5 +3,5 @@
  */
 module.exports = {
     //服务器地址
-    'fwqUrl' : 'http://192.168.0.105:3000'
+    'fwqUrl' : 'http://localhost:3000'
 }
