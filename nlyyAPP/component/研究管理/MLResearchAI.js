@@ -31,6 +31,7 @@ var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../entity/Users');
 var MLTableCell = require('../MLTableCell/MLTableCell');
 var PatientRM = require('../受试者随机/MLPatientRM');
+var Yjxx = require('./研究下线/MLYjxx')
 
 var ResearchAI = React.createClass({
     getInitialState() {
@@ -107,10 +108,12 @@ var ResearchAI = React.createClass({
     renderRow(rowData){
         return(
             <TouchableOpacity onPress={()=>{
-                // 页面的切换
-                this.props.navigator.push({
-                    component: PatientRM, // 具体路由的版块
-                });
+                if (rowData == '研究下线'){
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: Yjxx, // 具体路由的版块
+                    });
+                }
             }}>
                 <MLTableCell title={rowData}/>
             </TouchableOpacity>

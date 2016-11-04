@@ -280,64 +280,62 @@ var DgzxSq = React.createClass({
             return
         }
         //获取中心数据网络请求
-        // fetch(settings.fwqUrl + "/app/getApplyZXStopIt", {
-        //     method: 'POST',
-        //     headers: {
-        //         'Accept': 'application/json; charset=utf-8',
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({
-        //         StudyID: Users.Users[0].StudyID,
-        //         SiteID:FPZhongxin.FPZhongxin.SiteID,
-        //         SiteNam:FPZhongxin.FPZhongxin.SiteNam,
-        //         UserNam:Users.Users[0].UserNam,
-        //         UserMP:Users.Users[0].UserMP,
-        //         isMessage:this.state.isMessage,
-        //         isMail:this.state.isMail,
-        //         UserEmail:Users.Users[0].UserEmail,
-        //         Reason:this.state.yuanying,
-        //     })
-        // })
-        //     .then((response) => response.json())
-        //     .then((responseJson) => {
-        //         this.setState({
-        //             animating: false
-        //         })
-        //         if (responseJson.isSucceed == 200){
-        //             //错误
-        //             Alert.alert(
-        //                 '提示',
-        //                 responseJson.msg,
-        //                 [
-        //                     {text: '确定', onPress: () => this.props.navigator.pop()}
-        //                 ]
-        //             )
-        //         }else {
-        //             //错误
-        //             Alert.alert(
-        //                 '提示',
-        //                 responseJson.msg,
-        //                 [
-        //                     {text: '确定', onPress: () => this.props.navigator.pop()}
-        //                 ]
-        //             )
-        //         }
-        //     })
-        //     .catch((error) => {//错误
-        //         this.setState({
-        //             animating: false
-        //         })
-        //         this.setState({animating:false});
-        //         console.log(error),
-        //             //错误
-        //             Alert.alert(
-        //                 '提示',
-        //                 '请检查您的网络',
-        //                 [
-        //                     {text: '确定', onPress: () => this.props.navigator.pop()}
-        //                 ]
-        //             )
-        //     });
+        fetch(settings.fwqUrl + "/app/getApplyYJStopIt", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json; charset=utf-8',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                StudyID: Users.Users[0].StudyID,
+                UserNam:Users.Users[0].UserNam,
+                UserMP:Users.Users[0].UserMP,
+                isMessage:this.state.isMessage,
+                isMail:this.state.isMail,
+                UserEmail:Users.Users[0].UserEmail,
+                Reason:this.state.yuanying,
+            })
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    animating: false
+                })
+                if (responseJson.isSucceed == 200){
+                    //错误
+                    Alert.alert(
+                        '提示',
+                        responseJson.msg,
+                        [
+                            {text: '确定', onPress: () => this.props.navigator.pop()}
+                        ]
+                    )
+                }else {
+                    //错误
+                    Alert.alert(
+                        '提示',
+                        responseJson.msg,
+                        [
+                            {text: '确定', onPress: () => this.props.navigator.pop()}
+                        ]
+                    )
+                }
+            })
+            .catch((error) => {//错误
+                this.setState({
+                    animating: false
+                })
+                this.setState({animating:false});
+                console.log(error),
+                    //错误
+                    Alert.alert(
+                        '提示',
+                        '请检查您的网络',
+                        [
+                            {text: '确定', onPress: () => this.props.navigator.pop()}
+                        ]
+                    )
+            });
     }
 });
 

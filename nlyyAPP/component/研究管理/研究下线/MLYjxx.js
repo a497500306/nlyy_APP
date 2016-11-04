@@ -31,10 +31,10 @@ var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../../entity/Users');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var PatientRM = require('../../受试者随机/MLPatientRM');
-var ZgyjSq = require('./MLZgyjSq')
-var YjDshlb = require('./MLYjDshlb')
+var YjxxSq = require('./MLYjxxSq')
+var YjxxSh = require('./MLYjxxSh')
 
-var Zgyj = React.createClass({
+var Yjxx = React.createClass({
     getInitialState() {
 
         var tableData = [];
@@ -79,7 +79,7 @@ var Zgyj = React.createClass({
     render() {
         return (
             <View style={styles.container}>
-                <MLNavigatorBar title={'整个研究'} isBack={true} backFunc={() => {
+                <MLNavigatorBar title={'研究下线'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
                 }}/>
                 <ListView
@@ -102,14 +102,14 @@ var Zgyj = React.createClass({
                     console.log(Users.Users)
                     // 页面的切换
                     this.props.navigator.push({
-                        component: ZgyjSq, // 具体路由的版块
+                        component: YjxxSq, // 具体路由的版块
                     });
 
                 }
                 if (rowData == '审核'){
                     // 页面的切换
                     this.props.navigator.push({
-                        component: YjDshlb, // 具体路由的版块
+                        component: YjxxSh, // 具体路由的版块
                     });
                 }
             }}>
@@ -135,4 +135,4 @@ const styles = StyleSheet.create({
 });
 
 // 输出组件类
-module.exports = Zgyj;
+module.exports = Yjxx;
