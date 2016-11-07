@@ -13,7 +13,8 @@ import {
     TouchableOpacity,
     Navigator,
     ScrollView,
-    ListView
+    ListView,
+    Alert
 } from 'react-native';
 
 var Home = require('../MLHome/MLHome');
@@ -122,8 +123,8 @@ var SelectionStudy = React.createClass({
                         if (responseJson.isSucceed == 200){
                             //错误
                             Alert.alert(
+                                '提示',
                                 responseJson.msg,
-                                null,
                                 [
                                     {text: '确定'}
                                 ]
@@ -132,11 +133,22 @@ var SelectionStudy = React.createClass({
                             //设置数据
                             Users.Users = rowData,
                             researchParameter.researchParameter = responseJson.researchParameter,
-                            study.study = responseJson.study,
-                            // 页面的切换
-                            this.props.navigator.push({
-                            component: Home, // 具体路由的版块
-                            });
+                            study.study = responseJson.study
+                            if (study.study.StudIsOffline == 1){
+                                //错误
+                                Alert.alert(
+                                    '提示',
+                                    '改研究已经下线',
+                                    [
+                                        {text: '确定'}
+                                    ]
+                                )
+                            }else{
+                                // 页面的切换
+                                this.props.navigator.push({
+                                    component: Home, // 具体路由的版块
+                                });
+                            }
                         }
                     })
                     .catch((error) => {//错误

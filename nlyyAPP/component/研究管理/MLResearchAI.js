@@ -24,14 +24,18 @@ import {
     View,
     TouchableOpacity,
     Navigator,
-    ListView
+    ListView,
+    Alert
 } from 'react-native';
 
 var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../entity/Users');
+var study = require('../../entity/study');
 var MLTableCell = require('../MLTableCell/MLTableCell');
 var PatientRM = require('../受试者随机/MLPatientRM');
 var Yjxx = require('./研究下线/MLYjxx')
+var Cxycqyjsszls = require('./研究下线/MLCxycqyjsszls')
+var Cxzyjsszls = require('./研究下线/MLCxzyjsszls')
 
 var ResearchAI = React.createClass({
     getInitialState() {
@@ -113,6 +117,40 @@ var ResearchAI = React.createClass({
                     this.props.navigator.push({
                         component: Yjxx, // 具体路由的版块
                     });
+                }
+                if (rowData == '查询子研究受试者例数'){
+                    //判断是否有子研究
+                    if (study.study.SubStudYN == 1){
+                        // 页面的切换
+                        this.props.navigator.push({
+                            component: Cxzyjsszls, // 具体路由的版块
+                        });
+                    }else{
+                        Alert.alert(
+                            '提示:',
+                            '该研究没有子研究',
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                    }
+                }
+                if (rowData == '查询延长期研究受试者例数'){
+                    //判断是否有长期研究
+                    if (study.study.ExtStudYN == 1){
+                        // 页面的切换
+                        this.props.navigator.push({
+                            component: Cxycqyjsszls, // 具体路由的版块
+                        });
+                    }else{
+                        Alert.alert(
+                            '提示:',
+                            '该研究没有延长期研究',
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                    }
                 }
             }}>
                 <MLTableCell title={rowData}/>

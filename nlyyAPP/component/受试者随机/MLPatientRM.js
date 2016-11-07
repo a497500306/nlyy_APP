@@ -15,15 +15,18 @@ import {
     View,
     TouchableOpacity,
     Navigator,
-    ListView
+    ListView,
+    Alert
 } from 'react-native';
 
 
 var Dimensions = require('Dimensions');
+var settings = require("../../settings");
 var {width, height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/FontAwesome';
 var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../entity/Users');
+var study = require('../../entity/study');
 var MLTableCell = require('../MLTableCell/MLTableCell');
 var Xzsxcgssz = require('./新增筛选成功受试者/MLXzsxcgssz')
 var Xzsxssssz = require('./新增筛选失败受试者/MLXzsxsbssz')
@@ -182,17 +185,133 @@ var PatientRM = React.createClass({
         return(
             <TouchableOpacity onPress={()=>{
                 if (rowData.title == '新增筛选成功受试者' ){
+
                     //设置数据
-                    // 页面的切换
-                    this.props.navigator.push({
-                        component: Xzsxcgssz, // 具体路由的版块
-                    });
+                    if (study.study.StudIsStopIt == 0){
+                        //错误
+                        Alert.alert(
+                            '提示',
+                            '该中心已经停止入组',
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                    }else{
+                        var SiteID = '';
+                        for (var i = 0 ; i < Users.Users.length ; i++) {
+                            if (Users.Users[i].UserSite != null) {
+                                SiteID = Users.Users[i].UserSite
+                            }
+                        }
+                        //查找该研究是否停止入组
+                        //发送登录网络请求
+                        fetch(settings.fwqUrl + "/app/getIsStopItSite", {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json; charset=utf-8',
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                StudyID: Users.Users[0].StudyID,
+                                SiteID:SiteID
+                            })
+                        })
+                            .then((response) => response.json())
+                            .then((responseJson) => {
+                                if (responseJson.isSucceed == 200){
+                                    //错误
+                                    Alert.alert(
+                                        '提示',
+                                        responseJson.msg,
+                                        [
+                                            {text: '确定'}
+                                        ]
+                                    )
+                                }else {
+                                    //页面的切换
+                                    this.props.navigator.push({
+                                        component: Xzsxcgssz, // 具体路由的版块
+                                    });
+                                }
+                            })
+                            .catch((error) => {//错误
+                                this.setState({animating:false});
+                                console.log(error),
+                                    //错误
+                                    Alert.alert(
+                                        '请检查您的网络111',
+                                        null,
+                                        [
+                                            {text: '确定'}
+                                        ]
+                                    )
+                            });
+                    }
                 }else if (rowData.title == '新增筛选失败受试者' ){
                     //设置数据
-                    // 页面的切换
-                    this.props.navigator.push({
-                        component: Xzsxssssz, // 具体路由的版块
-                    });
+                    if (study.study.StudIsStopIt == 1){
+                        //错误
+                        Alert.alert(
+                            '提示',
+                            '该中心已经停止入组',
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                    }else{
+                        var SiteID = '';
+                        for (var i = 0 ; i < Users.Users.length ; i++) {
+                            if (Users.Users[i].UserSite != null) {
+                                SiteID = Users.Users[i].UserSite
+                            }
+                        }
+                        //发送登录网络请求
+                        fetch(settings.fwqUrl + "/app/getIsStopItSite", {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json; charset=utf-8',
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                StudyID: Users.Users[0].StudyID,
+                                SiteID:SiteID
+                            })
+                        })
+                            .then((response) => response.json())
+                            .then((responseJson) => {
+                                if (responseJson.isSucceed == 200){
+                                    //错误
+                                    Alert.alert(
+                                        '提示',
+                                        responseJson.msg,
+                                        [
+                                            {text: '确定'}
+                                        ]
+                                    )
+                                }else {
+                                    // 页面的切换
+                                    this.props.navigator.push({
+                                        component: Xzsxssssz, // 具体路由的版块
+                                    });
+                                }
+                            })
+                            .catch((error) => {//错误
+                                this.setState({animating:false});
+                                console.log(error),
+                                    //错误
+                                    Alert.alert(
+                                        '请检查您的网络111',
+                                        null,
+                                        [
+                                            {text: '确定'}
+                                        ]
+                                    )
+                            });
+
+                        //设置数据
+
+
+                    }
                 }else if (rowData.title == '取随机号'){
                     //设置数据
                     console.log(Users.Users)
