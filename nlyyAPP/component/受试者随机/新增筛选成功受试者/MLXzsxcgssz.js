@@ -30,7 +30,7 @@ var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
 var settings = require('../../../settings');
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
-var Users = require('../../../entity/Users');
+var researchParameter = require('../../../entity/researchParameter');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var XzsxcgsszQR = require('./MLXzsxcgsszQR')
 
@@ -45,6 +45,33 @@ var Xzsxcgssz = React.createClass({
         tableData.push('受试者手机')
         if (study.study.SubStudYN == 1){
             tableData.push('受试者是否参加子研究')
+        }
+        if (researchParameter.researchParameter.LabelStraA != null){
+            tableData.push(researchParameter.researchParameter.LabelStraA)
+        }
+        if (researchParameter.researchParameter.LabelStraB != null){
+            tableData.push(researchParameter.researchParameter.LabelStraB)
+        }
+        if (researchParameter.researchParameter.LabelStraC != null){
+            tableData.push(researchParameter.researchParameter.LabelStraC)
+        }
+        if (researchParameter.researchParameter.LabelStraD != null){
+            tableData.push(researchParameter.researchParameter.LabelStraD)
+        }
+        if (researchParameter.researchParameter.LabelStraE != null){
+            tableData.push(researchParameter.researchParameter.LabelStraE)
+        }
+        if (researchParameter.researchParameter.LabelStraF != null){
+            tableData.push(researchParameter.researchParameter.LabelStraF)
+        }
+        if (researchParameter.researchParameter.LabelStraG != null){
+            tableData.push(researchParameter.researchParameter.LabelStraG)
+        }
+        if (researchParameter.researchParameter.LabelStraH != null){
+            tableData.push(researchParameter.researchParameter.LabelStraH)
+        }
+        if (researchParameter.researchParameter.LabelStraI != null){
+            tableData.push(researchParameter.researchParameter.LabelStraI)
         }
         tableData.push('筛选结果')
         tableData.push('')
@@ -82,6 +109,7 @@ var Xzsxcgssz = React.createClass({
         }
 
         return {
+            tableData:tableData,
             //ListView设置
             dataSource: ds.cloneWithRows(tableData),
             //ListView设置
@@ -105,6 +133,15 @@ var Xzsxcgssz = React.createClass({
             phone:'',
             //是否参加子研究
             zyj:'',
+            LabelStraA:'',
+            LabelStraB:'',
+            LabelStraC:'',
+            LabelStraD:'',
+            LabelStraE:'',
+            LabelStraF:'',
+            LabelStraG:'',
+            LabelStraH:'',
+            LabelStraI:'',
             //是否显示moda
             isModalOpen:false,
             //输入框显示文字
@@ -132,22 +169,12 @@ var Xzsxcgssz = React.createClass({
                     {/*</Modal>*/}
                     <MLModal placeholders={this.state.srkxswz} isVisible={this.state.isModalOpen}
                              onClose={(text) => {
-                                 var tableData = [];
-                                 tableData.push('受试者出生日期')
-                                 tableData.push('受试者性别')
-                                 tableData.push('受试者姓名缩写')
-                                 tableData.push('受试者手机')
-                                 if (study.study.SubStudYN == 1){
-                                     tableData.push('受试者是否参加子研究')
-                                 }
-                                 tableData.push('筛选结果')
-                                 tableData.push('')
                                  //ListView设置
                                  var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
                                  if (this.state.shuru == 0){
-                                     this.setState({name:text,dataSource: ds.cloneWithRows(tableData),isModalOpen:false,srkxswz:['受试者姓名缩写']})
+                                     this.setState({name:text,dataSource: ds.cloneWithRows(this.state.tableData),isModalOpen:false,srkxswz:['受试者姓名缩写']})
                                  }else{
-                                     this.setState({phone:text,dataSource: ds.cloneWithRows(tableData),isModalOpen:false,srkxswz:['受试者姓名缩写']})
+                                     this.setState({phone:text,dataSource: ds.cloneWithRows(this.state.tableData),isModalOpen:false,srkxswz:['受试者姓名缩写']})
                                  }
                              }}
                              quxiao={(text) => {
@@ -167,22 +194,12 @@ var Xzsxcgssz = React.createClass({
                     />
                     <MLModal placeholders={this.state.srkxswz} isVisible={this.state.isModalOpen}
                              onClose={(text) => {
-                                 var tableData = [];
-                                 tableData.push('受试者出生日期')
-                                 tableData.push('受试者性别')
-                                 tableData.push('受试者姓名缩写')
-                                 tableData.push('受试者手机')
-                                 if (study.study.SubStudYN == 1){
-                                     tableData.push('受试者是否参加子研究')
-                                 }
-                                 tableData.push('筛选结果')
-                                 tableData.push('')
                                  //ListView设置
                                  var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
                                  if (this.state.shuru == 0){
-                                     this.setState({name:text,dataSource: ds.cloneWithRows(tableData),isModalOpen:false,srkxswz:['受试者姓名缩写']})
+                                     this.setState({name:text,dataSource: ds.cloneWithRows(this.state.tableData),isModalOpen:false,srkxswz:['受试者姓名缩写']})
                                  }else{
-                                     this.setState({phone:text,dataSource: ds.cloneWithRows(tableData),isModalOpen:false,srkxswz:['受试者姓名缩写']})
+                                     this.setState({phone:text,dataSource: ds.cloneWithRows(this.state.tableData),isModalOpen:false,srkxswz:['受试者姓名缩写']})
                                  }
                              }}
                              quxiao={(text) => {
@@ -208,50 +225,277 @@ var Xzsxcgssz = React.createClass({
         // <Picker.Item label="Java" value="java" />
         // <Picker.Item label="JavaScript" value="js" />
     },
-    /*
-     tableData.push('受试者出生日期')
-     tableData.push('受试者性别')
-     tableData.push('受试者姓名缩写')
-     tableData.push('受试者手机')
-     tableData.push('受试者是否参加子研究')
-     tableData.push('筛选结果')*/
     //返回具体的cell
     renderRow(rowData){
+        //选择
+        if (researchParameter.researchParameter.LabelStraA != null){
+            if (rowData == researchParameter.researchParameter.LabelStraA){
+                return(
+                    <TouchableOpacity onPress={()=>{
+                        console.log(researchParameter.researchParameter.LabelStraAL.split(","))
+                        Pickers.init({
+                            pickerData: researchParameter.researchParameter.LabelStraAL.split(","),
+                            onPickerConfirm: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraA:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+
+                            },
+                            onPickerCancel: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraA:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+                            },
+                            onPickerSelect: pickedValue => {
+                            }
+                        });
+                        Pickers.show();
+                    }}>
+                        <MLTableCell title={rowData} rightTitle={this.state.LabelStraA}/>
+                    </TouchableOpacity>
+                )
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraB != null){
+            if (rowData == researchParameter.researchParameter.LabelStraB){
+                return(
+                    <TouchableOpacity onPress={()=>{
+                        console.log(researchParameter.researchParameter.LabelStraBL.split(","))
+                        Pickers.init({
+                            pickerData: researchParameter.researchParameter.LabelStraBL.split(","),
+                            onPickerConfirm: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraB:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+
+                            },
+                            onPickerCancel: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraB:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+                            },
+                            onPickerSelect: pickedValue => {
+                            }
+                        });
+                        Pickers.show();
+                    }}>
+                        <MLTableCell title={rowData} rightTitle={this.state.LabelStraB}/>
+                    </TouchableOpacity>
+                )
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraC != null){
+            if (rowData == researchParameter.researchParameter.LabelStraC){
+                return(
+                    <TouchableOpacity onPress={()=>{
+                        console.log(researchParameter.researchParameter.LabelStraCL.split(","))
+                        Pickers.init({
+                            pickerData: researchParameter.researchParameter.LabelStraCL.split(","),
+                            onPickerConfirm: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraC:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+
+                            },
+                            onPickerCancel: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraC:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+                            },
+                            onPickerSelect: pickedValue => {
+                            }
+                        });
+                        Pickers.show();
+                    }}>
+                        <MLTableCell title={rowData} rightTitle={this.state.LabelStraC}/>
+                    </TouchableOpacity>
+                )
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraD != null){
+            if (rowData == researchParameter.researchParameter.LabelStraD){
+                return(
+                    <TouchableOpacity onPress={()=>{
+                        console.log(researchParameter.researchParameter.LabelStraDL.split(","))
+                        Pickers.init({
+                            pickerData: researchParameter.researchParameter.LabelStraDL.split(","),
+                            onPickerConfirm: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraD:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+
+                            },
+                            onPickerCancel: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraD:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+                            },
+                            onPickerSelect: pickedValue => {
+                            }
+                        });
+                        Pickers.show();
+                    }}>
+                        <MLTableCell title={rowData} rightTitle={this.state.LabelStraD}/>
+                    </TouchableOpacity>
+                )
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraE != null){
+            if (rowData == researchParameter.researchParameter.LabelStraE){
+                return(
+                    <TouchableOpacity onPress={()=>{
+                        console.log(researchParameter.researchParameter.LabelStraEL.split(","))
+                        Pickers.init({
+                            pickerData: researchParameter.researchParameter.LabelStraEL.split(","),
+                            onPickerConfirm: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraE:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+
+                            },
+                            onPickerCancel: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraE:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+                            },
+                            onPickerSelect: pickedValue => {
+                            }
+                        });
+                        Pickers.show();
+                    }}>
+                        <MLTableCell title={rowData} rightTitle={this.state.LabelStraE}/>
+                    </TouchableOpacity>
+                )
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraF != null){
+            if (rowData == researchParameter.researchParameter.LabelStraF){
+                return(
+                    <TouchableOpacity onPress={()=>{
+                        console.log(researchParameter.researchParameter.LabelStraFL.split(","))
+                        Pickers.init({
+                            pickerData: researchParameter.researchParameter.LabelStraFL.split(","),
+                            onPickerConfirm: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraF:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+
+                            },
+                            onPickerCancel: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraF:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+                            },
+                            onPickerSelect: pickedValue => {
+                            }
+                        });
+                        Pickers.show();
+                    }}>
+                        <MLTableCell title={rowData} rightTitle={this.state.LabelStraF}/>
+                    </TouchableOpacity>
+                )
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraG != null){
+            if (rowData == researchParameter.researchParameter.LabelStraG){
+                return(
+                    <TouchableOpacity onPress={()=>{
+                        console.log(researchParameter.researchParameter.LabelStraGL.split(","))
+                        Pickers.init({
+                            pickerData: researchParameter.researchParameter.LabelStraGL.split(","),
+                            onPickerConfirm: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraF:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+
+                            },
+                            onPickerCancel: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraF:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+                            },
+                            onPickerSelect: pickedValue => {
+                            }
+                        });
+                        Pickers.show();
+                    }}>
+                        <MLTableCell title={rowData} rightTitle={this.state.LabelStraG}/>
+                    </TouchableOpacity>
+                )
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraH != null){
+            if (rowData == researchParameter.researchParameter.LabelStraH){
+                return(
+                    <TouchableOpacity onPress={()=>{
+                        console.log(researchParameter.researchParameter.LabelStraHL.split(","))
+                        Pickers.init({
+                            pickerData: researchParameter.researchParameter.LabelStraHL.split(","),
+                            onPickerConfirm: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraH:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+
+                            },
+                            onPickerCancel: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraH:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+                            },
+                            onPickerSelect: pickedValue => {
+                            }
+                        });
+                        Pickers.show();
+                    }}>
+                        <MLTableCell title={rowData} rightTitle={this.state.LabelStraH}/>
+                    </TouchableOpacity>
+                )
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraI != null){
+            if (rowData == researchParameter.researchParameter.LabelStraI){
+                return(
+                    <TouchableOpacity onPress={()=>{
+                        console.log(researchParameter.researchParameter.LabelStraIL.split(","))
+                        Pickers.init({
+                            pickerData: researchParameter.researchParameter.LabelStraIL.split(","),
+                            onPickerConfirm: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraI:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+
+                            },
+                            onPickerCancel: pickedValue => {
+                                //ListView设置
+                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                this.setState({LabelStraI:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+                            },
+                            onPickerSelect: pickedValue => {
+                            }
+                        });
+                        Pickers.show();
+                    }}>
+                        <MLTableCell title={rowData} rightTitle={this.state.LabelStraI}/>
+                    </TouchableOpacity>
+                )
+            }
+        }
+        /*************/
         if(rowData == "受试者出生日期") {
             return(
                 <TouchableOpacity onPress={()=>{
                     Pickers.init({
                         pickerData: this.state.date,
                         onPickerConfirm: pickedValue => {
-                            var tableData = [];
-                            tableData.push('受试者出生日期')
-                            tableData.push('受试者性别')
-                            tableData.push('受试者姓名缩写')
-                            tableData.push('受试者手机')
-                            if (study.study.SubStudYN == 1){
-                                tableData.push('受试者是否参加子研究')
-                            }
-                            tableData.push('筛选结果')
-                            tableData.push('')
                             //ListView设置
                             var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                            this.setState({csDate:pickedValue[0] + '/' + pickedValue[1]+ '/' + pickedValue[2],dataSource: ds.cloneWithRows(tableData),})
+                            this.setState({csDate:pickedValue[0] + '/' + pickedValue[1]+ '/' + pickedValue[2],dataSource: ds.cloneWithRows(this.state.tableData),})
 
                         },
                         onPickerCancel: pickedValue => {
-                            var tableData = [];
-                            tableData.push('受试者出生日期')
-                            tableData.push('受试者性别')
-                            tableData.push('受试者姓名缩写')
-                            tableData.push('受试者手机')
-                            if (study.study.SubStudYN == 1){
-                                tableData.push('受试者是否参加子研究')
-                            }
-                            tableData.push('筛选结果')
-                            tableData.push('')
                             //ListView设置
                             var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                            this.setState({csDate:'',dataSource: ds.cloneWithRows(tableData),})
+                            this.setState({csDate:'',dataSource: ds.cloneWithRows(this.state.tableData),})
                         },
                         onPickerSelect: pickedValue => {
                         }
@@ -270,36 +514,15 @@ var Xzsxcgssz = React.createClass({
                         pickerData: data,
                         selectedValue: ['男'],
                         onPickerConfirm: pickedValue => {
-                            var tableData = [];
-
-                            tableData.push('受试者出生日期')
-                            tableData.push('受试者性别')
-                            tableData.push('受试者姓名缩写')
-                            tableData.push('受试者手机')
-                            if (study.study.SubStudYN == 1){
-                                tableData.push('受试者是否参加子研究')
-                            }
-                            tableData.push('筛选结果')
-                            tableData.push('')
 
                             //ListView设置
                             var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                            this.setState({xb:pickedValue[0],dataSource: ds.cloneWithRows(tableData),})
+                            this.setState({xb:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
                         },
                         onPickerCancel: pickedValue => {
-                            var tableData = [];
-                            tableData.push('受试者出生日期')
-                            tableData.push('受试者性别')
-                            tableData.push('受试者姓名缩写')
-                            tableData.push('受试者手机')
-                            if (study.study.SubStudYN == 1){
-                                tableData.push('受试者是否参加子研究')
-                            }
-                            tableData.push('筛选结果')
-                            tableData.push('')
                             //ListView设置
                             var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                            this.setState({xb:'',dataSource: ds.cloneWithRows(tableData),})
+                            this.setState({xb:'',dataSource: ds.cloneWithRows(this.state.tableData),})
                         },
                         onPickerSelect: pickedValue => {
                             console.log('area', pickedValue[0]);
@@ -342,34 +565,14 @@ var Xzsxcgssz = React.createClass({
                         pickerData: data,
                         selectedValue: ['是'],
                         onPickerConfirm: pickedValue => {
-                            var tableData = [];
-                            tableData.push('受试者出生日期')
-                            tableData.push('受试者性别')
-                            tableData.push('受试者姓名缩写')
-                            tableData.push('受试者手机')
-                            if (study.study.SubStudYN == 1){
-                                tableData.push('受试者是否参加子研究')
-                            }
-                            tableData.push('筛选结果')
-                            tableData.push('')
                             //ListView设置
                             var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                            this.setState({zyj:pickedValue[0],dataSource: ds.cloneWithRows(tableData),})
+                            this.setState({zyj:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
                         },
                         onPickerCancel: pickedValue => {
-                            var tableData = [];
-                            tableData.push('受试者出生日期')
-                            tableData.push('受试者性别')
-                            tableData.push('受试者姓名缩写')
-                            tableData.push('受试者手机')
-                            if (study.study.SubStudYN == 1){
-                                tableData.push('受试者是否参加子研究')
-                            }
-                            tableData.push('筛选结果')
-                            tableData.push('')
                             //ListView设置
                             var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                            this.setState({zyj:'',dataSource: ds.cloneWithRows(tableData),})
+                            this.setState({zyj:'',dataSource: ds.cloneWithRows(this.state.tableData),})
                         },
                         onPickerSelect: pickedValue => {
 
@@ -377,13 +580,13 @@ var Xzsxcgssz = React.createClass({
                     });
                     Pickers.show();
                 }}>
-                    <MLTableCell title={rowData} rightTitle={this.state.zyj}/>
+                    <MLTableCell title={rowData} rightTitle={this.state.zyj} />
                 </TouchableOpacity>
             )
         }
         if (rowData == '筛选结果'){
             return(
-                <MLTableCell title={rowData} rightTitle='成功'/>
+                <MLTableCell title={rowData} rightTitle='成功' isArrow = {false}/>
             )
         }
         if (rowData == ''){
@@ -403,6 +606,9 @@ var Xzsxcgssz = React.createClass({
                 </View>
             )
         }
+        return(
+            <MLTableCell title={rowData}/>
+        )
     },
     getLogin(){
         if (this.state.csDate.length == 0){
@@ -514,6 +720,15 @@ var Xzsxcgssz = React.createClass({
                             phone:this.state.phone,
                             //是否参加子研究
                             zyj:this.state.zyj,
+                            LabelStraA:this.state.LabelStraA,
+                            LabelStraB:this.state.LabelStraB,
+                            LabelStraC:this.state.LabelStraC,
+                            LabelStraD:this.state.LabelStraD,
+                            LabelStraE:this.state.LabelStraE,
+                            LabelStraF:this.state.LabelStraF,
+                            LabelStraG:this.state.LabelStraG,
+                            LabelStraH:this.state.LabelStraH,
+                            LabelStraI:this.state.LabelStraI,
                             //中心数据
                             site:responseJson.site
                         }

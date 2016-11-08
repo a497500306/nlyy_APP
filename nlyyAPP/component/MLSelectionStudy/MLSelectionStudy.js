@@ -42,6 +42,7 @@ var SelectionStudy = React.createClass({
     },
 
     getInitialState() {
+        console.log(UserData.data);
         //[[研究A],[研究B]] 研究A:身份A,身份B ==[[身份A,身份B],[身份A,身份B]]
         var datas = [];
         for (var i = 0 ; i < UserData.data.length ; i++){
@@ -51,14 +52,15 @@ var SelectionStudy = React.createClass({
                 var isYj = false;
                 for (var j = 0 ; j < datas.length ; j++ ){
                     console.log('newData')
-                    console.log(datas[j][0])
+                    console.log(datas[j][0].StudySeq + UserData.data[i].StudySeq)
                     var newData = datas[j][0];
                     if (newData.StudySeq == UserData.data[i].StudySeq){
                         isYj = true;
                         datas[j].push(UserData.data[i])
                     }
                 }
-                if (isYj = false){
+                if (isYj == false){
+                    console.log('push')
                     datas.push([UserData.data[i]])
                 }
             }

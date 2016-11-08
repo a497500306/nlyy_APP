@@ -43,7 +43,16 @@ var XzsxcgsszQR = React.createClass({
             //是否参加子研究
             zyj:'',
             //中心数据
-            site:null
+            site:null,
+            LabelStraA:'',
+            LabelStraB:'',
+            LabelStraC:'',
+            LabelStraD:'',
+            LabelStraE:'',
+            LabelStraF:'',
+            LabelStraG:'',
+            LabelStraH:'',
+            LabelStraI:'',
         }
     },
     getInitialState() {
@@ -55,6 +64,7 @@ var XzsxcgsszQR = React.createClass({
         tableData.push('受试者性别')
         tableData.push('受试者姓名缩写')
         tableData.push('受试者手机号')
+
         if (researchParameter.researchParameter.LabelStraA != null){
             tableData.push(researchParameter.researchParameter.LabelStraA)
         }
@@ -66,6 +76,21 @@ var XzsxcgsszQR = React.createClass({
         }
         if (researchParameter.researchParameter.LabelStraD != null){
             tableData.push(researchParameter.researchParameter.LabelStraD)
+        }
+        if (researchParameter.researchParameter.LabelStraE != null){
+            tableData.push(researchParameter.researchParameter.LabelStraE)
+        }
+        if (researchParameter.researchParameter.LabelStraF != null){
+            tableData.push(researchParameter.researchParameter.LabelStraF)
+        }
+        if (researchParameter.researchParameter.LabelStraG != null){
+            tableData.push(researchParameter.researchParameter.LabelStraG)
+        }
+        if (researchParameter.researchParameter.LabelStraH != null){
+            tableData.push(researchParameter.researchParameter.LabelStraH)
+        }
+        if (researchParameter.researchParameter.LabelStraI != null){
+            tableData.push(researchParameter.researchParameter.LabelStraI)
         }
         if (study.study.SubStudYN == 1){
             tableData.push('受试者是否参加子研究')
@@ -136,38 +161,68 @@ var XzsxcgsszQR = React.createClass({
 
         }
 
+        //选择
         if (researchParameter.researchParameter.LabelStraA != null){
             if (rowData == researchParameter.researchParameter.LabelStraA){
                 return(
-                    <MLTableCell title={rowData} isArrow={false}/>
+                        <MLTableCell title={rowData} rightTitle={this.props.LabelStraA} isArrow={false}/>
                 )
-
             }
         }
-
         if (researchParameter.researchParameter.LabelStraB != null){
             if (rowData == researchParameter.researchParameter.LabelStraB){
                 return(
-                    <MLTableCell title={rowData} isArrow={false}/>
+                        <MLTableCell title={rowData} rightTitle={this.props.LabelStraB} isArrow={false}/>
                 )
-
             }
         }
         if (researchParameter.researchParameter.LabelStraC != null){
             if (rowData == researchParameter.researchParameter.LabelStraC){
                 return(
-                    <MLTableCell title={rowData} isArrow={false}/>
+                        <MLTableCell title={rowData} rightTitle={this.props.LabelStraC} isArrow={false}/>
                 )
-
             }
         }
-
         if (researchParameter.researchParameter.LabelStraD != null){
             if (rowData == researchParameter.researchParameter.LabelStraD){
                 return(
-                    <MLTableCell title={rowData} isArrow={false}/>
+                        <MLTableCell title={rowData} rightTitle={this.props.LabelStraD} isArrow={false}/>
                 )
-
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraE != null){
+            if (rowData == researchParameter.researchParameter.LabelStraE){
+                return(
+                        <MLTableCell title={rowData} rightTitle={this.props.LabelStraE} isArrow={false}/>
+                )
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraF != null){
+            if (rowData == researchParameter.researchParameter.LabelStraF){
+                return(
+                        <MLTableCell title={rowData} rightTitle={this.props.LabelStraF} isArrow={false}/>
+                )
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraG != null){
+            if (rowData == researchParameter.researchParameter.LabelStraG){
+                return(
+                        <MLTableCell title={rowData} rightTitle={this.props.LabelStraG} isArrow={false}/>
+                )
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraH != null){
+            if (rowData == researchParameter.researchParameter.LabelStraH){
+                return(
+                        <MLTableCell title={rowData} rightTitle={this.props.LabelStraH} isArrow={false}/>
+                )
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraI != null){
+            if (rowData == researchParameter.researchParameter.LabelStraI){
+                return(
+                    <MLTableCell title={rowData} rightTitle={this.props.LabelStraI} isArrow={false}/>
+                )
             }
         }
         if (rowData == '受试者是否参加子研究'){
@@ -224,10 +279,15 @@ var XzsxcgsszQR = React.createClass({
                 SubjIni:this.props.name,
                 SubjMP:this.props.phone,
                 RandoM:researchParameter.researchParameter.RandoM,
-                SubjFa:researchParameter.researchParameter.LabelStraA,
-                SubjFb:researchParameter.researchParameter.LabelStraB,
-                SubjFc:researchParameter.researchParameter.LabelStraC,
-                SubjFd:researchParameter.researchParameter.LabelStraD,
+                SubjFa:this.props.LabelStraA,
+                SubjFb:this.props.LabelStraB,
+                SubjFc:this.props.LabelStraC,
+                SubjFd:this.props.LabelStraD,
+                SubjFe:this.props.LabelStraE,
+                SubjFf:this.props.LabelStraF,
+                SubjFg:this.props.LabelStraG,
+                SubjFh:this.props.LabelStraH,
+                SubjFi:this.props.LabelStraI,
                 SubjStudYN:this.props.zyj
             })
         })
