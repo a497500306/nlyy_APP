@@ -14,16 +14,19 @@ import {
     DatePickerIOS,
     Picker,
     ActivityIndicator,
+    DeviceEventEmitter//通知
 
 } from 'react-native';
 //时间操作
 var moment = require('moment');
 moment().format();
 
+
 import Pickers from 'react-native-picker';
 
 // var Modal = require('react-native-modal');
 var Users = require('../../../entity/Users')
+var ExcludeStandard = require('../../../entity/ExcludeStandard');
 var MLModal = require('../../MLModal/MLModal');
 var study = require('../../../entity/study');
 var Dimensions = require('Dimensions');
@@ -32,16 +35,28 @@ var settings = require('../../../settings');
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var XzsxsbsszQR = require('./MLXzsxsbsszQR');
+var XzsxsbsszYY = require('./MLXzsxsbsszYY');
 
 var Xzsxsbssz = React.createClass({
+    componentWillUnmount(){
+        this.subscription.remove();
+    },
 
+    componentDidMount(){
+        this.subscription = DeviceEventEmitter.addListener('changeAvatar',this.refreshAAvatar);
+    },
+    refreshAAvatar(data){
+
+        //ListView设置
+        var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+        this.setState({SelectExcludeStandard:data,dataSource: ds.cloneWithRows(this.state.tableData),})
+
+        console.log('收到通知')
+    },
     getInitialState() {
         var tableData = [];
 
-        tableData.push('筛选失败原因A')
-        tableData.push('筛选失败原因B')
-        tableData.push('筛选失败原因C')
-        tableData.push('筛选失败原因D')
+        tableData.push('入排标准')
         tableData.push('受试者出生日期')
         tableData.push('受试者性别')
         tableData.push('受试者姓名缩写')
@@ -87,6 +102,7 @@ var Xzsxsbssz = React.createClass({
             //ListView设置
             tableData : tableData,
             dataSource: ds.cloneWithRows(tableData),
+            SelectExcludeStandard:null,
             xxa:'',
             xxb:'',
             xxc:'',
@@ -199,110 +215,18 @@ var Xzsxsbssz = React.createClass({
     },
     //返回具体的cell
     renderRow(rowData){
-        if (rowData == "筛选失败原因A") {
+        if (rowData == "入排标准") {
             return(
                 <TouchableOpacity onPress={()=>{
-                    Pickers.init({
-                        pickerData: this.state.yydata,
-                        onPickerConfirm: pickedValue => {
-                            //ListView设置
-                            var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                            this.setState({xxa:pickedValue[0],
-                                dataSource: ds.cloneWithRows(this.state.tableData),})
-
-                        },
-                        onPickerCancel: pickedValue => {
-                            //ListView设置
-                            var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                            this.setState({xxa:'',dataSource: ds.cloneWithRows(this.state.tableData),})
-                        },
-                        onPickerSelect: pickedValue => {
-                        }
+                    this.props.navigator.push({
+                        component: XzsxsbsszYY, // 具体路由的版块
                     });
-                    Pickers.show();
                 }}>
-                    <MLTableCell title={rowData} rightTitle={this.state.xxa}/>
+                    <MLTableCell title={rowData} rightTitle={this.state.SelectExcludeStandard == null ? '':this.state.SelectExcludeStandard.length}/>
                 </TouchableOpacity>
             )
         }
-        if (rowData == "筛选失败原因B") {
-            return(
-                <TouchableOpacity onPress={()=>{
-                    Pickers.init({
-                        pickerData: this.state.yydata,
-                        onPickerConfirm: pickedValue => {
-                            //ListView设置
-                            var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                            this.setState({xxb:pickedValue[0],
-                                dataSource: ds.cloneWithRows(this.state.tableData),})
 
-                        },
-                        onPickerCancel: pickedValue => {
-                            //ListView设置
-                            var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                            this.setState({xxb:'',dataSource: ds.cloneWithRows(this.state.tableData),})
-                        },
-                        onPickerSelect: pickedValue => {
-                        }
-                    });
-                    Pickers.show();
-                }}>
-                    <MLTableCell title={rowData} rightTitle={this.state.xxb}/>
-                </TouchableOpacity>
-            )
-        }
-        if (rowData == "筛选失败原因C") {
-            return(
-                <TouchableOpacity onPress={()=>{
-                    Pickers.init({
-                        pickerData: this.state.yydata,
-                        onPickerConfirm: pickedValue => {
-                            //ListView设置
-                            var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                            this.setState({xxc:pickedValue[0],
-                                dataSource: ds.cloneWithRows(this.state.tableData),})
-
-                        },
-                        onPickerCancel: pickedValue => {
-                            //ListView设置
-                            var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                            this.setState({xxc:'',dataSource: ds.cloneWithRows(this.state.tableData),})
-                        },
-                        onPickerSelect: pickedValue => {
-                        }
-                    });
-                    Pickers.show();
-                }}>
-                    <MLTableCell title={rowData} rightTitle={this.state.xxc}/>
-                </TouchableOpacity>
-            )
-        }
-        if (rowData == "筛选失败原因D") {
-            return(
-                <TouchableOpacity onPress={()=>{
-                    Pickers.init({
-                        pickerData: this.state.yydata,
-                        onPickerConfirm: pickedValue => {
-                            //ListView设置
-                            var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                            this.setState({xxd:pickedValue[0],
-                                dataSource: ds.cloneWithRows(this.state.tableData),})
-
-                        },
-                        onPickerCancel: pickedValue => {
-                            //ListView设置
-                            var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                            this.setState({xxd:'',dataSource: ds.cloneWithRows(this.state.tableData),})
-                        },
-                        onPickerSelect: pickedValue => {
-                        }
-                    });
-                    Pickers.show();
-                }}>
-                    <MLTableCell title={rowData} rightTitle={this.state.xxd}/>
-                </TouchableOpacity>
-            )
-        }
         if(rowData == "受试者出生日期") {
             return(
                 <TouchableOpacity onPress={()=>{
@@ -434,8 +358,8 @@ var Xzsxsbssz = React.createClass({
         if (this.state.csDate.length == 0){
             //错误
             Alert.alert(
+                '提示',
                 '出生年月为空',
-                null,
                 [
                     {text: '确定'}
                 ]
@@ -445,8 +369,8 @@ var Xzsxsbssz = React.createClass({
         if (this.state.xb.length == 0){
             //错误
             Alert.alert(
+                '提示',
                 '性别为空',
-                null,
                 [
                     {text: '确定'}
                 ]
@@ -456,8 +380,19 @@ var Xzsxsbssz = React.createClass({
         if (this.state.name.length == 0){
             //错误
             Alert.alert(
+                '提示',
                 '姓名缩写为空',
-                null,
+                [
+                    {text: '确定'}
+                ]
+            )
+            return
+        }
+        if (this.state.SelectExcludeStandard == null){
+            //错误
+            Alert.alert(
+                '提示',
+                '请选择入排标准',
                 [
                     {text: '确定'}
                 ]
@@ -509,6 +444,7 @@ var Xzsxsbssz = React.createClass({
                             xb:this.state.xb,
                             //姓名缩写
                             name:this.state.name,
+                            SelectExcludeStandard:this.state.SelectExcludeStandard,
                             //新增筛选失败A
                             xxa:this.state.xxa,
                             //新增筛选失败B

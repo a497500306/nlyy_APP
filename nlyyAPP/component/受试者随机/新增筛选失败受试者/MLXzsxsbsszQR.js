@@ -21,6 +21,7 @@ var moment = require('moment');
 moment().format();
 
 var study = require('../../../entity/study');
+var ExcludeStandard = require('../../../entity/ExcludeStandard');
 var researchParameter = require('../../../entity/researchParameter');
 
 var settings = require('../../../settings');
@@ -49,6 +50,7 @@ var XzsxcgsszQR = React.createClass({
             xxb:'',
             xxc:'',
             xxd:'',
+            SelectExcludeStandard:null
         }
     },
     getInitialState() {
@@ -59,10 +61,7 @@ var XzsxcgsszQR = React.createClass({
         tableData.push('受试者出生日期')
         tableData.push('受试者性别')
         tableData.push('受试者姓名缩写')
-        tableData.push('筛选失败原因A')
-        tableData.push('筛选失败原因B')
-        tableData.push('筛选失败原因C')
-        tableData.push('筛选失败原因D')
+        tableData.push('入排标准')
         if (study.study.SubStudYN == 1){
             tableData.push('受试者是否参加子研究')
         }
@@ -125,27 +124,9 @@ var XzsxcgsszQR = React.createClass({
                 <MLTableCell title={rowData} rightTitle={this.props.name} isArrow={false}/>
             )
         }
-        if (rowData == '筛选失败原因A'){
+        if (rowData == '入排标准'){
             return(
-                <MLTableCell title={rowData} rightTitle={this.props.xxa} isArrow={false}/>
-            )
-
-        }
-        if (rowData == '筛选失败原因B'){
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.xxb} isArrow={false}/>
-            )
-
-        }
-        if (rowData == '筛选失败原因C'){
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.xxc} isArrow={false}/>
-            )
-
-        }
-        if (rowData == '筛选失败原因D'){
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.xxd} isArrow={false}/>
+                <MLTableCell title={rowData} rightTitle={this.props.SelectExcludeStandard == null?'':this.props.SelectExcludeStandard.length} isArrow={false}/>
             )
 
         }
@@ -191,10 +172,7 @@ var XzsxcgsszQR = React.createClass({
                 StudyID: study.study.StudyID,
                 SiteID:this.props.site.SiteID,
                 ScreenYN:0,
-                ScreenNRea1:this.props.xxa,
-                ScreenNRea2:this.props.xxb,
-                ScreenNRea3:this.props.xxc,
-                ScreenNRea4:this.props.xxd,
+                ExcludeStandards:this.props.SelectExcludeStandard == null ? []:this.props.SelectExcludeStandard,
                 SubjectDOB:this.props.csDate,
                 SubjectSex:this.props.xb,
                 SubjectIn:this.props.name
