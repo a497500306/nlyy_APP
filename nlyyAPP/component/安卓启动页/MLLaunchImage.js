@@ -23,12 +23,22 @@ var Launch = React.createClass({
         return (
             <View style={styles.container}>
                 <View style={styles.biaoshiStyle}>
-                    <Text style={{color:'gray',fontSize: 14}}>诺兰医药科技有限公司</Text>
-                    <Text style={{color:'gray',fontSize: 14,marginTop:10,}}>随着走研究管理和随机平台</Text>
+                    <Text style={{color:'gray',fontSize: 14}}>上海诺兰医药科技有限公司</Text>
+                    <Text style={{color:'gray',fontSize: 18,marginTop:10,}}>随着走研究管理和随机平台</Text>
                     <Image
-                        style={{width:44, height:44,marginTop:10,marginBottom:20}}
+                        style={{width:44, height:44,marginTop:10}}
                         source={require('../../logo1025.png')}
                     />
+                    <View style={{marginTop:10,marginBottom:80,
+                        // 设置主轴的方向
+                        flexDirection:'row',
+                        // 垂直居中 ---> 设置侧轴的对齐方式
+                        alignItems:'center',
+                        // 设置主轴的对齐方式
+                        justifyContent:'space-around'}}>
+                        <Text style={{color:'gray',fontSize: 14}}>Copyright® </Text>
+                        <Text style={{color:'blue',fontSize: 14}}>www.knowlands.net</Text>
+                    </View>
                 </View>
             </View>
         );
