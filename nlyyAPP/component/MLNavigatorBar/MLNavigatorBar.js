@@ -29,8 +29,8 @@ var MLNavigatorBar = React.createClass({
                 <View>
                     <View style={styles.daohangIOSStyle}/>
                     <View style={styles.daohangStyle}>
-                        <TouchableOpacity style={{position:'absolute', left:20, bottom:7}} onPress={this.props.backFunc}>
-                            <Icon name="angle-left" size={30} color="white" />
+                        <TouchableOpacity style={{position:'absolute', left:0, bottom:7}} onPress={this.props.backFunc}>
+                            <Icon style={{marginLeft:15,marginRight:15}} name="angle-left" size={30} color="white" />
                         </TouchableOpacity>
                         <Text style={{color:'white',fontSize: 16}}>
                             {this.props.title}

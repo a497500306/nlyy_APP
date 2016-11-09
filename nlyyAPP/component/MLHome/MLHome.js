@@ -13,6 +13,7 @@ import {
     TouchableOpacity,
     Navigator,
     ListView,
+    Image,
     TouchableHighlight
 } from 'react-native';
 
@@ -48,7 +49,7 @@ var Home = React.createClass({
                     }
                 }
                 if (isY == false){
-                    tableData.push({title:'受试者随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'})
+                    tableData.push({title:'受试者随机',imageTitle:"people"})
                 }
                 // if (tableData.indexOf({title:'受试者随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'}) == -1){
                 //     tableData.push({title:'受试者随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'})
@@ -108,7 +109,7 @@ var Home = React.createClass({
                     }
                 }
                 if (isY == false){
-                    tableData.push({title:'停止入组',imageTitle:"info",iconColor:'rgba(0,136,212,1.0)'})
+                    tableData.push({title:'停止入组',imageTitle:'../../images/stop.png'})
                 }
             }
             if (data.UserFun == 'M1' || data.UserFun == 'H1' || data.UserFun == 'M4' ||
@@ -124,7 +125,7 @@ var Home = React.createClass({
                 }
             }
         }
-        tableData.push({title:'小助手',imageTitle:"th-list",iconColor:'rgba(0,136,212,1.0)'})
+        tableData.push({title:'小助手',imageTitle:"info",iconColor:'rgba(0,136,212,1.0)'})
 
         //ListView设置
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
@@ -158,57 +159,105 @@ var Home = React.createClass({
     //返回具体的cell
     renderRow(rowData){
         console.log('点击'+rowData.title);
-        return(
-            <TouchableOpacity onPress={()=>{
-                //设置数据
-                // 页面的切换
-                if (rowData.title == "受试者随机"){
-                    this.props.navigator.push({
-                        component: PatientRM, // 具体路由的版块
-                    });
-                }
-                if (rowData.title == "药物管理"){
-                    this.props.navigator.push({
-                        component: DrugsAI, // 具体路由的版块
-                    });
-                }
-                if (rowData.title == "随访管理"){
-                    this.props.navigator.push({
-                        component: FollowUpAI, // 具体路由的版块
-                    });
-                }
-                if (rowData.title == "揭盲"){
-                    this.props.navigator.push({
-                        component: Unblinding, // 具体路由的版块
-                    });
-                }
-                if (rowData.title == "停止入组"){
-                    this.props.navigator.push({
-                        component: StopEntry, // 具体路由的版块
-                    });
-                }
-                if (rowData.title == "研究管理"){
-                    this.props.navigator.push({
-                        component: ResearchAI, // 具体路由的版块
-                    });
-                }
-                if (rowData.title == "小助手"){
-                    this.props.navigator.push({
-                        component: Helper, // 具体路由的版块
-                    });
-                }
-            }}>
-                <View>
-                    <View style={styles.row}>
-                        <Icon name={rowData.imageTitle} size={60} color={rowData.iconColor} style={styles.thumb}/>
-                        <Text style={styles.text}>
-                            {rowData.title}
-                        </Text>
+        if (rowData.iconColor != null){
+
+            return(
+                <TouchableOpacity onPress={()=>{
+                    //设置数据
+                    // 页面的切换
+                    if (rowData.title == "受试者随机"){
+                        this.props.navigator.push({
+                            component: PatientRM, // 具体路由的版块
+                        });
+                    }
+                    if (rowData.title == "药物管理"){
+                        this.props.navigator.push({
+                            component: DrugsAI, // 具体路由的版块
+                        });
+                    }
+                    if (rowData.title == "随访管理"){
+                        this.props.navigator.push({
+                            component: FollowUpAI, // 具体路由的版块
+                        });
+                    }
+                    if (rowData.title == "揭盲"){
+                        this.props.navigator.push({
+                            component: Unblinding, // 具体路由的版块
+                        });
+                    }
+                    if (rowData.title == "停止入组"){
+                        this.props.navigator.push({
+                            component: StopEntry, // 具体路由的版块
+                        });
+                    }
+                    if (rowData.title == "研究管理"){
+                        this.props.navigator.push({
+                            component: ResearchAI, // 具体路由的版块
+                        });
+                    }
+                    if (rowData.title == "小助手"){
+                        this.props.navigator.push({
+                            component: Helper, // 具体路由的版块
+                        });
+                    }
+                }}>
+                    <View>
+                        <View style={styles.row}>
+                            <Icon name={rowData.imageTitle} size={60} color={rowData.iconColor} style={styles.thumb}/>
+                            <Text style={styles.text}>
+                                {rowData.title}
+                            </Text>
+                        </View>
                     </View>
-                </View>
-                {/*<MLTableCell title={rowData.title} iconTitl={rowData.imageTitle} iconColor={rowData.iconColor}/>*/}
-            </TouchableOpacity>
-        )
+                    {/*<MLTableCell title={rowData.title} iconTitl={rowData.imageTitle} iconColor={rowData.iconColor}/>*/}
+                </TouchableOpacity>
+            )
+        }else {
+            if (rowData.title == "受试者随机") {
+                return (
+                    <TouchableOpacity onPress={()=> {
+                        this.props.navigator.push({
+                            component: PatientRM, // 具体路由的版块
+                        });
+                    }}>
+                        <View>
+                            <View style={styles.row}>
+                                <Image
+                                    style={{width: 65, height: 65}}
+                                    source={require('../../images/people.png')}
+                                />
+                                <Text style={styles.text}>
+                                    {rowData.title}
+                                </Text>
+                            </View>
+                        </View>
+                        {/*<MLTableCell title={rowData.title} iconTitl={rowData.imageTitle} iconColor={rowData.iconColor}/>*/}
+                    </TouchableOpacity>
+                )
+            }
+            if (rowData.title == "停止入组") {
+                return (
+                    <TouchableOpacity onPress={()=> {
+                        this.props.navigator.push({
+                            component: StopEntry, // 具体路由的版块
+                        });
+                    }}>
+                        <View>
+                            <View style={styles.row}>
+                                <Image
+                                    style={{width: 65, height: 65}}
+                                    source={require('../../images/stop.png')}
+                                />
+                                <Text style={styles.text}>
+                                    {rowData.title}
+                                </Text>
+                            </View>
+                        </View>
+                        {/*<MLTableCell title={rowData.title} iconTitl={rowData.imageTitle} iconColor={rowData.iconColor}/>*/}
+                    </TouchableOpacity>
+                )
+            }
+        }
     },
 });
 

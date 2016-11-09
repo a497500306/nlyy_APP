@@ -486,6 +486,7 @@ var Xzsxcgssz = React.createClass({
                 <TouchableOpacity onPress={()=>{
                     Pickers.init({
                         pickerData: this.state.date,
+                        selectedValue: [1960,1,1],
                         onPickerConfirm: pickedValue => {
                             //ListView设置
                             var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
@@ -610,6 +611,17 @@ var Xzsxcgssz = React.createClass({
             <MLTableCell title={rowData}/>
         )
     },
+    IsNum(s)
+    {
+        if(s!=null){
+            var r,re;
+            re = /\d*/i; //\d表示数字,*表示匹配多个数字
+            r = s.match(re);
+            return (r==s)?true:false;
+        }
+        return false;
+    },
+
     getLogin(){
         if (this.state.csDate.length == 0){
             //错误
@@ -644,16 +656,26 @@ var Xzsxcgssz = React.createClass({
             )
             return
         }
-        if (this.state.phone.length == 0){
+        if (this.state.phone.length != 11){
             //错误
             Alert.alert(
-                '手机号为空',
+                '请输入正确的手机号',
                 null,
                 [
                     {text: '确定'}
                 ]
             )
-            return
+        }else if (/^\d+$/.test(this.state.phone) == false){
+            //判断是否为数字
+                //错误
+                Alert.alert(
+                    '请输入正确的手机号',
+                    null,
+                    [
+                        {text: '确定'}
+                    ]
+                )
+                return
         }
         if (study.study.SubStudYN == 1){
             if (this.state.zyj.length == 0){

@@ -13,7 +13,8 @@ import {
     TouchableOpacity,
     Navigator,
     TextInput,
-    ActivityIndicator
+    ActivityIndicator,
+    Modal
 } from 'react-native';
 
 
@@ -43,6 +44,12 @@ var MLModal = React.createClass({
     render() {
         if (this.props.isVisible == true){
             return (
+                <Modal
+                    animationType='slide'
+                    transparent={true}
+                    visible={this.state.show}
+                    onShow={() => {}}
+                    onRequestClose={() => {}} >
                 <View style={styles.container}>
                     <View style={styles.fudongViewStyle} onPress={()=>{
                         this.setState({
@@ -71,6 +78,7 @@ var MLModal = React.createClass({
                         </View>
                     </View>
                 </View>
+                    </Modal>
             );
         }else {
             return (
@@ -132,13 +140,11 @@ var MLModal = React.createClass({
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'center',
         alignItems: 'center',
-        position:'absolute',
+        justifyContent:'center',
+        flex:1,
         right:0,
         bottom:0,
-        width:width,
-        height:height,
         backgroundColor:'rgba(0,0,0,0.5)'
     },
     fudongViewStyle: {

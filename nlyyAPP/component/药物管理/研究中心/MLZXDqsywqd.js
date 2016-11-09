@@ -141,6 +141,12 @@ var ZXDqsywqd = React.createClass({
     },
     //返回具体的cell
     renderRow(rowData){
+        var UserSite = '';
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserSite != null) {
+                UserSite = Users.Users[i].UserSite
+            }
+        }
         return(
             <TouchableOpacity onPress={()=>{
                 FPQDData.FPQDData = rowData
@@ -172,7 +178,7 @@ var ZXDqsywqd = React.createClass({
                                 },
                                 body: JSON.stringify({
                                     id : rowData.id,
-                                    UsedCoreId : Users.Users.UserSite
+                                    UsedCoreId : UserSite
                                 })
                             })
                                 .then((response) => response.json())

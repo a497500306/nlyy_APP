@@ -44,11 +44,12 @@ var Mhcx = React.createClass({
                 <View style={styles.zongViewStyle}>
                     <TextInput style={styles.zhanghaoStyle}
                                textalign="center"
-                               placeholder="请输入受试者编号/姓名缩写/性别/手机号..."
+                               placeholder="请输入受试者编号或姓名缩写或性别或手机号..."
                                keyboardType="numeric"
                                clearButtonMode="always"
                                onChangeText={this.onZhanghao}//获取输入
                     />
+                    <Text style={{marginTop:10,}}>（‘001’，‘ZLY’，‘男’，‘13945678900’）</Text>
                     <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getLogin}>
                         <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
                             确 定

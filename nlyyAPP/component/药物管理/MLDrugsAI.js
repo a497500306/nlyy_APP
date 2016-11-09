@@ -15,7 +15,8 @@ import {
     View,
     TouchableOpacity,
     Navigator,
-    ListView
+    ListView,
+    Image
 } from 'react-native';
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
@@ -143,49 +144,72 @@ var DrugsAI = React.createClass({
 
     //返回具体的cell
     renderRow(rowData){
-        return(
-            <TouchableOpacity onPress={()=>{
-                if(rowData.title == "仓库") {
-                    console.log(users);
-                    //设置数据
-                    // 页面的切换
-                    this.props.navigator.push({
-                        component: Warehouse, // 具体路由的版块
-                    });
-                }
-                if(rowData.title  == "研究中心") {
-                    //设置数据
-                    // 页面的切换
-                    this.props.navigator.push({
-                        component: ResearchCore, // 具体路由的版块
-                    });
-                }
-                if (rowData.title  == '查询中心药物情况'){
-                    //设置数据
-                    // 页面的切换
-                    this.props.navigator.push({
-                        component: Cxzxywqk, // 具体路由的版块
-                    });
-
-                }
-                if (rowData.title  == '查询药物号'){
-                    //设置数据
-                    // 页面的切换
-                    this.props.navigator.push({
-                        component: CxywhSR, // 具体路由的版块
-                    });
-                }
-            }}>
-                <View>
-                    <View style={styles.row}>
-                        <Icon name={rowData.imageTitle} size={60} color={rowData.iconColor} style={styles.thumb}/>
-                        <Text style={styles.text}>
-                            {rowData.title}
-                        </Text>
+        if (rowData.title == "补充药物号"){
+            return (
+                <TouchableOpacity onPress={()=> {
+                    {/*this.props.navigator.push({*/}
+                        {/*component: StopEntry, // 具体路由的版块*/}
+                    {/*});*/}
+                }}>
+                    <View>
+                        <View style={styles.row}>
+                            <Image
+                                style={{width: 65, height: 65}}
+                                source={require('../../images/drug.png')}
+                            />
+                            <Text style={styles.text}>
+                                {rowData.title}
+                            </Text>
+                        </View>
                     </View>
-                </View>
-            </TouchableOpacity>
-        )
+                    {/*<MLTableCell title={rowData.title} iconTitl={rowData.imageTitle} iconColor={rowData.iconColor}/>*/}
+                </TouchableOpacity>
+            )
+        }else{
+            return(
+                <TouchableOpacity onPress={()=>{
+                    if(rowData.title == "仓库") {
+                        console.log(users);
+                        //设置数据
+                        // 页面的切换
+                        this.props.navigator.push({
+                            component: Warehouse, // 具体路由的版块
+                        });
+                    }
+                    if(rowData.title  == "研究中心") {
+                        //设置数据
+                        // 页面的切换
+                        this.props.navigator.push({
+                            component: ResearchCore, // 具体路由的版块
+                        });
+                    }
+                    if (rowData.title  == '查询中心药物情况'){
+                        //设置数据
+                        // 页面的切换
+                        this.props.navigator.push({
+                            component: Cxzxywqk, // 具体路由的版块
+                        });
+
+                    }
+                    if (rowData.title  == '查询药物号'){
+                        //设置数据
+                        // 页面的切换
+                        this.props.navigator.push({
+                            component: CxywhSR, // 具体路由的版块
+                        });
+                    }
+                }}>
+                    <View>
+                        <View style={styles.row}>
+                            <Icon name={rowData.imageTitle} size={60} color={rowData.iconColor} style={styles.thumb}/>
+                            <Text style={styles.text}>
+                                {rowData.title}
+                            </Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            )
+        }
     },
 });
 

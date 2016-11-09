@@ -232,6 +232,7 @@ var Xzsxsbssz = React.createClass({
                 <TouchableOpacity onPress={()=>{
                     Pickers.init({
                         pickerData: this.state.date,
+                        selectedValue: [1960,1,1],
                         onPickerConfirm: pickedValue => {
                             //ListView设置
                             var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});

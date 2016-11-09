@@ -224,10 +224,11 @@ var NewYwqd = React.createClass({
 
     //点击全选
     quanxuan(){
-        var datas = [];
         for(var i = 0 ; i < this.state.tableData.length ; i++){
-            data
+            this.state.tableData[i].isSelected = true;
         }
+        var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+        this.setState({dataSource: ds.cloneWithRows(this.state.tableData)});
     },
 
     //点击确定
