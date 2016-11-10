@@ -8,7 +8,8 @@ import {
     Text,
     View,
     Platform,
-    TouchableOpacity
+    TouchableOpacity,
+    BackAndroid
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -16,6 +17,13 @@ var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
 
 var MLNavigatorBar = React.createClass({
+
+    //组件挂载的时候调用
+    componentDidMount(){
+        BackAndroid.addEventListener('hardwareBackPress',function(){
+            this.props.backFunc();
+        })
+    },
     getDefaultProps(){
         return {
             title:"",

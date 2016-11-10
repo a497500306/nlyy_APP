@@ -57,7 +57,6 @@ var login = React.createClass({
                     this.setState({YZMBtnColor: 'gray'});
                     this.setState({YZMBtnTime:this.state.YZMBtnTime-1})
                 }else{
-                    console.log('倒计时2')
                     this.setState({YZMBtnColor: 'rgba(0,136,212,1.0)'});
                     this.setState({isYZMBtn:false})
                 }
