@@ -665,6 +665,7 @@ var Xzsxcgssz = React.createClass({
                     {text: '确定'}
                 ]
             )
+            return
         }else if (/^\d+$/.test(this.state.phone) == false){
             //判断是否为数字
                 //错误

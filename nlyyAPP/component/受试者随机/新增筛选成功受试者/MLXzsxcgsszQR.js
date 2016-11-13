@@ -311,7 +311,76 @@ var XzsxcgsszQR = React.createClass({
                         "该患者编号为:",
                         responseJson.USubjID,
                         [
-                            {text: '取随机号', onPress: () => {console.log('OK Pressed!')}},
+                            {text: '取随机号', onPress: () => {
+                                var UserSite = '';
+                                for (var i = 0 ; i < Users.Users.length ; i++) {
+                                    if (Users.Users[i].UserSite != null) {
+                                        UserSite = Users.Users[i].UserSite
+                                    }
+                                }
+                                //获取中心数据网络请求
+                                fetch(settings.fwqUrl + "/app/getRandomNumber", {
+                                    method: 'POST',
+                                    headers: {
+                                        'Accept': 'application/json; charset=utf-8',
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        StudyID: Users.Users[0].StudyID,
+                                        SubjFa : this.props.LabelStraA,
+                                        SubjFb : this.props.LabelStraB,
+                                        SubjFc : this.props.LabelStraC,
+                                        SubjFd : this.props.LabelStraD,
+                                        SubjFe : this.props.LabelStraE,
+                                        SubjFf : this.props.LabelStraF,
+                                        SubjFg : this.props.LabelStraG,
+                                        SubjFh : this.props.LabelStraH,
+                                        SubjFi : this.props.LabelStraI,
+                                        SiteID : UserSite,
+                                        userId : responseJson.id
+                                    })
+                                })
+                                    .then((response) => response.json())
+                                    .then((responseJson) => {
+                                        this.setState({
+                                            animating: false
+                                        })
+                                        if (responseJson.isSucceed == 200){
+                                            //错误
+                                            Alert.alert(
+                                                "提示",
+                                                responseJson.msg,
+                                                [
+                                                    {text: '确定'}
+                                                ]
+                                            )
+                                        }else {
+                                            //错误
+                                            Alert.alert(
+                                                "提示",
+                                                responseJson.msg,
+                                                [
+                                                    {text: '确定', onPress: () => this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[2])}
+                                                ]
+                                            )
+                                        }
+                                    })
+                                    .catch((error) => {//错误
+                                        this.setState({
+                                            animating: false
+                                        })
+                                        this.setState({animating:false});
+                                        console.log(error),
+                                            //错误
+                                            Alert.alert(
+                                                '请检查您的网络111',
+                                                null,
+                                                [
+                                                    {text: '确定'}
+                                                ]
+                                            )
+                                    });
+                            }},
                             {text: '下次再取', onPress: () => {this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[2])}}
                         ]
                     )

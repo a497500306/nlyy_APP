@@ -125,7 +125,7 @@ var Qsjh = React.createClass({
         }else{
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'药物操作'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'取药物号'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
                     <ListView
@@ -140,6 +140,7 @@ var Qsjh = React.createClass({
 
     //返回具体的cell
     renderRow(rowData,sectionID, rowID){
+        console.log(rowData)
         if (rowData.isSuccess == 1){
             if (rowData.Random == -1){
                 return(
@@ -149,7 +150,76 @@ var Qsjh = React.createClass({
                             "提示:",
                             "请选择你要操作的功能",
                             [
-                                {text: '取随机号', onPress: () => { }},
+                                {text: '取随机号', onPress: () => {
+                                    var UserSite = '';
+                                    for (var i = 0 ; i < Users.Users.length ; i++) {
+                                        if (Users.Users[i].UserSite != null) {
+                                            UserSite = Users.Users[i].UserSite
+                                        }
+                                    }
+                                    //获取中心数据网络请求
+                                    fetch(settings.fwqUrl + "/app/getRandomNumber", {
+                                        method: 'POST',
+                                        headers: {
+                                            'Accept': 'application/json; charset=utf-8',
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            StudyID: Users.Users[0].StudyID,
+                                            SubjFa : rowData.persons.SubjFa,
+                                            SubjFb : rowData.persons.SubjFb,
+                                            SubjFc : rowData.persons.SubjFc,
+                                            SubjFd : rowData.persons.SubjFd,
+                                            SubjFe : rowData.persons.SubjFe,
+                                            SubjFf : rowData.persons.SubjFf,
+                                            SubjFg : rowData.persons.SubjFg,
+                                            SubjFh : rowData.persons.SubjFh,
+                                            SubjFi : rowData.persons.SubjFi,
+                                            SiteID : UserSite,
+                                            userId : rowData.persons.id
+                                        })
+                                    })
+                                        .then((response) => response.json())
+                                        .then((responseJson) => {
+                                            this.setState({
+                                                animating: false
+                                            })
+                                            if (responseJson.isSucceed == 200){
+                                                //错误
+                                                Alert.alert(
+                                                    "提示",
+                                                    responseJson.msg,
+                                                    [
+                                                        {text: '确定'}
+                                                    ]
+                                                )
+                                            }else {
+                                                //错误
+                                                Alert.alert(
+                                                    "提示",
+                                                    responseJson.msg,
+                                                    [
+                                                        {text: '确定'}
+                                                    ]
+                                                )
+                                            }
+                                        })
+                                        .catch((error) => {//错误
+                                            this.setState({
+                                                animating: false
+                                            })
+                                            this.setState({animating:false});
+                                            console.log(error),
+                                                //错误
+                                                Alert.alert(
+                                                    '请检查您的网络111',
+                                                    null,
+                                                    [
+                                                        {text: '确定'}
+                                                    ]
+                                                )
+                                        });
+                                }},
                                 {text: '取消'}
                             ]
                         )
