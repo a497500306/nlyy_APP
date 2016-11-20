@@ -22,6 +22,8 @@ moment().format();
 
 var study = require('../../../entity/study');
 var researchParameter = require('../../../entity/researchParameter');
+
+var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
 var settings = require('../../../settings');
@@ -106,10 +108,25 @@ var XzsxcgsszQR = React.createClass({
             dataSource: ds.cloneWithRows(tableData),
             //ListView设置
             animating: false,
+
         }
     },
     render() {
         console.log(this.props.site)
+
+        if (this.state.animating == true){
+            return (
+                <View style={styles.container}>
+                    <MLNavigatorBar title={'新增筛选成功受试者'} isBack={true} backFunc={() => {
+                        this.props.navigator.pop()
+                    }}/>
+
+                    {/*设置完了加载的菊花*/}
+                    <MLActivityIndicatorView />
+                </View>
+
+            );
+        }else {
             return (
                 <View style={styles.container}>
                     <MLNavigatorBar title={'新增筛选成功受试者'} isBack={true} backFunc={() => {
@@ -121,6 +138,7 @@ var XzsxcgsszQR = React.createClass({
                     />
                 </View>
             );
+        }
     },
     //返回具体的cell
     renderRow(rowData){
@@ -312,6 +330,8 @@ var XzsxcgsszQR = React.createClass({
                         responseJson.USubjID,
                         [
                             {text: '取随机号', onPress: () => {
+                                //移除等待
+                                this.setState({animating:true});
                                 var UserSite = '';
                                 for (var i = 0 ; i < Users.Users.length ; i++) {
                                     if (Users.Users[i].UserSite != null) {

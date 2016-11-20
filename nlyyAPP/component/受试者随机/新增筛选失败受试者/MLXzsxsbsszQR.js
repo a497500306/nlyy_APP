@@ -23,6 +23,7 @@ moment().format();
 var study = require('../../../entity/study');
 var ExcludeStandard = require('../../../entity/ExcludeStandard');
 var researchParameter = require('../../../entity/researchParameter');
+var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
 
 var settings = require('../../../settings');
 var Dimensions = require('Dimensions');
@@ -80,17 +81,31 @@ var XzsxcgsszQR = React.createClass({
     },
     render() {
         console.log(this.props.site)
-        return (
-            <View style={styles.container}>
-                <MLNavigatorBar title={'新增筛选成功受试者'} isBack={true} backFunc={() => {
-                    this.props.navigator.pop()
-                }}/>
-                <ListView
-                    dataSource={this.state.dataSource}//数据源
-                    renderRow={this.renderRow}
-                />
-            </View>
-        );
+        if (this.state.animating == true){
+            return (
+                <View style={styles.container}>
+                    <MLNavigatorBar title={'新增筛选成功受试者'} isBack={true} backFunc={() => {
+                        this.props.navigator.pop()
+                    }}/>
+
+                    {/*设置完了加载的菊花*/}
+                    <MLActivityIndicatorView />
+                </View>
+
+            );
+        }else {
+            return (
+                <View style={styles.container}>
+                    <MLNavigatorBar title={'新增筛选成功受试者'} isBack={true} backFunc={() => {
+                        this.props.navigator.pop()
+                    }}/>
+                    <ListView
+                        dataSource={this.state.dataSource}//数据源
+                        renderRow={this.renderRow}
+                    />
+                </View>
+            );
+        }
     },
     //返回具体的cell
     renderRow(rowData){

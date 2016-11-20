@@ -19,12 +19,13 @@ import {
 
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
-
+var yytx = require('../用药提醒/MLYytx')
 var settings = require('../../../settings');
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../../entity/Users');
 var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
+var researchParameter = require('../../../entity/researchParameter')
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 var Qsjh = React.createClass({
@@ -151,6 +152,8 @@ var Qsjh = React.createClass({
                             "请选择你要操作的功能",
                             [
                                 {text: '取随机号', onPress: () => {
+                                    //移除等待
+                                    this.setState({animating:true})
                                     var UserSite = '';
                                     for (var i = 0 ; i < Users.Users.length ; i++) {
                                         if (Users.Users[i].UserSite != null) {
@@ -199,7 +202,7 @@ var Qsjh = React.createClass({
                                                     "提示",
                                                     responseJson.msg,
                                                     [
-                                                        {text: '确定'}
+                                                        {text: '确定', onPress: () => {this.props.navigator.pop()}}
                                                     ]
                                                 )
                                             }
@@ -235,7 +238,61 @@ var Qsjh = React.createClass({
                             "提示:",
                             "请选择你要操作的功能",
                             [
-                                {text: '发送药物提醒短信', onPress: () => { }},
+                                {text: '发送药物提醒短信', onPress: () => {
+                                    //判断该研究是否提供药物号
+                                    if (researchParameter.researchParameter.BlindSta == 1){
+                                        // 页面的切换
+                                        this.props.navigator.push({
+                                            //传递参数
+                                            passProps:{
+                                                userId : rowData.SubjMP,
+                                                phone : rowData.id
+                                            },
+                                            component: yytx, // 具体路由的版块
+                                        });
+                                    }else if (researchParameter.researchParameter.BlindSta == 2){
+                                        if (researchParameter.researchParameter.DrugNSBlind == 1){
+                                            // 页面的切换
+                                            this.props.navigator.push({
+                                                //传递参数
+                                                passProps:{
+                                                    userId : rowData.SubjMP,
+                                                    phone : rowData.id
+                                                },
+                                                component: yytx, // 具体路由的版块
+                                            });
+                                        }else{
+                                            //错误
+                                            Alert.alert(
+                                                '提示',
+                                                '该研究不提供药物号',
+                                                [
+                                                    {text: '确定'}
+                                                ]
+                                            )
+                                        }
+                                    }else {
+                                        if (researchParameter.researchParameter.DrugNOpen == 1){
+                                            // 页面的切换
+                                            this.props.navigator.push({
+                                                //传递参数
+                                                passProps:{
+                                                    userId : rowData.SubjMP,
+                                                    phone : rowData.id
+                                                },
+                                                component: yytx, // 具体路由的版块
+                                            });
+                                        }else{
+                                            Alert.alert(
+                                                '提示',
+                                                '该研究不提供药物号',
+                                                [
+                                                    {text: '确定'}
+                                                ]
+                                            )
+                                        }
+                                    }
+                                }},
                                 {text: '取消'}
                             ]
                         )

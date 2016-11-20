@@ -106,6 +106,17 @@ var login = React.createClass({
                             color="white"
                         />
                     </TouchableOpacity>
+                    <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getLogin1}>
+                        <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
+                            测 试
+                        </Text>
+                        <ActivityIndicator
+                            animating={this.state.animating}
+                            style={[styles.centering, {height: 30}]}
+                            size="small"
+                            color="white"
+                        />
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.biaoshiStyle}>
                     <Text style={{color:'gray',fontSize: 14}}>上海诺兰医药科技有限公司</Text>
@@ -305,6 +316,91 @@ var login = React.createClass({
                         {text: '确定'}
                     ]
                 )
+            });
+    },
+
+    //登录
+    getLogin1(){
+        // this.showProgressHUD();
+        if (this.state.zhanghao.length != 11){
+            Alert.alert(
+                '您输入的手机号有误',
+                null,
+                [
+                    {text: '确定'}
+                ]
+            );
+            return;
+        }
+        if (this.state.yanzhenma.length == 0){
+            Alert.alert(
+                '请输入验证码',
+                null,
+                [
+                    {text: '确定'}
+                ]
+            );
+            return;
+        }
+        if (this.state.dataYZM != this.state.yanzhenma){
+            Alert.alert(
+                '验证码输入错误',
+                null,
+                [
+                    {text: '确定'}
+                ]
+            );
+            return;
+        }
+        this.setState({animating:true});
+        //发送登录网络请求
+        fetch("http://192.168.1.18:8080" + "//AndroidBackstage/userLogin", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json; charset=utf-8',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                phone: this.state.zhanghao
+            })
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({animating:false});
+                if (responseJson.isSucceed == 200){
+                    //错误
+                    Alert.alert(
+                        responseJson.msg,
+                        null,
+                        [
+                            {text: '确定'}
+                        ]
+                    )
+                }else {
+                    UserData.phone = this.state.zhanghao;
+                    UserData.data = responseJson.data;
+                    this.setState({animating:false});
+                    // 页面的切换
+                    this.props.navigator.replace({
+                        name:'选择研究',
+                        component: SelectionStudy, // 具体路由的版块
+                        params: {
+                            phone: '321321'
+                        }
+                    });
+                }
+            })
+            .catch((error) => {//错误
+                this.setState({animating:false});
+                console.log(error),
+                    //错误
+                    Alert.alert(
+                        '请检查您的网络111',
+                        null,
+                        [
+                            {text: '确定'}
+                        ]
+                    )
             });
     }
 })
