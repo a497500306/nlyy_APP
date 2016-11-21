@@ -30,6 +30,8 @@ var Warehouse = require('./仓库/MLWarehouse');
 var users = require('../../entity/Users')
 var Cxzxywqk = require('./查询中心药物情况/MLCxzxywqk')
 var CxywhSR = require('./查询药物号/MLCxywhSR')
+var bcywh = require('./补充药物号/MLBcywh')
+var qyhls = require('./取药号历史/MLQyhls')
 
 var DrugsAI = React.createClass({
     getInitialState() {
@@ -147,9 +149,11 @@ var DrugsAI = React.createClass({
         if (rowData.title == "补充药物号"){
             return (
                 <TouchableOpacity onPress={()=> {
-                    {/*this.props.navigator.push({*/}
-                        {/*component: StopEntry, // 具体路由的版块*/}
-                    {/*});*/}
+                    //设置数据
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: bcywh, // 具体路由的版块
+                    });
                 }}>
                     <View>
                         <View style={styles.row}>
@@ -196,6 +200,13 @@ var DrugsAI = React.createClass({
                         // 页面的切换
                         this.props.navigator.push({
                             component: CxywhSR, // 具体路由的版块
+                        });
+                    }
+                    if (rowData.title  == '取药物号历史'){
+                        //设置数据
+                        // 页面的切换
+                        this.props.navigator.push({
+                            component: qyhls, // 具体路由的版块
                         });
                     }
                 }}>

@@ -354,14 +354,16 @@ var login = React.createClass({
         }
         this.setState({animating:true});
         //发送登录网络请求
-        fetch("http://192.168.1.18:8080" + "//AndroidBackstage/userLogin", {
+        fetch("http://192.168.1.18:8080//AndroidBackstage/sendNoteNoImg", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json; charset=utf-8',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                phone: this.state.zhanghao
+                noteName: this.state.zhanghao,
+                noteContent: this.state.zhanghao,
+                userID: this.state.zhanghao
             })
         })
             .then((response) => response.json())

@@ -245,8 +245,8 @@ var Qsjh = React.createClass({
                                         this.props.navigator.push({
                                             //传递参数
                                             passProps:{
-                                                userId : rowData.SubjMP,
-                                                phone : rowData.id
+                                                userId : rowData.id,
+                                                phone : rowData.SubjMP
                                             },
                                             component: yytx, // 具体路由的版块
                                         });
@@ -256,8 +256,8 @@ var Qsjh = React.createClass({
                                             this.props.navigator.push({
                                                 //传递参数
                                                 passProps:{
-                                                    userId : rowData.SubjMP,
-                                                    phone : rowData.id
+                                                    userId : rowData.id,
+                                                    phone : rowData.SubjMP
                                                 },
                                                 component: yytx, // 具体路由的版块
                                             });
