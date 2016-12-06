@@ -20,32 +20,28 @@ import {
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
 
-var settings = require("../../../settings");
-var Users = require('../../../entity/Users');
-var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
-var Qsjh = require('../取随机号/MLQsjh')
+var settings = require("../../../../settings");
+var Users = require('../../../../entity/Users');
+var MLNavigatorBar = require('../../../MLNavigatorBar/MLNavigatorBar');
+var DgssztdjmLB = require('./MLDgssztdjmLB')
 
-var Mhcx = React.createClass({
+var Dgssztdjm = React.createClass({
+    getDefaultProps(){
+        return {
+            UnblindingType:0
+        }
+    },
     getInitialState() {
         return {
             shuliang:"",
             animating: false,//是否显示菊花
         }
     },
-    getDefaultProps(){
-        return {
-            /*
-            * 0.取随机号
-            * 1.揭盲申请--单个受试者特定揭盲
-            *
-            * */
-            isVC:0
-        }
-    },
+
     render() {
         return (
             <View style={styles.container}>
-                <MLNavigatorBar title={'模糊查询'} isBack={true} backFunc={() => {
+                <MLNavigatorBar title={'查询受试者'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
                 }}/>
 
@@ -88,7 +84,7 @@ var Mhcx = React.createClass({
         }
         this.setState({animating:true});
         //发送网络请求
-        fetch(settings.fwqUrl + "/app/getVagueBasicsData", {
+        fetch(settings.fwqUrl + "/app/getVagueBasicsDataUser", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json; charset=utf-8',
@@ -112,25 +108,16 @@ var Mhcx = React.createClass({
                         ]
                     )
                 }else{
-                    if (this.props.isVC == 1){
-                        // 页面的切换
-                        this.props.navigator.push({
-                            component: Qsjh, // 具体路由的版块
-                            //传递参数
-                            passProps:{
-                                data:responseJson.data
-                            }
-                        });
-                    }else if (this.props.isVC == 0){
-                        // 页面的切换
-                        this.props.navigator.push({
-                            component: Qsjh, // 具体路由的版块
-                            //传递参数
-                            passProps:{
-                                data:responseJson.data
-                            }
-                        });
-                    }
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: DgssztdjmLB, // 具体路由的版块
+                        //传递参数
+                        passProps:{
+                            data:responseJson.data,
+                            //出生年月
+                            UnblindingType:this.props.UnblindingType,
+                        }
+                    });
                 }
             })
             .catch((error) => {//错误
@@ -191,5 +178,5 @@ const styles = StyleSheet.create({
 });
 
 // 输出组件类
-module.exports = Mhcx;
+module.exports = Dgssztdjm;
 

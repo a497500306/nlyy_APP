@@ -14,7 +14,8 @@ import {
     Navigator,
     ListView,
     Image,
-    TouchableHighlight
+    TouchableHighlight,
+    Alert
 } from 'react-native';
 
 var Dimensions = require('Dimensions');
@@ -22,6 +23,7 @@ var {width, height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/FontAwesome';
 var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../entity/Users');
+var researchParameter = require('../../entity/researchParameter');
 var MLTableCell = require('../MLTableCell/MLTableCell');
 var PatientRM = require('../受试者随机/MLPatientRM');
 var DrugsAI = require('../药物管理/MLDrugsAI');
@@ -181,9 +183,20 @@ var Home = React.createClass({
                         });
                     }
                     if (rowData.title == "揭盲"){
-                        this.props.navigator.push({
-                            component: Unblinding, // 具体路由的版块
-                        });
+                        if (researchParameter.researchParameter.BlindSta == 1){
+                            this.props.navigator.push({
+                                component: Unblinding, // 具体路由的版块
+                            });
+                        }else{
+                            //错误
+                            Alert.alert(
+                                '提示:',
+                                '该研究无揭盲操作',
+                                [
+                                    {text: '确定'}
+                                ]
+                            )
+                        }
                     }
                     if (rowData.title == "停止入组"){
                         this.props.navigator.push({

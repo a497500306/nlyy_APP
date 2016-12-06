@@ -23,41 +23,31 @@ var {width, height} = Dimensions.get('window');
 var settings = require("../../../settings");
 var Users = require('../../../entity/Users');
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
-var Qsjh = require('../取随机号/MLQsjh')
+var Cyxjdnsfssz = require('./MLCyxjdnsfssz')
 
-var Mhcx = React.createClass({
+var MLCyxjdnsfsszSR = React.createClass({
     getInitialState() {
         return {
             shuliang:"",
             animating: false,//是否显示菊花
         }
     },
-    getDefaultProps(){
-        return {
-            /*
-            * 0.取随机号
-            * 1.揭盲申请--单个受试者特定揭盲
-            *
-            * */
-            isVC:0
-        }
-    },
+
     render() {
         return (
             <View style={styles.container}>
-                <MLNavigatorBar title={'模糊查询'} isBack={true} backFunc={() => {
+                <MLNavigatorBar title={'查阅下阶段内随访受试者'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
                 }}/>
 
                 <View style={styles.zongViewStyle}>
                     <TextInput style={styles.zhanghaoStyle}
                                textalign="center"
-                               placeholder="请输入受试者编号或姓名缩写或性别或手机号..."
+                               placeholder="输入天数"
                                keyboardType="numeric"
                                clearButtonMode="always"
                                onChangeText={this.onZhanghao}//获取输入
                     />
-                    <Text style={{marginTop:10,}}>（‘001’，‘ZLY’，‘男’，‘13945678900’）</Text>
                     <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getLogin}>
                         <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
                             确 定
@@ -80,73 +70,55 @@ var Mhcx = React.createClass({
 
     //点击确定
     getLogin(){
-        var UserSite = '';
-        for (var i = 0 ; i < Users.Users.length ; i++) {
-            if (Users.Users[i].UserSite != null) {
-                UserSite = Users.Users[i].UserSite
+        if (check(this.state.shuliang) == 1){
+            if (this.state.shuliang > 21){
+                //错误
+                Alert.alert(
+                    '提示:',
+                    '不可大于21天',
+                    [
+                        {text: '确定'}
+                    ]
+                )
+                return
             }
-        }
-        this.setState({animating:true});
-        //发送网络请求
-        fetch(settings.fwqUrl + "/app/getVagueBasicsData", {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json; charset=utf-8',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                str : this.state.shuliang,
-                SiteID : UserSite,
-                StudyID : Users.Users[0].StudyID
-            })
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                this.setState({animating:false});
-                if (responseJson.data.length == 0) {
-                    Alert.alert(
-                        '提示:',
-                        '未查到相关数据',
-                        [
-                            {text: '确定'}
-                        ]
-                    )
-                }else{
-                    if (this.props.isVC == 1){
-                        // 页面的切换
-                        this.props.navigator.push({
-                            component: Qsjh, // 具体路由的版块
-                            //传递参数
-                            passProps:{
-                                data:responseJson.data
-                            }
-                        });
-                    }else if (this.props.isVC == 0){
-                        // 页面的切换
-                        this.props.navigator.push({
-                            component: Qsjh, // 具体路由的版块
-                            //传递参数
-                            passProps:{
-                                data:responseJson.data
-                            }
-                        });
-                    }
+            // 页面的切换
+            this.props.navigator.push({
+                component: Cyxjdnsfssz, // 具体路由的版块
+                //传递参数
+                passProps:{
+                    shuliang:this.state.shuliang
                 }
-            })
-            .catch((error) => {//错误
-                this.setState({animating:false});
-                console.log(error),
-                    //错误
-                    Alert.alert(
-                        '提示:',
-                        '请检查您的网络111',
-                        [
-                            {text: '确定'}
-                        ]
-                    )
             });
+        }else{
+            //错误
+            Alert.alert(
+                '提示:',
+                '请输入正确的正整数',
+                [
+                    {text: '确定'}
+                ]
+            )
+        }
     }
 });
+
+
+//判断是否为正整数
+function check(num){
+    var arr = /^[0-9]*[1-9][0-9]*$/.exec(num);
+    if(arr){
+        if(arr[1]){
+            return 2;
+        }
+        else{
+            return 1;
+        }
+    }
+    else{
+        return 3;
+    }
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -191,5 +163,5 @@ const styles = StyleSheet.create({
 });
 
 // 输出组件类
-module.exports = Mhcx;
+module.exports = MLCyxjdnsfsszSR;
 

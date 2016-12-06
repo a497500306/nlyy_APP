@@ -24,6 +24,7 @@ var MLTableCell = require('../MLTableCell/MLTableCell');
 var Users = require('../../entity/Users');
 var study = require('../../entity/study');
 var ExcludeStandard = require('../../entity/ExcludeStandard');
+var ApplicationAndAudit = require('../../entity/ApplicationAndAudit');
 var researchParameter = require('../../entity/researchParameter');
 var settings = require("../../settings");
 
@@ -135,9 +136,10 @@ var SelectionStudy = React.createClass({
                         }else {
                             //设置数据
                             Users.Users = rowData,
-                            researchParameter.researchParameter = responseJson.researchParameter,
-                            study.study = responseJson.study,
-                            ExcludeStandard.ExcludeStandard = responseJson.ExcludeStandard
+                            researchParameter.researchParameter = responseJson.researchParameter;
+                            study.study = responseJson.study;
+                            ExcludeStandard.ExcludeStandard = responseJson.ExcludeStandard;
+                            ApplicationAndAudit.ApplicationAndAudit = responseJson.ApplicationAndAudit;
                             if (study.study.StudIsOffline == 1){
                                 //错误
                                 Alert.alert(

@@ -52,7 +52,6 @@ var Qsjh = React.createClass({
             }
         }
         if (this.props.data == null) {
-
             this.setState({
                 DrugId : this.props.DrugId,
                 UsedAddressId : this.props.UsedAddressId,
@@ -114,7 +113,7 @@ var Qsjh = React.createClass({
         if (this.state.animating == true){
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'取药物号'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'受试者随机'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
 
@@ -126,7 +125,7 @@ var Qsjh = React.createClass({
         }else{
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'取药物号'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'受试者随机'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
                     <ListView
@@ -141,171 +140,185 @@ var Qsjh = React.createClass({
 
     //返回具体的cell
     renderRow(rowData,sectionID, rowID){
+        console.log(rowData.isUnblinding)
         console.log(rowData)
-        if (rowData.isSuccess == 1){
-            if (rowData.Random == -1){
+            if (rowData.isOut == 1) {
                 return(
-                    <TouchableOpacity onPress={()=>{
-                        //错误
-                        Alert.alert(
-                            "提示:",
-                            "请选择你要操作的功能",
-                            [
-                                {text: '取随机号', onPress: () => {
-                                    //移除等待
-                                    this.setState({animating:true})
-                                    var UserSite = '';
-                                    for (var i = 0 ; i < Users.Users.length ; i++) {
-                                        if (Users.Users[i].UserSite != null) {
-                                            UserSite = Users.Users[i].UserSite
-                                        }
-                                    }
-                                    //获取中心数据网络请求
-                                    fetch(settings.fwqUrl + "/app/getRandomNumber", {
-                                        method: 'POST',
-                                        headers: {
-                                            'Accept': 'application/json; charset=utf-8',
-                                            'Content-Type': 'application/json',
-                                        },
-                                        body: JSON.stringify({
-                                            StudyID: Users.Users[0].StudyID,
-                                            SubjFa : rowData.persons.SubjFa,
-                                            SubjFb : rowData.persons.SubjFb,
-                                            SubjFc : rowData.persons.SubjFc,
-                                            SubjFd : rowData.persons.SubjFd,
-                                            SubjFe : rowData.persons.SubjFe,
-                                            SubjFf : rowData.persons.SubjFf,
-                                            SubjFg : rowData.persons.SubjFg,
-                                            SubjFh : rowData.persons.SubjFh,
-                                            SubjFi : rowData.persons.SubjFi,
-                                            SiteID : UserSite,
-                                            userId : rowData.persons.id
-                                        })
-                                    })
-                                        .then((response) => response.json())
-                                        .then((responseJson) => {
-                                            this.setState({
-                                                animating: false
-                                            })
-                                            if (responseJson.isSucceed == 200){
-                                                //错误
-                                                Alert.alert(
-                                                    "提示",
-                                                    responseJson.msg,
-                                                    [
-                                                        {text: '确定'}
-                                                    ]
-                                                )
-                                            }else {
-                                                //错误
-                                                Alert.alert(
-                                                    "提示",
-                                                    responseJson.msg,
-                                                    [
-                                                        {text: '确定', onPress: () => {this.props.navigator.pop()}}
-                                                    ]
-                                                )
-                                            }
-                                        })
-                                        .catch((error) => {//错误
-                                            this.setState({
-                                                animating: false
-                                            })
-                                            this.setState({animating:false});
-                                            console.log(error),
-                                                //错误
-                                                Alert.alert(
-                                                    '请检查您的网络111',
-                                                    null,
-                                                    [
-                                                        {text: '确定'}
-                                                    ]
-                                                )
-                                        });
-                                }},
-                                {text: '取消'}
-                            ]
-                        )
-                    }}>
-                        <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'随机号:未取'}/>
-                    </TouchableOpacity>
+                    <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " + (rowData.isUnblinding == 1 ? ('揭盲:' + rowData.Arm) : "") } subTitleColor = {'black'} rightTitle={'已经完成或退出'} rightTitleColor = {'gray'}/>
                 )
             }else {
-                return(
-                    <TouchableOpacity onPress={()=>{
-                        //错误
-                        Alert.alert(
-                            "提示:",
-                            "请选择你要操作的功能",
-                            [
-                                {text: '发送药物提醒短信', onPress: () => {
-                                    //判断该研究是否提供药物号
-                                    if (researchParameter.researchParameter.BlindSta == 1){
-                                        // 页面的切换
-                                        this.props.navigator.push({
-                                            //传递参数
-                                            passProps:{
-                                                userId : rowData.id,
-                                                phone : rowData.SubjMP
-                                            },
-                                            component: yytx, // 具体路由的版块
-                                        });
-                                    }else if (researchParameter.researchParameter.BlindSta == 2){
-                                        if (researchParameter.researchParameter.DrugNSBlind == 1){
-                                            // 页面的切换
-                                            this.props.navigator.push({
-                                                //传递参数
-                                                passProps:{
-                                                    userId : rowData.id,
-                                                    phone : rowData.SubjMP
+                if (rowData.isSuccess == 1){
+                    if (rowData.Random == -1){
+                        return (
+                            <TouchableOpacity onPress={()=> {
+                                //错误
+                                Alert.alert(
+                                    "提示:",
+                                    "请选择你要操作的功能",
+                                    [
+                                        {
+                                            text: '取随机号', onPress: () => {
+                                            //移除等待
+                                            this.setState({animating: true})
+                                            var UserSite = '';
+                                            for (var i = 0; i < Users.Users.length; i++) {
+                                                if (Users.Users[i].UserSite != null) {
+                                                    UserSite = Users.Users[i].UserSite
+                                                }
+                                            }
+                                            //获取中心数据网络请求
+                                            fetch(settings.fwqUrl + "/app/getRandomNumber", {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Accept': 'application/json; charset=utf-8',
+                                                    'Content-Type': 'application/json',
                                                 },
-                                                component: yytx, // 具体路由的版块
-                                            });
-                                        }else{
-                                            //错误
-                                            Alert.alert(
-                                                '提示',
-                                                '该研究不提供药物号',
-                                                [
-                                                    {text: '确定'}
-                                                ]
-                                            )
+                                                body: JSON.stringify({
+                                                    StudyID: Users.Users[0].StudyID,
+                                                    SubjFa: rowData.persons.SubjFa,
+                                                    SubjFb: rowData.persons.SubjFb,
+                                                    SubjFc: rowData.persons.SubjFc,
+                                                    SubjFd: rowData.persons.SubjFd,
+                                                    SubjFe: rowData.persons.SubjFe,
+                                                    SubjFf: rowData.persons.SubjFf,
+                                                    SubjFg: rowData.persons.SubjFg,
+                                                    SubjFh: rowData.persons.SubjFh,
+                                                    SubjFi: rowData.persons.SubjFi,
+                                                    SiteID: UserSite,
+                                                    userId: rowData.persons.id
+                                                })
+                                            })
+                                                .then((response) => response.json())
+                                                .then((responseJson) => {
+                                                    this.setState({
+                                                        animating: false
+                                                    })
+                                                    if (responseJson.isSucceed == 200) {
+                                                        //错误
+                                                        Alert.alert(
+                                                            "提示",
+                                                            responseJson.msg,
+                                                            [
+                                                                {text: '确定'}
+                                                            ]
+                                                        )
+                                                    } else {
+                                                        //错误
+                                                        Alert.alert(
+                                                            "提示",
+                                                            responseJson.msg,
+                                                            [
+                                                                {
+                                                                    text: '确定', onPress: () => {
+                                                                    this.props.navigator.pop()
+                                                                }
+                                                                }
+                                                            ]
+                                                        )
+                                                    }
+                                                })
+                                                .catch((error) => {//错误
+                                                    this.setState({
+                                                        animating: false
+                                                    })
+                                                    this.setState({animating: false});
+                                                    console.log(error),
+                                                        //错误
+                                                        Alert.alert(
+                                                            '请检查您的网络111',
+                                                            null,
+                                                            [
+                                                                {text: '确定'}
+                                                            ]
+                                                        )
+                                                });
                                         }
-                                    }else {
-                                        if (researchParameter.researchParameter.DrugNOpen == 1){
-                                            // 页面的切换
-                                            this.props.navigator.push({
-                                                //传递参数
-                                                passProps:{
-                                                    userId : rowData.SubjMP,
-                                                    phone : rowData.id
-                                                },
-                                                component: yytx, // 具体路由的版块
-                                            });
-                                        }else{
-                                            Alert.alert(
-                                                '提示',
-                                                '该研究不提供药物号',
-                                                [
-                                                    {text: '确定'}
-                                                ]
-                                            )
-                                        }
-                                    }
-                                }},
-                                {text: '取消'}
-                            ]
+                                        },
+                                        {text: '取消'}
+                                    ]
+                                )
+                            }}>
+                                <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " + (rowData.isUnblinding == 1 ? ('揭盲:' + rowData.Arm) : "")}
+                                             subTitleColor={'black'} rightTitle={'随机号:未取'}/>
+                            </TouchableOpacity>
                         )
-                    }}>
-                        <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'随机号:' + rowData.Random} rightTitleColor = {'black'}/>
-                    </TouchableOpacity>
-                )
+                    }else {
+                        return(
+                            <TouchableOpacity onPress={()=>{
+                                //错误
+                                Alert.alert(
+                                    "提示:",
+                                    "请选择你要操作的功能",
+                                    [
+                                        {text: '发送药物提醒短信', onPress: () => {
+                                            //判断该研究是否提供药物号
+                                            if (researchParameter.researchParameter.BlindSta == 1){
+                                                // 页面的切换
+                                                this.props.navigator.push({
+                                                    //传递参数
+                                                    passProps:{
+                                                        userId : rowData.id,
+                                                        phone : rowData.SubjMP
+                                                    },
+                                                    component: yytx, // 具体路由的版块
+                                                });
+                                            }else if (researchParameter.researchParameter.BlindSta == 2){
+                                                if (researchParameter.researchParameter.DrugNSBlind == 1){
+                                                    // 页面的切换
+                                                    this.props.navigator.push({
+                                                        //传递参数
+                                                        passProps:{
+                                                            userId : rowData.id,
+                                                            phone : rowData.SubjMP
+                                                        },
+                                                        component: yytx, // 具体路由的版块
+                                                    });
+                                                }else{
+                                                    //错误
+                                                    Alert.alert(
+                                                        '提示',
+                                                        '该研究不提供药物号',
+                                                        [
+                                                            {text: '确定'}
+                                                        ]
+                                                    )
+                                                }
+                                            }else {
+                                                if (researchParameter.researchParameter.DrugNOpen == 1){
+                                                    // 页面的切换
+                                                    this.props.navigator.push({
+                                                        //传递参数
+                                                        passProps:{
+                                                            userId : rowData.SubjMP,
+                                                            phone : rowData.id
+                                                        },
+                                                        component: yytx, // 具体路由的版块
+                                                    });
+                                                }else{
+                                                    Alert.alert(
+                                                        '提示',
+                                                        '该研究不提供药物号',
+                                                        [
+                                                            {text: '确定'}
+                                                        ]
+                                                    )
+                                                }
+                                            }
+                                        }},
+                                        {text: '取消'}
+                                    ]
+                                )
+                            }}>
+                                <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " + (rowData.isUnblinding == 1 ? ('揭盲:' + rowData.Arm) : "") } subTitleColor = {'black'} rightTitle={'随机号:' + rowData.Random} rightTitleColor = {'black'}/>
+                            </TouchableOpacity>
+                        )
+                    }
+                }else {
+                    return(
+                        <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " + (rowData.isUnblinding == 1 ? ('揭盲:' + rowData.Arm) : "")} subTitleColor = {'black'} rightTitle={'筛选失败用户'} rightTitleColor = {'gray'}/>
+                    )
+                }
             }
-        }else {
-            return(
-                <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'筛选失败用户'} rightTitleColor = {'gray'}/>
-            )
-        }
     },
 });
 

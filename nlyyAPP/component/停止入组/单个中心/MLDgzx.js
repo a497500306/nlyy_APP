@@ -29,6 +29,7 @@ import {
 
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../../entity/Users');
+var ApplicationAndAudit = require('../../../entity/ApplicationAndAudit');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var PatientRM = require('../../受试者随机/MLPatientRM');
 var TzrzZxTable = require('./MLTzrzZxTable')
@@ -36,33 +37,44 @@ var Dshlb = require('./MLDshlb')
 var DshlbYtzrzLB = require('./MLDgzxYtzrzLB')
 var Dgzx = React.createClass({
     getInitialState() {
-
+        var shengqing = [];
+        var shenghe = [];
+        for (var y = 0 ; y < ApplicationAndAudit.ApplicationAndAudit.length ; y++) {
+            if (ApplicationAndAudit.ApplicationAndAudit[y].EventApp == 2){
+                shengqing = ApplicationAndAudit.ApplicationAndAudit[y].EventAppUsers.split(",");
+            }
+            if (ApplicationAndAudit.ApplicationAndAudit[y].EventRev == 2){
+                shenghe = ApplicationAndAudit.ApplicationAndAudit[y].EventRevUsers.split(",");
+            }
+        }
         var tableData = [];
         for (var i = 0 ; i < Users.Users.length ; i++){
             var data = Users.Users[i];
-            //判断用户类别
-            if (data.UserFun == 'H2' || data.UserFun == 'H3' ||
-                data.UserFun == 'S1' || data.UserFun == 'M7'){
-                var isY = false
-                for (var j = 0 ; j < tableData.length ; j++){
-                    if (tableData[j] == '申请'){
-                        isY = true;
+            for (var y = 0 ; y < shengqing.length ; y++) {
+                if (data.UserFun == shengqing[y]){
+                    var isY = false
+                    for (var j = 0 ; j < tableData.length ; j++){
+                        if (tableData[j] == '申请'){
+                            isY = true;
+                        }
                     }
-                }
-                if (isY == false){
-                    tableData.push('申请')
+                    if (isY == false){
+                        tableData.push('申请')
+                    }
                 }
             }
             //判断用户类别
-            if (data.UserFun == 'M1' || data.UserFun == 'C1'){
-                var isY = false
-                for (var j = 0 ; j < tableData.length ; j++){
-                    if (tableData[j] == '审核列表'){
-                        isY = true;
+            for (var y = 0 ; y < shenghe.length ; y++) {
+                if (data.UserFun == shenghe[y]){
+                    var isY = false
+                    for (var j = 0 ; j < tableData.length ; j++){
+                        if (tableData[j] == '审核'){
+                            isY = true;
+                        }
                     }
-                }
-                if (isY == false){
-                    tableData.push('审核列表')
+                    if (isY == false){
+                        tableData.push('审核')
+                    }
                 }
             }
             //判断用户类别

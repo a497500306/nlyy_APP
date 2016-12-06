@@ -25,24 +25,63 @@ var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../entity/Users');
 var MLTableCell = require('../MLTableCell/MLTableCell');
 var PatientRM = require('../受试者随机/MLPatientRM');
+var Sszjxfsrq = require('../随访管理/受试者基线访视日期/MLSszjxfsrq');
+var CyxjdnsfsszSR = require('../随访管理/查阅下降段内随访受试者/MLCyxjdnsfsszSR');
+var Djssztchwc = require('../随访管理/登记受试者退出或完成/MLDjssztchwc');
+var Fsywtxdx = require('../随访管理/发送药物提醒短信/MLFsywtxdx');
 
 var FollowUpAI = React.createClass({
     getInitialState() {
-
-        var tableData = [];
-
         //判断用户类别
-        if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' || Users.Users.UserFun == 'S1'){
-            tableData.push('受试者基线访视日期')
-        }
-        if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' || Users.Users.UserFun == 'S1'){
-            tableData.push('查阅下阶段内随访受试者')
-        }
-        if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' || Users.Users.UserFun == 'S1'){
-            tableData.push('登记受试者退出或完成')
-        }
-        if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' || Users.Users.UserFun == 'S1'){
-            tableData.push('发送药物提醒短信')
+        var tableData = [];
+        for (var i = 0 ; i < Users.Users.length ; i++){
+            var data = Users.Users[i];
+            //判断用户类别
+            //判断用户类别
+            if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j] == '受试者基线访视日期'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push('受试者基线访视日期')
+                }
+            }
+            if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j] == '查阅下阶段内随访受试者'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push('查阅下阶段内随访受试者')
+                }
+            }
+            if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j] == '登记受试者退出或完成'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push('登记受试者退出或完成')
+                }
+            }
+            if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j] == '发送药物提醒短信'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push('发送药物提醒短信')
+                }
+            }
         }
 
         //ListView设置
@@ -63,9 +102,6 @@ var FollowUpAI = React.createClass({
                     dataSource={this.state.dataSource}//数据源
                     renderRow={this.renderRow}
                 />
-                {/*<ScrollView>*/}
-                {/*{this.tableCell()}*/}
-                {/*</ScrollView>*/}
             </View>
         );
     },
@@ -74,12 +110,27 @@ var FollowUpAI = React.createClass({
     renderRow(rowData){
         return(
             <TouchableOpacity onPress={()=>{
-                //设置数据
-                console.log(Users.Users)
-                // 页面的切换
-                this.props.navigator.push({
-                    component: PatientRM, // 具体路由的版块
-                });
+                if (rowData == '受试者基线访视日期'){
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: Sszjxfsrq, // 具体路由的版块
+                    });
+                }else if (rowData == '查阅下阶段内随访受试者'){
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: CyxjdnsfsszSR, // 具体路由的版块
+                    });
+                }else if (rowData == '登记受试者退出或完成'){
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: Djssztchwc, // 具体路由的版块
+                    });
+                }else if (rowData == '发送药物提醒短信'){
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: Fsywtxdx, // 具体路由的版块
+                    });
+                }
             }}>
                 <MLTableCell title={rowData}/>
             </TouchableOpacity>

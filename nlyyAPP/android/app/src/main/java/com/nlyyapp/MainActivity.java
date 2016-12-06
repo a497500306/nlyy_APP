@@ -1,9 +1,10 @@
 package com.nlyyapp;
 
 import com.facebook.react.ReactActivity;
-import com.oblador.vectoricons.VectorIconsPackage;
+import cn.reactnative.modules.update.UpdateContext;
 
 public class MainActivity extends ReactActivity {
+
 
     /**
      * Returns the name of the main component registered from JavaScript.
@@ -12,5 +13,10 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "nlyyAPP";
+    }
+
+
+    protected String getJSBundleFile() {
+        return UpdateContext.getBundleUrl(this);
     }
 }

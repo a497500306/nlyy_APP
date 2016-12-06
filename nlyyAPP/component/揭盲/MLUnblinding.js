@@ -28,18 +28,39 @@ var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../entity/Users');
 var MLTableCell = require('../MLTableCell/MLTableCell');
 var PatientRM = require('../受试者随机/MLPatientRM');
+var jmsq = require('./揭盲申请/MLJmsq');
+var Djm = require('./待揭盲/MLDjm');
 
 var Unblinding = React.createClass({
     getInitialState() {
 
         var tableData = [];
-
-        //判断用户类别
-        if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' || Users.Users.UserFun == 'S1'){
-            tableData.push('揭盲申请')
-        }
-        if (Users.Users.UserFun == 'H2' || Users.Users.UserFun == 'H3' || Users.Users.UserFun == 'S1' || Users.Users.UserFun == 'C1'){
-            tableData.push('待揭盲')
+        for (var i = 0 ; i < Users.Users.length ; i++){
+            var data = Users.Users[i];
+            //判断用户类别
+            //判断用户类别
+            if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j] == '揭盲申请'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push('揭盲申请')
+                }
+            }
+            if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1' || data.UserFun == 'C1'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j] == '待揭盲'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push('待揭盲')
+                }
+            }
         }
 
         //ListView设置
@@ -69,18 +90,33 @@ var Unblinding = React.createClass({
 
     //返回具体的cell
     renderRow(rowData){
-        return(
-            <TouchableOpacity onPress={()=>{
-                //设置数据
-                console.log(Users.Users)
-                // 页面的切换
-                this.props.navigator.push({
-                    component: PatientRM, // 具体路由的版块
-                });
-            }}>
-                <MLTableCell title={rowData}/>
-            </TouchableOpacity>
-        )
+        if (rowData == '揭盲申请'){
+            return(
+                <TouchableOpacity onPress={()=>{
+                    //设置数据
+                    console.log(Users.Users)
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: jmsq, // 具体路由的版块
+                    });
+                }}>
+                    <MLTableCell title={rowData}/>
+                </TouchableOpacity>
+            )
+        }else if (rowData == '待揭盲'){
+            return(
+                <TouchableOpacity onPress={()=>{
+                    //设置数据
+                    console.log(Users.Users)
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: Djm, // 具体路由的版块
+                    });
+                }}>
+                    <MLTableCell title={rowData}/>
+                </TouchableOpacity>
+            )
+        }
     },
 });
 

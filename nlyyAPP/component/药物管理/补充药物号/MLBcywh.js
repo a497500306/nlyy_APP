@@ -283,7 +283,6 @@ var Bcywh = React.createClass({
                 )
             }}>
                 <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={rowData.isSuccess == 1 ? '随机号:' + rowData.Random : "筛选失败受试者"} rightTitleColor = {rowData.isSuccess == 1 ? 'black': "gray"}/>
-
             </TouchableOpacity>
         )
     },
