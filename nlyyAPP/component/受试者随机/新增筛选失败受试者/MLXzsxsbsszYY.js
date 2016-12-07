@@ -37,8 +37,23 @@ var XzsxsbsszYY = React.createClass({
     getInitialState() {
 
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-        var tableData = ExcludeStandard.ExcludeStandard
+        var tableData = [];
+        var ii = 0
+        for (var i = 0 ; i < ExcludeStandard.ExcludeStandard.length ; i++){
+            var data = ExcludeStandard.ExcludeStandard[i];
+            if (data.IECatn == "入选标准"){
+                tableData.push(data);
+                ii++
+            }
+        }
+        for (var i = 0 ; i < ExcludeStandard.ExcludeStandard.length ; i++){
+            var data = ExcludeStandard.ExcludeStandard[i];
+            if (data.IECatn != "入选标准"){
+                tableData.push(data);
+            }
+        }
         return {
+            ii : ii,
             tableData:tableData,
             //ListView设置
             dataSource: ds.cloneWithRows(tableData),
@@ -77,9 +92,10 @@ var XzsxsbsszYY = React.createClass({
 
     //返回具体的cell
     renderRow(rowData,sectionID, rowID){
+        console.log(rowData)
         if (this.state.tableData[rowID].isSelected == true){
             return(
-                <TouchableOpacity onPress={()=>{
+                <TouchableOpacity  style={{marginTop : (this.state.ii == rowID ? 10 : 1),}} onPress={()=>{
                     this.state.tableData[rowID].isSelected = !this.state.tableData[rowID].isSelected
                     console.log('取消添加' + this.state.tableData[rowID].isSelected)
 
@@ -119,7 +135,7 @@ var XzsxsbsszYY = React.createClass({
         }else{
             this.state.tableData[rowID].isSelected = false;
             return(
-                <TouchableOpacity onPress={()=>{
+                <TouchableOpacity  style={{marginTop : (this.state.ii == rowID ? 10 : 1),}} onPress={()=>{
                     this.state.tableData[rowID].isSelected = !this.state.tableData[rowID].isSelected
                     console.log('添加进去' + this.state.tableData[rowID].isSelected)
 
@@ -142,6 +158,13 @@ var XzsxsbsszYY = React.createClass({
     //点击确定
     getLogin(){
         //发送通知
+        var tableData =[];
+        for (var i = 0 ; i < this.state.tableData.length ; i++) {
+            var data = this.state.tableData[i];
+            data.isSelected = false
+            tableData.push(data)
+        }
+        this.setState({tableData:tableData})
         DeviceEventEmitter.emit('changeAvatar',this.state.xuanzhongData);
         this.props.navigator.pop()
     }

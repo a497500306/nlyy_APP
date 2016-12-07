@@ -59,7 +59,7 @@ var MLTableCell = React.createClass({
     renderLeftIcon(){
         if (this.props.iconTitl != ''){
             return(
-                <Icon name={this.props.iconTitl} size={20} color={this.props.iconColor} style={{position:'absolute', left:10, bottom:12}}/>
+                <Icon name={this.props.iconTitl} size={20} color={this.props.iconColor} style={{position:'absolute', left:10, bottom:17}}/>
             )
         }
     },
@@ -114,7 +114,7 @@ var MLTableCell = React.createClass({
     //设置右边文字
     renderRightText(){
         return(
-            <View style={{position:'absolute', right:30, top:16}}>
+            <View style={{position:'absolute', right:30, top:20}}>
                 <Text style={{color:this.props.rightTitleColor}}>
                     {this.props.rightTitle}
                 </Text>
@@ -126,7 +126,7 @@ var MLTableCell = React.createClass({
     renderRightView(){
         if (this.props.isArrow == true){
             return(
-                <Icon name="angle-right" size={30} color='rgba(191,191,191,1.0)' style={{position:'absolute', right:10, bottom:7}}/>
+                <Icon name="angle-right" size={30} color='rgba(191,191,191,1.0)' style={{position:'absolute', right:10, bottom:12}}/>
             )
         }
     }
@@ -134,7 +134,7 @@ var MLTableCell = React.createClass({
 
 const styles = StyleSheet.create({
     container:{
-        height:44,
+        height:54,
         backgroundColor:'white',
         borderBottomColor:'#dddddd',
         borderBottomWidth:0.5,

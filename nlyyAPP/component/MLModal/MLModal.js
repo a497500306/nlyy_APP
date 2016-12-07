@@ -96,7 +96,6 @@ var MLModal = React.createClass({
                     <TextInput style={styles.zhanghaoStyle}
                                textalign="center"
                                placeholder={this.props.placeholders[i]}
-                               keyboardType="numeric"
                                clearButtonMode="always"
                                onChangeText={(text) => {
                                    //返回出去

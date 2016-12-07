@@ -37,12 +37,18 @@ var XzsxcgsszQR = require('./MLXzsxcgsszQR')
 var Xzsxcgssz = React.createClass({
 
     getInitialState() {
+        var UserSite = '';
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserSite != null) {
+                UserSite = Users.Users[i].UserSite
+            }
+        }
         var tableData = [];
 
         tableData.push('受试者出生日期')
         tableData.push('受试者性别')
         tableData.push('受试者姓名缩写')
-        tableData.push('受试者手机')
+        tableData.push('受试者手机号')
         if (study.study.SubStudYN == 1){
             tableData.push('受试者是否参加子研究')
         }
@@ -141,7 +147,7 @@ var Xzsxcgssz = React.createClass({
             LabelStraF:'',
             LabelStraG:'',
             LabelStraH:'',
-            LabelStraI:'',
+            LabelStraI:UserSite,
             //是否显示moda
             isModalOpen:false,
             //输入框显示文字
@@ -203,7 +209,7 @@ var Xzsxcgssz = React.createClass({
                                  }
                              }}
                              quxiao={(text) => {
-                                 this.setState({isModalOpen:false,srkxswz:['受试者姓名缩写']})
+                                 this.setState({isModalOpen:false,srkxswz:['受试者姓名缩写如ZHY、Z-Y']})
                              }}>></MLModal>
                     <View style={{position:'absolute', right:0, bottom:0, width:width, height:height, backgroundColor:'rgba(0,0,0,0.5)'}}>
                         <Picker
@@ -231,7 +237,7 @@ var Xzsxcgssz = React.createClass({
         if (researchParameter.researchParameter.LabelStraA != null){
             if (rowData == researchParameter.researchParameter.LabelStraA){
                 return(
-                    <TouchableOpacity onPress={()=>{
+                    <TouchableOpacity  style={{marginTop : 10,}} onPress={()=>{
                         console.log(researchParameter.researchParameter.LabelStraAL.split(","))
                         Pickers.init({
                             pickerData: researchParameter.researchParameter.LabelStraAL.split(","),
@@ -455,28 +461,7 @@ var Xzsxcgssz = React.createClass({
         if (researchParameter.researchParameter.LabelStraI != null){
             if (rowData == researchParameter.researchParameter.LabelStraI){
                 return(
-                    <TouchableOpacity onPress={()=>{
-                        console.log(researchParameter.researchParameter.LabelStraIL.split(","))
-                        Pickers.init({
-                            pickerData: researchParameter.researchParameter.LabelStraIL.split(","),
-                            onPickerConfirm: pickedValue => {
-                                //ListView设置
-                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                                this.setState({LabelStraI:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
-
-                            },
-                            onPickerCancel: pickedValue => {
-                                //ListView设置
-                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                                this.setState({LabelStraI:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
-                            },
-                            onPickerSelect: pickedValue => {
-                            }
-                        });
-                        Pickers.show();
-                    }}>
-                        <MLTableCell title={rowData} rightTitle={this.state.LabelStraI}/>
-                    </TouchableOpacity>
+                    <MLTableCell title={rowData} rightTitle={this.state.LabelStraI} isArrow={false}/>
                 )
             }
         }
@@ -547,11 +532,11 @@ var Xzsxcgssz = React.createClass({
             )
         }
 
-        if (rowData == '受试者手机'){
+        if (rowData == '受试者手机号'){
             return(
                 <TouchableOpacity onPress={()=>{
                     Pickers.hide();
-                    this.setState({isModalOpen:true,srkxswz:['受试者手机'],shuru:1})
+                    this.setState({isModalOpen:true,srkxswz:['受试者手机号'],shuru:1})
                 }}>
                     <MLTableCell title={rowData} rightTitle={this.state.phone}/>
                 </TouchableOpacity>
@@ -781,7 +766,7 @@ const styles = StyleSheet.create({
         flex: 1,
         // justifyContent: 'center',
         // alignItems: 'center',
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(233,234,239,1.0)',
     },
     xiantiaoViewStyle:{
         width: 42,

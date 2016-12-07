@@ -166,7 +166,7 @@ var Xzsxsbssz = React.createClass({
                                  }
                              }}
                              quxiao={(text) => {
-                                 this.setState({isModalOpen:false,srkxswz:['受试者姓名缩写']})
+                                 this.setState({isModalOpen:false,srkxswz:['受试者姓名缩写如ZHY、Z-Y']})
                              }}>></MLModal>
                 </View>
             );
