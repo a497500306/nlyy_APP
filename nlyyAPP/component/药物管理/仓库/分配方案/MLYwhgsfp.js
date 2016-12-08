@@ -109,6 +109,7 @@ var Ywhgsfp = React.createClass({
                         )
                     }else {
                         this.setState({animating:false});
+                        console.log(responseJson.data)
                         FPQDData.FPQDData = responseJson.data
                         // 页面的切换
                         this.props.navigator.push({

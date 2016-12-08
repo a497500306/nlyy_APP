@@ -8,7 +8,8 @@ import {
     View,
     TouchableOpacity,
     Navigator,
-    ListView
+    ListView,
+    Alert
 } from 'react-native';
 
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
@@ -16,11 +17,19 @@ var Users = require('../../../entity/Users');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var PatientRM = require('../../受试者随机/MLPatientRM');
 
+var settings = require('./../../../settings');
 var Ywhgsfp = require('./分配方案/MLYwhgsfp');
 var Zgfp = require('./分配方案/MLZgfp');
 var Qdfp = require('./分配方案/MLQdfp');
 var Zgjhqdfp = require('./分配方案/MLZgjhqdfp');
 var Znfp = require('./分配方案/MLZnfp');
+
+
+var Ywqd = require('./MLYwqd');
+var FPChangku = require('./保存数据/FPChangku');
+var FPZhongxin = require('./保存数据/FPZhongxin');
+var FPQDData = require('./保存数据/FPQDData');
+var Changku = require('./../../../entity/Changku');
 
 var FenpeiZX = React.createClass({
     getInitialState() {
@@ -81,9 +90,73 @@ var FenpeiZX = React.createClass({
                         component: Zgjhqdfp, // 具体路由的版块
                     });
                 }else if (rowData == '智能分配'){
-                    this.props.navigator.push({
-                        component: Znfp, // 具体路由的版块
-                    });
+                    //发送网络请求
+                    fetch(settings.fwqUrl + "/app/getZnfp", {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json; charset=utf-8',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            StudyID: Users.Users[0].StudyID,
+                            Users : Users.Users[0],
+                            Address : FPChangku.FPChangku == null ? FPZhongxin.FPZhongxin : FPChangku.FPChangku,
+                            Type : FPChangku.FPChangku == null ? 2 : 1,
+                            DepotGNYN : Changku.Changku == null ? 0 : Changku.Changku.DepotGNYN,//是否为主仓库:1是,0不是
+                            DepotBrYN : Changku.Changku == null ? 0 : Changku.Changku.DepotBrYN,//是否为分仓库:1是,0不是
+                            DepotId : Changku.Changku == null ? 0 : Changku.Changku.id,
+                        })
+                    })
+                        .then((response) => response.json())
+                        .then((responseJson) => {
+                            this.setState({animating:false});
+                            if (responseJson.isSucceed != 400){
+                                //错误
+                                Alert.alert(
+                                    '提示:',
+                                    responseJson.msg,
+                                    null,
+                                    [
+                                        {text: '确定'}
+                                    ]
+                                )
+                            }else {
+                                this.setState({animating:false});
+                                if (responseJson.data.length == 0){
+                                    //错误
+                                    Alert.alert(
+                                        '提示:',
+                                        '该中心没有随机成功的受试者',
+                                        [
+                                            {text: '确定'}
+                                        ]
+                                    )
+                                }else{
+                                    console.log(responseJson.data)
+                                    FPQDData.FPQDData = responseJson.data
+                                    // 页面的切换
+                                    this.props.navigator.push({
+                                        name:'分配清单',
+                                        component: Ywqd, // 具体路由的版块
+                                    });
+                                }
+                            }
+                        })
+                        .catch((error) => {//错误
+                            this.setState({animating:false});
+                            console.log(error),
+                                //错误
+                                Alert.alert(
+                                    '提示:',
+                                    '请检查您的网络111',
+                                    [
+                                        {text: '确定'}
+                                    ]
+                                )
+                        });
+                    {/*this.props.navigator.push({*/}
+                        {/*component: Znfp, // 具体路由的版块*/}
+                    {/*});*/}
                 }
             }}>
                 <MLTableCell title={rowData}/>
