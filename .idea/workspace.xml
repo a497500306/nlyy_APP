@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="94975081-e51f-4241-b3e7-7100c85e937d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/MLHome/MLHome.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/MLHome/MLHome.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLFenpeiZX.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLFenpeiZX.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLYwhgsfp.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLYwhgsfp.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLZnfp.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLZnfp.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/settings.js" afterPath="$PROJECT_DIR$/nlyyAPP/settings.js" />
     </list>
     <ignored path="nlyy_APP.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,11 +29,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="appChangKu.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="appChangKu.js" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/nlyy_node/controller/APPJK/appChangKu.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="847">
               <caret line="150" column="84" selection-start-line="150" selection-start-column="84" selection-end-line="150" selection-end-column="84" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MLHome.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/nlyyAPP/component/MLHome/MLHome.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-26">
+              <caret line="176" column="30" selection-start-line="176" selection-start-column="30" selection-end-line="176" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/nlyyAPP/settings.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.js" pinned="false" current-in-tab="true">
+        <entry file="file://$USER_HOME$/nlyy_node/settings.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -56,16 +84,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="435">
               <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/nlyy_node/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="236" column="22" selection-start-line="236" selection-start-column="10" selection-end-line="236" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -115,26 +133,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MLZnfp.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLZnfp.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="18" column="98" selection-start-line="18" selection-start-column="98" selection-end-line="19" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MLWarehouse.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLWarehouse.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="175" column="27" selection-start-line="175" selection-start-column="27" selection-end-line="175" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -150,8 +148,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个受试者紧急揭盲.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个受试者紧急揭盲/MLDgsszjjjm.js" />
         <option value="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个受试者特定揭盲/MLDgssztdjm.js" />
         <option value="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个受试者特定揭盲/MLDgssztdjmQR.js" />
         <option value="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个中心紧急揭盲/MLDgzxjjjm.js" />
@@ -197,10 +193,12 @@
         <option value="$USER_HOME$/nlyy_node/app.js" />
         <option value="$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js" />
         <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLZnfp.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/MLHome/MLHome.js" />
         <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLFenpeiZX.js" />
         <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLYwhgsfp.js" />
         <option value="$USER_HOME$/nlyy_node/controller/APPJK/appChangKu.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/MLHome/MLHome.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/settings.js" />
+        <option value="$USER_HOME$/nlyy_node/settings.js" />
       </list>
     </option>
   </component>
@@ -211,7 +209,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-25" />
+    <option name="x" value="96" />
     <option name="y" value="23" />
     <option name="width" value="1279" />
     <option name="height" value="735" />
@@ -718,15 +716,15 @@
       <workItem from="1480338302178" duration="978000" />
       <workItem from="1480386643899" duration="6000" />
       <workItem from="1480655025808" duration="80426000" />
-      <workItem from="1481083419721" duration="48388000" />
+      <workItem from="1481083419721" duration="48654000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="351482000" />
+    <option name="totallyTimeSpent" value="351748000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-25" y="23" width="1279" height="735" extended-state="0" />
+    <frame x="96" y="23" width="1279" height="735" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2583466" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -734,7 +732,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25972006" sideWeight="0.40858504" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3183183" sideWeight="0.51055515" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25972006" sideWeight="0.5914149" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25972006" sideWeight="0.5914149" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32882884" sideWeight="0.49348533" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -915,14 +913,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nlyyAPP/component/研究管理/查询子研究受试者例数/MLCxzyjsszls.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -940,14 +930,6 @@
           <folding>
             <element signature="e#90#131#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1100,14 +1082,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/MLHome/MLHome.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="145" column="20" selection-start-line="145" selection-start-column="20" selection-end-line="145" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLQdfp.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1875">
@@ -1218,6 +1192,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="847">
           <caret line="150" column="84" selection-start-line="150" selection-start-column="84" selection-end-line="150" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/MLHome/MLHome.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-26">
+          <caret line="176" column="30" selection-start-line="176" selection-start-column="30" selection-end-line="176" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/settings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/settings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
           <folding />
         </state>
       </provider>
