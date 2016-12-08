@@ -50,7 +50,7 @@ const data = [
     [1, 5],
     [3, 10],
 ];
-var Cysxlsfb = React.createClass({
+var Cytchwclsfb = React.createClass({
     //初始化设置
     getInitialState() {
         return {
@@ -63,7 +63,7 @@ var Cysxlsfb = React.createClass({
     //耗时操作,网络请求
     componentDidMount(){
         //发送登录网络请求
-        fetch(settings.fwqUrl + "/app/getCysxsblsfb", {
+        fetch(settings.fwqUrl + "/app/getCytchwclsfb", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json; charset=utf-8',
@@ -133,7 +133,7 @@ var Cysxlsfb = React.createClass({
         if (this.state.animating == true){
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'查阅筛选失败例数分布'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'查阅退出或完成例数分布'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
 
@@ -145,7 +145,7 @@ var Cysxlsfb = React.createClass({
         }else {
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'查阅筛选失败例数分布'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'查阅退出或完成例数分布'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
 
@@ -184,5 +184,5 @@ const styles = StyleSheet.create({
 });
 
 // 输出组件类
-module.exports = Cysxlsfb;
+module.exports = Cytchwclsfb;
 

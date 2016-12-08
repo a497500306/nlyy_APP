@@ -173,9 +173,20 @@ var Home = React.createClass({
                         });
                     }
                     if (rowData.title == "药物管理"){
-                        this.props.navigator.push({
-                            component: DrugsAI, // 具体路由的版块
-                        });
+                        if (researchParameter.researchParameter.DrugNOpen == 1){
+                            this.props.navigator.push({
+                                component: DrugsAI, // 具体路由的版块
+                            });
+                        }else{
+                            //错误
+                            Alert.alert(
+                                '提示:',
+                                '该研究不提供药物号',
+                                [
+                                    {text: '确定'}
+                                ]
+                            )
+                        }
                     }
                     if (rowData.title == "随访管理"){
                         this.props.navigator.push({

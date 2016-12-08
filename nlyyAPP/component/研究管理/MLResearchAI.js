@@ -120,37 +120,37 @@ var ResearchAI = React.createClass({
                 }
                 if (rowData == '查询子研究受试者例数'){
                     //判断是否有子研究
-                    if (study.study.SubStudYN == 1){
+                    {/*if (study.study.SubStudYN == 1){*/}
                         // 页面的切换
                         this.props.navigator.push({
                             component: Cxzyjsszls, // 具体路由的版块
                         });
-                    }else{
-                        Alert.alert(
-                            '提示:',
-                            '该研究没有子研究',
-                            [
-                                {text: '确定'}
-                            ]
-                        )
-                    }
+                    {/*}else{*/}
+                        {/*Alert.alert(*/}
+                            {/*'提示:',*/}
+                            {/*'该研究没有子研究',*/}
+                            {/*[*/}
+                                {/*{text: '确定'}*/}
+                            {/*]*/}
+                        {/*)*/}
+                    {/*}*/}
                 }
                 if (rowData == '查询延长期研究受试者例数'){
                     //判断是否有长期研究
-                    if (study.study.ExtStudYN == 1){
+                    {/*if (study.study.ExtStudYN == 1){*/}
                         // 页面的切换
                         this.props.navigator.push({
                             component: Cxycqyjsszls, // 具体路由的版块
                         });
-                    }else{
-                        Alert.alert(
-                            '提示:',
-                            '该研究没有延长期研究',
-                            [
-                                {text: '确定'}
-                            ]
-                        )
-                    }
+                    {/*}else{*/}
+                        {/*Alert.alert(*/}
+                            {/*'提示:',*/}
+                            {/*'该研究没有延长期研究',*/}
+                            {/*[*/}
+                                {/*{text: '确定'}*/}
+                            {/*]*/}
+                        {/*)*/}
+                    {/*}*/}
                 }
             }}>
                 <MLTableCell title={rowData}/>

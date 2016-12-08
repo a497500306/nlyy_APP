@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "moment": "^2.15.1",
+    "native-echarts": "^0.3.0",
     "react": "15.3.2",
     "react-native": "0.33.0",
     "react-native-chart": "^1.0.8-beta",

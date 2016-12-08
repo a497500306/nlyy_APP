@@ -143,6 +143,196 @@ var Quhls = React.createClass({
     //返回具体的cell
     renderRow(rowData,sectionID, rowID){
         console.log(rowData)
+
+        if (rowData.isOut == 1) {
+            return(
+                <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " + ((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ('分组:' + rowData.Arm) : "") } subTitleColor = {'black'} rightTitle={'已经完成或退出'} rightTitleColor = {'gray'}/>
+            )
+        }else {
+            if (rowData.isSuccess == 1){
+                if (rowData.Random == -1){
+                    return (
+                        <TouchableOpacity onPress={()=> {
+                            //错误
+                            Alert.alert(
+                                '提示:',
+                                '未取随机号',
+                                [
+                                    {text: '确定'}
+                                ]
+                            )
+                        }}>
+                            <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:无")) : "")}
+                                         subTitleColor={'black'} rightTitle={'随机号:未取'}/>
+                        </TouchableOpacity>
+                    )
+                }else {
+                    return(
+                        <TouchableOpacity onPress={()=>{
+                            if (researchParameter.researchParameter.DrugNOpen == 1){
+                                //错误
+                                Alert.alert(
+                                    "提示:",
+                                    "请选择你要操作的功能",
+                                    [
+                                        {text: '取药号历史', onPress: () => {
+                                            //判断该研究是否提供药物号
+                                            if (researchParameter.researchParameter.BlindSta == 1){
+                                                // 页面的切换
+                                                this.props.navigator.push({
+                                                    //传递参数
+                                                    passProps:{
+                                                        userData : rowData
+                                                    },
+                                                    component: QywhlsLB, // 具体路由的版块
+                                                });
+                                            }else if (researchParameter.researchParameter.BlindSta == 2){
+                                                if (researchParameter.researchParameter.DrugNSBlind == 1){
+                                                    // 页面的切换
+                                                    this.props.navigator.push({
+                                                        //传递参数
+                                                        passProps:{
+                                                            userData : rowData
+                                                        },
+                                                        component: QywhlsLB, // 具体路由的版块
+                                                    });
+                                                }else{
+                                                    //错误
+                                                    Alert.alert(
+                                                        '提示',
+                                                        '该研究不提供药物号',
+                                                        [
+                                                            {text: '确定'}
+                                                        ]
+                                                    )
+                                                }
+                                            }else {
+                                                if (researchParameter.researchParameter.DrugNOpen == 1){
+                                                    /// 页面的切换
+                                                    this.props.navigator.push({
+                                                        //传递参数
+                                                        passProps:{
+                                                            userData : rowData
+                                                        },
+                                                        component: QywhlsLB, // 具体路由的版块
+                                                    });
+                                                }else{
+                                                    Alert.alert(
+                                                        '提示',
+                                                        '该研究不提供药物号',
+                                                        [
+                                                            {text: '确定'}
+                                                        ]
+                                                    )
+                                                }
+                                            }
+                                        }},
+                                        {text: '替换药物号', onPress: () => {
+                                            //移除等待
+                                            this.setState({animating:true});
+                                            var UserSite = '';
+                                            for (var i = 0 ; i < Users.Users.length ; i++) {
+                                                if (Users.Users[i].UserSite != null) {
+                                                    UserSite = Users.Users[i].UserSite
+                                                }
+                                            }
+                                            //判断是否为替换的药物号
+                                            var isTihuan = 0
+                                            var yaowuhao = ''
+                                            var Cts = rowData.Drug[rowData.Drug.length - 1];
+
+                                            console.log(Cts)
+                                            if(Cts.indexOf("替换药物号为")){
+                                                yaowuhao = Cts
+                                                console.log('没替换')
+                                                console.log(yaowuhao)
+                                            }else {
+                                                isTihuan = 1;
+                                                yaowuhao = Cts.substring(6)
+                                                console.log('替换')
+                                                console.log(yaowuhao)
+                                            }
+                                            //发送登录网络请求
+                                            fetch(settings.fwqUrl + "/app/getThywh", {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Accept': 'application/json; charset=utf-8',
+                                                    'Content-Type': 'application/json',
+                                                },
+                                                body: JSON.stringify({
+                                                    userId : rowData.id,
+                                                    SiteID : UserSite,
+                                                    StudyID : Users.Users[0].StudyID,
+                                                    DrugNum : yaowuhao
+                                                })
+                                            })
+                                                .then((response) => response.json())
+                                                .then((responseJson) => {
+                                                    console.log(responseJson);
+                                                    if (responseJson.isSucceed != 400){
+                                                        //错误
+                                                        Alert.alert(
+                                                            '提示:',
+                                                            responseJson.msg,
+                                                            [
+                                                                {text: '确定'}
+                                                            ]
+                                                        )
+                                                        //移除等待
+                                                        this.setState({animating:false});
+                                                    }else{
+                                                        //错误
+                                                        Alert.alert(
+                                                            '提示:',
+                                                            responseJson.msg,
+                                                            [
+                                                                {text: '确定', onPress: () => {
+                                                                    this.props.navigator.pop()
+                                                                }}
+                                                            ]
+                                                        )
+                                                        //移除等待
+                                                        this.setState({animating:false});
+                                                    }
+                                                })
+                                                .catch((error) => {//错误
+                                                    //移除等待,弹出错误
+                                                    this.setState({animating:false});
+                                                    //错误
+                                                    Alert.alert(
+                                                        '提示:',
+                                                        '请检查您的网络',
+                                                        [
+                                                            {text: '确定'}
+                                                        ]
+                                                    )
+
+                                                });
+                                        }},
+                                        {text: '取消'}
+                                    ]
+                                )
+                            }else{
+                                Alert.alert(
+                                    '提示',
+                                    '该研究不提供药物号',
+                                    [
+                                        {text: '确定'}
+                                    ]
+                                )
+                            }
+                        }}>
+                            <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3)? ('分组:' + rowData.Arm) : "") } subTitleColor = {'black'} rightTitle={'随机号:' + rowData.Random} rightTitleColor = {'black'}/>
+                        </TouchableOpacity>
+                    )
+                }
+            }else {
+                return(
+                    <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:无")) : "")} subTitleColor = {'black'} rightTitle={'筛选失败用户'} rightTitleColor = {'gray'}/>
+                )
+            }
+        }
+        /*
         return(
             <TouchableOpacity onPress={()=>{
                 if (rowData.isSuccess != 1){
@@ -302,6 +492,7 @@ var Quhls = React.createClass({
                 <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={rowData.isSuccess == 1 ? '随机号:' + rowData.Random : "筛选失败受试者"} rightTitleColor = {rowData.isSuccess == 1 ? 'black': "gray"}/>
             </TouchableOpacity>
         )
+        */
     },
 });
 

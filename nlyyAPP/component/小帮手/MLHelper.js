@@ -15,6 +15,8 @@ var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../entity/Users');
 var MLTableCell = require('../MLTableCell/MLTableCell');
 var PatientRM = require('../受试者随机/MLPatientRM');
+var Yhsc = require('./用户手册/MLYhsc');
+var Yjfaxx = require('./研究方案信息/MLYjfaxx');
 
 var Helper = React.createClass({
     getInitialState() {
@@ -52,18 +54,33 @@ var Helper = React.createClass({
 
     //返回具体的cell
     renderRow(rowData){
-        return(
-            <TouchableOpacity onPress={()=>{
-                //设置数据
-                console.log(Users.Users)
-                // 页面的切换
-                this.props.navigator.push({
-                    component: PatientRM, // 具体路由的版块
-                });
-            }}>
-                <MLTableCell title={rowData}/>
-            </TouchableOpacity>
-        )
+        if (rowData == "研究方案信息"){
+            return(
+                <TouchableOpacity onPress={()=>{
+                    //设置数据
+                    console.log(Users.Users)
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: Yjfaxx, // 具体路由的版块
+                    });
+                }}>
+                    <MLTableCell title={rowData}/>
+                </TouchableOpacity>
+            )
+        }else{
+            return(
+                <TouchableOpacity onPress={()=>{
+                    //设置数据
+                    console.log(Users.Users)
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: Yhsc, // 具体路由的版块
+                    });
+                }}>
+                    <MLTableCell title={rowData}/>
+                </TouchableOpacity>
+            )
+        }
     },
 });
 

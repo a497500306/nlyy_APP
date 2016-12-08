@@ -25,6 +25,8 @@ var Xzsxssssz = require('./新增筛选失败受试者/MLXzsxsbssz')
 var Qsjh = require('./取随机号/MLQsjh')
 var Mhcx = require('./模糊查询/MLMhcx')
 var Cysxlsfb = require('./查阅筛选例数分布/MLCxsxlsfb')
+var Cysjlsfb = require('./查阅随机例数分布/MLCysjlsfb')
+var Cytchwclsfb = require('./查阅退出或完成例数分布/MLCytchwclsfb')
 
 var PatientRM = React.createClass({
     getInitialState() {
@@ -324,6 +326,20 @@ var PatientRM = React.createClass({
                     // 页面的切换
                     this.props.navigator.push({
                         component: Cysxlsfb, // 具体路由的版块
+                    });
+                }else if (rowData.title == '查阅随机例数分布'){
+                    //设置数据
+                    console.log(Users.Users)
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: Cysjlsfb, // 具体路由的版块
+                    });
+                }else if (rowData.title == '查阅退出或者完成例数分布'){
+                    //设置数据
+                    console.log(Users.Users)
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: Cytchwclsfb, // 具体路由的版块
                     });
                 }
             }}>

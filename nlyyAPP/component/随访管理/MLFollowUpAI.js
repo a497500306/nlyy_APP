@@ -18,11 +18,13 @@ import {
     View,
     TouchableOpacity,
     Navigator,
-    ListView
+    ListView,
+    Alert
 } from 'react-native';
 
 var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../entity/Users');
+var researchParameter = require('../../entity/researchParameter');
 var MLTableCell = require('../MLTableCell/MLTableCell');
 var PatientRM = require('../受试者随机/MLPatientRM');
 var Sszjxfsrq = require('../随访管理/受试者基线访视日期/MLSszjxfsrq');
@@ -126,10 +128,21 @@ var FollowUpAI = React.createClass({
                         component: Djssztchwc, // 具体路由的版块
                     });
                 }else if (rowData == '发送药物提醒短信'){
-                    // 页面的切换
-                    this.props.navigator.push({
-                        component: Fsywtxdx, // 具体路由的版块
-                    });
+                    if (researchParameter.researchParameter.DrugNOpen == 1){
+                        // 页面的切换
+                        this.props.navigator.push({
+                            component: Fsywtxdx, // 具体路由的版块
+                        });
+                    }else{
+                        //错误
+                        Alert.alert(
+                            '提示:',
+                            '该研究不提供药物号',
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                    }
                 }
             }}>
                 <MLTableCell title={rowData}/>

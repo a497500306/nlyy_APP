@@ -1,4 +1,3 @@
-
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -63,7 +62,7 @@ var Cysxlsfb = React.createClass({
     //耗时操作,网络请求
     componentDidMount(){
         //发送登录网络请求
-        fetch(settings.fwqUrl + "/app/getCysxsblsfb", {
+        fetch(settings.fwqUrl + "/app/getCysjlsfb", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json; charset=utf-8',
@@ -89,7 +88,7 @@ var Cysxlsfb = React.createClass({
                     }
                     option = {
                         title: {
-                            text: '查阅筛选失败例数分布'
+                            text: '查阅随机例数分布'
                         },
                         tooltip: {},
                         legend: {
@@ -133,7 +132,7 @@ var Cysxlsfb = React.createClass({
         if (this.state.animating == true){
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'查阅筛选失败例数分布'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'查阅随机例数分布'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
 
@@ -145,7 +144,7 @@ var Cysxlsfb = React.createClass({
         }else {
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'查阅筛选失败例数分布'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'查阅随机例数分布'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
 
@@ -153,17 +152,17 @@ var Cysxlsfb = React.createClass({
                     <ScrollView>
                         <ScrollView horizontal={true} style={{height: 300,}}>
                             {/*<Chart*/}
-                            {/*showYAxisLabels={false}*/}
-                            {/*showGrid={false}*/}
-                            {/*yAxisShortLabel = {true}*/}
-                            {/*style={{*/}
-                            {/*width: this.state.data.length * this.state.width,*/}
-                            {/*height: 200,*/}
-                            {/*marginTop:80*/}
-                            {/*}}*/}
-                            {/*data={this.state.data}*/}
-                            {/*type="bar"*/}
-                            {/*showDataPoint={false}*/}
+                                {/*showYAxisLabels={false}*/}
+                                {/*showGrid={false}*/}
+                                {/*yAxisShortLabel = {true}*/}
+                                {/*style={{*/}
+                                    {/*width: this.state.data.length * this.state.width,*/}
+                                    {/*height: 200,*/}
+                                    {/*marginTop:80*/}
+                                {/*}}*/}
+                                {/*data={this.state.data}*/}
+                                {/*type="bar"*/}
+                                {/*showDataPoint={false}*/}
                             {/*/>*/}
                         </ScrollView>
                     </ScrollView>
