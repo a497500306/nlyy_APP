@@ -29,6 +29,7 @@
 		31F3AE881DB7422D00797FF8 /* libRNModal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F3AE861DB7420C00797FF8 /* libRNModal.a */; };
 		3933454C1DD8B57900B8E4BC /* libbz2.1.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3933454B1DD8B57900B8E4BC /* libbz2.1.0.tbd */; };
 		3933454E1DD8B58300B8E4BC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3933454D1DD8B58300B8E4BC /* libz.tbd */; };
+		39BED0391E23A8CE00A208EA /* bundle in Resources */ = {isa = PBXBuildFile; fileRef = 39BED0381E23A8CE00A208EA /* bundle */; };
 		40ED4C115FE24BAF91642088 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B53EB0D3580D42C78ACC4B84 /* Octicons.ttf */; };
 		57602E4BF58241BCA6DDAA76 /* libRCTBEEPickerManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E1B76AFB5F944FD9D4AA2CA /* libRCTBEEPickerManager.a */; };
 		5ED48AC1D31642B897E3B09F /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 611B615B0EDE4BF09263CDD8 /* Ionicons.ttf */; };
@@ -185,6 +186,7 @@
 		376A311E29474B299FFED01A /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		3933454B1DD8B57900B8E4BC /* libbz2.1.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.tbd; path = usr/lib/libbz2.1.0.tbd; sourceTree = SDKROOT; };
 		3933454D1DD8B58300B8E4BC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		39BED0381E23A8CE00A208EA /* bundle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bundle; sourceTree = "<group>"; };
 		611B615B0EDE4BF09263CDD8 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				39BED0381E23A8CE00A208EA /* bundle */,
 				13B07FAE1A68108700A75B9A /* nlyyAPP */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* nlyyAPPTests */,
@@ -504,6 +507,10 @@
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 7TXF746582;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -708,6 +715,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39BED0391E23A8CE00A208EA /* bundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				7F09F05A0DA543A3898E1818 /* Entypo.ttf in Resources */,
@@ -826,7 +834,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Knowlands MedPharm Consulting Co., Ltd (7TXF746582)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 7TXF746582;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -836,13 +847,17 @@
 					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
 				);
 				INFOPLIST_FILE = nlyyAPP/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = con.knowlands.suijiApp;
 				PRODUCT_NAME = nlyyAPP;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -850,6 +865,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Knowlands MedPharm Consulting Co., Ltd (7TXF746582)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 7TXF746582;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -859,12 +877,14 @@
 					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
 				);
 				INFOPLIST_FILE = nlyyAPP/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = con.knowlands.suijiApp;
 				PRODUCT_NAME = nlyyAPP;
 			};
 			name = Release;

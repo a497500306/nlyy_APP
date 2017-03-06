@@ -48,33 +48,37 @@ var Zgyj = React.createClass({
             }
         }
         var tableData = [];
-        for (var i = 0 ; i < Users.Users.length ; i++){
-            var data = Users.Users[i];
-            //判断用户类别
-            for (var y = 0 ; y < shengqing.length ; y++) {
-                if (data.UserFun == shengqing[y]){
-                    var isY = false
-                    for (var j = 0 ; j < tableData.length ; j++){
-                        if (tableData[j] == '申请'){
-                            isY = true;
+        if (Users.Users[0].UserFun == "C1"){
+            tableData.push('审核')
+        }else {
+            for (var i = 0; i < Users.Users.length; i++) {
+                var data = Users.Users[i];
+                //判断用户类别
+                for (var y = 0; y < shengqing.length; y++) {
+                    if (data.UserFun == shengqing[y]) {
+                        var isY = false
+                        for (var j = 0; j < tableData.length; j++) {
+                            if (tableData[j] == '申请') {
+                                isY = true;
+                            }
                         }
-                    }
-                    if (isY == false){
-                        tableData.push('申请')
+                        if (isY == false) {
+                            tableData.push('申请')
+                        }
                     }
                 }
-            }
-            //判断用户类别
-            for (var y = 0 ; y < shenghe.length ; y++) {
-                if (data.UserFun == shenghe[y]){
-                    var isY = false
-                    for (var j = 0 ; j < tableData.length ; j++){
-                        if (tableData[j] == '审核'){
-                            isY = true;
+                //判断用户类别
+                for (var y = 0; y < shenghe.length; y++) {
+                    if (data.UserFun == shenghe[y]) {
+                        var isY = false
+                        for (var j = 0; j < tableData.length; j++) {
+                            if (tableData[j] == '审核') {
+                                isY = true;
+                            }
                         }
-                    }
-                    if (isY == false){
-                        tableData.push('审核')
+                        if (isY == false) {
+                            tableData.push('审核')
+                        }
                     }
                 }
             }

@@ -195,7 +195,7 @@ var znfp = React.createClass({
                             )
                     });
             }}>
-                <MLTableCell title={rowData.SiteNam}/>
+                <MLTableCell title={rowData.SiteNam}  subTitle = {"中心编号:" + rowData.SiteID} subTitleColor = {'black'} />
             </TouchableOpacity>
         )
     },

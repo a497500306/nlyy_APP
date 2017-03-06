@@ -35,23 +35,46 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 var XzsxsbsszYY = React.createClass({
     //初始化设置
     getInitialState() {
-
+        console.log(ExcludeStandard.ExcludeStandard)
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
         var tableData = [];
+        var rxArray = [];
+        var newRxArray = [];
+        var pcArray = [];
+        var newPcArray = [];
         var ii = 0
         for (var i = 0 ; i < ExcludeStandard.ExcludeStandard.length ; i++){
             var data = ExcludeStandard.ExcludeStandard[i];
             if (data.IECatn == "入选标准"){
-                tableData.push(data);
+                data.isSelected = false;
+                rxArray.push(data);
                 ii++
             }
+        }
+        for (var i = 0 ; i < rxArray.length ; i++){
+            for  (var j = 0 ; j < rxArray.length ; j++){
+                if (rxArray[j].IESEQ == (i + 1).toString()){
+                    newRxArray.push(rxArray[j])
+                }
+            }
+            tableData.push(newRxArray[i]);
         }
         for (var i = 0 ; i < ExcludeStandard.ExcludeStandard.length ; i++){
             var data = ExcludeStandard.ExcludeStandard[i];
             if (data.IECatn != "入选标准"){
-                tableData.push(data);
+                data.isSelected = false;
+                pcArray.push(data);
             }
         }
+        for (var i = 0 ; i < pcArray.length ; i++){
+            for  (var j = 0 ; j < pcArray.length ; j++){
+                if (pcArray[j].IESEQ == (i + 1).toString()){
+                    newPcArray.push(pcArray[j])
+                }
+            }
+            tableData.push(newPcArray[i]);
+        }
+        console.log(tableData)
         return {
             ii : ii,
             tableData:tableData,

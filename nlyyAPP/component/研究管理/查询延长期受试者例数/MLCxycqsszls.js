@@ -23,6 +23,7 @@ var Users = require('../../../entity/Users');
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
 var settings = require('../../../settings');
+var study = require('../../../entity/study');
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
 
@@ -73,7 +74,7 @@ var Cxycqsszls = React.createClass({
         if (this.state.animating == true){
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'查询子研究受试者例数'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'查询延长期受试者例数'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
 
@@ -83,14 +84,25 @@ var Cxycqsszls = React.createClass({
 
             );
         }else {
-            return (
-                <View style={styles.container}>
-                    <MLNavigatorBar title={'查询子研究受试者例数'} isBack={true} backFunc={() => {
-                        this.props.navigator.pop()
-                    }}/>
-                    <MLTableCell title={this.state.text}/>
-                </View>
-            );
+            if (study.study.ExtStudYN == 0) {
+                return (
+                    <View style={styles.container}>
+                        <MLNavigatorBar title={'查询延长期受试者例数'} isBack={true} backFunc={() => {
+                            this.props.navigator.pop()
+                        }}/>
+                        <MLTableCell title={'无延长期研究'}/>
+                    </View>
+                );
+            }else{
+                return (
+                    <View style={styles.container}>
+                        <MLNavigatorBar title={'查询延长期受试者例数'} isBack={true} backFunc={() => {
+                            this.props.navigator.pop()
+                        }}/>
+                        <MLTableCell title={this.state.text}/>
+                    </View>
+                );
+            }
         }
     },
 });

@@ -148,6 +148,11 @@ var SszjxfsrqCXJG = React.createClass({
                     <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'已经完成或者退出'} rightTitleColor = {'gray'}/>
                 )
             }else {
+                if (rowData.Random == -1){
+
+                }else{
+
+                }
                 return (
                     <TouchableOpacity onPress={()=> {
                         //错误
@@ -163,13 +168,13 @@ var SszjxfsrqCXJG = React.createClass({
                     }}>
                         <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni}
                                      subTitleColor={'black'}
-                                     rightTitle={'随机号:' + rowData.Random}/>
+                                     rightTitle={'随机号:' + (rowData.Random == -1 ? "未取" : rowData.Random)}/>
                     </TouchableOpacity>
                 )
             }
         }else{
             return(
-                <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'筛选失败用户'} rightTitleColor = {'gray'}/>
+                <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'筛选失败'} rightTitleColor = {'gray'}/>
             )
         }
     },

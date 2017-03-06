@@ -27,11 +27,12 @@ var MLTableCell = require('../MLTableCell/MLTableCell');
 var PatientRM = require('../受试者随机/MLPatientRM');
 var ResearchCore = require('./研究中心/MLResearchCore');
 var Warehouse = require('./仓库/MLWarehouse');
-var users = require('../../entity/Users')
-var Cxzxywqk = require('./查询中心药物情况/MLCxzxywqk')
-var CxywhSR = require('./查询药物号/MLCxywhSR')
-var bcywh = require('./补充药物号/MLBcywh')
-var qyhls = require('./取药号历史/MLQyhls')
+var users = require('../../entity/Users');
+var Cxzxywqk = require('./查询中心药物情况/MLCxzxywqk');
+var CxywhSR = require('./查询药物号/MLCxywhSR');
+var bcywh = require('./补充药物号/MLBcywh');
+var qyhls = require('./取药号历史/MLQyhls');
+var xzzx = require('../停止入组/单个中心/MLTzrzZxTable');
 
 var DrugsAI = React.createClass({
     getInitialState() {
@@ -131,6 +132,7 @@ var DrugsAI = React.createClass({
                     this.props.navigator.pop()
                 }}/>
                 <ListView
+                    removeClippedSubviews={false}
                     pageSize={this.state.tableData.length}
                     contentContainerStyle={styles.list}
                     dataSource={this.state.dataSource}//数据源
@@ -188,10 +190,13 @@ var DrugsAI = React.createClass({
                         });
                     }
                     if (rowData.title  == '查询中心药物情况'){
-                        //设置数据
                         // 页面的切换
                         this.props.navigator.push({
-                            component: Cxzxywqk, // 具体路由的版块
+                            component: xzzx, // 具体路由的版块
+                            //传递参数
+                            passProps:{
+                                pushType:2
+                            }
                         });
 
                     }

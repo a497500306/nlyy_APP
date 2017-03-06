@@ -35,7 +35,6 @@ var Helper = require('../小帮手/MLHelper');
 
 var Home = React.createClass({
     getInitialState() {
-
         console.log(Users.Users)
         var tableData = [];
         for (var i = 0 ; i < Users.Users.length ; i++){
@@ -43,7 +42,7 @@ var Home = React.createClass({
             //判断用户类别
             if (data.UserFun == 'H1' || data.UserFun == 'H2' ||
                 data.UserFun == 'H3' || data.UserFun == 'S1' ||
-                data.UserFun == 'M7' || data.UserFun == 'M3'){
+                data.UserFun == 'M7' || data.UserFun == 'M3' || data.UserFun == 'M1'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
                     if (tableData[j].title == '受试者随机'){
@@ -88,7 +87,8 @@ var Home = React.createClass({
             }
             if (data.UserFun == 'H2' || data.UserFun == 'H3' ||
                 data.UserFun == 'S1' || data.UserFun == 'C1' ||
-                data.UserFun == 'M5'){
+                data.UserFun == 'M5' || data.UserFun == 'M4' ||
+                data.UserFun == 'M2' || data.UserFun == 'M3'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
                     if (tableData[j].title == '揭盲'){
@@ -103,7 +103,7 @@ var Home = React.createClass({
                 data.UserFun == 'C1' || data.UserFun == 'S1' ||
                 data.UserFun == 'M7' || data.UserFun == 'M1' ||
                 data.UserFun == 'H1' || data.UserFun == 'M4' ||
-                data.UserFun == 'M2'){
+                data.UserFun == 'M2' || data.UserFun == 'M3'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
                     if (tableData[j].title == '停止入组'){
@@ -127,7 +127,7 @@ var Home = React.createClass({
                 }
             }
         }
-        tableData.push({title:'小助手',imageTitle:"info",iconColor:'rgba(0,136,212,1.0)'})
+        tableData.push({title:'小助手',imageTitle:'../../images/感叹号.png'});
 
         //ListView设置
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
@@ -145,6 +145,7 @@ var Home = React.createClass({
                     this.props.navigator.pop()
                 }}/>
                 <ListView
+                    removeClippedSubviews={false}
                     pageSize={this.state.tableData.length}
                     contentContainerStyle={styles.list}
                     dataSource={this.state.dataSource}//数据源
@@ -162,7 +163,6 @@ var Home = React.createClass({
     renderRow(rowData){
         console.log('点击'+rowData.title);
         if (rowData.iconColor != null){
-
             return(
                 <TouchableOpacity onPress={()=>{
                     //设置数据
@@ -181,7 +181,7 @@ var Home = React.createClass({
                             //错误
                             Alert.alert(
                                 '提示:',
-                                '该研究无揭盲操作',
+                                '该研究不提供药物号',
                                 [
                                     {text: '确定'}
                                 ]
@@ -237,6 +237,28 @@ var Home = React.createClass({
                 </TouchableOpacity>
             )
         }else {
+            if (rowData.title == "小助手"){
+                return (
+                    <TouchableOpacity onPress={()=> {
+                        this.props.navigator.push({
+                            component: Helper, // 具体路由的版块
+                        });
+                    }}>
+                        <View>
+                            <View style={styles.row}>
+                                <Image
+                                    style={{width: 65, height: 65}}
+                                    source={require('../../images/i1.png')}
+                                />
+                                <Text style={styles.text}>
+                                    {rowData.title}
+                                </Text>
+                            </View>
+                        </View>
+                        {/*<MLTableCell title={rowData.title} iconTitl={rowData.imageTitle} iconColor={rowData.iconColor}/>*/}
+                    </TouchableOpacity>
+                )
+            }
             if (rowData.title == "受试者随机") {
                 return (
                     <TouchableOpacity onPress={()=> {

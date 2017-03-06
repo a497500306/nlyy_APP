@@ -26,10 +26,11 @@ var researchParameter = require('../../../entity/researchParameter');
 
 import Pickers from 'react-native-picker';
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
+var MLModal = require('../../MLModal/MLModal');
 var Users = require('../../../entity/Users');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var PatientRM = require('../../受试者随机/MLPatientRM');
-var MLModal = require('../../MLModal/MLModal');
+var MLSelectionModal = require('../../MLSelectionModal/MLSelectionModal');
 
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
@@ -96,8 +97,10 @@ var Helper = React.createClass({
             languages:['javar','jss'],
             //是否显示moda
             isModalOpen:false,
+            //是否显示编辑
+            isBJModalOpen:false,
             //输入框显示文字
-            srkxswz:['提醒内容'],
+            srkxswz:['请输入推送内容'],
             //是否显示选择器
             isLanguage : false,
             //是否是选择时间
@@ -124,6 +127,8 @@ var Helper = React.createClass({
             tuisong3 : "",
             //推送内容
             tuisongnr3 : "",
+            //模板内容
+            content:'',
         }
     },
 
@@ -138,21 +143,27 @@ var Helper = React.createClass({
                         dataSource={this.state.dataSource}//数据源
                         renderRow={this.renderRow}
                     />
-                    <MLModal placeholders={this.state.srkxswz} isVisible={this.state.isModalOpen}
+                    <MLSelectionModal tableData={[
+                        "研究温馨提示：健康记心间，平安幸福每一天，请按医嘱和说明书及时服药。",
+                        "研究温馨提示：您今天遵医嘱按时服用药物3次了吗？",
+                        "研究温馨提示：请您遵医嘱按时服用相应药物，餐后服用，每日三次。",
+                        "研究温馨提示：请您遵医嘱按时服用药物。服用任何药物都有不同的副作用，且存在很大的个体差异，如有不适，请及时联系您的主治医生。"
+                    ]} isVisible={this.state.isModalOpen}
                              onClose={(text) => {
-                                 //ListView设置
-                                 var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                                 if (this.state.isModel == 1){
-                                     this.setState({isModalOpen:false,tuisongnr1:text,dataSource: ds.cloneWithRows(this.state.tableData)})
-                                 }else if (this.state.isModel == 2){
-                                     this.setState({isModalOpen:false,tuisongnr2:text,dataSource: ds.cloneWithRows(this.state.tableData),})
-                                 }else if (this.state.isModel == 3){
-                                     this.setState({isModalOpen:false,tuisongnr3:text,dataSource: ds.cloneWithRows(this.state.tableData),})
-                                 }else {
-                                     //ListView设置
-                                     var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                                     this.setState({phone:text,dataSource: ds.cloneWithRows(this.state.tableData),isModalOpen:false,srkxswz:['请输入推送内容']})
-                                 }
+                                 this.setState({isModalOpen:false,isBJModalOpen:true,content:text})
+                                 {/*//ListView设置*/}
+                                 {/*var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});*/}
+                                 {/*if (this.state.isModel == 1){*/}
+                                     {/*this.setState({isModalOpen:false,tuisongnr1:text,dataSource: ds.cloneWithRows(this.state.tableData)})*/}
+                                 {/*}else if (this.state.isModel == 2){*/}
+                                     {/*this.setState({isModalOpen:false,tuisongnr2:text,dataSource: ds.cloneWithRows(this.state.tableData),})*/}
+                                 {/*}else if (this.state.isModel == 3){*/}
+                                     {/*this.setState({isModalOpen:false,tuisongnr3:text,dataSource: ds.cloneWithRows(this.state.tableData),})*/}
+                                 {/*}else {*/}
+                                     {/*//ListView设置*/}
+                                     {/*var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});*/}
+                                     {/*this.setState({phone:text,dataSource: ds.cloneWithRows(this.state.tableData),isModalOpen:false,srkxswz:['请输入推送内容']})*/}
+                                 {/*}*/}
                              }}
                              quxiao={(text) => {
                                  //ListView设置
@@ -164,8 +175,39 @@ var Helper = React.createClass({
                                  }else if (this.state.isModel == 3){
                                      this.this.setState({isModalOpen:false,tuisongnr3:"",dataSource: ds.cloneWithRows(this.state.tableData),})
                                  }else{
-                                     setState({isModalOpen:false,srkxswz:['受试者姓名缩写']})
+                                     setState({isModalOpen:false,srkxswz:['请输入推送内容']})
 
+                                 }
+                             }}>></MLSelectionModal>
+                    <MLModal content={this.state.content} placeholders={this.state.srkxswz} isVisible={this.state.isBJModalOpen}
+                             onClose={(text) => {
+                                 console.log("MLModal")
+                                 console.log(text)
+                                 //ListView设置
+                                 var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                 if (this.state.isModel == 1){
+                                     this.setState({isModalOpen:false,isBJModalOpen:false,tuisongnr1:text,dataSource: ds.cloneWithRows(this.state.tableData)})
+                                 }else if (this.state.isModel == 2){
+                                     this.setState({isModalOpen:false,isBJModalOpen:false,tuisongnr2:text,dataSource: ds.cloneWithRows(this.state.tableData),})
+                                 }else if (this.state.isModel == 3){
+                                     this.setState({isModalOpen:false,isBJModalOpen:false,tuisongnr3:text,dataSource: ds.cloneWithRows(this.state.tableData),})
+                                 }else {
+                                     //ListView设置
+                                     var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                     this.setState({phone:text,dataSource: ds.cloneWithRows(this.state.tableData),isModalOpen:false,srkxswz:['请输入推送内容']})
+                                 }
+                             }}
+                             quxiao={(text) => {
+                                 //ListView设置
+                                 var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                 if (this.state.isModel == 1){
+                                     this.setState({isModalOpen:false,isBJModalOpen:false,tuisongnr1:"",dataSource: ds.cloneWithRows(this.state.tableData),})
+                                 }else if (this.state.isModel == 2){
+                                     this.setState({isModalOpen:false,isBJModalOpen:false,tuisongnr2:"",dataSource: ds.cloneWithRows(this.state.tableData),})
+                                 }else if (this.state.isModel == 3){
+                                     this.this.setState({isModalOpen:false,isBJModalOpen:false,tuisongnr3:"",dataSource: ds.cloneWithRows(this.state.tableData),})
+                                 }else{
+                                     setState({isModalOpen:false,isBJModalOpen:false,srkxswz:['请输入推送内容']})
                                  }
                              }}>></MLModal>
                 </View>
@@ -180,7 +222,12 @@ var Helper = React.createClass({
                         dataSource={this.state.dataSource}//数据源
                         renderRow={this.renderRow}
                     />
-                    <MLModal placeholders={this.state.srkxswz} isVisible={this.state.isModalOpen}
+                    <MLSelectionModal tableData={[
+                        "研究温馨提示：健康记心间，平安幸福每一天，请按医嘱和说明书及时服药。",
+                        "研究温馨提示：您今天遵医嘱按时服用药物3次了吗？",
+                        "研究温馨提示：请您遵医嘱按时服用相应药物，餐后服用，每日三次。",
+                        "研究温馨提示：请您遵医嘱按时服用药物。服用任何药物都有不同的副作用，且存在很大的个体差异，如有不适，请及时联系您的主治医生。"
+                    ]} isVisible={this.state.isModalOpen}
                              onClose={(text) => {
 
                                 //刷新
@@ -188,7 +235,7 @@ var Helper = React.createClass({
                              }}
                              quxiao={(text) => {
 
-                             }}>></MLModal>
+                             }}>></MLSelectionModal>
                     <View style={{position:'absolute', right:0, bottom:0, width:width, height:height, backgroundColor:'rgba(0,0,0,0.5)'}}>
                         <Picker
                             selectedValue={this.state.language}
@@ -236,12 +283,24 @@ var Helper = React.createClass({
                         this.setState({isShijian:false,isModel:0})
                         Pickers.init({
                             pickerData: this.state.date,
-                            selectedValue: [moment().format('YYYY'),moment().format('MM'),moment().format('DD')],
+                            selectedValue: [moment().format('YYYY'),moment().format('M'),moment().format('D')],
                             onPickerConfirm: pickedValue => {
-                                //ListView设置
-                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                                this.setState({kaishiDate:pickedValue,kaishiStr:pickedValue[0] + "/" + pickedValue[1] + '/' + pickedValue[2],dataSource: ds.cloneWithRows(this.state.tableData),})
 
+                                var kaishiDate = new Date(pickedValue[0], pickedValue[1], pickedValue[2]);
+                                if (kaishiDate < new Date()){
+                                    //错误
+                                    Alert.alert(
+                                        "提示",
+                                        '选择日期不能小于当前日期',
+                                        [
+                                            {text: '确定'}
+                                        ]
+                                    )
+                                }else{
+                                    //ListView设置
+                                    var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                    this.setState({kaishiDate:pickedValue,kaishiStr:pickedValue[0] + "/" + pickedValue[1] + '/' + pickedValue[2],dataSource: ds.cloneWithRows(this.state.tableData),})
+                                }
                             },
                             onPickerCancel: pickedValue => {
                                 //ListView设置
@@ -263,12 +322,24 @@ var Helper = React.createClass({
                         this.setState({isShijian:false,isModel:0})
                         Pickers.init({
                             pickerData: this.state.date,
-                            selectedValue: [moment().format('YYYY'),moment().format('MM'),moment().format('DD')],
+                            selectedValue: [moment().format('YYYY'),moment().format('M'),moment().format('D')],
                             onPickerConfirm: pickedValue => {
-                                //ListView设置
-                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                                this.setState({jiesuDate:pickedValue,jiesuStr:pickedValue[0] + "/" + pickedValue[1] + '/' + pickedValue[2],dataSource: ds.cloneWithRows(this.state.tableData),})
+                                var kaishiDate = new Date(pickedValue[0], pickedValue[1], pickedValue[2]);
+                                if (kaishiDate < new Date()){
+                                    //错误
+                                    Alert.alert(
+                                        "提示",
+                                        '选择日期不能小于当前日期',
+                                        [
+                                            {text: '确定'}
+                                        ]
+                                    )
+                                }else{
+                                    //ListView设置
+                                    var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                    this.setState({jiesuDate:pickedValue,jiesuStr:pickedValue[0] + "/" + pickedValue[1] + '/' + pickedValue[2],dataSource: ds.cloneWithRows(this.state.tableData),})
 
+                                }
                             },
                             onPickerCancel: pickedValue => {
                                 //ListView设置
@@ -291,11 +362,7 @@ var Helper = React.createClass({
                             pickerData: [['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24'],
                                 ['00','30']],
                             onPickerConfirm: pickedValue => {
-                                this.setState({tuisong1:pickedValue[0]+ ":" + pickedValue[1],isModalOpen:true,srkxswz:['输入提示内容'],isModel:1})
-                                console.log(this.state.tuisong1)
-                                //ListView设置
-                                {/*var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});*/}
-                                {/*this.setState({csDate:pickedValue[0] + '/' + pickedValue[1]+ '/' + pickedValue[2],dataSource: ds.cloneWithRows(this.state.tableData),})*/}
+                                this.setState({isModel:1,tuisong1:pickedValue[0]+ ":" + pickedValue[1],isModalOpen:true,srkxswz:['输入提示内容']})
 
                             },
                             onPickerCancel: pickedValue => {
@@ -317,10 +384,6 @@ var Helper = React.createClass({
                                 ['00','30']],
                             onPickerConfirm: pickedValue => {
                                 this.setState({isModel:2,tuisong2:pickedValue[0]+ ":" + pickedValue[1],isModalOpen:true,srkxswz:['输入提示内容']})
-                                //ListView设置
-                                {/*var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});*/}
-                                {/*this.setState({csDate:pickedValue[0] + '/' + pickedValue[1]+ '/' + pickedValue[2],dataSource: ds.cloneWithRows(this.state.tableData),})*/}
-
                             },
                             onPickerCancel: pickedValue => {
                                 //ListView设置
@@ -344,9 +407,6 @@ var Helper = React.createClass({
                                 ['00','30']],
                             onPickerConfirm: pickedValue => {
                                 this.setState({isModel:3,tuisong3:pickedValue[0]+ ":" + pickedValue[1],isModalOpen:true,srkxswz:['输入提示内容']})
-                                //ListView设置
-                                {/*var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});*/}
-                                {/*this.setState({csDate:pickedValue[0] + '/' + pickedValue[1]+ '/' + pickedValue[2],dataSource: ds.cloneWithRows(this.state.tableData),})*/}
 
                             },
                             onPickerCancel: pickedValue => {

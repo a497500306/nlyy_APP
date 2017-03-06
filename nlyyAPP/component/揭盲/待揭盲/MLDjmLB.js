@@ -141,11 +141,14 @@ var DjmLB = React.createClass({
                 //判断用户类型
                 //判断改用户是不是随机化专员
                 var isSJHZY = false;
+                console.log(Users.Users)
                 for (var i = 0 ; i < Users.Users.length ; i++) {
                     if (Users.Users[i].UserFun == 'C1') {
                         isSJHZY = true
+                        console.log('有C1模块')
                     }
                 }
+                console.log(isSJHZY)
                 if (isSJHZY == true){//是随机化专员
                     //错误
                     Alert.alert(
@@ -451,6 +454,7 @@ var DjmLB = React.createClass({
                 UnblindingUsers : Users.Users[0].UserNam,
                 UnblindingPhone : Users.Users[0].UserMP,
                 Users : rowData.Users,
+                StudyID : Users.Users[0].StudyID,
                 UnblindingType : this.props.UnblindingType
             }
         }else if (this.props.UnblindingType == 3){
@@ -460,6 +464,7 @@ var DjmLB = React.createClass({
                 UnblindingUsers : Users.Users[0].UserNam,
                 UnblindingPhone : Users.Users[0].UserMP,
                 SiteID : rowData.site.SiteID,
+                StudyID : Users.Users[0].StudyID,
                 UnblindingType : this.props.UnblindingType
             }
         }else{
@@ -523,9 +528,12 @@ var DjmLB = React.createClass({
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                StudyID : Users.Users[0].StudyID,
+                ToExamineUserData : Users.Users[0],
                 ToExamineUsers : Users.Users[0].UserNam,
                 ToExaminePhone: Users.Users[0].UserMP,
                 ToExamineType : ToExamineType,
+                UnblindingType:this.props.UnblindingType,
                 id : rowData.id
             })
         })

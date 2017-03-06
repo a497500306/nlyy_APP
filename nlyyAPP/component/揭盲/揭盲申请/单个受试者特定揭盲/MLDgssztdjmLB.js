@@ -148,7 +148,11 @@ var DgssztdjmLB = React.createClass({
                 return(
                     <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'已经完成或者退出'} rightTitleColor = {'gray'}/>
                 )
-            }else {
+            }else if (rowData.users.isUnblinding == 1){
+                return(
+                    <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'已揭盲:' + rowData.users.Arm} rightTitleColor = {'gray'}/>
+                )
+            }else{
                 return (
                     <TouchableOpacity onPress={()=> {
                         //错误
@@ -171,7 +175,7 @@ var DgssztdjmLB = React.createClass({
             }
         }else{
             return(
-                <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'筛选失败用户'} rightTitleColor = {'gray'}/>
+                <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'筛选失败'} rightTitleColor = {'gray'}/>
             )
         }
     },

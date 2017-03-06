@@ -48,6 +48,7 @@ var CxywhSR = React.createClass({
                                clearButtonMode="always"
                                onChangeText={this.onZhanghao}//获取输入
                     />
+                    <Text style={{marginTop:10,}}>（例如:0001）</Text>
                     <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getLogin}>
                         <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
                             确 定
@@ -70,6 +71,18 @@ var CxywhSR = React.createClass({
 
     //点击确定
     getLogin(){
+        if (this.state.shuliang.length == 0){
+            //错误
+            Alert.alert(
+                '提示:',
+                "请输入正确的药物号",
+                [
+                    {text: '确定'}
+                ]
+            )
+
+            return
+        }
             this.setState({animating:true});
             //发送网络请求
             fetch(settings.fwqUrl + "/app/getDrugWLData", {
@@ -94,7 +107,8 @@ var CxywhSR = React.createClass({
                             component: Cxywh, // 具体路由的版块
                             //传递参数
                             passProps:{
-                                datas : responseJson
+                                datas : responseJson,
+                                drug:this.state.shuliang
                             },
                         });
                     }else {
@@ -114,7 +128,7 @@ var CxywhSR = React.createClass({
                         //错误
                         Alert.alert(
                             '提示:',
-                            '请检查您的网络111',
+                            '该药物号正在被操作,请稍后再试',
                             [
                                 {text: '确定'}
                             ]

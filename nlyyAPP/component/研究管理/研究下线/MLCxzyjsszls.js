@@ -17,7 +17,7 @@ var Users = require('../../../entity/Users');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var PatientRM = require('../../受试者随机/MLPatientRM');
 var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
-var Users = require('../../../entity/Users');
+var study = require('../../../entity/study');
 var Changku = require('../../../entity/Changku');
 var settings = require('../../../settings');
 var FPZhongxin = require('../../药物管理/仓库/保存数据/FPZhongxin');
@@ -134,9 +134,16 @@ var Cxzyjsszls = React.createClass({
 
     //返回具体的cell
     renderRow(rowData){
-        return(
-            <MLTableCell title={rowData} rightTitle={this.state.data} isArrow = {false}/>
-        )
+        //判断该研究是否有子研究
+        if (study.study.SubStudYN == 0){
+            return(
+                <MLTableCell title={rowData} rightTitle={'无子研究'} isArrow = {false}/>
+            )
+        }else {
+            return(
+                <MLTableCell title={rowData} rightTitle={this.state.data} isArrow = {false}/>
+            )
+        }
     },
 });
 

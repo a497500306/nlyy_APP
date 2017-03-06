@@ -17,7 +17,6 @@ var MLTableCell = require('../../MLTableCell/MLTableCell');
 var PatientRM = require('../../受试者随机/MLPatientRM');
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
-var Users = require('../../../entity/Users');
 var Changku = require('../../../entity/Changku');
 var settings = require('../../../settings');
 var WarehouseHandleList = require('./MLWarehouseHandleList');
@@ -34,11 +33,21 @@ var CKTable = React.createClass({
             dataSource: null,
             animating: true,//是否显示菊花
             cuowu: false,//是否显示错误
+            UserDepot : null
         }
     },
 
     //耗时操作,网络请求
     componentDidMount(){
+        var UserDepot = '';
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserDepot != null) {
+                UserDepot = Users.Users[i].UserDepot
+            }
+        }
+        this.setState({
+            UserDepot : UserDepot
+        })
         //发送登录网络请求
         fetch(settings.fwqUrl + "/app/getFengWarehouse", {
             method: 'POST',
@@ -47,7 +56,7 @@ var CKTable = React.createClass({
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                StudyID : Users.Users[0].StudyID,
+                StudyID : Users.Users[0].StudyID
             })
         })
             .then((response) => response.json())
@@ -125,7 +134,6 @@ var CKTable = React.createClass({
                     <MLNavigatorBar title={'选择仓库'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
-
                     <ListView
                         dataSource={this.state.dataSource}//数据源
                         renderRow={this.renderRow}
@@ -138,19 +146,51 @@ var CKTable = React.createClass({
 
     //返回具体的cell
     renderRow(rowData){
-        return(
-            <TouchableOpacity onPress={()=>{
-                //设置数据
-                FPChangku.FPChangku = rowData;
-                FPZhongxin.FPZhongxin = null;
-                // 页面的切换
-                this.props.navigator.push({
-                    component: FengpeiCK, // 具体路由的版块
-                });
-            }}>
-                <MLTableCell title={rowData.DepotName}/>
-            </TouchableOpacity>
-        )
+        if (rowData.DepotID == Changku.Changku.DepotID){
+            return(
+                <TouchableOpacity onPress={()=>{
+                    //错误
+                    Alert.alert(
+                        '提示',
+                        '这是你自己的仓库',
+                        [
+                            {text: '确定'}
+                        ]
+                    )
+                }}>
+                    <MLTableCell title={rowData.DepotName}/>
+                </TouchableOpacity>
+            )
+        }else if  (rowData.DepotID != this.state.UserDepot){
+            return(
+                <TouchableOpacity onPress={()=>{
+                    //设置数据
+                    FPChangku.FPChangku = rowData;
+                    FPZhongxin.FPZhongxin = null;
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: FengpeiCK, // 具体路由的版块
+                    });
+                }}>
+                    <MLTableCell title={rowData.DepotName}/>
+                </TouchableOpacity>
+            )
+        }else{
+            return(
+                <TouchableOpacity onPress={()=>{
+                    //错误
+                    Alert.alert(
+                        '提示',
+                        '这是你自己的仓库',
+                        [
+                            {text: '确定'}
+                        ]
+                    )
+                }}>
+                    <MLTableCell title={rowData.DepotName}/>
+                </TouchableOpacity>
+            )
+        }
     },
 });
 

@@ -26,7 +26,7 @@ var Qsjh = require('./取随机号/MLQsjh')
 var Mhcx = require('./模糊查询/MLMhcx')
 var Cysxlsfb = require('./查阅筛选例数分布/MLCxsxlsfb')
 var Cysjlsfb = require('./查阅随机例数分布/MLCysjlsfb')
-var Cytchwclsfb = require('./查阅退出或完成例数分布/MLCytchwclsfb')
+var Cytchwclsfb = require('./查阅退出或完成例数分布/MLCytchwclsfbLB')
 
 var PatientRM = React.createClass({
     getInitialState() {
@@ -95,7 +95,8 @@ var PatientRM = React.createClass({
                     tableData.push({title:'查阅随机例数分布',imageTitle:"bar-chart",iconColor:'rgba(0,136,212,1.0)'})
                 }
             }
-            if (data.UserFun == 'H1' || data.UserFun == 'M1'){
+            if (data.UserFun == 'H1' || data.UserFun == 'M1' || data.UserFun == 'H2' ||
+                data.UserFun == 'H3' || data.UserFun == 'M7'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
                     if (tableData[j].title == '查阅退出或者完成例数分布'){
@@ -161,6 +162,7 @@ var PatientRM = React.createClass({
                     this.props.navigator.pop()
                 }}/>
                 <ListView
+                    removeClippedSubviews={false}
                     pageSize={this.state.tableData.length}
                     contentContainerStyle={styles.list}
                     dataSource={this.state.dataSource}//数据源
@@ -386,7 +388,7 @@ const styles = StyleSheet.create({
     list: {
         alignItems:'flex-start',
         width:width,
-        justifyContent: 'space-around',
+        // justifyContent: 'space-around',
         flexDirection: 'row',
         flexWrap: 'wrap'
     },

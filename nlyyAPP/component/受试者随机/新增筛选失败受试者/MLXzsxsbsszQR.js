@@ -84,7 +84,7 @@ var XzsxcgsszQR = React.createClass({
         if (this.state.animating == true){
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'新增筛选成功受试者'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'新增筛选失败受试者'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
 
@@ -96,7 +96,7 @@ var XzsxcgsszQR = React.createClass({
         }else {
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'新增筛选成功受试者'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'新增筛选失败受试者'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
                     <ListView
@@ -211,7 +211,7 @@ var XzsxcgsszQR = React.createClass({
                     console.log(responseJson)
                     //错误
                     Alert.alert(
-                        "该患者编号为:",
+                        "该受试者编号为:",
                         responseJson.USubjectID,
                         [
                             {text: '确定', onPress: () => {this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[2])}}

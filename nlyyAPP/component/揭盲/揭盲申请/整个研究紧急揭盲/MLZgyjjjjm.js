@@ -103,6 +103,7 @@ var Zgyjjjjm = React.createClass({
             return (
                 <View style={styles.container}>
                     <MLNavigatorBar title={'单个研究紧急揭盲'} isBack={true} backFunc={() => {
+                        Pickers.hide();
                         this.props.navigator.pop()
                     }}/>
 
@@ -116,6 +117,7 @@ var Zgyjjjjm = React.createClass({
                 return (
                     <View style={styles.container}>
                         <MLNavigatorBar title={'整个研究紧急揭盲'} isBack={true} backFunc={() => {
+                            Pickers.hide();
                             this.props.navigator.pop()
                         }}/>
                         <ListView
@@ -129,6 +131,8 @@ var Zgyjjjjm = React.createClass({
                 return (
                     <View style={styles.container}>
                         <MLNavigatorBar title={'整个研究紧急揭盲'} isBack={true} backFunc={() => {
+
+                            Pickers.hide();
                             this.props.navigator.pop()
                         }}/>
                         <ListView
@@ -190,7 +194,7 @@ var Zgyjjjjm = React.createClass({
             return(
                 <TouchableOpacity onPress={()=>{
                     Pickers.init({
-                        pickerData:['严重不良事件','非预期不良事件','研究者要求','申办方要求','研究评价终点','其他'],
+                        pickerData:['严重不良事件','非预期不良事件','研究者要求','申办方要求','研究评价终点','不适用','其他'],
                         onPickerConfirm: pickedValue => {
                             //ListView设置
                             var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
@@ -216,7 +220,7 @@ var Zgyjjjjm = React.createClass({
             return(
                 <TouchableOpacity onPress={()=>{
                     Pickers.init({
-                        pickerData:['与研究药物有关','与研究药物无关'],
+                        pickerData:['与研究药物有关','与研究药物无关','不适用'],
                         onPickerConfirm: pickedValue => {
                             //ListView设置
                             var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});

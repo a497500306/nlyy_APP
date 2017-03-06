@@ -70,7 +70,7 @@ var MLTableCell = React.createClass({
             if (this.props.subTitle != ''){
                 return(
                     <View style={{marginLeft:40}}>
-                        <Text >
+                        <Text style={{color:"black"}}>
                             {this.props.title}
                         </Text>
                         <Text style={[{marginTop:Platform.OS == 'ios' ? 5: 0},{color:this.props.subTitleColor}]}>
@@ -81,7 +81,7 @@ var MLTableCell = React.createClass({
             }else {
                 return(
                     <View style={{marginLeft:40}}>
-                        <Text>
+                        <Text style={{color:"black"}}>
                             {this.props.title}
                         </Text>
                     </View>
@@ -91,7 +91,7 @@ var MLTableCell = React.createClass({
             if (this.props.subTitle != ''){
                 return(
                     <View style={{marginLeft:10}}>
-                        <Text >
+                        <Text style={{color:"black"}}>
                             {this.props.title}
                         </Text>
                         <Text style={[{marginTop:Platform.OS == 'ios' ? 5: 0},{color:this.props.subTitleColor}]}>
@@ -102,7 +102,7 @@ var MLTableCell = React.createClass({
             }else {
                 return(
                     <View style={{marginLeft:10}}>
-                        <Text>
+                        <Text style={{color:"black"}}>
                             {this.props.title}
                         </Text>
                     </View>

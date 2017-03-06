@@ -38,7 +38,8 @@ var DjssztchwcQR = React.createClass({
             //用户信息
             users:null,
             suijihao:null,
-            Random:null
+            Random:null,
+            isShibai:false
         }
     },
     getInitialState() {
@@ -73,12 +74,16 @@ var DjssztchwcQR = React.createClass({
         var tableData = [];
         tableData.push('研究编号');
         tableData.push('中心编号');
-        tableData.push('中心名称');
+        if (this.props.isShibai == false){
+            tableData.push('中心名称');
+        }
         tableData.push('受试者编号');
         tableData.push('受试者出生日期');
         tableData.push('受试者性别');
         tableData.push('受试者姓名缩写');
-        tableData.push('受试者手机号');
+        if (this.props.isShibai == false) {
+            tableData.push('受试者手机号');
+        }
         // if (this.props.users.SubjFa != ''){
         //     tableData.push('随机分层因素A')
         // }
@@ -137,7 +142,7 @@ var DjssztchwcQR = React.createClass({
         if (this.state.animating == true){
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'设置基线仿视日期'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'设置基线访视日期'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
 
@@ -217,24 +222,48 @@ var DjssztchwcQR = React.createClass({
             )
         }
         if(rowData == "受试者编号") {
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.users.USubjID} isArrow={false}/>
-            )
+            if (this.props.isShibai == false) {
+                return(
+                    <MLTableCell title={rowData} rightTitle={this.props.users.USubjID} isArrow={false}/>
+                )
+            }else{
+                return(
+                    <MLTableCell title={rowData} rightTitle={this.props.users.USubjectID} isArrow={false}/>
+                )
+            }
         }
         if(rowData == "受试者出生日期") {
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.users.SubjDOB} isArrow={false}/>
-            )
+            if (this.props.isShibai == false) {
+                return (
+                    <MLTableCell title={rowData} rightTitle={this.props.users.SubjDOB} isArrow={false}/>
+                )
+            }else{
+                return (
+                    <MLTableCell title={rowData} rightTitle={this.props.users.SubjectDOB} isArrow={false}/>
+                )
+            }
         }
         if(rowData == "受试者性别") {
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.users.SubjSex}  isArrow={false}/>
-            )
+            if (this.props.isShibai == false) {
+                return (
+                    <MLTableCell title={rowData} rightTitle={this.props.users.SubjSex} isArrow={false}/>
+                )
+            }else{
+                return (
+                    <MLTableCell title={rowData} rightTitle={this.props.users.SubjectSex} isArrow={false}/>
+                )
+            }
         }
         if (rowData == '受试者姓名缩写'){
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.users.SubjIni} isArrow={false}/>
-            )
+            if (this.props.isShibai == false) {
+                return (
+                    <MLTableCell title={rowData} rightTitle={this.props.users.SubjIni} isArrow={false}/>
+                )
+            }else{
+                return (
+                    <MLTableCell title={rowData} rightTitle={this.props.users.SubjectIn} isArrow={false}/>
+                )
+            }
         }
         if (rowData == '受试者手机号'){
             return(
@@ -453,16 +482,17 @@ var DjssztchwcQR = React.createClass({
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                StudyID:this.props.users.StudyID,
-                SiteID:this.props.users.SiteID,
+                StudyID:this.props.isShibai == false ? this.props.users.StudyID : this.props.users.StudyID,
+                SiteID:this.props.isShibai == false ? this.props.users.SiteID : this.props.users.SiteID,
                 userId:this.props.users.id,
-                SubjectID:this.props.users.SubjID,
-                USubjectID:this.props.users.USubjID,
-                SubjectSex:this.props.users.SubjSex,
-                SubjectIn:this.props.users.SubjIni,
+                SubjectID:this.props.isShibai == false ? this.props.users.SubjID : this.props.users.SubjID,
+                USubjectID:this.props.isShibai == false ? this.props.users.USubjID : this.props.users.USubjectID,
+                SubjectSex:this.props.isShibai == false ? this.props.users.SubjSex : this.props.users.SubjectSex,
+                SubjectIn:this.props.isShibai == false ? this.props.users.SubjIni : this.props.users.SubjectIn,
                 DSDE:this.state.yuanying,
                 DSSTDAT:stopDrugDate,
                 DSCONT_OLE:this.state.shifouchanjia,
+                isShibai : this.props.isShibai
             })
         })
             .then((response) => response.json())

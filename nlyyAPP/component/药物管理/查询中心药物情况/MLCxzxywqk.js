@@ -216,9 +216,13 @@ var PatientRM = require('../../受试者随机/MLPatientRM');
 var ResearchCore = require('../研究中心/MLResearchCore');
 var Warehouse = require('../仓库/MLWarehouse');
 var users = require('../../../entity/Users')
-var Cxzxywqk = require('../查询中心药物情况/MLCxzxywqk')
 
 var Cxzxywqk = React.createClass({
+    getDefaultProps(){
+        return {
+            FPZhongxin : null
+        }
+    },
     getInitialState() {
 
         //ListView设置
@@ -244,14 +248,7 @@ var Cxzxywqk = React.createClass({
 
     //耗时操作,网络请求
     componentDidMount(){
-        var UserSite = '';
-        for (var i = 0 ; i < Users.Users.length ; i++) {
-            if (Users.Users[i].UserSite != null) {
-                UserSite = Users.Users[i].UserSite
-            }
-        }
-        console.log('UserSite')
-        console.log(UserSite)
+        var UserSite = this.props.FPZhongxin.SiteID;
         //发送登录网络请求
         fetch(settings.fwqUrl + "/app/getSiteDrugData", {
             method: 'POST',

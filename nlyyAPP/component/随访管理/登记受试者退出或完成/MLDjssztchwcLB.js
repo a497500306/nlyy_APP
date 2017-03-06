@@ -167,9 +167,29 @@ var DjssztchwcLB = React.createClass({
                 )
             }
         }else{
-            return(
-                <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'筛选失败用户'} rightTitleColor = {'gray'}/>
-            )
+            if (rowData.users.isOut == 1) {
+                return(
+                    <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'已经完成或者退出'} rightTitleColor = {'gray'}/>
+                )
+            }else {
+                return(
+                    <TouchableOpacity onPress={()=> {
+                        //错误
+                        this.props.navigator.push({
+                            component: DjssztchwcQR, // 具体路由的版块
+                            //传递参数
+                            passProps: {
+                                //出生年月
+                                users: rowData.users,
+                                Random: rowData.Random,
+                                isShibai: true
+                            }
+                        })
+                    }}>
+                        <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'筛选失败'} rightTitleColor = {'gray'}/>
+                    </TouchableOpacity>
+                )
+            }
         }
     },
 });

@@ -187,7 +187,14 @@ var NewYwqd = React.createClass({
 
                     console.log(this.state.xuanzhongData)
                 }}>
-                    <MLTableCell title={rowData.DrugNum} isArrow = {false}  iconTitl='check' iconColor='rgba(0,136,212,1.0)'/>
+                    <MLTableCell
+                        title={rowData.DrugNum}
+                        subTitle={(rowData.DDrugDMNumYN == 1 ? ('已废弃  ' +  (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  ')) : (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  '))}
+                        isArrow = {false}
+                        iconTitl='check'
+                        iconColor='rgba(0,136,212,1.0)'
+                        subTitleColor={rowData.DDrugNumAYN == 1 ? (rowData.DDrugDMNumYN == 1 ? "gray" : "red") : 'gray'}
+                    />
                 </TouchableOpacity>
             )
         }else{
@@ -204,7 +211,11 @@ var NewYwqd = React.createClass({
                     console.log(this.state.xuanzhongData)
                     this.state.title = '确 定( ' + this.state.xuanzhongData.length + ' )'
                 }}>
-                    <MLTableCell title={rowData.DrugNum} isArrow = {false}/>
+                    <MLTableCell title={rowData.DrugNum}
+                                 subTitle={(rowData.DDrugDMNumYN == 1 ? ('已废弃  ' +  (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  ')) : (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  '))}
+                                 isArrow = {false}
+                                 subTitleColor={rowData.DDrugNumAYN == 1 ?  (rowData.DDrugDMNumYN == 1 ? "gray" : "red") : 'gray'}
+                    />
                 </TouchableOpacity>
             )
         }
@@ -212,10 +223,18 @@ var NewYwqd = React.createClass({
 
     //点击全选
     quanxuan(){
-        var datas = [];
+        var data = [];
         for(var i = 0 ; i < this.state.tableData.length ; i++){
-            data
+            if (this.state.tableData[i].DDrugNumAYN != 1){
+                this.state.tableData[i].isSelected = true;
+                data.push(this.state.tableData[i].id)
+            }
         }
+        var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+        this.setState({
+            dataSource: ds.cloneWithRows(this.state.tableData),
+            xuanzhongData : data
+        });
     },
 
     //点击确定
@@ -227,6 +246,22 @@ var NewYwqd = React.createClass({
                 '请选择功能',
                 [
                     {text: '激活', onPress: () => {
+                        //判断药物号是否被激活
+                        for(var i = 0 ; i < this.state.tableData.length ; i++){
+                            if (this.state.tableData[i].isSelected == true){
+                                if (this.state.tableData[i].DDrugNumAYN == 1){
+                                    //错误
+                                    Alert.alert(
+                                        '提示:',
+                                        '该（批）药物号已（部分）被激活，请勿重复激活',
+                                        [
+                                            {text: '确定'}
+                                        ]
+                                    );
+                                    return;
+                                }
+                            }
+                        }
                         //发送激活请求
                         //发送网络请求
                         fetch(settings.fwqUrl + "/app/getSelectedActivation", {
@@ -277,6 +312,22 @@ var NewYwqd = React.createClass({
                     }},
 
                     {text: '废弃', onPress: () => {
+                        //判断药物号是否被废弃
+                        for(var i = 0 ; i < this.state.tableData.length ; i++){
+                            if (this.state.tableData[i].isSelected == true){
+                                if (this.state.tableData[i].DDrugDMNumYN == 1){
+                                    //错误
+                                    Alert.alert(
+                                        '提示:',
+                                        '该（批）药物号已（部分）被废弃，请勿重复废弃',
+                                        [
+                                            {text: '确定'}
+                                        ]
+                                    );
+                                    return;
+                                }
+                            }
+                        }
                         //发送废弃请求//发送网络请求
                         fetch(settings.fwqUrl + "/app/getSelectedAbandoned", {
                             method: 'POST',

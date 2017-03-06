@@ -109,6 +109,7 @@ var DgssztdjmQR = React.createClass({
             return (
                 <View style={styles.container}>
                     <MLNavigatorBar title={this.props.UnblindingType == 1 ? '单个受试者特定揭盲' : '单个受试者紧急揭盲'} isBack={true} backFunc={() => {
+                        Pickers.hide();
                         this.props.navigator.pop()
                     }}/>
 
@@ -122,6 +123,8 @@ var DgssztdjmQR = React.createClass({
                 return (
                     <View style={styles.container}>
                         <MLNavigatorBar title={this.props.UnblindingType == 1 ? '单个受试者特定揭盲' : '单个受试者紧急揭盲'} isBack={true} backFunc={() => {
+
+                            Pickers.hide();
                             this.props.navigator.pop()
                         }}/>
                         <ListView
@@ -135,6 +138,8 @@ var DgssztdjmQR = React.createClass({
                 return (
                     <View style={styles.container}>
                         <MLNavigatorBar title={this.props.UnblindingType == 1 ? '单个受试者特定揭盲' : '单个受试者紧急揭盲'} isBack={true} backFunc={() => {
+
+                            Pickers.hide();
                             this.props.navigator.pop()
                         }}/>
                         <ListView
@@ -238,7 +243,7 @@ var DgssztdjmQR = React.createClass({
             return(
                 <TouchableOpacity onPress={()=>{
                     Pickers.init({
-                        pickerData:['与研究药物有关','与研究药物无关'],
+                        pickerData:['与研究药物有关','与研究药物无关','不适用'],
                         onPickerConfirm: pickedValue => {
                             //ListView设置
                             var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});

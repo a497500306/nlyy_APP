@@ -326,7 +326,7 @@ var XzsxcgsszQR = React.createClass({
                 }else {
                     //错误
                     Alert.alert(
-                        "该患者编号为:",
+                        "该受试者编号为:",
                         responseJson.USubjID,
                         [
                             {text: '取随机号', onPress: () => {

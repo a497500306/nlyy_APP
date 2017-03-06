@@ -21,7 +21,7 @@ var Users = require('../../../entity/Users');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var PatientRM = require('../../受试者随机/MLPatientRM');
 var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
-var Users = require('../../../entity/Users');
+var study = require('../../../entity/study');
 var Changku = require('../../../entity/Changku');
 var settings = require('../../../settings');
 var FPZhongxin = require('../../药物管理/仓库/保存数据/FPZhongxin');
@@ -38,11 +38,18 @@ var Dshlb = React.createClass({
             dataSource: null,
             animating: true,//是否显示菊花
             cuowu: false,//是否显示错误
+            dataType : null
         }
     },
 
     //耗时操作,网络请求
     componentDidMount(){
+        var UserSite = '';
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserSite != null) {
+                UserSite = Users.Users[i].UserSite
+            }
+        }
         //发送登录网络请求
         fetch(settings.fwqUrl + "/app/getZXStopItWaitForAudit", {
             method: 'POST',
@@ -51,6 +58,7 @@ var Dshlb = React.createClass({
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                SiteID : UserSite,
                 StudyID : Users.Users[0].StudyID
             })
         })
@@ -63,11 +71,14 @@ var Dshlb = React.createClass({
                     this.setState({cuowu:true});
                 }else{
                     //ListView设置
-                    console.log(responseJson.data)
+                    console.log(responseJson)
                     var tableData = responseJson.data;
 
                     var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                    this.setState({dataSource: ds.cloneWithRows(tableData)});
+                    this.setState({
+                        dataSource: ds.cloneWithRows(tableData),
+                        dataType : responseJson.dataType
+                    });
                     //移除等待
                     this.setState({animating:false});
                     this.setState({cuowu:false});
@@ -138,7 +149,7 @@ var Dshlb = React.createClass({
     },
 
     //返回具体的cell
-    renderRow(rowData){
+    renderRow(rowData, sectionID, rowID, highlightRow){
         var sss = rowData.isStopIt == 1?'是' : '否';
         //判断改用户是不是随机化专员
         var isSJHZY = false;
@@ -170,6 +181,8 @@ var Dshlb = React.createClass({
                                                 },
                                                 body: JSON.stringify({
                                                     id : rowData.id,
+                                                    StudyID : Users.Users[0].StudyID,
+                                                    ToExamineUserData : Users.Users[0],
                                                     ToExamineType : 1,
                                                     ToExamineUsers:Users.Users[0].UserNam,
                                                     ToExaminePhone:Users.Users[0].UserMP,
@@ -259,9 +272,9 @@ var Dshlb = React.createClass({
                     <View style={{marginTop: 10 , backgroundColor: 'white',borderBottomColor: '#dddddd', borderBottomWidth: 1,borderTopColor: '#dddddd', borderTopWidth: 1, }}>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'研究编号:' + rowData.StudyID}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'中心名称:' + rowData.SiteNam}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'受试者入组是否中心之间竞争:' + '这是什么?'}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'中心平均入组例数:' + '这是什么'}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'中心目前已随机例数:' + '这是什么'}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'受试者入组是否中心之间竞争:' + (study.study.AccrualCmpYN == 1 ? '是' : '否')}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'中心平均入组例数:' + this.state.dataType[rowID].PJRZLS}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'中心目前已随机例数:' + this.state.dataType[rowID].YSJLS}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'中心停止入组原因:' + rowData.Reason}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'中心已停止受试者入组:' + sss}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'是否推送短信给全国PI:' + rowData.isMessage}</Text>
@@ -296,6 +309,7 @@ var Dshlb = React.createClass({
                                                 },
                                                 body: JSON.stringify({
                                                     id : rowData.id,
+                                                    StudyID : Users.Users[0].StudyID,
                                                     isStopIt : 1,
                                                     StopItUsers:Users.Users[0].UserNam,
                                                     StopItPhone:Users.Users[0].UserMP,
@@ -335,6 +349,7 @@ var Dshlb = React.createClass({
                                                 },
                                                 body: JSON.stringify({
                                                     id : rowData.id,
+                                                    StudyID : Users.Users[0].StudyID,
                                                     isStopIt : 2,
                                                     StopItUsers:Users.Users[0].UserNam,
                                                     StopItPhone:Users.Users[0].UserMP,
@@ -385,9 +400,9 @@ var Dshlb = React.createClass({
                     <View style={{marginTop: 10 , backgroundColor: 'white',borderBottomColor: '#dddddd', borderBottomWidth: 1,borderTopColor: '#dddddd', borderTopWidth: 1, }}>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'研究编号:' + rowData.StudyID}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'中心名称:' + rowData.SiteNam}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'受试者入组是否中心之间竞争:' + '这是什么?'}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'中心平均入组例数:' + '这是什么'}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'中心目前已随机例数:' + '这是什么'}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'受试者入组是否中心之间竞争:' + (study.study.AccrualCmpYN == 1 ? '是' : '否')}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'中心平均入组例数:' + this.state.dataType[rowID].PJRZLS}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'中心目前已随机例数:' + this.state.dataType[rowID].YSJLS}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'中心停止入组原因:' + rowData.Reason}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'中心已停止受试者入组:' + sss}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'是否推送短信给全国PI:' + rowData.isMessage}</Text>

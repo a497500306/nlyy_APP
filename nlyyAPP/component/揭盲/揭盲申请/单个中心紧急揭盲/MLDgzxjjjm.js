@@ -135,21 +135,27 @@ var Dgzxjjjm = React.createClass({
 
     //返回具体的cell
     renderRow(rowData){
-        return(
-            <TouchableOpacity onPress={()=>{
-                //错误
-                this.props.navigator.push({
-                    component: DgzxjjjmQR, // 具体路由的版块
-                    //传递参数
-                    passProps: {
-                        //出生年月
-                        core: rowData
-                    }
-                })
-            }}>
-                <MLTableCell title={rowData.SiteNam}/>
-            </TouchableOpacity>
-        )
+        if (rowData.isUnblinding == 1){
+            return(
+                <MLTableCell isArrow = {false} title={rowData.SiteNam} subTitle = {"中心编号:" + rowData.SiteID} subTitleColor = {'black'} rightTitle={'该中心已揭盲'} rightTitleColor = {'gray'}/>
+            )
+        }else{
+            return(
+                <TouchableOpacity onPress={()=>{
+                    //错误
+                    this.props.navigator.push({
+                        component: DgzxjjjmQR, // 具体路由的版块
+                        //传递参数
+                        passProps: {
+                            //出生年月
+                            core: rowData
+                        }
+                    })
+                }}>
+                    <MLTableCell title={rowData.SiteNam}/>
+                </TouchableOpacity>
+            )
+        }
     },
 });
 

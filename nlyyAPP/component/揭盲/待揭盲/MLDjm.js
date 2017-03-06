@@ -63,63 +63,71 @@ var Djm = React.createClass({
                 }
             }
         }
-        console.log(zgyjjjjmSH)
+        console.log(dgzxjjjmSH)
+        console.log(Users.Users)
         var tableData = [];
-        for (var i = 0 ; i < Users.Users.length ; i++){
-            var data = Users.Users[i];
-            //判断用户类别
-            for (var y = 0 ; y < dgssztdjmSH.length ; y++) {
-                if (data.UserFun == dgssztdjmSH[y]){
-                    var isY = false
-                    for (var j = 0 ; j < tableData.length ; j++){
-                        if (tableData[j] == '单个受试者特定待揭盲'){
-                            isY = true;
+        if (Users.Users[0].UserFun == "C1"){
+            tableData.push('单个受试者特定待揭盲')
+            tableData.push('单个受试者紧急待揭盲')
+            tableData.push('单个中心紧急待揭盲')
+            tableData.push('整个研究紧急待揭盲')
+        }else{
+            for (var i = 0 ; i < Users.Users.length ; i++){
+                var data = Users.Users[i];
+                //判断用户类别
+                for (var y = 0 ; y < dgssztdjmSH.length ; y++) {
+                    if (data.UserFun == dgssztdjmSH[y]){
+                        var isY = false
+                        for (var j = 0 ; j < tableData.length ; j++){
+                            if (tableData[j] == '单个受试者特定待揭盲'){
+                                isY = true;
+                            }
                         }
-                    }
-                    if (isY == false){
-                        tableData.push('单个受试者特定待揭盲')
+                        if (isY == false){
+                            tableData.push('单个受试者特定待揭盲')
+                        }
                     }
                 }
-            }
-            //判断用户类别
-            for (var y = 0 ; y < dgsszjjjmSH.length ; y++) {
-                if (data.UserFun == dgsszjjjmSH[y]){
-                    var isY = false
-                    for (var j = 0 ; j < tableData.length ; j++){
-                        if (tableData[j] == '单个受试者紧急待揭盲'){
-                            isY = true;
+                //判断用户类别
+                for (var y = 0 ; y < dgsszjjjmSH.length ; y++) {
+                    if (data.UserFun == dgsszjjjmSH[y]){
+                        var isY = false
+                        for (var j = 0 ; j < tableData.length ; j++){
+                            if (tableData[j] == '单个受试者紧急待揭盲'){
+                                isY = true;
+                            }
                         }
-                    }
-                    if (isY == false){
-                        tableData.push('单个受试者紧急待揭盲')
+                        if (isY == false){
+                            tableData.push('单个受试者紧急待揭盲')
+                        }
                     }
                 }
-            }
-            //判断用户类别
-            for (var y = 0 ; y < dgzxjjjmSH.length ; y++) {
-                if (data.UserFun == dgzxjjjmSH[y]){
-                    var isY = false
-                    for (var j = 0 ; j < tableData.length ; j++){
-                        if (tableData[j] == '单个中心紧急待揭盲'){
-                            isY = true;
+                //判断用户类别
+                for (var y = 0 ; y < dgzxjjjmSH.length ; y++) {
+                    if (data.UserFun == dgzxjjjmSH[y]){
+                        var isY = false
+                        for (var j = 0 ; j < tableData.length ; j++){
+                            if (tableData[j] == '单个中心紧急待揭盲'){
+                                isY = true;
+                            }
                         }
-                    }
-                    if (isY == false){
-                        tableData.push('单个中心紧急待揭盲')
+                        if (isY == false){
+                            tableData.push('单个中心紧急待揭盲')
+                        }
                     }
                 }
-            }
-            //判断用户类别
-            for (var y = 0 ; y < zgyjjjjmSH.length ; y++) {
-                if (data.UserFun == zgyjjjjmSH[y]){
-                    var isY = false
-                    for (var j = 0 ; j < tableData.length ; j++){
-                        if (tableData[j] == '整个研究紧急待揭盲'){
-                            isY = true;
+                //判断用户类别
+                for (var y = 0 ; y < zgyjjjjmSH.length ; y++) {
+                    if (data.UserFun == zgyjjjjmSH[y]){
+                        var isY = false
+                        for (var j = 0 ; j < tableData.length ; j++){
+                            if (tableData[j] == '整个研究紧急待揭盲'){
+                                isY = true;
+                            }
                         }
-                    }
-                    if (isY == false){
-                        tableData.push('整个研究紧急待揭盲')
+                        if (isY == false){
+                            tableData.push('整个研究紧急待揭盲')
+                        }
                     }
                 }
             }

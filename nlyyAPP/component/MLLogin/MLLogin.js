@@ -106,17 +106,6 @@ var login = React.createClass({
                             color="white"
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getLogin1}>
-                        <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
-                            测 试
-                        </Text>
-                        <ActivityIndicator
-                            animating={this.state.animating}
-                            style={[styles.centering, {height: 30}]}
-                            size="small"
-                            color="white"
-                        />
-                    </TouchableOpacity>
                 </View>
                 <View style={styles.biaoshiStyle}>
                     <Text style={{color:'gray',fontSize: 14}}>上海诺兰医药科技有限公司</Text>
@@ -285,8 +274,8 @@ var login = React.createClass({
                 if (responseJson.isSucceed == 200){
                     //错误
                     Alert.alert(
+                        '提示',
                         responseJson.msg,
-                        null,
                         [
                             {text: '确定'}
                         ]
@@ -310,8 +299,8 @@ var login = React.createClass({
                 console.log(error),
                 //错误
                 Alert.alert(
-                    '请检查您的网络111',
-                    null,
+                    '提示',
+                    '请检查您的网络',
                     [
                         {text: '确定'}
                     ]

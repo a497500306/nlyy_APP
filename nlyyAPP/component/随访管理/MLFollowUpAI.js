@@ -43,12 +43,12 @@ var FollowUpAI = React.createClass({
             if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
-                    if (tableData[j] == '受试者基线访视日期'){
+                    if (tableData[j] == '受试者随访参比日期'){
                         isY = true;
                     }
                 }
                 if (isY == false){
-                    tableData.push('受试者基线访视日期')
+                    tableData.push('受试者随访参比日期')
                 }
             }
             if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1'){
@@ -76,12 +76,12 @@ var FollowUpAI = React.createClass({
             if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
-                    if (tableData[j] == '发送药物提醒短信'){
+                    if (tableData[j] == '发送用药提醒短信'){
                         isY = true;
                     }
                 }
                 if (isY == false){
-                    tableData.push('发送药物提醒短信')
+                    tableData.push('发送用药提醒短信')
                 }
             }
         }
@@ -112,7 +112,7 @@ var FollowUpAI = React.createClass({
     renderRow(rowData){
         return(
             <TouchableOpacity onPress={()=>{
-                if (rowData == '受试者基线访视日期'){
+                if (rowData == '受试者随访参比日期'){
                     // 页面的切换
                     this.props.navigator.push({
                         component: Sszjxfsrq, // 具体路由的版块
@@ -127,22 +127,11 @@ var FollowUpAI = React.createClass({
                     this.props.navigator.push({
                         component: Djssztchwc, // 具体路由的版块
                     });
-                }else if (rowData == '发送药物提醒短信'){
-                    if (researchParameter.researchParameter.DrugNOpen == 1){
-                        // 页面的切换
-                        this.props.navigator.push({
-                            component: Fsywtxdx, // 具体路由的版块
-                        });
-                    }else{
-                        //错误
-                        Alert.alert(
-                            '提示:',
-                            '该研究不提供药物号',
-                            [
-                                {text: '确定'}
-                            ]
-                        )
-                    }
+                }else if (rowData == '发送用药提醒短信'){
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: Fsywtxdx, // 具体路由的版块
+                    });
                 }
             }}>
                 <MLTableCell title={rowData}/>

@@ -103,6 +103,7 @@ var DgzxjjjmQR = React.createClass({
             return (
                 <View style={styles.container}>
                     <MLNavigatorBar title={'单个中心紧急揭盲'} isBack={true} backFunc={() => {
+                        Pickers.hide();
                         this.props.navigator.pop()
                     }}/>
 
@@ -116,6 +117,8 @@ var DgzxjjjmQR = React.createClass({
                 return (
                     <View style={styles.container}>
                         <MLNavigatorBar title={'单个中心紧急揭盲'} isBack={true} backFunc={() => {
+
+                            Pickers.hide();
                             this.props.navigator.pop()
                         }}/>
                         <ListView
@@ -129,6 +132,8 @@ var DgzxjjjmQR = React.createClass({
                 return (
                     <View style={styles.container}>
                         <MLNavigatorBar title={'单个中心紧急揭盲'} isBack={true} backFunc={() => {
+
+                            Pickers.hide();
                             this.props.navigator.pop()
                         }}/>
                         <ListView
@@ -216,7 +221,7 @@ var DgzxjjjmQR = React.createClass({
             return(
                 <TouchableOpacity onPress={()=>{
                     Pickers.init({
-                        pickerData:['与研究药物有关','与研究药物无关'],
+                        pickerData:['与研究药物有关','与研究药物无关','不适用'],
                         onPickerConfirm: pickedValue => {
                             //ListView设置
                             var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});

@@ -48,50 +48,53 @@ var Dgzx = React.createClass({
             }
         }
         var tableData = [];
-        for (var i = 0 ; i < Users.Users.length ; i++){
-            var data = Users.Users[i];
-            for (var y = 0 ; y < shengqing.length ; y++) {
-                if (data.UserFun == shengqing[y]){
+        if (Users.Users[0].UserFun == "C1"){
+            tableData.push('审核')
+        }else {
+            for (var i = 0; i < Users.Users.length; i++) {
+                var data = Users.Users[i];
+                for (var y = 0; y < shengqing.length; y++) {
+                    if (data.UserFun == shengqing[y]) {
+                        var isY = false
+                        for (var j = 0; j < tableData.length; j++) {
+                            if (tableData[j] == '申请') {
+                                isY = true;
+                            }
+                        }
+                        if (isY == false) {
+                            tableData.push('申请')
+                        }
+                    }
+                }
+                //判断用户类别
+                for (var y = 0; y < shenghe.length; y++) {
+                    if (data.UserFun == shenghe[y]) {
+                        var isY = false
+                        for (var j = 0; j < tableData.length; j++) {
+                            if (tableData[j] == '审核') {
+                                isY = true;
+                            }
+                        }
+                        if (isY == false) {
+                            tableData.push('审核')
+                        }
+                    }
+                }
+                //判断用户类别
+                if (data.UserFun == 'H2' || data.UserFun == 'H3' ||
+                    data.UserFun == 'S1' || data.UserFun == 'M7') {
                     var isY = false
-                    for (var j = 0 ; j < tableData.length ; j++){
-                        if (tableData[j] == '申请'){
+                    for (var j = 0; j < tableData.length; j++) {
+                        if (tableData[j] == '已停止入组中心列表') {
                             isY = true;
                         }
                     }
-                    if (isY == false){
-                        tableData.push('申请')
+                    if (isY == false) {
+                        tableData.push('已停止入组中心列表')
                     }
-                }
-            }
-            //判断用户类别
-            for (var y = 0 ; y < shenghe.length ; y++) {
-                if (data.UserFun == shenghe[y]){
-                    var isY = false
-                    for (var j = 0 ; j < tableData.length ; j++){
-                        if (tableData[j] == '审核'){
-                            isY = true;
-                        }
-                    }
-                    if (isY == false){
-                        tableData.push('审核')
-                    }
-                }
-            }
-            //判断用户类别
-            if (data.UserFun == 'H2' || data.UserFun == 'H3' ||
-                data.UserFun == 'S1' || data.UserFun == 'M7'){
-                var isY = false
-                for (var j = 0 ; j < tableData.length ; j++){
-                    if (tableData[j] == '已停止入组中心列表'){
-                        isY = true;
-                    }
-                }
-                if (isY == false){
-                    tableData.push('已停止入组中心列表')
                 }
             }
         }
-
         console.log(tableData)
         //ListView设置
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
@@ -129,7 +132,7 @@ var Dgzx = React.createClass({
                         component: TzrzZxTable, // 具体路由的版块
                     });
                 }
-                if (rowData == '审核列表'){
+                if (rowData == '审核'){
                     // 页面的切换
                     this.props.navigator.push({
                         component: Dshlb, // 具体路由的版块

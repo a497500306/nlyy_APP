@@ -17,6 +17,8 @@ import {
     ListView,
 } from 'react-native';
 
+
+import  {DeviceEventEmitter} from 'react-native';//通知
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
 var yytx = require('../../受试者随机/用药提醒/MLYytx')
@@ -26,7 +28,8 @@ var Users = require('../../../entity/Users');
 var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var researchParameter = require('../../../entity/researchParameter')
-var QywhlsLB = require('./MLQyhlsLB')
+var QywhlsLB = require('./MLQyhlsLB');
+var Thywh = require('./MLThywh')
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 var Quhls = React.createClass({
@@ -44,6 +47,7 @@ var Quhls = React.createClass({
             tableData:[],
         }
     },
+
     //耗时操作,网络请求
     componentDidMount(){
         var UserSite = '';
@@ -142,8 +146,6 @@ var Quhls = React.createClass({
 
     //返回具体的cell
     renderRow(rowData,sectionID, rowID){
-        console.log(rowData)
-
         if (rowData.isOut == 1) {
             return(
                 <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " + ((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ('分组:' + rowData.Arm) : "") } subTitleColor = {'black'} rightTitle={'已经完成或退出'} rightTitleColor = {'gray'}/>
@@ -187,7 +189,7 @@ var Quhls = React.createClass({
                                                     component: QywhlsLB, // 具体路由的版块
                                                 });
                                             }else if (researchParameter.researchParameter.BlindSta == 2){
-                                                if (researchParameter.researchParameter.DrugNSBlind == 1){
+                                                if (researchParameter.researchParameter.DrugNOpen == 1){
                                                     // 页面的切换
                                                     this.props.navigator.push({
                                                         //传递参数
@@ -228,16 +230,6 @@ var Quhls = React.createClass({
                                             }
                                         }},
                                         {text: '替换药物号', onPress: () => {
-                                            //移除等待
-                                            this.setState({animating:true});
-                                            var UserSite = '';
-                                            for (var i = 0 ; i < Users.Users.length ; i++) {
-                                                if (Users.Users[i].UserSite != null) {
-                                                    UserSite = Users.Users[i].UserSite
-                                                }
-                                            }
-                                            //判断是否为替换的药物号
-                                            var isTihuan = 0
                                             var yaowuhao = ''
                                             var Cts = rowData.Drug[rowData.Drug.length - 1];
 
@@ -252,62 +244,15 @@ var Quhls = React.createClass({
                                                 console.log('替换')
                                                 console.log(yaowuhao)
                                             }
-                                            //发送登录网络请求
-                                            fetch(settings.fwqUrl + "/app/getThywh", {
-                                                method: 'POST',
-                                                headers: {
-                                                    'Accept': 'application/json; charset=utf-8',
-                                                    'Content-Type': 'application/json',
+                                            // 页面的切换
+                                            this.props.navigator.push({
+                                                //传递参数
+                                                passProps:{
+                                                    userData : rowData,
+                                                    isTihuan : true
                                                 },
-                                                body: JSON.stringify({
-                                                    userId : rowData.id,
-                                                    SiteID : UserSite,
-                                                    StudyID : Users.Users[0].StudyID,
-                                                    DrugNum : yaowuhao
-                                                })
-                                            })
-                                                .then((response) => response.json())
-                                                .then((responseJson) => {
-                                                    console.log(responseJson);
-                                                    if (responseJson.isSucceed != 400){
-                                                        //错误
-                                                        Alert.alert(
-                                                            '提示:',
-                                                            responseJson.msg,
-                                                            [
-                                                                {text: '确定'}
-                                                            ]
-                                                        )
-                                                        //移除等待
-                                                        this.setState({animating:false});
-                                                    }else{
-                                                        //错误
-                                                        Alert.alert(
-                                                            '提示:',
-                                                            responseJson.msg,
-                                                            [
-                                                                {text: '确定', onPress: () => {
-                                                                    this.props.navigator.pop()
-                                                                }}
-                                                            ]
-                                                        )
-                                                        //移除等待
-                                                        this.setState({animating:false});
-                                                    }
-                                                })
-                                                .catch((error) => {//错误
-                                                    //移除等待,弹出错误
-                                                    this.setState({animating:false});
-                                                    //错误
-                                                    Alert.alert(
-                                                        '提示:',
-                                                        '请检查您的网络',
-                                                        [
-                                                            {text: '确定'}
-                                                        ]
-                                                    )
-
-                                                });
+                                                component: QywhlsLB,
+                                            });
                                         }},
                                         {text: '取消'}
                                     ]
@@ -328,7 +273,7 @@ var Quhls = React.createClass({
                 }
             }else {
                 return(
-                    <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:无")) : "")} subTitleColor = {'black'} rightTitle={'筛选失败用户'} rightTitleColor = {'gray'}/>
+                    <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:不适用")) : "")} subTitleColor = {'black'} rightTitle={'筛选失败'} rightTitleColor = {'gray'}/>
                 )
             }
         }

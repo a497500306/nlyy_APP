@@ -17,14 +17,20 @@ var Users = require('../../../entity/Users');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var PatientRM = require('../../受试者随机/MLPatientRM');
 var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
-var Users = require('../../../entity/Users');
 var Changku = require('../../../entity/Changku');
 var settings = require('../../../settings');
 var FPZhongxin = require('../../药物管理/仓库/保存数据/FPZhongxin');
 var FPChangku = require('../../药物管理/仓库/保存数据/FPChangku');
+var CytchwclsfbZX = require('../../受试者随机/查阅退出或完成例数分布/MLCytchwclsfbZX');
 var DgzxSq = require('./MLDgzxSq');
+var Cxzxywqk = require('../../药物管理/查询中心药物情况/MLCxzxywqk');
 
 var TzrzZxTable = React.createClass({
+    getDefaultProps(){
+        return {
+            pushType : null
+        }
+    },
 
     //初始化设置
     getInitialState() {
@@ -141,26 +147,47 @@ var TzrzZxTable = React.createClass({
     renderRow(rowData){
         return(
             <TouchableOpacity onPress={()=>{
-                if (rowData.isStopIt == 1){
-                    //错误
-                    Alert.alert(
-                        '提示',
-                        '该中心已经停止入组',
-                        [
-                            {text: '确定'}
-                        ]
-                    )
-                }else{
-                    //设置数据
-                    FPZhongxin.FPZhongxin = rowData;
-                    FPChangku.FPChangku = null;
+                if (this.props.pushType == null){
+                    if (rowData.isStopIt == 1){
+                        //错误
+                        Alert.alert(
+                            '提示',
+                            '该中心已经停止入组',
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                    }else{
+                        //设置数据
+                        FPZhongxin.FPZhongxin = rowData;
+                        FPChangku.FPChangku = null;
+                        // 页面的切换
+                        this.props.navigator.push({
+                            component: DgzxSq, // 具体路由的版块
+                        });
+                    }
+                }else if (this.props.pushType == 1){
                     // 页面的切换
                     this.props.navigator.push({
-                        component: DgzxSq, // 具体路由的版块
+                        component: CytchwclsfbZX, // 具体路由的版块
+                        //传递参数
+                        passProps:{
+                            FPZhongxin:rowData
+                        }
+                    });
+                }else if (this.props.pushType == 2){
+                    //设置数据
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: Cxzxywqk, // 具体路由的版块
+                        //传递参数
+                        passProps:{
+                            FPZhongxin:rowData
+                        }
                     });
                 }
             }}>
-                <MLTableCell title={rowData.SiteNam}/>
+                <MLTableCell title={rowData.SiteNam}  subTitle = {"中心编号:" + rowData.SiteID} subTitleColor = {'black'} />
             </TouchableOpacity>
         )
     },

@@ -50,6 +50,7 @@ var ResearchCore = React.createClass({
                     this.props.navigator.pop()
                 }}/>
                 <ListView
+                    removeClippedSubviews={false}
                     pageSize={this.state.tableData.length}
                     contentContainerStyle={styles.list}
                     dataSource={this.state.dataSource}//数据源

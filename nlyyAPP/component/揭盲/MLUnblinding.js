@@ -39,7 +39,9 @@ var Unblinding = React.createClass({
             var data = Users.Users[i];
             //判断用户类别
             //判断用户类别
-            if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1'){
+            if (data.UserFun == 'H2' || data.UserFun == 'H3' ||
+                data.UserFun == 'S1' || data.UserFun == 'M5' ||
+                data.UserFun == 'M4' || data.UserFun == 'M2' ){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
                     if (tableData[j] == '揭盲申请'){
@@ -50,7 +52,12 @@ var Unblinding = React.createClass({
                     tableData.push('揭盲申请')
                 }
             }
-            if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1' || data.UserFun == 'C1'){
+            if (data.UserFun == 'H2' || data.UserFun == 'H3' ||
+                data.UserFun == 'S1' || data.UserFun == 'C1' ||
+                data.UserFun == 'M5' || data.UserFun == 'M4' ||
+                data.UserFun == 'M2' || data.UserFun == 'M3' ||
+                data.UserFun == 'H2' || data.UserFun == 'H3' ||
+                data.UserFun == 'S1' || data.UserFun == 'C1'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
                     if (tableData[j] == '待揭盲'){

@@ -36,12 +36,13 @@ var Cxywh = React.createClass({
     getDefaultProps(){
         return {
             datas : null,
+            drug : "",
         }
     },
     render() {
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'查询药物号'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'查询药物号' + this.props.drug} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
                     <ScrollView>

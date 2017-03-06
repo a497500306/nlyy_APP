@@ -169,7 +169,6 @@ var SelectionStudy = React.createClass({
                                 ]
                             )
                     });
-
             }}>
                  <MLTableCell title={rowData[0].SponsorS} subTitle={rowData[0].StudNameS} subTitleColor={'gray'}/>
             </TouchableOpacity>

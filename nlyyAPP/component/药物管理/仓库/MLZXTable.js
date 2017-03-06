@@ -149,7 +149,7 @@ var ZXTable = React.createClass({
                     component: FenpeiZX, // 具体路由的版块
                 });
             }}>
-                <MLTableCell title={rowData.SiteNam}/>
+                <MLTableCell title={rowData.SiteNam}  subTitle = {"中心编号:" + rowData.SiteID} subTitleColor = {'black'} />
             </TouchableOpacity>
         )
     },

@@ -134,7 +134,7 @@ var SszjxfsrqSZ = React.createClass({
         if (this.state.animating == true){
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'设置基线仿视日期'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'设置随访参比日期'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
 
@@ -147,7 +147,7 @@ var SszjxfsrqSZ = React.createClass({
             if (this.state.isLanguage == false) {
                 return (
                     <View style={styles.container}>
-                        <MLNavigatorBar title={'设置基线仿视日期'} isBack={true} backFunc={() => {
+                        <MLNavigatorBar title={'设置随访参比日期'} isBack={true} backFunc={() => {
                             this.props.navigator.pop()
                         }}/>
                         <ListView
@@ -160,7 +160,7 @@ var SszjxfsrqSZ = React.createClass({
             }else{
                 return (
                     <View style={styles.container}>
-                        <MLNavigatorBar title={'设置基线仿视日期'} isBack={true} backFunc={() => {
+                        <MLNavigatorBar title={'设置随访参比日期'} isBack={true} backFunc={() => {
                             this.props.navigator.pop()
                         }}/>
                         <ListView
@@ -430,7 +430,7 @@ var SszjxfsrqSZ = React.createClass({
             //错误
             Alert.alert(
                 '提示',
-                '请输入基线仿视日期',
+                '请输入基线访视日期',
                 [
                     {text: '确定'}
                 ]
@@ -499,7 +499,7 @@ var SszjxfsrqSZ = React.createClass({
                         '提示',
                         responseJson.msg,
                         [
-                            {text: '确定', onPress: () => this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[3])}
+                            {text: '确定', onPress: () => this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[4])}
                         ]
                     )
                 }

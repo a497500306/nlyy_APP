@@ -9,7 +9,8 @@ import {
     View,
     Platform,
     TouchableOpacity,
-    BackAndroid
+    BackAndroid,
+    ToastAndroid
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -17,12 +18,34 @@ var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
 
 var MLNavigatorBar = React.createClass({
-
     //组件挂载的时候调用
     componentDidMount(){
-        BackAndroid.addEventListener('hardwareBackPress',function(){
+        BackAndroid.addEventListener('hardwareBackPress', this.handleBack)
+    },
+    componentWillUnmount () {
+        BackAndroid.removeEventListener('hardwareBackPress', this.handleBack)
+    },
+
+    handleBack(){
+        var navigator = this.navigator;
+        if (this.props.backFunc == undefined) {
+            if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
+
+                //最近2秒内按过back键，可以退出应用。
+
+                return false;
+
+            }
+
+            this.lastBackPressed = Date.now();
+
+            ToastAndroid.show('再按一次退出应用', ToastAndroid.SHORT);
+
+            return true;
+        }else{
             this.props.backFunc();
-        })
+            return true;
+        }
     },
     getDefaultProps(){
         return {

@@ -142,6 +142,7 @@ var Warehouse = React.createClass({
 
     //返回具体的cell
     renderRow(rowData){
+        console.log("赋值仓库")
         return(
             <TouchableOpacity onPress={()=>{
                 //设置数据

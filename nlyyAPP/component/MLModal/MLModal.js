@@ -26,6 +26,7 @@ var MLModal = React.createClass({
         return {
             //输入框提示文字数组
             placeholders:[''],
+            content : null,
             isVisible:true,
             //点击确定返回
             onClose: noop,
@@ -97,6 +98,7 @@ var MLModal = React.createClass({
                                textalign="center"
                                placeholder={this.props.placeholders[i]}
                                clearButtonMode="always"
+                               defaultValue = {this.props.content == null ? '' : this.props.content}
                                onChangeText={(text) => {
                                    //返回出去
                                    this.setState({
@@ -131,8 +133,16 @@ var MLModal = React.createClass({
         this.setState({
             isVisible:false
         })
-        //返回出去
-        onClose(this.state.titles);
+        if (this.state.titles.length != 0){
+            //返回出去
+            onClose(this.state.titles);
+        }else if (this.props.content == null){
+            //返回出去
+            onClose(this.state.titles);
+        }else{
+            //返回出去
+            onClose(this.props.content);
+        }
     }
 });
 

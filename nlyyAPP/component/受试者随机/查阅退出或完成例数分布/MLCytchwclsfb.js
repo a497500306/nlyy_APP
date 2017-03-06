@@ -89,7 +89,7 @@ var Cytchwclsfb = React.createClass({
                     }
                     option = {
                         title: {
-                            text: '查阅筛选失败例数分布'
+                            text: '查阅退出或完成例数分布'
                         },
                         tooltip: {},
                         legend: {

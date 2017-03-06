@@ -167,6 +167,8 @@ var YjxxSh = React.createClass({
                                                 },
                                                 body: JSON.stringify({
                                                     id : rowData.persons.id,
+                                                    ToExamineUserData : Users.Users[0],
+                                                    StudyID : Users.Users[0].StudyID,
                                                     ToExamineType : 1,
                                                     ToExamineUsers:Users.Users[0].UserNam,
                                                     ToExaminePhone:Users.Users[0].UserMP,

@@ -51,6 +51,7 @@ var Qsjh = React.createClass({
                 UserSite = Users.Users[i].UserSite
             }
         }
+        console.log(UserSite)
         if (this.props.data == null) {
             this.setState({
                 DrugId : this.props.DrugId,
@@ -250,7 +251,7 @@ var Qsjh = React.createClass({
                                     "提示:",
                                     "请选择你要操作的功能",
                                     [
-                                        {text: '发送药物提醒短信', onPress: () => {
+                                        {text: '发送用药提醒短信', onPress: () => {
                                             //判断该研究是否提供药物号
                                             if (researchParameter.researchParameter.BlindSta == 1){
                                                 // 页面的切换
@@ -263,46 +264,25 @@ var Qsjh = React.createClass({
                                                     component: yytx, // 具体路由的版块
                                                 });
                                             }else if (researchParameter.researchParameter.BlindSta == 2){
-                                                if (researchParameter.researchParameter.DrugNSBlind == 1){
-                                                    // 页面的切换
-                                                    this.props.navigator.push({
-                                                        //传递参数
-                                                        passProps:{
-                                                            userId : rowData.id,
-                                                            phone : rowData.SubjMP
-                                                        },
-                                                        component: yytx, // 具体路由的版块
-                                                    });
-                                                }else{
-                                                    //错误
-                                                    Alert.alert(
-                                                        '提示',
-                                                        '该研究不提供药物号',
-                                                        [
-                                                            {text: '确定'}
-                                                        ]
-                                                    )
-                                                }
+                                                // 页面的切换
+                                                this.props.navigator.push({
+                                                    //传递参数
+                                                    passProps:{
+                                                        userId : rowData.id,
+                                                        phone : rowData.SubjMP
+                                                    },
+                                                    component: yytx, // 具体路由的版块
+                                                });
                                             }else {
-                                                if (researchParameter.researchParameter.DrugNOpen == 1){
-                                                    // 页面的切换
-                                                    this.props.navigator.push({
-                                                        //传递参数
-                                                        passProps:{
-                                                            userId : rowData.SubjMP,
-                                                            phone : rowData.id
-                                                        },
-                                                        component: yytx, // 具体路由的版块
-                                                    });
-                                                }else{
-                                                    Alert.alert(
-                                                        '提示',
-                                                        '该研究不提供药物号',
-                                                        [
-                                                            {text: '确定'}
-                                                        ]
-                                                    )
-                                                }
+                                                // 页面的切换
+                                                this.props.navigator.push({
+                                                    //传递参数
+                                                    passProps:{
+                                                        userId : rowData.SubjMP,
+                                                        phone : rowData.id
+                                                    },
+                                                    component: yytx, // 具体路由的版块
+                                                });
                                             }
                                         }},
                                         {text: '取消'}
@@ -315,7 +295,8 @@ var Qsjh = React.createClass({
                     }
                 }else {
                     return(
-                        <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:无")) : "")} subTitleColor = {'black'} rightTitle={'筛选失败用户'} rightTitleColor = {'gray'}/>
+                        <View/>
+                        // <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:不适用")) : "")} subTitleColor = {'black'} rightTitle={'筛选失败'} rightTitleColor = {'gray'}/>
                     )
                 }
             }

@@ -17,6 +17,9 @@ import {
     ListView,
 } from 'react-native';
 
+//时间操作
+var moment = require('moment');
+moment().format();
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
 var settings = require('../../../settings');
@@ -44,10 +47,12 @@ var Cyxjdnsfssz = React.createClass({
             animating: true,//是否显示菊花
             tableData:[],
             shuru:'',
+            content:"",
             isHud:false,
             srkxswz:['输入短信内容'],
             isModalOpen:false,
-            phone:''
+            phone:'',
+            isBJModalOpen:false
         }
     },
     //耗时操作,网络请求
@@ -82,7 +87,15 @@ var Cyxjdnsfssz = React.createClass({
                     console.log(responseJson);
                     if (responseJson.isSucceed != 400){
                         //移除等待
-                        this.setState({animating:false});
+                        Alert.alert(
+                            '提示:',
+                            responseJson.msg,
+                            [
+                                {text: '确定', onPress: () => {
+                                    this.props.navigator.pop()
+                                }}
+                            ]
+                        )
                     }else{
                         //ListView设置
                         var tableData = responseJson.data;
@@ -141,9 +154,23 @@ var Cyxjdnsfssz = React.createClass({
                         dataSource={this.state.dataSource}//数据源
                         renderRow={this.renderRow}
                     />
-                    <MLModal placeholders={this.state.srkxswz} isVisible={this.state.isModalOpen}
+                    <MLSelectionModal tableData={[
+                        "研究温馨提示：请按照您主治医生的要求，在规定时间来医院进行检查，此检查对您的康复非常重要，请勿自行终止复查。",
+                        "研究温馨提示：定期检查可在疾病复发早期获得诊断从而给予必要治疗，请您在规定时间来医院进行检查。",
+                        "研究温馨提示：请根据医嘱在XXXX年XX月XX日来医院进行相关检查，本次检查对您的康复十分重要，如有问题或者当日有其他事务，请及时联系您的主治医生，电话：XXXXXXXXXXX。",
+                        "研究温馨提示：近日请根据约定时间来医院进行各项检查，以便更好地康复。",
+                        "研究温馨提示：请您在规定的时间来医院，由您的主管医生向您了解治疗后的主观感觉，进行必要的体格检查。"
+                    ]} isVisible={this.state.isModalOpen}
+                                      onClose={(text) => {
+                                          this.setState({isModalOpen:false,isBJModalOpen:true,content:text})
+                                      }}
+                                      quxiao={(text) => {
+                                          this.setState({isModalOpen:false,isBJModalOpen:false,content:""})
+                                      }}>></MLSelectionModal>
+
+                    <MLModal content={this.state.content} placeholders={this.state.srkxswz} isVisible={this.state.isBJModalOpen}
                              onClose={(text) => {
-                                 this.setState({isModalOpen:false,isHud:false});
+                                 this.setState({isBJModalOpen:false,isHud:false});
                                  //网络请求
                                  fetch(settings.fwqUrl + "/app/getFsyysfdx", {
                                      method: 'POST',
@@ -196,7 +223,7 @@ var Cyxjdnsfssz = React.createClass({
                                      });
                              }}
                              quxiao={(text) => {
-                                 this.setState({isModalOpen:false});
+                                 this.setState({isModalOpen:false,isBJModalOpen:false,content:""})
                              }}>></MLModal>
                     <MLProgressHUD text={"正在加载..."} isVisible={this.state.isHud} />
                 </View>
@@ -216,7 +243,7 @@ var Cyxjdnsfssz = React.createClass({
                     '请选择功能',
                     [
                         {text: '发送预约随访短信', onPress: () => {
-                            this.setState({isModalOpen:true,phone:"15575118141"})
+                            this.setState({isModalOpen:true,phone:rowData.users.user.SubjMP})
                         }},
 
                         {text: '取消'}
@@ -251,12 +278,12 @@ var Cyxjdnsfssz = React.createClass({
                     <Text style={{
                         marginTop : 5,
                         marginLeft : 10
-                    }}>{'是否完成基线仿视:' + '否'}</Text>
+                    }}>{'是否完成基线访视:' + '是'}</Text>
                     <Text style={{
                         marginBottom : 5,
                         marginTop : 5,
                         marginLeft : 10
-                    }}>{'计划仿视日期:' + rowData.Days + '天'}</Text>
+                    }}>{'下一次访视是:' + (moment().add(10, "days").format("YYYY-MM-DD"))}</Text>
                 </View>
             </TouchableOpacity>
         )
