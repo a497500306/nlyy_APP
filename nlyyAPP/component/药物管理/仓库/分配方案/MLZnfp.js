@@ -24,6 +24,7 @@ var FPChangku = require('../保存数据/FPChangku');
 var FPZhongxin = require('../保存数据/FPZhongxin');
 var FPQDData = require('../保存数据/FPQDData');
 var Changku = require('../../../../entity/Changku');
+var Button = require('apsl-react-native-button');
 
 var znfp = React.createClass({
 
@@ -34,6 +35,8 @@ var znfp = React.createClass({
             dataSource: null,
             animating: true,//是否显示菊花
             cuowu: false,//是否显示错误
+            isShowWait : false,
+            showLoginBtn : false,
         }
     },
 

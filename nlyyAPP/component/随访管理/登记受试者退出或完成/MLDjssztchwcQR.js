@@ -162,7 +162,6 @@ var DjssztchwcQR = React.createClass({
                             dataSource={this.state.dataSource}//数据源
                             renderRow={this.renderRow}
                         />
-                        <MLProgressHUD text={"正在加载..."} isVisible={this.state.isHud} />
                     </View>
                 );
             }else{
@@ -188,7 +187,6 @@ var DjssztchwcQR = React.createClass({
                                 onValueChange={(lang) => this.setState({language: lang})}>
                                 {this.PickerItem()}
                             </Picker>
-                            <MLProgressHUD text={"正在加载..."} isVisible={this.state.isHud} />
                         </View>
                     </View>
                 );
@@ -458,7 +456,8 @@ var DjssztchwcQR = React.createClass({
         }
 
         this.setState({
-            isHud: true
+            isHud: true,
+            animating:true
         })
         var baselineDate = null;
         if (this.state.baselineDate != ''){
@@ -498,7 +497,8 @@ var DjssztchwcQR = React.createClass({
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
-                    isHud: false
+                    isHud: false,
+                    animating:false
                 })
                 if (responseJson.isSucceed == 200){
                     //错误
@@ -522,7 +522,8 @@ var DjssztchwcQR = React.createClass({
             })
             .catch((error) => {//错误
                 this.setState({
-                    isHud: false
+                    isHud: false,
+                    animating:false
                 })
                 this.setState({animating:false});
                 console.log(error),

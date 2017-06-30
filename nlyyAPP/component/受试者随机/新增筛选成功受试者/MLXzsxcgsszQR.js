@@ -305,7 +305,7 @@ var XzsxcgsszQR = React.createClass({
                 SubjFf:this.props.LabelStraF,
                 SubjFg:this.props.LabelStraG,
                 SubjFh:this.props.LabelStraH,
-                SubjFi:this.props.LabelStraI,
+                SubjFi : researchParameter.researchParameter.StraSiteYN == '1' ? this.props.LabelStraI : '',
                 SubjStudYN:this.props.zyj
             })
         })
@@ -330,6 +330,8 @@ var XzsxcgsszQR = React.createClass({
                         responseJson.USubjID,
                         [
                             {text: '取随机号', onPress: () => {
+                                console.log("点击取随机号`11")
+                                console.log(responseJson)
                                 //移除等待
                                 this.setState({animating:true});
                                 var UserSite = '';
@@ -355,9 +357,15 @@ var XzsxcgsszQR = React.createClass({
                                         SubjFf : this.props.LabelStraF,
                                         SubjFg : this.props.LabelStraG,
                                         SubjFh : this.props.LabelStraH,
-                                        SubjFi : this.props.LabelStraI,
+                                        SubjFi : researchParameter.researchParameter.StraSiteYN == '1' ? this.props.LabelStraI : '',
                                         SiteID : UserSite,
-                                        userId : responseJson.id
+                                        czzUser:Users.Users[0],
+                                        userId : responseJson.id,
+                                        user : Users.Users[0],
+                                        sjzUser : {
+                                            USubjID:responseJson.USubjID,
+                                            SubjIni:this.props.name
+                                        }
                                     })
                                 })
                                     .then((response) => response.json())

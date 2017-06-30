@@ -25,12 +25,11 @@ import Pickers from 'react-native-picker';
 // var Modal = require('react-native-modal');
 var Users = require('../../../entity/Users')
 var MLModal = require('../../MLModal/MLModal');
-var study = require('../../../entity/study');
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
 var settings = require('../../../settings');
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
-var Users = require('../../../entity/Users');
+var Study = require('../../../entity/study');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView')
 var FPZhongxin = require('../../药物管理/仓库/保存数据/FPZhongxin');
@@ -182,7 +181,7 @@ var YjxxSq = React.createClass({
         }
         if (rowData == "总样本量") {
             return(
-                <MLTableCell title={rowData} rightTitle={this.state.data.AllAampleNumber} isArrow={false}/>
+                <MLTableCell title={rowData} rightTitle={Study.study.StudySize} isArrow={false}/>
             )
         }
         if (rowData == "总随机例数") {

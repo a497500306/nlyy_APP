@@ -99,6 +99,7 @@ var MLModal = React.createClass({
                                placeholder={this.props.placeholders[i]}
                                clearButtonMode="always"
                                defaultValue = {this.props.content == null ? '' : this.props.content}
+                               underlineColorAndroid={'transparent'}
                                onChangeText={(text) => {
                                    //返回出去
                                    this.setState({

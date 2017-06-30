@@ -9,12 +9,10 @@ import {
     Navigator,
     ListView,
     Alert,
-    DatePickerAndroid,
     TouchableHighlight,
     DatePickerIOS,
     Picker,
-    ActivityIndicator,
-
+    ActivityIndicator
 } from 'react-native';
 //时间操作
 var moment = require('moment');
@@ -31,6 +29,7 @@ var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../../entity/Users');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var MLProgressHUD = require('../../MLProgressHUD/MLProgressHUD');
+var Button = require('apsl-react-native-button');
 
 var SszjxfsrqSZ = React.createClass({
     getDefaultProps(){
@@ -79,32 +78,32 @@ var SszjxfsrqSZ = React.createClass({
         tableData.push('受试者性别');
         tableData.push('受试者姓名缩写');
         tableData.push('受试者手机号');
-        if (this.props.users.SubjFa != ''){
-            tableData.push('随机分层因素A')
+        if (researchParameter.researchParameter.LabelStraA != null){
+            tableData.push(researchParameter.researchParameter.LabelStraA)
         }
-        if (this.props.users.SubjFb != ''){
-            tableData.push('随机分层因素B')
+        if (researchParameter.researchParameter.LabelStraB != null){
+            tableData.push(researchParameter.researchParameter.LabelStraB)
         }
-        if (this.props.users.SubjFc != ''){
-            tableData.push('随机分层因素C')
+        if (researchParameter.researchParameter.LabelStraC != null){
+            tableData.push(researchParameter.researchParameter.LabelStraC)
         }
-        if (this.props.users.SubjFd != ''){
-            tableData.push('随机分层因素D')
+        if (researchParameter.researchParameter.LabelStraD != null){
+            tableData.push(researchParameter.researchParameter.LabelStraD)
         }
-        if (this.props.users.SubjFe != ''){
-            tableData.push('随机分层因素E')
+        if (researchParameter.researchParameter.LabelStraE != null){
+            tableData.push(researchParameter.researchParameter.LabelStraE)
         }
-        if (this.props.users.SubjFf != ''){
-            tableData.push('随机分层因素F')
+        if (researchParameter.researchParameter.LabelStraF != null){
+            tableData.push(researchParameter.researchParameter.LabelStraF)
         }
-        if (this.props.users.SubjFg != ''){
-            tableData.push('随机分层因素G')
+        if (researchParameter.researchParameter.LabelStraG != null){
+            tableData.push(researchParameter.researchParameter.LabelStraG)
         }
-        if (this.props.users.SubjFh != ''){
-            tableData.push('随机分层因素H')
+        if (researchParameter.researchParameter.LabelStraH != null){
+            tableData.push(researchParameter.researchParameter.LabelStraH)
         }
-        if (this.props.users.SubjFi != ''){
-            tableData.push('随机分层因素I')
+        if (researchParameter.researchParameter.LabelStraI != null){
+            tableData.push(researchParameter.researchParameter.LabelStraI)
         }
         tableData.push('随机号');
         tableData.push('基线访视日期');
@@ -122,15 +121,15 @@ var SszjxfsrqSZ = React.createClass({
             animating: false,
             date:date,
             isLanguage:false,
-            baselineDate:'',
+            baselineDate:null,
             baselineDateArray:[],
-            stopDrugDate:'',
+            stopDrugDate:null,
             stopDrugDateArray:[],
             isHud:false,
         }
     },
+
     render() {
-        console.log(this.props.site)
         if (this.state.animating == true){
             return (
                 <View style={styles.container}>
@@ -154,7 +153,6 @@ var SszjxfsrqSZ = React.createClass({
                             dataSource={this.state.dataSource}//数据源
                             renderRow={this.renderRow}
                         />
-                        <MLProgressHUD text={"正在加载..."} isVisible={this.state.isHud} />
                     </View>
                 );
             }else{
@@ -180,7 +178,6 @@ var SszjxfsrqSZ = React.createClass({
                                 onValueChange={(lang) => this.setState({language: lang})}>
                                 {this.PickerItem()}
                             </Picker>
-                            <MLProgressHUD text={"正在加载..."} isVisible={this.state.isHud} />
                         </View>
                     </View>
                 );
@@ -239,51 +236,62 @@ var SszjxfsrqSZ = React.createClass({
             )
 
         }
-        if (rowData == '随机分层因素A'){
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.users.SubjFa} isArrow={false}/>
-            )
+        if (researchParameter.researchParameter.LabelStraA != null){
+            if (rowData == researchParameter.researchParameter.LabelStraA) {
+                return (
+                    <MLTableCell title={rowData} rightTitle={this.props.users.SubjFa} isArrow={false}/>
+                )
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraB != null){
+            if (rowData == researchParameter.researchParameter.LabelStraB) {
+                return (
+                    <MLTableCell title={rowData} rightTitle={this.props.users.SubjFb} isArrow={false}/>
+                )
+            }
+        }if (researchParameter.researchParameter.LabelStraC != null){
+            if (rowData == researchParameter.researchParameter.LabelStraC) {
+                return (
+                    <MLTableCell title={rowData} rightTitle={this.props.users.SubjFc} isArrow={false}/>
+                )
+            }
+        }if (researchParameter.researchParameter.LabelStraD != null){
+            if (rowData == researchParameter.researchParameter.LabelStraD) {
+                return (
+                    <MLTableCell title={rowData} rightTitle={this.props.users.SubjFd} isArrow={false}/>
+                )
+            }
+        }if (researchParameter.researchParameter.LabelStraE != null){
+            if (rowData == researchParameter.researchParameter.LabelStraE) {
+                return (
+                    <MLTableCell title={rowData} rightTitle={this.props.users.SubjFe} isArrow={false}/>
+                )
+            }
+        }if (researchParameter.researchParameter.LabelStraF != null){
+            if (rowData == researchParameter.researchParameter.LabelStraF) {
 
-        }if (rowData == '随机分层因素B'){
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.users.SubjFb} isArrow={false}/>
-            )
-
-        }if (rowData == '随机分层因素C'){
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.users.SubjFc} isArrow={false}/>
-            )
-
-        }if (rowData == '随机分层因素D'){
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.users.SubjFd} isArrow={false}/>
-            )
-
-        }if (rowData == '随机分层因素E'){
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.users.SubjFe} isArrow={false}/>
-            )
-
-        }if (rowData == '随机分层因素F'){
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.users.SubjFf} isArrow={false}/>
-            )
-
-        }if (rowData == '随机分层因素G'){
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.users.SubjFg} isArrow={false}/>
-            )
-
-        }if (rowData == '随机分层因素H'){
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.users.SubjFh} isArrow={false}/>
-            )
-
-        }if (rowData == '随机分层因素I'){
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.users.SubjFi} isArrow={false}/>
-            )
-
+                return (
+                    <MLTableCell title={rowData} rightTitle={this.props.users.SubjFf} isArrow={false}/>
+                )
+            }
+        }if (researchParameter.researchParameter.LabelStraG != null){
+            if (rowData == researchParameter.researchParameter.LabelStraG) {
+                return (
+                    <MLTableCell title={rowData} rightTitle={this.props.users.SubjFg} isArrow={false}/>
+                )
+            }
+        }if (researchParameter.researchParameter.LabelStraH != null){
+            if (rowData == researchParameter.researchParameter.LabelStraH) {
+                return (
+                    <MLTableCell title={rowData} rightTitle={this.props.users.SubjFh} isArrow={false}/>
+                )
+            }
+        }if (researchParameter.researchParameter.LabelStraI != null){
+            if (rowData == researchParameter.researchParameter.LabelStraI) {
+                return (
+                    <MLTableCell title={rowData} rightTitle={this.props.users.SubjFi} isArrow={false}/>
+                )
+            }
         }if (rowData == '随机号'){
             return(
                 <MLTableCell title={rowData} rightTitle={this.props.users.Random == '' ? '没取随机号' : this.props.users.Random} isArrow={false}/>
@@ -291,107 +299,144 @@ var SszjxfsrqSZ = React.createClass({
 
         }
         if (rowData == '基线访视日期'){
-            if (this.state.baselineDate != ''){
+            if (this.state.baselineDate != null){
                 return(
                     <TouchableOpacity onPress={()=>{
-                        Pickers.init({
-                            pickerData: this.state.date,
-                            selectedValue: [moment().format('YYYY'),moment().format('MM'),moment().format('DD')],
-                            onPickerConfirm: pickedValue => {
-                                //ListView设置
-                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                                this.setState({baselineDateArray:pickedValue ,baselineDate:pickedValue[0] + '/' + pickedValue[1]+ '/' + pickedValue[2],dataSource: ds.cloneWithRows(this.state.tableData),})
+                            Pickers.init({
+                                pickerData: this.state.date,
+                                selectedValue: [moment().format('YYYY'),moment().format('MM'),moment().format('DD')],
+                                onPickerConfirm: pickedValue => {
+                                    console.log("点击确定4")
+                                    //ListView设置
+                                    var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                    this.setState({baselineDateArray:pickedValue ,baselineDate:pickedValue[0] + '-' + pickedValue[1]+ '-' + pickedValue[2],dataSource: ds.cloneWithRows(this.state.tableData),})
 
-                            },
-                            onPickerCancel: pickedValue => {
-                                //ListView设置
-                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                                this.setState({baselineDateArray:[],baselineDate:'',dataSource: ds.cloneWithRows(this.state.tableData),})
-                            },
-                            onPickerSelect: pickedValue => {
-                            }
-                        });
-                        Pickers.show();
-                    }}>
+                                },
+                                onPickerCancel: pickedValue => {
+                                    console.log("点击取消4")
+                                    //ListView设置
+                                    var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                                    this.setState({baselineDateArray:[],baselineDate:'',dataSource: ds.cloneWithRows(this.state.tableData),})
+                                },
+                                onPickerSelect: pickedValue => {
+                                }
+                            });
+                            Pickers.show();
+                        }}>
                         <MLTableCell title={rowData} rightTitle={this.state.baselineDate} isArrow={true}/>
+
                     </TouchableOpacity>
                 )
             }else {
                 return (
                     <TouchableOpacity onPress={()=>{
-                        Pickers.init({
-                            pickerData: this.state.date,
-                            selectedValue: [moment().format('YYYY'),moment().format('MM'),moment().format('DD')],
-                            onPickerConfirm: pickedValue => {
-                                //ListView设置
-                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                                this.setState({baselineDateArray:pickedValue ,baselineDate:pickedValue[0] + '/' + pickedValue[1]+ '/' + pickedValue[2],dataSource: ds.cloneWithRows(this.state.tableData),})
+                            Pickers.init({
+                                pickerData: this.state.date,
+                                selectedValue: [moment().format('YYYY'), moment().format('MM'), moment().format('DD')],
+                                onPickerConfirm: pickedValue => {
+                                    console.log("点击确定5")
+                                    //ListView设置
+                                    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+                                    this.setState({
+                                        baselineDateArray: pickedValue,
+                                        baselineDate: pickedValue[0] + '-' + pickedValue[1] + '-' + pickedValue[2],
+                                        dataSource: ds.cloneWithRows(this.state.tableData),
+                                    })
 
-                            },
-                            onPickerCancel: pickedValue => {
-                                //ListView设置
-                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                                this.setState({baselineDateArray:[],baselineDate:'',dataSource: ds.cloneWithRows(this.state.tableData),})
-                            },
-                            onPickerSelect: pickedValue => {
-                            }
-                        });
-                        Pickers.show();
+                                },
+                                onPickerCancel: pickedValue => {
+                                    console.log("点击取消5")
+                                    //ListView设置
+                                    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+                                    this.setState({
+                                        baselineDateArray: [],
+                                        baselineDate: '',
+                                        dataSource: ds.cloneWithRows(this.state.tableData),
+                                    })
+                                },
+                                onPickerSelect: pickedValue => {
+                                }
+                            });
+                            Pickers.show();
                     }}>
-                        <MLTableCell title={rowData} rightTitle={this.props.users.baselineDate != null ? moment(this.props.users.baselineDate).format('YYYY/MM/DD') : ""} isArrow={true}/>
+                        <MLTableCell title={rowData} rightTitle={this.props.users.baselineDate != null ? moment(this.props.users.baselineDate).format('YYYY-MM-DD') : ""} isArrow={true}/>
+
                     </TouchableOpacity>
                 )
             }
         }
         if (rowData == '停止用药日期'){
-            if (this.state.stopDrugDate != ''){
+            if (this.state.stopDrugDate != null){
                 return(
                     <TouchableOpacity onPress={()=>{
-                        Pickers.init({
-                            pickerData: this.state.date,
-                            selectedValue: [moment().format('YYYY'),moment().format('MM'),moment().format('DD')],
-                            onPickerConfirm: pickedValue => {
-                                //ListView设置
-                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                                this.setState({stopDrugDateArray:pickedValue ,stopDrugDate:pickedValue[0] + '/' + pickedValue[1]+ '/' + pickedValue[2],dataSource: ds.cloneWithRows(this.state.tableData),})
-                            },
-                            onPickerCancel: pickedValue => {
-                                //ListView设置
-                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                                this.setState({stopDrugDateArray:[],stopDrugDate:'',dataSource: ds.cloneWithRows(this.state.tableData),})
-                            },
-                            onPickerSelect: pickedValue => {
-                            }
-                        });
-                        Pickers.show();
+                            Pickers.init({
+                                pickerData: this.state.date,
+                                selectedValue: [moment().format('YYYY'), moment().format('MM'), moment().format('DD')],
+                                onPickerConfirm: pickedValue => {
+                                    console.log("点击确定6")
+                                    //ListView设置
+                                    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+                                    this.setState({
+                                        stopDrugDateArray: pickedValue,
+                                        stopDrugDate: pickedValue[0] + '-' + pickedValue[1] + '-' + pickedValue[2],
+                                        dataSource: ds.cloneWithRows(this.state.tableData),
+                                    })
+                                },
+                                onPickerCancel: pickedValue => {
+                                    console.log("点击确定6")
+                                    //ListView设置
+                                    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+                                    this.setState({
+                                        stopDrugDateArray: [],
+                                        stopDrugDate: '',
+                                        dataSource: ds.cloneWithRows(this.state.tableData),
+                                    })
+                                },
+                                onPickerSelect: pickedValue => {
+                                }
+                            });
+                            Pickers.show();
                     }}>
+
                         <MLTableCell title={rowData} rightTitle={this.state.stopDrugDate} isArrow={true}/>
+
                     </TouchableOpacity>
                 )
             }else{
                 return(
                     <TouchableOpacity onPress={()=>{
-                        Pickers.init({
-                            pickerData: this.state.date,
-                            selectedValue: [moment().format('YYYY'),moment().format('MM'),moment().format('DD')],
-                            onPickerConfirm: pickedValue => {
-                                //ListView设置
-                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                                this.setState({stopDrugDateArray:pickedValue ,stopDrugDate:pickedValue[0] + '/' + pickedValue[1]+ '/' + pickedValue[2],dataSource: ds.cloneWithRows(this.state.tableData),})
+                            Pickers.init({
+                                pickerData: this.state.date,
+                                selectedValue: [moment().format('YYYY'), moment().format('MM'), moment().format('DD')],
+                                onPickerConfirm: pickedValue => {
+                                    console.log("点击确定7")
+                                    //ListView设置
+                                    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+                                    this.setState({
+                                        stopDrugDateArray: pickedValue,
+                                        stopDrugDate: pickedValue[0] + '-' + pickedValue[1] + '-' + pickedValue[2],
+                                        dataSource: ds.cloneWithRows(this.state.tableData),
+                                    })
 
-                            },
-                            onPickerCancel: pickedValue => {
-                                //ListView设置
-                                var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                                this.setState({stopDrugDateArray:[],stopDrugDate:'',dataSource: ds.cloneWithRows(this.state.tableData),})
-                            },
-                            onPickerSelect: pickedValue => {
-                            }
-                        });
-                        Pickers.show();
+                                },
+                                onPickerCancel: pickedValue => {
+                                    console.log("点击取消7")
+                                    //ListView设置
+                                    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+                                    this.setState({
+                                        stopDrugDateArray: [],
+                                        stopDrugDate: '',
+                                        dataSource: ds.cloneWithRows(this.state.tableData),
+                                    })
+                                },
+                                onPickerSelect: pickedValue => {
+                                }
+                            });
+                            Pickers.show();
                     }}>
-                        <MLTableCell title={rowData} rightTitle={this.props.users.stopDrugDate != null ? moment(this.props.users.stopDrugDate).format('YYYY/MM/DD') : ""} isArrow={true}/>
-                    </TouchableOpacity>
+                        <MLTableCell title={rowData} rightTitle={this.props.users.stopDrugDate != null ? moment(this.props.users.stopDrugDate).format('YYYY-MM-DD') : ""} isArrow={true}/>
+
+                        </TouchableOpacity>
                 )
             }
         }
@@ -406,17 +451,26 @@ var SszjxfsrqSZ = React.createClass({
         if (rowData == ''){
             return(
                 <View>
-                    <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getLogin}>
-                        <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
-                            确 定
-                        </Text>
-                        <ActivityIndicator
-                            animating={this.state.animating}
-                            style={[{height: 30}]}
-                            size="small"
-                            color="white"
-                        />
-                    </TouchableOpacity>
+                    <Button
+                        style={{
+                            width:width - 20,
+                            height:40,
+                            borderColor: 'rgba(0,136,212,1.0)',
+                            backgroundColor: "rgba(0,136,212,1.0)",
+                            borderRadius: 5,
+                            borderWidth: 1,
+                            marginTop:10,
+                            marginLeft:10
+                        }}
+                        isLoading={this.state.isHud}
+                        isDisabled={this.state.isHud}
+                        textStyle={{
+                            color: 'white',
+                            fontSize:15
+                        }}
+                        onPress={this.getLogin.bind(this)}>
+                        确 定
+                    </Button>
                 </View>
             )
         }else{
@@ -442,19 +496,28 @@ var SszjxfsrqSZ = React.createClass({
             isHud: true
         })
         var baselineDate = null;
-        if (this.state.baselineDate != ''){
-            baselineDate = new Date(this.state.baselineDateArray[0], this.state.baselineDateArray[1] - 1, this.state.baselineDateArray[2]);
-            console.log(this.state.baselineDateArray[0],this.state.baselineDateArray[1],this.state.baselineDateArray[2])
-            console.log(baselineDate)
+        var stopDrugDate = null;
+        console.log(this.state.stopDrugDate+"zzzzz"+this.state.baselineDate)
+        if (this.state.baselineDate != null){
+            baselineDate = (this.state.baselineDate == '' ? '' : new Date(this.state.baselineDateArray[0], this.state.baselineDateArray[1] - 1, this.state.baselineDateArray[2]));
         }else{
             baselineDate = this.props.users.baselineDate;
         }
-        var stopDrugDate = null;
-        if (this.state.stopDrugDate != ''){
-            stopDrugDate = new Date(this.state.stopDrugDateArray[0], this.state.stopDrugDateArray[1] - 1, this.state.stopDrugDateArray[2]);
+        if (this.state.stopDrugDate != null){
+            stopDrugDate = (this.state.stopDrugDate == '' ? '' : new Date(this.state.stopDrugDateArray[0], this.state.stopDrugDateArray[1] - 1, this.state.stopDrugDateArray[2]));
         }else{
             stopDrugDate = this.props.users.stopDrugDate;
         }
+        console.log(baselineDate+"ssss"+stopDrugDate)
+        //获取中心数据网络请求
+        var jsonDict = {
+                    StudyID:this.props.users.StudyID,
+                    SiteID:this.props.users.SiteID,
+                    userId:this.props.users.id,
+                    user:this.props.users,
+                    baselineDate:baselineDate,
+                    stopDrugDate:stopDrugDate
+                };
         //获取中心数据网络请求
         fetch(settings.fwqUrl + "/app/getAddSszjxfsrq", {
             method: 'POST',
@@ -462,22 +525,7 @@ var SszjxfsrqSZ = React.createClass({
                 'Accept': 'application/json; charset=utf-8',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                /*"StudyID" : fields.StudyID,//研究编号
-                 "SiteID" : fields.SiteID,//中心编号
-                 "userId" : fields.userId,//用户ID
-                 "user":fields.user,//用户对象
-                 "isComplete":0,//是否完成随访
-                 "isStopDrug":0,//是否停药
-                 "baselineDate":fields.baselineDate,//基线日期
-                 "Date" : new Date(), //导入时间*/
-                StudyID:this.props.users.StudyID,
-                SiteID:this.props.users.SiteID,
-                userId:this.props.users.id,
-                user:this.props.users,
-                baselineDate:baselineDate,
-                stopDrugDate:stopDrugDate
-            })
+            body: JSON.stringify(jsonDict)
         })
             .then((response) => response.json())
             .then((responseJson) => {
@@ -499,7 +547,7 @@ var SszjxfsrqSZ = React.createClass({
                         '提示',
                         responseJson.msg,
                         [
-                            {text: '确定', onPress: () => this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[4])}
+                            {text: '确定', onPress: () => this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[3])}
                         ]
                     )
                 }

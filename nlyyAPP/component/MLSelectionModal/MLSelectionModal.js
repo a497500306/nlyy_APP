@@ -53,12 +53,12 @@ var selectionMLModal = React.createClass({
         if (this.props.isVisible == true){
             return (
                 <Modal
-                    animationType='slide'
+                    animationType='none'
                     transparent={true}
                     visible={this.state.show}
                     onShow={() => {}}
                     onRequestClose={() => {}} >
-                    <MLNavigatorBar title={'用药提醒'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'选择提醒'} isBack={true} backFunc={() => {
                         var {
                             quxiao,
                         } = this.props;

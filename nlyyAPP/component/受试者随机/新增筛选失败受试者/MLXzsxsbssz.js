@@ -456,6 +456,7 @@ var Xzsxsbssz = React.createClass({
                             xxd:this.state.xxd,
                             //出生日期
                             csDate:this.state.csDate,
+                            zyj:this.state.zyj,
                             //中心数据
                             site:responseJson.site
                         }

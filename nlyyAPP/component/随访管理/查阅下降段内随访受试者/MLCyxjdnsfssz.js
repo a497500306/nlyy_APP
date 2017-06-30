@@ -23,6 +23,7 @@ moment().format();
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
 var settings = require('../../../settings');
+var MLSelectionModal = require('../../MLSelectionModal/MLSelectionModal')
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../../entity/Users');
 var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
@@ -153,13 +154,14 @@ var Cyxjdnsfssz = React.createClass({
                     <ListView
                         dataSource={this.state.dataSource}//数据源
                         renderRow={this.renderRow}
+                        
                     />
                     <MLSelectionModal tableData={[
-                        "研究温馨提示：请按照您主治医生的要求，在规定时间来医院进行检查，此检查对您的康复非常重要，请勿自行终止复查。",
-                        "研究温馨提示：定期检查可在疾病复发早期获得诊断从而给予必要治疗，请您在规定时间来医院进行检查。",
-                        "研究温馨提示：请根据医嘱在XXXX年XX月XX日来医院进行相关检查，本次检查对您的康复十分重要，如有问题或者当日有其他事务，请及时联系您的主治医生，电话：XXXXXXXXXXX。",
-                        "研究温馨提示：近日请根据约定时间来医院进行各项检查，以便更好地康复。",
-                        "研究温馨提示：请您在规定的时间来医院，由您的主管医生向您了解治疗后的主观感觉，进行必要的体格检查。"
+                        "研究温馨提示：请按照您主治医生的要求，在规定时间来医院进行检查，此检查对您的康复非常重要，请勿自行终止复查",
+                        "研究温馨提示：定期检查可在疾病复发早期获得诊断从而给予必要治疗，请您在规定时间来医院进行检查",
+                        "研究温馨提示：请根据医嘱在XXXX年XX月XX日来医院进行相关检查，本次检查对您的康复十分重要，如有问题或者当日有其他事务，请及时联系您的主治医生，电话：XXXXXXXXXXX",
+                        "研究温馨提示：近日请根据约定时间来医院进行各项检查，以便更好地康复",
+                        "研究温馨提示：请您在规定的时间来医院，由您的主管医生向您了解治疗后的主观感觉，进行必要的体格检查"
                     ]} isVisible={this.state.isModalOpen}
                                       onClose={(text) => {
                                           this.setState({isModalOpen:false,isBJModalOpen:true,content:text})
@@ -180,7 +182,8 @@ var Cyxjdnsfssz = React.createClass({
                                      },
                                      body: JSON.stringify({
                                          content : text,
-                                         phone : this.state.phone
+                                         phone : this.state.phone,
+                                         StudyID : Users.Users[0].StudyID
                                      })
                                  })
                                      .then((response) => response.json())
@@ -234,9 +237,9 @@ var Cyxjdnsfssz = React.createClass({
 
     //返回具体的cell
     renderRow(rowData,sectionID, rowID){
-        console.log(rowData)
         return(
             <TouchableOpacity style={{marginTop : 10,}} onPress={()=>{
+                console.log(rowData)
                 //错误
                 Alert.alert(
                     '提示:',
@@ -283,7 +286,7 @@ var Cyxjdnsfssz = React.createClass({
                         marginBottom : 5,
                         marginTop : 5,
                         marginLeft : 10
-                    }}>{'下一次访视是:' + (moment().add(10, "days").format("YYYY-MM-DD"))}</Text>
+                    }}>{'下一次访视是:' + (moment().add(rowData.Days, "days").format("YYYY-MM-DD"))}</Text>
                 </View>
             </TouchableOpacity>
         )

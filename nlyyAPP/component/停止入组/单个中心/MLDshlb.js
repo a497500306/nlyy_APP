@@ -150,6 +150,8 @@ var Dshlb = React.createClass({
 
     //返回具体的cell
     renderRow(rowData, sectionID, rowID, highlightRow){
+        console.log("返回具体的cell")
+        console.log(rowData)
         var sss = rowData.isStopIt == 1?'是' : '否';
         //判断改用户是不是随机化专员
         var isSJHZY = false;
@@ -212,7 +214,7 @@ var Dshlb = React.createClass({
 
                                                 });
                                         }},
-                                        {text: '拒绝', onPress: () => {
+                                        /*{text: '拒绝', onPress: () => {
                                             //发送网络请求
                                             fetch(settings.fwqUrl + "/app/getZXToExamine", {
                                                 method: 'POST',
@@ -223,6 +225,8 @@ var Dshlb = React.createClass({
                                                 body: JSON.stringify({
                                                     id : rowData.id,
                                                     ToExamineType : 0,
+                                                    StudyID : Users.Users[0].StudyID,
+                                                    ToExamineUserData : Users.Users[0],
                                                     ToExamineUsers:Users.Users[0].UserNam,
                                                     ToExaminePhone:Users.Users[0].UserMP,
                                                 })
@@ -251,6 +255,7 @@ var Dshlb = React.createClass({
 
                                                 });
                                         }},
+                                        */
                                         {text: '取消'}
                                     ]
                                 )
@@ -271,7 +276,7 @@ var Dshlb = React.createClass({
                 }}>
                     <View style={{marginTop: 10 , backgroundColor: 'white',borderBottomColor: '#dddddd', borderBottomWidth: 1,borderTopColor: '#dddddd', borderTopWidth: 1, }}>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'研究编号:' + rowData.StudyID}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'中心名称:' + rowData.SiteNam}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'中心名称:' + rowData.SiteID}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'受试者入组是否中心之间竞争:' + (study.study.AccrualCmpYN == 1 ? '是' : '否')}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'中心平均入组例数:' + this.state.dataType[rowID].PJRZLS}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'中心目前已随机例数:' + this.state.dataType[rowID].YSJLS}</Text>
@@ -279,9 +284,9 @@ var Dshlb = React.createClass({
                         <Text style={{marginTop: 5,marginLeft:10}}>{'中心已停止受试者入组:' + sss}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'是否推送短信给全国PI:' + rowData.isMessage}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'是否推送邮件给全国PI:' + rowData.isMail}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'申请人:' + rowData.isMail}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'申请人:' + rowData.UserNam}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'申请人手机号:' + rowData.UserMP}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'申请人电子邮箱:' + rowData.isMail}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'申请人电子邮箱:' + rowData.UserEmail}</Text>
                         <Text style={{marginBottom: 5,marginTop: 5,marginLeft:10}}>{'申请日期:' + moment(rowData.Date).format('YYYY-MM-DD HH:mm:ss')}</Text>
                     </View>
                 </TouchableOpacity>
@@ -399,7 +404,7 @@ var Dshlb = React.createClass({
                 }}>
                     <View style={{marginTop: 10 , backgroundColor: 'white',borderBottomColor: '#dddddd', borderBottomWidth: 1,borderTopColor: '#dddddd', borderTopWidth: 1, }}>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'研究编号:' + rowData.StudyID}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'中心名称:' + rowData.SiteNam}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'中心名称:' + rowData.SiteID}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'受试者入组是否中心之间竞争:' + (study.study.AccrualCmpYN == 1 ? '是' : '否')}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'中心平均入组例数:' + this.state.dataType[rowID].PJRZLS}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'中心目前已随机例数:' + this.state.dataType[rowID].YSJLS}</Text>
@@ -407,9 +412,9 @@ var Dshlb = React.createClass({
                         <Text style={{marginTop: 5,marginLeft:10}}>{'中心已停止受试者入组:' + sss}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'是否推送短信给全国PI:' + rowData.isMessage}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'是否推送邮件给全国PI:' + rowData.isMail}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'申请人:' + rowData.isMail}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'申请人:' + rowData.UserNam}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'申请人手机号:' + rowData.UserMP}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'申请人电子邮箱:' + rowData.isMail}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'申请人电子邮箱:' + rowData.UserEmail}</Text>
                         <Text style={{marginBottom: 5,marginTop: 5,marginLeft:10}}>{'申请日期:' + moment(rowData.Date).format('YYYY-MM-DD HH:mm:ss')}</Text>
                     </View>
                 </TouchableOpacity>

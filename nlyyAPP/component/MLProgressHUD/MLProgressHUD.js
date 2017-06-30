@@ -35,7 +35,7 @@ var MLProgressHUD = React.createClass({
         if (this.props.isVisible == true){
             return (
                 <Modal
-                    animationType='slide'
+                    animationType='none'
                     transparent={true}
                     visible={this.state.show}
                     onShow={() => {}}

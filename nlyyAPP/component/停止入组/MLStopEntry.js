@@ -43,7 +43,7 @@ var StopEntry = React.createClass({
             //判断用户类别
             if (data.UserFun == 'H2' || data.UserFun == 'H3' ||
                 data.UserFun == 'S1' || data.UserFun == 'M7' ||
-                data.UserFun == 'M1' || data.UserFun == 'C1'){
+                data.UserFun == 'M1' || data.UserFun == 'C1' || data.UserFun == 'H1'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
                     if (tableData[j] == '单个中心'){

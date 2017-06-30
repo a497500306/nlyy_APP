@@ -305,6 +305,7 @@ var Zgyjjjjm = React.createClass({
                 UnblindingType:4,
                 UserNam:Users.Users[0].UserNam,
                 UserMP:Users.Users[0].UserMP,
+                User : Users.Users[0],
                 Causal:this.state.shifouchanjia,
                 Reason:this.state.yuanying,
             })

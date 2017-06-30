@@ -54,6 +54,7 @@ var Mhcx = React.createClass({
                                textalign="center"
                                placeholder="请输入受试者编号或姓名缩写或性别或手机号..."
                                clearButtonMode="always"
+                               underlineColorAndroid={'transparent'}
                                onChangeText={this.onZhanghao}//获取输入
                     />
                     <Text style={{marginTop:10,}}>（‘001’，‘ZLY’，‘男’，‘13945678900’）</Text>

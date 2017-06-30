@@ -14,6 +14,7 @@ var Users = require('../../../entity/Users');
 var ApplicationAndAudit = require('../../../entity/ApplicationAndAudit');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var MLDjmLB = require('./MLDjmLB')
+var MLDjmNewLB = require('./MLDjmNewLB')
 
 var Djm = React.createClass({
     getInitialState() {
@@ -63,7 +64,11 @@ var Djm = React.createClass({
                 }
             }
         }
+        console.log('审核身份')
+        console.log(dgssztdjmSH)
+        console.log(dgsszjjjmSH)
         console.log(dgzxjjjmSH)
+        console.log(zgyjjjjmSH)
         console.log(Users.Users)
         var tableData = [];
         if (Users.Users[0].UserFun == "C1"){
@@ -132,7 +137,9 @@ var Djm = React.createClass({
                 }
             }
         }
-
+        if (tableData.length == 0 ){
+            tableData.push('待揭盲列表');
+        }
         //ListView设置
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
         return {
@@ -226,11 +233,7 @@ var Djm = React.createClass({
                 <TouchableOpacity onPress={()=>{
                     // 页面的切换
                     this.props.navigator.push({
-                        component: MLDjmLB, // 具体路由的版块
-                        //传递参数
-                        passProps: {
-                            UnblindingType:2,
-                        }
+                        component: MLDjmNewLB, // 具体路由的版块
                     });
                 }}>
                     <MLTableCell title={rowData}/>

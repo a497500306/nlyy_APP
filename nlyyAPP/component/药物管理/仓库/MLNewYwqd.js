@@ -71,10 +71,17 @@ var NewYwqd = React.createClass({
         })
             .then((response) => response.json())
             .then((responseJson) => {
+                console.log('321321321');
                 console.log(responseJson);
                 if (responseJson.isSucceed != 400){
-                    //移除等待
-                    this.setState({animating:false});
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        responseJson.msg,
+                        [
+                            {text: '确定', onPress: () =>this.props.navigator.pop()}
+                        ]
+                    )
                 }else{
                     //ListView设置
                     var tableData = [];
@@ -193,7 +200,7 @@ var NewYwqd = React.createClass({
                         isArrow = {false}
                         iconTitl='check'
                         iconColor='rgba(0,136,212,1.0)'
-                        subTitleColor={rowData.DDrugNumAYN == 1 ? (rowData.DDrugDMNumYN == 1 ? "gray" : "red") : 'gray'}
+                        subTitleColor={rowData.DDrugDMNumYN == 1 ? 'gray' :  (rowData.DDrugNumAYN == 1 ?"red" : 'gray') }
                     />
                 </TouchableOpacity>
             )
@@ -214,7 +221,7 @@ var NewYwqd = React.createClass({
                     <MLTableCell title={rowData.DrugNum}
                                  subTitle={(rowData.DDrugDMNumYN == 1 ? ('已废弃  ' +  (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  ')) : (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  '))}
                                  isArrow = {false}
-                                 subTitleColor={rowData.DDrugNumAYN == 1 ?  (rowData.DDrugDMNumYN == 1 ? "gray" : "red") : 'gray'}
+                                 subTitleColor={rowData.DDrugDMNumYN == 1 ? 'gray' :  (rowData.DDrugNumAYN == 1 ?"red" : 'gray')}
                     />
                 </TouchableOpacity>
             )
@@ -225,10 +232,8 @@ var NewYwqd = React.createClass({
     quanxuan(){
         var data = [];
         for(var i = 0 ; i < this.state.tableData.length ; i++){
-            if (this.state.tableData[i].DDrugNumAYN != 1){
                 this.state.tableData[i].isSelected = true;
                 data.push(this.state.tableData[i].id)
-            }
         }
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
         this.setState({

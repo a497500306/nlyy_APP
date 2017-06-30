@@ -21,7 +21,7 @@ var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
 
 var settings = require("../../../settings");
-var Users = require('=../../../entity/Users');
+var Users = require('../../../entity/Users');
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
 var FPQDData = require('./保存数据/FPQDData');
@@ -42,7 +42,7 @@ var Ywqd = React.createClass({
                 },
                 body: JSON.stringify({
                     UserSite : FPQDData.FPQDData.Address.SiteID,
-                    StudyID : FPQDData.FPQDData.Users.StudyID
+                    StudyID : Users.Users[0].StudyID
                 })
             })
                 .then((response) => response.json())
@@ -132,13 +132,13 @@ var Ywqd = React.createClass({
                             <ScrollView>
                                 <View style={{backgroundColor: 'white'}}>
                                     <Text style={styles.textStyles}>
-                                        {'研究编号:' + FPQDData.FPQDData.Users.StudyID}
+                                        {'研究编号:' + Users.Users[0].StudyID}
                                     </Text>
                                     <Text style={styles.textStyles}>
-                                        {'研究简称:' + FPQDData.FPQDData.Users.StudNameS}
+                                        {'研究简称:' + Users.Users[0].StudNameS}
                                     </Text>
                                     <Text style={styles.textStyles}>
-                                        {'研究全称:' + FPQDData.FPQDData.Users.StudNameF}
+                                        {'研究全称:' + Users.Users[0].StudNameF}
                                     </Text>
                                     <Text style={{
                                         marginTop:15,
@@ -224,13 +224,13 @@ var Ywqd = React.createClass({
                             <ScrollView>
                                 <View style={{backgroundColor: 'white'}}>
                                     <Text style={styles.textStyles}>
-                                        {'研究编号:' + FPQDData.FPQDData.Users.StudyID}
+                                        {'研究编号:' + Users.Users[0].StudyID}
                                     </Text>
                                     <Text style={styles.textStyles}>
-                                        {'研究简称:' + FPQDData.FPQDData.Users.StudNameS}
+                                        {'研究简称:' + Users.Users[0].StudNameS}
                                     </Text>
                                     <Text style={styles.textStyles}>
-                                        {'研究全称:' + FPQDData.FPQDData.Users.StudNameF}
+                                        {'研究全称:' + Users.Users[0].StudNameF}
                                     </Text>
                                     <Text style={{
                                         marginTop:15,
@@ -296,13 +296,13 @@ var Ywqd = React.createClass({
                             <ScrollView>
                                 <View style={{backgroundColor: 'white'}}>
                                     <Text style={styles.textStyles}>
-                                        {'研究编号:' + FPQDData.FPQDData.Users.StudyID}
+                                        {'研究编号:' + Users.Users[0].StudyID}
                                     </Text>
                                     <Text style={styles.textStyles}>
-                                        {'研究简称:' + FPQDData.FPQDData.Users.StudNameS}
+                                        {'研究简称:' + Users.Users[0].StudNameS}
                                     </Text>
                                     <Text style={styles.textStyles}>
-                                        {'研究全称:' + FPQDData.FPQDData.Users.StudNameF}
+                                        {'研究全称:' + Users.Users[0].StudNameF}
                                     </Text>
                                     <Text style={{
                                         marginTop:15,
@@ -392,13 +392,13 @@ var Ywqd = React.createClass({
                             <ScrollView>
                                 <View style={{backgroundColor: 'white'}}>
                                     <Text style={styles.textStyles}>
-                                        {'研究编号:' + FPQDData.FPQDData.Users.StudyID}
+                                        {'研究编号:' + Users.Users[0].StudyID}
                                     </Text>
                                     <Text style={styles.textStyles}>
-                                        {'研究简称:' + FPQDData.FPQDData.Users.StudNameS}
+                                        {'研究简称:' + Users.Users[0].StudNameS}
                                     </Text>
                                     <Text style={styles.textStyles}>
-                                        {'研究全称:' + FPQDData.FPQDData.Users.StudNameF}
+                                        {'研究全称:' + Users.Users[0].StudNameF}
                                     </Text>
                                     <Text style={{
                                         marginTop:15,
@@ -458,7 +458,8 @@ var Ywqd = React.createClass({
     },
     //点击确定
     getLogin(){
-        console.log(this.props.navigator.getCurrentRoutes());
+        console.log('11111');
+        console.log(Changku.Changku);
         this.setState({animating:true});
         //发送登录网络请求
         fetch(settings.fwqUrl + "/app/getAssignYwhgsfp", {
@@ -470,7 +471,7 @@ var Ywqd = React.createClass({
             body: JSON.stringify({
                 id : FPQDData.FPQDData.id,
                 //选择的仓库
-                UsedAddress : Changku.Changku
+                UsedAddress : Changku.Changku,
             })
         })
             .then((response) => response.json())
@@ -480,7 +481,7 @@ var Ywqd = React.createClass({
                     //移除等待
                     this.setState({quxiaoanimating:false});
                     Alert.alert(
-                        '物流清单已发送到邮箱,请打印并交个快递员\n提交快递员后请在待运送药物清单中点击运送',
+                        '药物清单已发送到邮箱，请打印并交给快递员\n提交快递员后请在待运送药物清单中点击运送',
                         null,
                         [
                             {text: '确定', onPress: () => this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[4])}

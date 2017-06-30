@@ -47,6 +47,7 @@ var Fsywtxdx = React.createClass({
                                placeholder="请输入受试者编号或姓名缩写或性别或手机号..."
                                clearButtonMode="always"
                                onChangeText={this.onZhanghao}//获取输入
+                               underlineColorAndroid={'transparent'}
                     />
                     <Text style={{marginTop:10,}}>（‘001’，‘ZLY’，‘男’，‘13945678900’）</Text>
                     <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getLogin}>

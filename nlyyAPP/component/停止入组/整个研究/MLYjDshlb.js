@@ -51,7 +51,7 @@ var YjDshlb = React.createClass({
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                StudyID : Users.Users[0].StudyID
+                StudyID : study.study.StudyID
             })
         })
             .then((response) => response.json())
@@ -204,7 +204,7 @@ var YjDshlb = React.createClass({
 
                                                 });
                                         }},
-                                        {text: '拒绝', onPress: () => {
+                                        /*{text: '拒绝', onPress: () => {
                                             //发送网络请求
                                             fetch(settings.fwqUrl + "/app/getYJToExamine", {
                                                 method: 'POST',
@@ -214,6 +214,8 @@ var YjDshlb = React.createClass({
                                                 },
                                                 body: JSON.stringify({
                                                     id : rowData.id,
+                                                    StudyID : Users.Users[0].StudyID,
+                                                    ToExamineUserData : Users.Users[0],
                                                     ToExamineType : 0,
                                                     ToExamineUsers:Users.Users[0].UserNam,
                                                     ToExaminePhone:Users.Users[0].UserMP,
@@ -242,7 +244,7 @@ var YjDshlb = React.createClass({
                                                     )
 
                                                 });
-                                        }},
+                                        }},*/
                                         {text: '取消'}
                                     ]
                                 )
@@ -270,9 +272,9 @@ var YjDshlb = React.createClass({
                         <Text style={{marginTop: 5,marginLeft:10}}>{'研究已停止受试者入组:' + sss}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'是否推送短信给全国PI:' + rowData.isMessage}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'是否推送邮件给全国PI:' + rowData.isMail}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'申请人:' + rowData.isMail}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'申请人:' + rowData.UserNam}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'申请人手机号:' + rowData.UserMP}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'申请人电子邮箱:' + rowData.isMail}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'申请人电子邮箱:' + rowData.UserEmail}</Text>
                         <Text style={{marginBottom: 5,marginTop: 5,marginLeft:10}}>{'申请日期:' + moment(rowData.Date).format('YYYY-MM-DD HH:mm:ss')}</Text>
                     </View>
                 </TouchableOpacity>
@@ -301,6 +303,7 @@ var YjDshlb = React.createClass({
                                                 body: JSON.stringify({
                                                     id : rowData.id,
                                                     isStopIt : 1,
+                                                    StudyID:Users.Users[0].StudyID,
                                                     StopItUsers:Users.Users[0].UserNam,
                                                     StopItPhone:Users.Users[0].UserMP,
                                                 })
@@ -340,6 +343,7 @@ var YjDshlb = React.createClass({
                                                 body: JSON.stringify({
                                                     id : rowData.id,
                                                     isStopIt : 2,
+                                                    StudyID:Users.Users[0].StudyID,
                                                     StopItUsers:Users.Users[0].UserNam,
                                                     StopItPhone:Users.Users[0].UserMP,
                                                 })
@@ -395,9 +399,9 @@ var YjDshlb = React.createClass({
                         <Text style={{marginTop: 5,marginLeft:10}}>{'研究已停止受试者入组:' + sss}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'是否推送短信给全国PI:' + rowData.isMessage}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'是否推送邮件给全国PI:' + rowData.isMail}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'申请人:' + rowData.isMail}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'申请人:' + rowData.UserNam}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'申请人手机号:' + rowData.UserMP}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'申请人电子邮箱:' + rowData.isMail}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'申请人电子邮箱:' + rowData.UserEmail}</Text>
                         <Text style={{marginBottom: 5,marginTop: 5,marginLeft:10}}>{'申请日期:' + moment(rowData.Date).format('YYYY-MM-DD HH:mm:ss')}</Text>
                     </View>
                 </TouchableOpacity>

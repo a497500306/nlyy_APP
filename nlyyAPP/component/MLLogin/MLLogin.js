@@ -19,6 +19,12 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+var BB = require('../../node_modules/antd-mobile/lib/button/index');
+
+var Toast = require('../../node_modules/antd-mobile/lib/toast/index');
+
+var ImagePicker = require('../../node_modules/antd-mobile/lib/image-picker/index');
+
 var TimerMixin = require('react-timer-mixin');//定时器
 
 var SelectionStudy = require('../MLSelectionStudy/MLSelectionStudy');
@@ -79,14 +85,16 @@ var login = React.createClass({
                                textalign="center"
                                placeholder="请输入手机号"
                                keyboardType="numeric"
-                               clearButtonMode="always"
+                               clearButtonMode="while-editing"
+                               underlineColorAndroid={'transparent'}
                                onChangeText={this.onZhanghao}//获取输入
                     />
                      <View style={styles.yanzhenmaViewStyle}>
                         <TextInput style={styles.yanzhengmaStyle}
+                                   textalign="center"
                                    placeholder="请输入验证码"
                                    keyboardType="numeric"
-                                   clearButtonMode="always"
+                                   clearButtonMode="while-editing"
                                    onChangeText={this.onYanzhenma}//获取输入
                         />
                          <TouchableOpacity style={styles.yanzhengmaBtnStyle} onPress={this.getIDCode} disabled={this.state.isYZMBtn}>
@@ -128,6 +136,14 @@ var login = React.createClass({
             </View>
         )
     },
+
+    onChange(files, type, index) {
+        console.log(files, type, index);
+        this.setState({
+            files,
+        });
+    },
+
     //输入账号时
     onZhanghao(text){
         this.setState({zhanghao: text});
@@ -140,6 +156,7 @@ var login = React.createClass({
 
     //获取验证码
     getIDCode(){
+
         //开启定时器倒数
         this.setState({YZMBtnTime:30,isYZMBtn:true})
         //判断手机号是否输入11位
@@ -257,6 +274,7 @@ var login = React.createClass({
             return;
         }
         this.setState({animating:true});
+        Toast.loading('登陆中...',60);
         //发送登录网络请求
         fetch(settings.fwqUrl + "/app/getLogin", {
             method: 'POST',
@@ -272,15 +290,11 @@ var login = React.createClass({
             .then((responseJson) => {
                 this.setState({animating:false});
                 if (responseJson.isSucceed == 200){
-                    //错误
-                    Alert.alert(
-                        '提示',
-                        responseJson.msg,
-                        [
-                            {text: '确定'}
-                        ]
-                    )
+
+                    Toast.hide()
+                    Toast.fail(responseJson.msg, 1);
                 }else {
+                    Toast.hide()
                     UserData.phone = this.state.zhanghao;
                     UserData.data = responseJson.data;
                     this.setState({animating:false});
@@ -295,16 +309,9 @@ var login = React.createClass({
                 }
             })
             .catch((error) => {//错误
+                Toast.hide()
+                Toast.fail('请检查您的网络!!!', 1);
                 this.setState({animating:false});
-                console.log(error),
-                //错误
-                Alert.alert(
-                    '提示',
-                    '请检查您的网络',
-                    [
-                        {text: '确定'}
-                    ]
-                )
             });
     },
 
@@ -431,7 +438,8 @@ const styles = StyleSheet.create({
         // 垂直居中 ---> 设置侧轴的对齐方式
         alignItems:'center',
         // 设置主轴的对齐方式
-        justifyContent:'space-around'
+        justifyContent:'space-around',
+        backgroundColor:'white',
     },
     yanzhengmaStyle: {
         width:width - 100,

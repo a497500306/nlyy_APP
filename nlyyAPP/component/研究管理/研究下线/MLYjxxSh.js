@@ -21,7 +21,7 @@ var Users = require('../../../entity/Users');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var PatientRM = require('../../受试者随机/MLPatientRM');
 var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
-var Users = require('../../../entity/Users');
+var Study = require('../../../entity/study');
 var Changku = require('../../../entity/Changku');
 var settings = require('../../../settings');
 var FPZhongxin = require('../../药物管理/仓库/保存数据/FPZhongxin');
@@ -198,7 +198,7 @@ var YjxxSh = React.createClass({
 
                                                 });
                                         }},
-                                        {text: '拒绝', onPress: () => {
+                                        /*{text: '拒绝', onPress: () => {
                                             //发送网络请求
                                             fetch(settings.fwqUrl + "/app/getYjxxToExamine", {
                                                 method: 'POST',
@@ -208,6 +208,8 @@ var YjxxSh = React.createClass({
                                                 },
                                                 body: JSON.stringify({
                                                     id : rowData.persons.id,
+                                                    StudyID : Users.Users[0].StudyID,
+                                                    ToExamineUserData : Users.Users[0],
                                                     ToExamineType : 0,
                                                     ToExamineUsers:Users.Users[0].UserNam,
                                                     ToExaminePhone:Users.Users[0].UserMP,
@@ -236,7 +238,7 @@ var YjxxSh = React.createClass({
                                                     )
 
                                                 });
-                                        }},
+                                        }},*/
                                         {text: '取消'}
                                     ]
                                 )
@@ -257,7 +259,7 @@ var YjxxSh = React.createClass({
                 }}>
                     <View style={{marginTop: 10 , backgroundColor: 'white',borderBottomColor: '#dddddd', borderBottomWidth: 1,borderTopColor: '#dddddd', borderTopWidth: 1, }}>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'研究编号:' + rowData.persons.StudyID}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'总样本量:' + rowData.data.AllAampleNumber}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'总样本量:' + Study.study.StudySize}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'总随机例数:' + rowData.data.AllRandomNumber}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'总完成例数:' + rowData.data.AllCompleteNumber}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'总脱落例数:' + rowData.data.AllFallOffNumber}</Text>
@@ -293,6 +295,7 @@ var YjxxSh = React.createClass({
                                                     isOffline : 1,
                                                     StudOfflineUsers:Users.Users[0].UserNam,
                                                     StudOfflinePhone:Users.Users[0].UserMP,
+                                                    StudyID:Users.Users[0].StudyID
                                                 })
                                             })
                                                 .then((response) => response.json())
@@ -332,6 +335,7 @@ var YjxxSh = React.createClass({
                                                     isOffline : 2,
                                                     StudOfflineUsers:Users.Users[0].UserNam,
                                                     StudOfflinePhone:Users.Users[0].UserMP,
+                                                    StudyID:Users.Users[0].StudyID
                                                 })
                                             })
                                                 .then((response) => response.json())
@@ -378,7 +382,7 @@ var YjxxSh = React.createClass({
                 }}>
                     <View style={{marginTop: 10 , backgroundColor: 'white',borderBottomColor: '#dddddd', borderBottomWidth: 1,borderTopColor: '#dddddd', borderTopWidth: 1, }}>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'研究编号:' + rowData.persons.StudyID}</Text>
-                        <Text style={{marginTop: 5,marginLeft:10}}>{'总样本量:' + rowData.data.AllAampleNumber}</Text>
+                        <Text style={{marginTop: 5,marginLeft:10}}>{'总样本量:' + Study.study.StudySize}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'总随机例数:' + rowData.data.AllRandomNumber}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'总完成例数:' + rowData.data.AllCompleteNumber}</Text>
                         <Text style={{marginTop: 5,marginLeft:10}}>{'总脱落例数:' + rowData.data.AllFallOffNumber}</Text>

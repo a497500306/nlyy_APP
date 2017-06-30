@@ -141,6 +141,7 @@ var SszjxfsrqCXJG = React.createClass({
 
     //返回具体的cell
     renderRow(rowData,sectionID, rowID){
+        console.log('123123')
         console.log(rowData)
         if (rowData.isSuccess == 1) {
             if (rowData.users.isOut == 1) {
@@ -149,28 +150,31 @@ var SszjxfsrqCXJG = React.createClass({
                 )
             }else {
                 if (rowData.Random == -1){
-
+                    return (
+                            <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni}
+                                         subTitleColor={'black'} rightTitleColor = {'gray'} isArrow = {false}
+                                         rightTitle={'随机号:' + (rowData.Random == -1 ? "未取" : rowData.Random)}/>
+                    )
                 }else{
-
+                    return (
+                        <TouchableOpacity onPress={()=> {
+                            //错误
+                            this.props.navigator.push({
+                                component: SszjxfsrqSZ, // 具体路由的版块
+                                //传递参数
+                                passProps: {
+                                    //出生年月
+                                    users: rowData.users,
+                                    Random: rowData.Random
+                                }
+                            })
+                        }}>
+                            <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni}
+                                         subTitleColor={'black'}
+                                         rightTitle={'随机号:' + (rowData.Random == -1 ? "未取" : rowData.Random)}/>
+                        </TouchableOpacity>
+                    )
                 }
-                return (
-                    <TouchableOpacity onPress={()=> {
-                        //错误
-                        this.props.navigator.push({
-                            component: SszjxfsrqSZ, // 具体路由的版块
-                            //传递参数
-                            passProps: {
-                                //出生年月
-                                users: rowData.users,
-                                Random: rowData.Random
-                            }
-                        })
-                    }}>
-                        <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni}
-                                     subTitleColor={'black'}
-                                     rightTitle={'随机号:' + (rowData.Random == -1 ? "未取" : rowData.Random)}/>
-                    </TouchableOpacity>
-                )
             }
         }else{
             return(

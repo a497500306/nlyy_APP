@@ -1,93 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js" line="791" />
+    <bookmark url="file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js" line="908" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94975081-e51f-4241-b3e7-7100c85e937d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/images/banzhu.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/images/gan.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/images/i.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/images/i1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/images/感叹号.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/ios/bundle/assets/images/drug.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/ios/bundle/assets/images/people.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/ios/bundle/assets/images/stop.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/ios/bundle/assets/logo1025.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/ios/bundle/index.ios.jsbundle.meta" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/GradualRadioBar_master_node_modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/component/MLSelectionModal/MLSelectionModal.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/查阅退出或完成例数分布/MLCytchwclsfbLB.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/查阅退出或完成例数分布/MLCytchwclsfbZX.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/取药号历史/MLThywh.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/ios/bundle/index.ios.jsbundle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/RNHttp_node_modules.xml" afterPath="$PROJECT_DIR$/.idea/libraries/RNHttp_node_modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/nlyy_APP.iml" afterPath="$PROJECT_DIR$/.idea/nlyy_APP.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/component/MLNavigatorBar/返回.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/images/chat.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/images/imageGL.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP/Images.xcassets/AppIcon.appiconset/20@2X.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP/Images.xcassets/AppIcon.appiconset/20@3X.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP/Images.xcassets/AppIcon.appiconset/29@2X.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP/Images.xcassets/AppIcon.appiconset/29@3X.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP/Images.xcassets/AppIcon.appiconset/40@2X.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP/Images.xcassets/AppIcon.appiconset/40@3X.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP/Images.xcassets/AppIcon.appiconset/60@2X.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP/Images.xcassets/AppIcon.appiconset/60@3X.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/component/MLPhotoView/MLPhotoView.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/component/图片管理模块/入口/MLImagesList.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/component/图片管理模块/模块上传/MLMoKuaiNewUpdateList.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/component/图片管理模块/模块上传/MLMoKuaiUpdate.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/component/图片管理模块/模块上传/MLMoKuaiUpdateList.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nlyyAPP/component/揭盲/待揭盲/MLDjmNewLB.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/nlyyAPP/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/nlyyAPP/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/nlyyAPP/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/nlyyAPP/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/ios/bundle/index.ios.jsbundle.meta" afterPath="$PROJECT_DIR$/nlyyAPP/ios/bundle/index.ios.jsbundle.meta" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/android/app/build.gradle" afterPath="$PROJECT_DIR$/nlyyAPP/android/app/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/android/app/src/main/java/com/nlyyapp/MainActivity.java" afterPath="$PROJECT_DIR$/nlyyAPP/android/app/src/main/java/com/nlyyapp/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/android/app/src/main/java/com/nlyyapp/MainApplication.java" afterPath="$PROJECT_DIR$/nlyyAPP/android/app/src/main/java/com/nlyyapp/MainApplication.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/android/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/nlyyAPP/android/app/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/android/build.gradle" afterPath="$PROJECT_DIR$/nlyyAPP/android/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/android/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/nlyyAPP/android/gradle/wrapper/gradle-wrapper.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/android/settings.gradle" afterPath="$PROJECT_DIR$/nlyyAPP/android/settings.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/MLHome/MLHome.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/MLHome/MLHome.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/MLLogin/MLLogin.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/MLLogin/MLLogin.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/MLModal/MLModal.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/MLModal/MLModal.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/MLNavigatorBar/MLNavigatorBar.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/MLNavigatorBar/MLNavigatorBar.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/MLProgressHUD/MLProgressHUD.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/MLProgressHUD/MLProgressHUD.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/MLSelectionModal/MLSelectionModal.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/MLSelectionModal/MLSelectionModal.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/MLSelectionStudy/MLSelectionStudy.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/MLSelectionStudy/MLSelectionStudy.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/MLTableCell/MLTableCell.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/MLTableCell/MLTableCell.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/停止入组/单个中心/MLDgzx.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/停止入组/单个中心/MLDgzx.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/停止入组/MLStopEntry.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/停止入组/MLStopEntry.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/停止入组/单个中心/MLDgzxSq.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/停止入组/单个中心/MLDgzxSq.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/停止入组/单个中心/MLDgzxYtzrzLB.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/停止入组/单个中心/MLDgzxYtzrzLB.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/停止入组/单个中心/MLDshlb.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/停止入组/单个中心/MLDshlb.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/停止入组/单个中心/MLTzrzZxTable.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/停止入组/单个中心/MLTzrzZxTable.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/停止入组/整个研究/MLYjDshlb.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/停止入组/整个研究/MLYjDshlb.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/停止入组/整个研究/MLZgyj.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/停止入组/整个研究/MLZgyj.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/MLPatientRM.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/MLPatientRM.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/停止入组/整个研究/MLZgyjSq.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/停止入组/整个研究/MLZgyjSq.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/取随机号/MLQsjh.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/取随机号/MLQsjh.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选失败受试者/MLXzsxsbssz.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选失败受试者/MLXzsxsbssz.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选失败受试者/MLXzsxsbsszQR.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选失败受试者/MLXzsxsbsszQR.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选失败受试者/MLXzsxsbsszYY.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选失败受试者/MLXzsxsbsszYY.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选成功受试者/MLXzsxcgsszQR.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选成功受试者/MLXzsxcgsszQR.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/查阅筛选例数分布/MLCxsxlsfb.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/查阅筛选例数分布/MLCxsxlsfb.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/查阅退出或完成例数分布/MLCytchwclsfb.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/查阅退出或完成例数分布/MLCytchwclsfb.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/查阅退出或完成例数分布/MLCytchwclsfbZX.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/查阅退出或完成例数分布/MLCytchwclsfbZX.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/查阅随机例数分布/MLCysjlsfb.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/查阅随机例数分布/MLCysjlsfb.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/模糊查询/MLMhcx.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/模糊查询/MLMhcx.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/用药提醒/MLYytx.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/受试者随机/用药提醒/MLYytx.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/揭盲/MLUnblinding.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/揭盲/MLUnblinding.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/揭盲/待揭盲/MLDjm.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/揭盲/待揭盲/MLDjm.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/揭盲/待揭盲/MLDjmLB.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/揭盲/待揭盲/MLDjmLB.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个中心紧急揭盲/MLDgzxjjjm.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个中心紧急揭盲/MLDgzxjjjm.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个中心紧急揭盲/MLDgzxjjjmQR.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个中心紧急揭盲/MLDgzxjjjmQR.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个受试者特定揭盲/MLDgssztdjm.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个受试者特定揭盲/MLDgssztdjm.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个受试者特定揭盲/MLDgssztdjmLB.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个受试者特定揭盲/MLDgssztdjmLB.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个受试者特定揭盲/MLDgssztdjmQR.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个受试者特定揭盲/MLDgssztdjmQR.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/整个研究紧急揭盲/MLZgyjjjjm.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/整个研究紧急揭盲/MLZgyjjjjm.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/研究管理/查询延长期受试者例数/MLCxycqsszls.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/研究管理/查询延长期受试者例数/MLCxycqsszls.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/研究管理/研究下线/MLCxzyjsszls.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/研究管理/研究下线/MLCxzyjsszls.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/研究管理/研究下线/MLYjxx.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/研究管理/研究下线/MLYjxx.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/研究管理/研究下线/MLYjxxSh.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/研究管理/研究下线/MLYjxxSh.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/MLDrugsAI.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/MLDrugsAI.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLCKTable.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLCKTable.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/研究管理/研究下线/MLYjxxSq.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/研究管理/研究下线/MLYjxxSq.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLFenpeiZX.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLFenpeiZX.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLNewYwqd.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLNewYwqd.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLWarehouse.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLWarehouse.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLWarehouseHandleList.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLWarehouseHandleList.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLYwqd.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLYwqd.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLZXTable.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLZXTable.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLQdfp.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLQdfp.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLYwhgsfp.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLYwhgsfp.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLZgfp.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLZgfp.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLZgjhqdfp.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLZgjhqdfp.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLZgjhqdfpQD.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLZgjhqdfpQD.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLZnfp.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLZnfp.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/物流模块/MLYqsywqd.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/物流模块/MLYqsywqd.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/取药号历史/MLQyhls.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/取药号历史/MLQyhls.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/取药号历史/MLQyhlsLB.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/取药号历史/MLQyhlsLB.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/查询中心药物情况/MLCxzxywqk.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/查询中心药物情况/MLCxzxywqk.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/查询药物号/MLCxywh.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/查询药物号/MLCxywh.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/查询药物号/MLCxywhSR.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/查询药物号/MLCxywhSR.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/研究中心/MLResearchCore.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/研究中心/MLResearchCore.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/研究中心/MLZXNewYwqd.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/研究中心/MLZXNewYwqd.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/药物管理/补充药物号/MLBcywh.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/药物管理/补充药物号/MLBcywh.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/随访管理/MLFollowUpAI.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/随访管理/MLFollowUpAI.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/随访管理/发送药物提醒短信/MLFsywtxdx.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/随访管理/发送药物提醒短信/MLFsywtxdx.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/随访管理/发送药物提醒短信/MLFsywtxdxLB.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/随访管理/发送药物提醒短信/MLFsywtxdxLB.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/随访管理/受试者基线访视日期/MLSszjxfsrq.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/随访管理/受试者基线访视日期/MLSszjxfsrq.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/随访管理/受试者基线访视日期/MLSszjxfsrqCXJG.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/随访管理/受试者基线访视日期/MLSszjxfsrqCXJG.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/随访管理/受试者基线访视日期/MLSszjxfsrqSZ.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/随访管理/受试者基线访视日期/MLSszjxfsrqSZ.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/随访管理/查阅下降段内随访受试者/MLCyxjdnsfssz.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/随访管理/查阅下降段内随访受试者/MLCyxjdnsfssz.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/随访管理/查阅下降段内随访受试者/MLCyxjdnsfsszSR.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/随访管理/查阅下降段内随访受试者/MLCyxjdnsfsszSR.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/随访管理/登记受试者退出或完成/MLDjssztchwc.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/随访管理/登记受试者退出或完成/MLDjssztchwc.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/随访管理/登记受试者退出或完成/MLDjssztchwcLB.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/随访管理/登记受试者退出或完成/MLDjssztchwcLB.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/component/随访管理/登记受试者退出或完成/MLDjssztchwcQR.js" afterPath="$PROJECT_DIR$/nlyyAPP/component/随访管理/登记受试者退出或完成/MLDjssztchwcQR.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/ios/bundle/index.ios.jsbundle" afterPath="$PROJECT_DIR$/nlyyAPP/ios/bundle/index.ios.jsbundle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP.xcodeproj/project.pbxproj" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP.xcodeproj/xcshareddata/xcschemes/nlyyAPP.xcscheme" afterPath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP.xcodeproj/xcshareddata/xcschemes/nlyyAPP.xcscheme" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP/AppDelegate.m" afterPath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP/AppDelegate.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP/Base.lproj/LaunchScreen.xib" afterPath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP/Base.lproj/LaunchScreen.xib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP/Images.xcassets/AppIcon.appiconset/Contents.json" afterPath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP/Images.xcassets/AppIcon.appiconset/Contents.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP/Info.plist" afterPath="$PROJECT_DIR$/nlyyAPP/ios/nlyyAPP/Info.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/package.json" afterPath="$PROJECT_DIR$/nlyyAPP/package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nlyyAPP/settings.js" afterPath="$PROJECT_DIR$/nlyyAPP/settings.js" />
     </list>
     <ignored path="nlyy_APP.iws" />
@@ -111,103 +123,93 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="appSSZSJ.js" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="137" column="64" selection-start-line="137" selection-start-column="64" selection-end-line="137" selection-end-column="64" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/nlyyAPP/settings.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="35" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="researchParameter.js" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/nlyy_node/models/import/researchParameter.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="19" column="14" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/nlyy_node/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="61" column="9" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="9" />
+            <state relative-caret-position="6300">
+              <caret line="420" column="47" selection-start-line="420" selection-start-column="47" selection-end-line="420" selection-end-column="47" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MLSszjxfsrq.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nlyyAPP/component/随访管理/受试者基线访视日期/MLSszjxfsrq.js">
+      <file leaf-file-name="appSFGL.js" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/nlyy_node/controller/APPJK/appSFGL.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="203">
+              <caret line="583" column="30" selection-start-line="583" selection-start-column="30" selection-end-line="583" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MLSszjxfsrqSZ.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nlyyAPP/component/随访管理/受试者基线访视日期/MLSszjxfsrqSZ.js">
+      <file leaf-file-name="MLLogin.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/nlyyAPP/component/MLLogin/MLLogin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2040">
-              <caret line="152" column="33" selection-start-line="152" selection-start-column="33" selection-end-line="152" selection-end-column="33" />
+            <state relative-caret-position="60">
+              <caret line="21" column="68" selection-start-line="21" selection-start-column="68" selection-end-line="23" selection-end-column="70" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MLFollowUpAI.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nlyyAPP/component/随访管理/MLFollowUpAI.js">
+      <file leaf-file-name="MLSelectionStudy.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/nlyyAPP/component/MLSelectionStudy/MLSelectionStudy.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1515">
-              <caret line="113" column="44" selection-start-line="113" selection-start-column="44" selection-end-line="113" selection-end-column="44" />
+            <state relative-caret-position="125">
+              <caret line="174" column="31" selection-start-line="174" selection-start-column="31" selection-end-line="174" selection-end-column="31" />
               <folding>
-                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#89#130#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MLNewYwqd.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLNewYwqd.js">
+      <file leaf-file-name="Unblinding.js" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/nlyy_node/models/import/Unblinding.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2625">
-              <caret line="191" column="101" selection-start-line="191" selection-start-column="76" selection-end-line="191" selection-end-column="101" />
+            <state relative-caret-position="450">
+              <caret line="30" column="13" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MLCxywh.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/查询药物号/MLCxywh.js">
+      <file leaf-file-name="MLRandomTool.js" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/nlyy_node/randomTool/MLRandomTool.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="44" column="68" selection-start-line="44" selection-start-column="50" selection-end-line="44" selection-end-column="68" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MLCxywhSR.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/查询药物号/MLCxywhSR.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1425">
-              <caret line="110" column="37" selection-start-line="110" selection-start-column="37" selection-end-line="110" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="appSSZSJ.js" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9120">
-              <caret line="608" column="38" selection-start-line="608" selection-start-column="38" selection-end-line="608" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="addSuccessPatient.js" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/nlyy_node/models/import/addSuccessPatient.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="37" column="9" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="appChangKu.js" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/nlyy_node/controller/APPJK/appChangKu.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27615">
-              <caret line="1841" column="23" selection-start-line="1835" selection-start-column="20" selection-end-line="1841" selection-end-column="23" />
+            <state relative-caret-position="6030">
+              <caret line="402" column="29" selection-start-line="402" selection-start-column="29" selection-end-line="402" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -228,57 +230,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$USER_HOME$/nlyy_node/models/import/addSuccessPatient.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/随访管理/登记受试者退出或完成/MLDjssztchwcQR.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/随访管理/登记受试者退出或完成/MLDjssztchwcLB.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/随访管理/发送药物提醒短信/MLFsywtxdx.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/随访管理/受试者基线访视日期/MLSszjxfsrq.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/随访管理/登记受试者退出或完成/MLDjssztchwc.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/停止入组/单个中心/MLTzrzZxTable.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个中心紧急揭盲/MLDgzxjjjm.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLZXTable.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLZnfp.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/MLTableCell/MLTableCell.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/MLHome/MLHome.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/取药号历史/MLQyhls.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/取药号历史/MLQyhlsLB.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLWarehouseHandleList.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/MLDrugsAI.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/研究中心/MLResearchCore.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/补充药物号/MLBcywh.js" />
-        <option value="$USER_HOME$/nlyy_node/models/import/site.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/随访管理/受试者基线访视日期/MLSszjxfsrqCXJG.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/随访管理/查阅下降段内随访受试者/MLCyxjdnsfsszSR.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个中心紧急揭盲/MLDgzxjjjmQR.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个受试者特定揭盲/MLDgssztdjmQR.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/整个研究紧急揭盲/MLZgyjjjjm.js" />
-        <option value="$USER_HOME$/nlyy_node/controller/APPJK/appSFGL.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/受试者随机/用药提醒/MLYytx.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/MLModal/MLModal.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/查询中心药物情况/MLCxzxywqk.js" />
-        <option value="$USER_HOME$/nlyy_node/controller/login.js" />
-        <option value="$USER_HOME$/nlyy_node/package.json" />
-        <option value="$USER_HOME$/nlyy_node/controller/ImportData.js" />
-        <option value="$USER_HOME$/nlyy_node/views/mshome.ejs" />
-        <option value="$USER_HOME$/nlyy_node/public/js/mshome.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选失败受试者/MLXzsxsbsszQR.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选成功受试者/MLXzsxcgsszQR.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/取药号历史/MLThywh.js" />
+        <option value="$USER_HOME$/nlyy_node/controller/APPJK/appYjxx.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/揭盲/MLUnblinding.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/停止入组/MLStopEntry.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/停止入组/单个中心/MLDgzx.js" />
         <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/研究中心/MLZXNewYwqd.js" />
-        <option value="$USER_HOME$/nlyy_node/models/import/drugCK.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/settings.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLWarehouse.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLYwqd.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/随访管理/查阅下降段内随访受试者/MLCyxjdnsfssz.js" />
-        <option value="$USER_HOME$/nlyy_node/controller/APPJK/appChangKu.js" />
-        <option value="$USER_HOME$/nlyy_node/models/import/drugGQ.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/随访管理/受试者基线访视日期/MLSszjxfsrqSZ.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/随访管理/MLFollowUpAI.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLNewYwqd.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/查询药物号/MLCxywh.js" />
-        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/查询药物号/MLCxywhSR.js" />
-        <option value="$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/随访管理/登记受试者退出或完成/MLDjssztchwcQR.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/揭盲/待揭盲/MLDjmLB.js" />
+        <option value="internal/process/next_tick.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选成功受试者/MLXzsxcgssz.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/揭盲/待揭盲/MLDjmNewLB.js" />
+        <option value="$USER_HOME$/nlyy_node/settings.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/MLLogin/MLLogin.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/MLHome/MLHome.js" />
         <option value="$USER_HOME$/nlyy_node/app.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选失败受试者/MLXzsxsbsszQR.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选失败受试者/MLXzsxsbssz.js" />
+        <option value="$USER_HOME$/nlyy_node/models/db.js" />
+        <option value="$USER_HOME$/nlyy_node/controller/login.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选成功受试者/MLXzsxcgsszQR.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/ssss.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/node_modules/react-native/Libraries/Utilities/UIManager.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/随访管理/受试者基线访视日期/MLSszjxfsrqSZ.js" />
+        <option value="$USER_HOME$/nlyy_node/controller/ImportData.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/图片管理模块/模块上传/MLMoKuaiNewUpdateList.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLZgjhqdfpQD.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/受试者随机/查阅随机例数分布/MLCysjlsfb.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/受试者随机/查阅筛选例数分布/MLCxsxlsfb.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/受试者随机/查阅退出或完成例数分布/MLCytchwclsfb.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/受试者随机/查阅退出或完成例数分布/MLCytchwclsfbZX.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/图片管理模块/入口/MLImagesList.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLYwqd.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/受试者随机/取随机号/MLQsjh.js" />
+        <option value="bootstrap_node.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/MLPhotoView/MLPhotoView.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/物流模块/MLYqsywqd.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLNewYwqd.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/揭盲/待揭盲/MLDjm.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/MLProgressHUD/MLProgressHUD.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/停止入组/单个中心/MLDgzxSq.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/停止入组/整个研究/MLZgyjSq.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/MLSelectionModal/MLSelectionModal.js" />
+        <option value="$USER_HOME$/nlyy_node/MLArray.js" />
+        <option value="$USER_HOME$/nlyy_node/models/import/addFailPatient.js" />
+        <option value="$USER_HOME$/nlyy_node/models/import/addUnblindingApplication.js" />
+        <option value="$USER_HOME$/nlyy_node/controller/APPJK/appChangKu.js" />
+        <option value="$USER_HOME$/nlyy_node/randomTool/MLRandomTool.js" />
+        <option value="$USER_HOME$/nlyy_node/controller/APPJK/appTzrz.js" />
+        <option value="$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js" />
+        <option value="$USER_HOME$/nlyy_node/controller/APPJK/appSFGL.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/component/MLSelectionStudy/MLSelectionStudy.js" />
+        <option value="$PROJECT_DIR$/nlyyAPP/settings.js" />
       </list>
     </option>
   </component>
@@ -289,10 +291,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="47" />
-    <option name="y" value="130" />
-    <option name="width" value="1280" />
-    <option name="height" value="733" />
+    <option name="x" value="1355" />
+    <option name="y" value="30" />
+    <option name="width" value="1654" />
+    <option name="height" value="732" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -301,8 +303,14 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
-    <ConfirmationsSetting value="0" id="Remove" />
+    <OptionsSetting value="true" id="添加" />
+    <OptionsSetting value="true" id="移除" />
+    <OptionsSetting value="true" id="检出" />
+    <OptionsSetting value="true" id="更新" />
+    <OptionsSetting value="true" id="状态" />
+    <OptionsSetting value="true" id="编辑" />
+    <ConfirmationsSetting value="0" id="添加" />
+    <ConfirmationsSetting value="0" id="移除" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -319,7 +327,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -352,12 +359,145 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_node" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
               <option name="myItemId" value="nlyy_APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_node" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="APPJK" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyyAPP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyyAPP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="component" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyyAPP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="component" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MLTableCell" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyy_APP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nlyyAPP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="component" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MLLogin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -374,13 +514,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/nlyyAPP/component/MLNavigatorBar" />
       <recent name="$PROJECT_DIR$/nlyyAPP/images" />
       <recent name="$USER_HOME$/nlyy_node/assistant" />
       <recent name="$USER_HOME$/nlyy_node/public/js" />
       <recent name="$PROJECT_DIR$/nlyyAPP/component" />
-      <recent name="$PROJECT_DIR$/nlyyAPP" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/nlyyAPP/images" />
       <recent name="$PROJECT_DIR$/nlyyAPP/component/研究管理/研究下线" />
     </key>
   </component>
@@ -541,11 +682,152 @@
       <workItem from="1488337742536" duration="5018000" />
       <workItem from="1488373030172" duration="6447000" />
       <workItem from="1488786377117" duration="382000" />
+      <workItem from="1488788049776" duration="124000" />
+      <workItem from="1488804881906" duration="1759000" />
+      <workItem from="1488874427948" duration="789000" />
+      <workItem from="1488878297102" duration="3115000" />
+      <workItem from="1488940068350" duration="1536000" />
+      <workItem from="1488961435775" duration="546000" />
+      <workItem from="1489024660652" duration="1991000" />
+      <workItem from="1489030199693" duration="47000" />
+      <workItem from="1489044241492" duration="384000" />
+      <workItem from="1489045668141" duration="35000" />
+      <workItem from="1489045801978" duration="131000" />
+      <workItem from="1489048404750" duration="710000" />
+      <workItem from="1489051290953" duration="775000" />
+      <workItem from="1489053404369" duration="1109000" />
+      <workItem from="1489113985439" duration="1172000" />
+      <workItem from="1489129713329" duration="1359000" />
+      <workItem from="1489137104666" duration="480000" />
+      <workItem from="1489137933059" duration="5921000" />
+      <workItem from="1489459005257" duration="3020000" />
+      <workItem from="1489462115747" duration="2377000" />
+      <workItem from="1489485168851" duration="2022000" />
+      <workItem from="1489487547699" duration="267000" />
+      <workItem from="1489546514155" duration="1090000" />
+      <workItem from="1489549114294" duration="569000" />
+      <workItem from="1489557922104" duration="12624000" />
+      <workItem from="1489643593854" duration="254000" />
+      <workItem from="1489646350378" duration="1105000" />
+      <workItem from="1489647767694" duration="397000" />
+      <workItem from="1489648802506" duration="581000" />
+      <workItem from="1489721080483" duration="3306000" />
+      <workItem from="1489746852629" duration="1546000" />
+      <workItem from="1489975442866" duration="608000" />
+      <workItem from="1489993608074" duration="4041000" />
+      <workItem from="1489999145841" duration="1912000" />
+      <workItem from="1490001113098" duration="328000" />
+      <workItem from="1490002367877" duration="3576000" />
+      <workItem from="1490090520983" duration="2963000" />
+      <workItem from="1490147869411" duration="2972000" />
+      <workItem from="1490162093578" duration="493000" />
+      <workItem from="1490168209326" duration="631000" />
+      <workItem from="1490175259738" duration="1582000" />
+      <workItem from="1490236659287" duration="326000" />
+      <workItem from="1490249532432" duration="1240000" />
+      <workItem from="1490332107895" duration="706000" />
+      <workItem from="1490335666586" duration="3461000" />
+      <workItem from="1490608385004" duration="3509000" />
+      <workItem from="1490681439221" duration="1459000" />
+      <workItem from="1490756164713" duration="3737000" />
+      <workItem from="1490844116761" duration="520000" />
+      <workItem from="1490868545923" duration="2427000" />
+      <workItem from="1490936968443" duration="484000" />
+      <workItem from="1490937521046" duration="2586000" />
+      <workItem from="1490952330770" duration="207000" />
+      <workItem from="1491028547667" duration="3712000" />
+      <workItem from="1491034046702" duration="3024000" />
+      <workItem from="1491369875578" duration="5405000" />
+      <workItem from="1491378733613" duration="8055000" />
+      <workItem from="1491445810010" duration="15343000" />
+      <workItem from="1491533091811" duration="14071000" />
+      <workItem from="1491617435273" duration="1113000" />
+      <workItem from="1491875918484" duration="1098000" />
+      <workItem from="1491877550120" duration="3134000" />
+      <workItem from="1491902732213" duration="316000" />
+      <workItem from="1492161820822" duration="282000" />
+      <workItem from="1493128639430" duration="809000" />
+      <workItem from="1493271787068" duration="99000" />
+      <workItem from="1493282723499" duration="2498000" />
+      <workItem from="1493703887373" duration="5691000" />
+      <workItem from="1493777098583" duration="1008000" />
+      <workItem from="1493791825967" duration="3089000" />
+      <workItem from="1493795670089" duration="132000" />
+      <workItem from="1494226624821" duration="9721000" />
+      <workItem from="1494384694306" duration="747000" />
+      <workItem from="1494569672269" duration="6513000" />
+      <workItem from="1494901235651" duration="438000" />
+      <workItem from="1494902949570" duration="2340000" />
+      <workItem from="1494915267173" duration="2616000" />
+      <workItem from="1494919357985" duration="2155000" />
+      <workItem from="1494923861028" duration="805000" />
+      <workItem from="1494925747585" duration="1650000" />
+      <workItem from="1494929262642" duration="389000" />
+      <workItem from="1495001618354" duration="409000" />
+      <workItem from="1495005142901" duration="753000" />
+      <workItem from="1495073755852" duration="1767000" />
+      <workItem from="1495094935265" duration="6570000" />
+      <workItem from="1495418443378" duration="22928000" />
+      <workItem from="1495591605307" duration="4091000" />
+      <workItem from="1495598446658" duration="1815000" />
+      <workItem from="1495602505513" duration="9330000" />
+      <workItem from="1495638805497" duration="4173000" />
+      <workItem from="1495690311292" duration="3102000" />
+      <workItem from="1495703075602" duration="3581000" />
+      <workItem from="1495763855353" duration="1714000" />
+      <workItem from="1495766691569" duration="1224000" />
+      <workItem from="1495770686970" duration="3894000" />
+      <workItem from="1495864557357" duration="209000" />
+      <workItem from="1495866219838" duration="22000" />
+      <workItem from="1495867803777" duration="1522000" />
+      <workItem from="1496111145697" duration="10410000" />
+      <workItem from="1496207338096" duration="12349000" />
+      <workItem from="1496369302411" duration="1510000" />
+      <workItem from="1496383463420" duration="3008000" />
+      <workItem from="1496387389918" duration="1517000" />
+      <workItem from="1496388951475" duration="35000" />
+      <workItem from="1496392721122" duration="1615000" />
+      <workItem from="1496627867656" duration="258000" />
+      <workItem from="1496720120103" duration="259000" />
+      <workItem from="1496720457996" duration="217000" />
+      <workItem from="1496720804476" duration="920000" />
+      <workItem from="1496826996620" duration="1334000" />
+      <workItem from="1496848503430" duration="754000" />
+      <workItem from="1496899570510" duration="3008000" />
+      <workItem from="1497232060667" duration="5216000" />
+      <workItem from="1497242690940" duration="2752000" />
+      <workItem from="1497341315699" duration="488000" />
+      <workItem from="1497407731920" duration="454000" />
+      <workItem from="1497411234091" duration="260000" />
+      <workItem from="1497411817893" duration="13113000" />
+      <workItem from="1497509922987" duration="3823000" />
+      <workItem from="1497597806023" duration="567000" />
+      <workItem from="1497599893521" duration="1390000" />
+      <workItem from="1497849825251" duration="921000" />
+      <workItem from="1497857480373" duration="3983000" />
+      <workItem from="1497865731609" duration="2152000" />
+      <workItem from="1497868426765" duration="292000" />
+      <workItem from="1497926336610" duration="3336000" />
+      <workItem from="1497947363157" duration="4473000" />
+      <workItem from="1498010058240" duration="18567000" />
+      <workItem from="1498096221894" duration="7366000" />
+      <workItem from="1498107334637" duration="5216000" />
+      <workItem from="1498114166113" duration="7928000" />
+      <workItem from="1498183637247" duration="18069000" />
+      <workItem from="1498357347514" duration="43000" />
+      <workItem from="1498442932391" duration="9996000" />
+      <workItem from="1498527460685" duration="4323000" />
+      <workItem from="1498617622942" duration="9355000" />
+      <workItem from="1498699987030" duration="7717000" />
+      <workItem from="1498716198404" duration="3059000" />
+      <workItem from="1498723354586" duration="2799000" />
+      <workItem from="1498726776660" duration="3496000" />
+      <workItem from="1498794572622" duration="2535000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="564352000" />
+    <option name="totallyTimeSpent" value="999501000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -557,25 +839,26 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="47" y="130" width="1280" height="733" extended-state="0" />
-    <editor active="false" />
+    <frame x="1355" y="30" width="1654" height="732" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31453535" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3271028" sideWeight="0.48451152" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3073323" sideWeight="0.66481334" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286385" sideWeight="0.49682036" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24960254" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32707354" sideWeight="0.4872814" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.328125" sideWeight="0.491733" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2094305" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32445142" sideWeight="0.471803" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.328125" sideWeight="0.508267" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2703125" sideWeight="0.46172687" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3265625" sideWeight="0.48768863" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23076923" sideWeight="0.60206515" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2494043" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.325" sideWeight="0.471803" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4546875" sideWeight="0.49846908" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25117004" sideWeight="0.43923748" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3073323" sideWeight="0.33518666" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38533542" sideWeight="0.55440825" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -593,78 +876,274 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appTzrz.js</url>
-          <line>1236</line>
-          <option name="timeStamp" value="255" />
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appLogin.js</url>
+          <line>190</line>
+          <option name="timeStamp" value="357" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/ImportData.js</url>
+          <line>322</line>
+          <option name="timeStamp" value="479" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSFGL.js</url>
-          <line>631</line>
-          <option name="timeStamp" value="282" />
+          <line>605</line>
+          <option name="timeStamp" value="480" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appChangKu.js</url>
-          <line>1720</line>
-          <option name="timeStamp" value="292" />
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSFGL.js</url>
+          <line>762</line>
+          <option name="timeStamp" value="481" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSFGL.js</url>
+          <line>784</line>
+          <option name="timeStamp" value="482" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSFGL.js</url>
+          <line>793</line>
+          <option name="timeStamp" value="483" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appTzrz.js</url>
+          <line>742</line>
+          <option name="timeStamp" value="486" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/login.js</url>
+          <line>19</line>
+          <option name="timeStamp" value="487" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appTool.js</url>
+          <line>127</line>
+          <option name="timeStamp" value="496" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/randomTool/MLRandomTool.js</url>
+          <line>414</line>
+          <option name="timeStamp" value="557" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/randomTool/MLRandomTool.js</url>
+          <line>413</line>
+          <option name="timeStamp" value="560" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appYjxx.js</url>
+          <line>309</line>
+          <option name="timeStamp" value="612" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appTzrz.js</url>
+          <line>1173</line>
+          <option name="timeStamp" value="633" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appTzrz.js</url>
+          <line>1171</line>
+          <option name="timeStamp" value="635" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appTzrz.js</url>
+          <line>782</line>
+          <option name="timeStamp" value="638" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
-          <line>2345</line>
-          <option name="timeStamp" value="300" />
+          <line>1835</line>
+          <option name="timeStamp" value="650" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/randomTool/MLRandomTool.js</url>
+          <line>520</line>
+          <option name="timeStamp" value="652" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/randomTool/MLRandomTool.js</url>
+          <line>504</line>
+          <option name="timeStamp" value="653" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/randomTool/MLRandomTool.js</url>
+          <line>550</line>
+          <option name="timeStamp" value="654" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
-          <line>2331</line>
-          <option name="timeStamp" value="301" />
+          <line>1084</line>
+          <option name="timeStamp" value="670" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
+          <line>1079</line>
+          <option name="timeStamp" value="671" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
+          <line>1060</line>
+          <option name="timeStamp" value="672" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/ImportData.js</url>
+          <line>626</line>
+          <option name="timeStamp" value="687" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/ImportData.js</url>
+          <line>684</line>
+          <option name="timeStamp" value="711" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/ImportData.js</url>
+          <line>692</line>
+          <option name="timeStamp" value="712" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/ImportData.js</url>
+          <line>674</line>
+          <option name="timeStamp" value="713" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/ImportData.js</url>
+          <line>666</line>
+          <option name="timeStamp" value="714" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/ImportData.js</url>
+          <line>663</line>
+          <option name="timeStamp" value="715" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appChangKu.js</url>
-          <line>1446</line>
-          <option name="timeStamp" value="311" />
+          <line>1637</line>
+          <option name="timeStamp" value="782" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appChangKu.js</url>
-          <line>1452</line>
-          <option name="timeStamp" value="312" />
+          <line>2005</line>
+          <option name="timeStamp" value="789" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appChangKu.js</url>
-          <line>1458</line>
-          <option name="timeStamp" value="313" />
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
+          <line>1958</line>
+          <option name="timeStamp" value="805" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$USER_HOME$/nlyy_node/app.js</url>
-          <line>133</line>
-          <option name="timeStamp" value="316" />
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSFGL.js</url>
+          <line>432</line>
+          <option name="timeStamp" value="811" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSFGL.js</url>
+          <line>774</line>
+          <option name="timeStamp" value="814" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSFGL.js</url>
+          <line>840</line>
+          <option name="timeStamp" value="815" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
+          <line>219</line>
+          <option name="timeStamp" value="816" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
+          <line>222</line>
+          <option name="timeStamp" value="817" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
+          <line>233</line>
+          <option name="timeStamp" value="818" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
+          <line>384</line>
+          <option name="timeStamp" value="819" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
+          <line>514</line>
+          <option name="timeStamp" value="820" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
+          <line>1035</line>
+          <option name="timeStamp" value="821" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
+          <line>1955</line>
+          <option name="timeStamp" value="822" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
+          <line>1956</line>
+          <option name="timeStamp" value="823" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
+          <line>383</line>
+          <option name="timeStamp" value="824" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
+          <line>513</line>
+          <option name="timeStamp" value="825" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
+          <line>1034</line>
+          <option name="timeStamp" value="826" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
+          <line>811</line>
+          <option name="timeStamp" value="827" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSFGL.js</url>
+          <line>553</line>
+          <option name="timeStamp" value="829" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
+          <line>873</line>
+          <option name="timeStamp" value="830" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js</url>
+          <line>128</line>
+          <option name="timeStamp" value="831" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="317" />
+      <option name="time" value="833" />
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="NodeJSConfigurationType">
-        <watch expression="dataU[&quot;2&quot;]" />
-      </configuration>
-    </watches-manager>
+    <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/随访管理/受试者基线访视日期/MLSszjxfsrqCXJG.js">
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/MLDrugsAI.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1005">
-          <caret line="170" column="89" selection-start-line="170" selection-start-column="89" selection-end-line="170" selection-end-column="89" />
+        <state relative-caret-position="199">
+          <caret line="194" column="41" selection-start-line="194" selection-start-column="41" selection-end-line="194" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个中心紧急揭盲/MLDgzxjjjmQR.js">
+    <entry file="file://$USER_HOME$/nlyy_node/models/import/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="223" column="61" selection-start-line="223" selection-start-column="55" selection-end-line="223" selection-end-column="61" />
+        <state relative-caret-position="97">
+          <caret line="22" column="15" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="15" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个受试者特定揭盲/MLDgssztdjmQR.js">
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/停止入组/单个中心/MLTzrzZxTable.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3435">
-          <caret line="245" column="61" selection-start-line="245" selection-start-column="61" selection-end-line="245" selection-end-column="61" />
+        <state relative-caret-position="555">
+          <caret line="47" column="49" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="49" />
         </state>
       </provider>
     </entry>
@@ -675,275 +1154,313 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/整个研究紧急揭盲/MLZgyjjjjm.js">
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/MLProgressHUD/MLProgressHUD.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3930">
-          <caret line="278" column="50" selection-start-line="278" selection-start-column="50" selection-end-line="278" selection-end-column="50" />
+        <state relative-caret-position="300">
+          <caret line="46" column="30" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/MLSelectionModal/MLSelectionModal.js">
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个受试者特定揭盲/MLDgssztdjmQR.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="102" column="34" selection-start-line="102" selection-start-column="34" selection-end-line="102" selection-end-column="34" />
+        <state relative-caret-position="2175">
+          <caret line="161" column="36" selection-start-line="161" selection-start-column="36" selection-end-line="161" selection-end-column="36" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/MLModal/MLModal.js">
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/揭盲/揭盲申请/单个中心紧急揭盲/MLDgzxjjjmQR.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1830">
-          <caret line="137" column="39" selection-start-line="137" selection-start-column="39" selection-end-line="137" selection-end-column="39" />
+        <state relative-caret-position="4185">
+          <caret line="295" column="66" selection-start-line="295" selection-start-column="33" selection-end-line="295" selection-end-column="66" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/受试者随机/查阅退出或完成例数分布/MLCytchwclsfb.js">
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/停止入组/单个中心/MLDshlb.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="65" column="52" selection-start-line="65" selection-start-column="33" selection-end-line="65" selection-end-column="52" />
+        <state relative-caret-position="4140">
+          <caret line="286" column="71" selection-start-line="286" selection-start-column="69" selection-end-line="286" selection-end-column="71" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/停止入组/单个中心/MLDgzxSq.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="1745" column="35" selection-start-line="1745" selection-start-column="35" selection-end-line="1745" selection-end-column="35" />
+        <state relative-caret-position="2925">
+          <caret line="211" column="35" selection-start-line="211" selection-start-column="35" selection-end-line="211" selection-end-column="76" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/LICENSE">
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/停止入组/整个研究/MLZgyjSq.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/controller/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3751">
-          <caret line="253" column="75" selection-start-line="253" selection-start-column="65" selection-end-line="253" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/controller/ImportData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1545">
-          <caret line="103" column="19" selection-start-line="103" selection-start-column="19" selection-end-line="103" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/views/mshome.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2625">
-          <caret line="175" column="81" selection-start-line="175" selection-start-column="65" selection-end-line="175" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/public/js/mshome.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1170">
-          <caret line="78" column="30" selection-start-line="78" selection-start-column="30" selection-end-line="78" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/models/import/study.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="56" column="4" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/models/import/site.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="12" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/models/import/depot.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/controller/APPJK/appLogin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="84" column="32" selection-start-line="82" selection-start-column="32" selection-end-line="84" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选成功受试者/MLXzsxcgsszQR.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="330" column="25" selection-start-line="330" selection-start-column="25" selection-end-line="330" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选失败受试者/MLXzsxsbsszQR.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="213" column="29" selection-start-line="213" selection-start-column="29" selection-end-line="213" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/分配方案/MLZgfp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="229" column="42" selection-start-line="229" selection-start-column="42" selection-end-line="229" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/研究中心/MLZXNewYwqd.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="321" column="60" selection-start-line="321" selection-start-column="60" selection-end-line="321" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/取药号历史/MLThywh.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2970">
-          <caret line="214" column="20" selection-start-line="214" selection-start-column="20" selection-end-line="214" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/models/import/drugWL.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/MLLogin/MLLogin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="91" column="101" selection-start-line="91" selection-start-column="77" selection-end-line="91" selection-end-column="101" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLWarehouse.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="146" column="44" selection-start-line="146" selection-start-column="44" selection-end-line="146" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/停止入组/单个中心/MLDgzxYtzrzLB.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="24" column="11" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLCKTable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLFenpeiZX.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1410">
-          <caret line="104" column="77" selection-start-line="104" selection-start-column="70" selection-end-line="104" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/物流模块/MLDqsywqd.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="144" column="43" selection-start-line="144" selection-start-column="43" selection-end-line="144" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLYwqd.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="254" column="52" selection-start-line="254" selection-start-column="52" selection-end-line="254" selection-end-column="52" />
+        <state relative-caret-position="2760">
+          <caret line="200" column="42" selection-start-line="200" selection-start-column="42" selection-end-line="200" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nlyyAPP/component/随访管理/查阅下降段内随访受试者/MLCyxjdnsfssz.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="140" column="0" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
+        <state relative-caret-position="220">
+          <caret line="155" column="17" selection-start-line="155" selection-start-column="17" selection-end-line="155" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/受试者随机/用药提醒/MLYytx.js">
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/MLSelectionModal/MLSelectionModal.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="181" column="57" selection-start-line="181" selection-start-column="29" selection-end-line="181" selection-end-column="57" />
+        <state relative-caret-position="540">
+          <caret line="52" column="32" selection-start-line="52" selection-start-column="23" selection-end-line="52" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/MLMain/MLMain.js">
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/MLNavigatorBar/MLNavigatorBar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/MLArray.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="11" selection-start-line="0" selection-start-column="11" selection-end-line="0" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/update.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/查询中心药物情况/MLCxzxywqk.js">
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="252" column="53" selection-start-line="252" selection-start-column="33" selection-end-line="252" selection-end-column="53" />
+        <state relative-caret-position="75">
+          <caret line="9" column="16" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/controller/APPJK/appSFGL.js">
+    <entry file="file://$USER_HOME$/nlyy_node/controller/APPJK/appTool.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="262" column="36" selection-start-line="262" selection-start-column="17" selection-end-line="262" selection-end-column="36" />
+        <state relative-caret-position="130">
+          <caret line="117" column="10" selection-start-line="117" selection-start-column="10" selection-end-line="117" selection-end-column="10" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/settings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选失败受试者/MLXzsxsbsszQR.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="184" column="59" selection-start-line="184" selection-start-column="33" selection-end-line="184" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/models/import/addFailPatient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/models/import/addOutPatient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="25" column="27" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/models/import/addSuccessPatient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="47" column="31" selection-start-line="47" selection-start-column="31" selection-end-line="47" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/models/import/addUnblindingApplication.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/models/import/baselineUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/models/import/depot.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="24" column="19" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/models/import/drugCK.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="32" column="20" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/models/import/drugGQ.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="20" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/models/import/drugWL.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/models/import/DYSDrug.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/models/import/ExcludeStandard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="29" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/models/import/FollowUpParameter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/models/import/LSDrug.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="15" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/ALYZM/topClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="126" column="22" selection-start-line="126" selection-start-column="22" selection-end-line="126" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/models/EMail.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="14" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/nlyy_node/models/import/drug.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
-          <caret line="19" column="35" selection-start-line="12" selection-start-column="4" selection-end-line="19" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/models/import/drugCK.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="29" column="34" selection-start-line="19" selection-start-column="4" selection-end-line="29" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/models/import/drugGQ.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="14" column="17" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="17" />
+          <caret line="19" column="15" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/nlyy_node/controller/APPJK/appChangKu.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27615">
-          <caret line="1841" column="23" selection-start-line="1835" selection-start-column="20" selection-end-line="1841" selection-end-column="23" />
+        <state relative-caret-position="17085">
+          <caret line="1139" column="29" selection-start-line="1139" selection-start-column="29" selection-end-line="1139" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/随访管理/受试者基线访视日期/MLSszjxfsrq.js">
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/受试者随机/新增筛选成功受试者/MLXzsxcgsszQR.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3990">
+          <caret line="282" column="61" selection-start-line="282" selection-start-column="33" selection-end-line="282" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/models/import/ApplicationAndAudit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="37" column="33" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/models/import/researchParameter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="14" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/randomTool/MLRandomTool.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6030">
+          <caret line="402" column="29" selection-start-line="402" selection-start-column="29" selection-end-line="402" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/controller/APPJK/appTzrz.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1858">
+          <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/models/import/Unblinding.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="13" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6300">
+          <caret line="420" column="47" selection-start-line="420" selection-start-column="47" selection-end-line="420" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="137" column="64" selection-start-line="137" selection-start-column="64" selection-end-line="137" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/nlyy_node/controller/APPJK/appSFGL.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="583" column="30" selection-start-line="583" selection-start-column="30" selection-end-line="583" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/MLLogin/MLLogin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="21" column="68" selection-start-line="21" selection-start-column="68" selection-end-line="23" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/node_modules/antd-mobile/lib/list/index.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -951,68 +1468,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/随访管理/受试者基线访视日期/MLSszjxfsrqSZ.js">
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/node_modules/antd-mobile/es/list/ListItem.web.d.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2040">
-          <caret line="152" column="33" selection-start-line="152" selection-start-column="33" selection-end-line="152" selection-end-column="33" />
+        <state relative-caret-position="195">
+          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/随访管理/MLFollowUpAI.js">
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/MLTableCell/MLTableCell.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1515">
-          <caret line="113" column="44" selection-start-line="113" selection-start-column="44" selection-end-line="113" selection-end-column="44" />
+        <state relative-caret-position="125">
+          <caret line="75" column="48" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="48" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/仓库/MLNewYwqd.js">
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/MLSelectionStudy/MLSelectionStudy.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2625">
-          <caret line="191" column="101" selection-start-line="191" selection-start-column="76" selection-end-line="191" selection-end-column="101" />
-          <folding />
+        <state relative-caret-position="125">
+          <caret line="174" column="31" selection-start-line="174" selection-start-column="31" selection-end-line="174" selection-end-column="31" />
+          <folding>
+            <element signature="e#89#130#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/查询药物号/MLCxywh.js">
+    <entry file="file://$PROJECT_DIR$/nlyyAPP/settings.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="44" column="68" selection-start-line="44" selection-start-column="50" selection-end-line="44" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nlyyAPP/component/药物管理/查询药物号/MLCxywhSR.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1425">
-          <caret line="110" column="37" selection-start-line="110" selection-start-column="37" selection-end-line="110" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/models/import/addSuccessPatient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" column="9" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/controller/APPJK/appSSZSJ.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9120">
-          <caret line="608" column="38" selection-start-line="608" selection-start-column="38" selection-end-line="608" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/nlyy_node/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="61" column="9" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="9" />
+        <state relative-caret-position="90">
+          <caret line="6" column="35" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
           <folding />
         </state>
       </provider>

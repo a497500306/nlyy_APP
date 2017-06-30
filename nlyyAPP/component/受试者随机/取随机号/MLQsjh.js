@@ -27,8 +27,20 @@ var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityI
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var researchParameter = require('../../../entity/researchParameter')
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ActionSheet from 'react-native-actionsheet';
+
+const buttons = ['取消', '添加筛选成功受试者','添加筛选失败受试者','登记受试者','搜索'];
+const CANCEL_INDEX = 0;
+const DESTRUCTIVE_INDEX = 4;
+var friendId = 0;
+var seveRowData = {};
 
 var Qsjh = React.createClass({
+    show() {
+        this.ActionSheet.show();
+    },
+    _handlePress(index) {
+    },
     getDefaultProps(){
         return {
             data:null
@@ -126,12 +138,31 @@ var Qsjh = React.createClass({
         }else{
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'受试者随机'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'受试者随机'} newTitle = {"plus-circle"} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} newFunc={() => {
+                        this.show(this)
                     }}/>
                     <ListView
                         dataSource={this.state.dataSource}//数据源
                         renderRow={this.renderRow}
+                    />
+                    <ActionSheet
+                        ref={(o) => this.ActionSheet = o}
+                        title="选择您的操作？"
+                        options={buttons}
+                        cancelButtonIndex={CANCEL_INDEX}
+                        destructiveButtonIndex={DESTRUCTIVE_INDEX}
+                        onPress={(sss)=>{
+                            this._handlePress(this)
+                            if (sss == 1){//点击修改备注
+
+                            }else if (sss == 2){//点击查看资料
+
+                            }else if (sss == 3) {//点击删除好友
+
+                            }
+                        }}
                     />
                 </View>
 
@@ -176,17 +207,20 @@ var Qsjh = React.createClass({
                                                 },
                                                 body: JSON.stringify({
                                                     StudyID: Users.Users[0].StudyID,
-                                                    SubjFa: rowData.persons.SubjFa,
-                                                    SubjFb: rowData.persons.SubjFb,
-                                                    SubjFc: rowData.persons.SubjFc,
-                                                    SubjFd: rowData.persons.SubjFd,
-                                                    SubjFe: rowData.persons.SubjFe,
-                                                    SubjFf: rowData.persons.SubjFf,
-                                                    SubjFg: rowData.persons.SubjFg,
-                                                    SubjFh: rowData.persons.SubjFh,
-                                                    SubjFi: rowData.persons.SubjFi,
+                                                    SubjFa: rowData.persons.SubjFa == null ? '' : rowData.persons.SubjFa ,
+                                                    SubjFb: rowData.persons.SubjFb == null ? '' : rowData.persons.SubjFb ,
+                                                    SubjFc: rowData.persons.SubjFc == null ? '' : rowData.persons.SubjFc ,
+                                                    SubjFd: rowData.persons.SubjFd == null ? '' : rowData.persons.SubjFd ,
+                                                    SubjFe: rowData.persons.SubjFe == null ? '' : rowData.persons.SubjFe ,
+                                                    SubjFf: rowData.persons.SubjFf == null ? '' : rowData.persons.SubjFf ,
+                                                    SubjFg: rowData.persons.SubjFg == null ? '' : rowData.persons.SubjFg ,
+                                                    SubjFh: rowData.persons.SubjFh == null ? '' : rowData.persons.SubjFh ,
+                                                    SubjFi: researchParameter.researchParameter.StraSiteYN == '1' ?  (rowData.persons.SubjFi  == null ? '' : rowData.persons.SubjFi ): '',
                                                     SiteID: UserSite,
-                                                    userId: rowData.persons.id
+                                                    user:Users.Users[0],
+                                                    userId: rowData.persons.id,
+                                                    czzUser:Users.Users[0],
+                                                    sjzUser : rowData.persons
                                                 })
                                             })
                                                 .then((response) => response.json())
@@ -252,6 +286,8 @@ var Qsjh = React.createClass({
                                     "请选择你要操作的功能",
                                     [
                                         {text: '发送用药提醒短信', onPress: () => {
+                                            console.log('xxxxxxxxx')
+                                            console.log(rowData)
                                             //判断该研究是否提供药物号
                                             if (researchParameter.researchParameter.BlindSta == 1){
                                                 // 页面的切换
@@ -259,7 +295,7 @@ var Qsjh = React.createClass({
                                                     //传递参数
                                                     passProps:{
                                                         userId : rowData.id,
-                                                        phone : rowData.SubjMP
+                                                        phone : rowData.persons == null ? rowData.phone :rowData.persons.SubjMP
                                                     },
                                                     component: yytx, // 具体路由的版块
                                                 });
@@ -269,7 +305,7 @@ var Qsjh = React.createClass({
                                                     //传递参数
                                                     passProps:{
                                                         userId : rowData.id,
-                                                        phone : rowData.SubjMP
+                                                        phone : rowData.persons == null ? rowData.phone :rowData.persons.SubjMP
                                                     },
                                                     component: yytx, // 具体路由的版块
                                                 });
@@ -278,13 +314,15 @@ var Qsjh = React.createClass({
                                                 this.props.navigator.push({
                                                     //传递参数
                                                     passProps:{
-                                                        userId : rowData.SubjMP,
-                                                        phone : rowData.id
+                                                        userId : rowData.id,
+                                                        phone : rowData.persons == null ? rowData.phone :rowData.persons.SubjMP
                                                     },
                                                     component: yytx, // 具体路由的版块
                                                 });
                                             }
                                         }},
+                                        {text: '添加为筛选成功'},
+                                        {text: '添加为筛选失败'},
                                         {text: '取消'}
                                     ]
                                 )

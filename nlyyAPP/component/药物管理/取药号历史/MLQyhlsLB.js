@@ -96,6 +96,7 @@ var QuhlsLB = React.createClass({
         }else {
             return(
                 <TouchableOpacity onPress={()=>{
+                    console.log(rowData)
                     Alert.alert(
                         "提示:",
                         "是否确定替换药物号",
@@ -117,6 +118,7 @@ var QuhlsLB = React.createClass({
                                     body: JSON.stringify({
                                         userId :  this.props.userData.id,
                                         SiteID : UserSite,
+                                        DrugNum : (rowData.length > 8 ? rowData.substr(6,rowData.length - 6) : rowData),
                                         StudyID : Users.Users[0].StudyID,
                                         Arm : this.props.userData.Arm,
                                         DrugStr : this.props.userData.Drug[rowID],

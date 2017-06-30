@@ -20,6 +20,7 @@ import {
 
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
+var Button = require('apsl-react-native-button');
 
 var settings = require('../../../../settings');
 var MLNavigatorBar = require('../../../MLNavigatorBar/MLNavigatorBar');
@@ -42,7 +43,9 @@ var Zgfp = React.createClass({
             animating: true,//是否显示菊花
             title:'确 定',
             tableData:[],
-            xuanzhongData:[]
+            xuanzhongData:[],
+            isShowWait : false,
+            showLoginBtn : false,
         }
     },
 
@@ -122,17 +125,28 @@ var Zgfp = React.createClass({
                         dataSource={this.state.dataSource}//数据源
                         renderRow={this.renderRow}
                     />
-                    <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getLogin}>
-                        <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
-                            {this.state.title}
-                        </Text>
-                        <ActivityIndicator
-                            animating={this.state.animating}
-                            style={[styles.centering, {height: 30}]}
-                            size="small"
-                            color="white"
-                        />
-                    </TouchableOpacity>
+                    <Button
+                        style={{
+                            width:width - 40,
+                            marginTop:10,
+                            marginLeft:20,
+                            height:40,
+                            backgroundColor:'rgba(0,136,212,1.0)',
+                            // 设置圆角
+                            borderRadius:5,
+                            marginBottom:10,
+                            borderColor: 'rgba(0,136,212,1.0)',
+                            borderWidth: 1,
+                        }}
+                        isLoading={this.state.isShowWait}
+                        isDisabled={this.state.showLoginBtn}
+                        textStyle={{
+                            color: 'white',
+                            fontSize:15
+                        }}
+                        onPress={this.getLogin}>
+                        确 定
+                    </Button>
                 </View>
 
             );

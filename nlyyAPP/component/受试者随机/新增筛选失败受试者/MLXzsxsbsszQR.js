@@ -145,6 +145,11 @@ var XzsxcgsszQR = React.createClass({
             )
 
         }
+        if (rowData == '受试者是否参加子研究'){
+            return(
+                <MLTableCell title={rowData} rightTitle={this.props.zyj} isArrow={false}/>
+            )
+        }
         if (rowData == '筛选结果'){
             return(
                 <MLTableCell title={rowData} rightTitle='失败' isArrow={false}/>

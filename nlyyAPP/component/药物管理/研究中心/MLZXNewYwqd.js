@@ -196,7 +196,8 @@ var NewYwqd = React.createClass({
                     <MLTableCell title={rowData.DrugNum}
                                  subTitle={(rowData.DDrugDMNumYN == 1 ? ('已废弃  ' +  (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  ')) : (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  '))}
                                  rightTitle={rowData.DDrugUseAYN == 1 ?'已发放' : '未发放'} isArrow = {false}  iconTitl='check' iconColor='rgba(0,136,212,1.0)'
-                                 rightTitleColor = {rowData.DDrugUseAYN == 1 ?'red' : 'gray'} subTitleColor={rowData.DDrugNumAYN == 1 ?'red  ' : 'gray '}
+                                 rightTitleColor = {rowData.DDrugUseAYN == 1 ?'red' : 'gray'}
+                                 subTitleColor={rowData.DDrugDMNumYN == 1 ? 'gray' :  (rowData.DDrugNumAYN == 1 ?"red" : 'gray')}
                     />
                 </TouchableOpacity>
             )
@@ -217,7 +218,8 @@ var NewYwqd = React.createClass({
                     <MLTableCell title={rowData.DrugNum}
                                  subTitle={(rowData.DDrugDMNumYN == 1 ? ('已废弃  ' +  (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  ')) : (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  '))}
                                  rightTitle={rowData.DDrugUseAYN == 1 ?'已发放' : '未发放'} isArrow = {false}
-                                 rightTitleColor = {rowData.DDrugUseAYN == 1 ?'red' : 'gray'} subTitleColor={rowData.DDrugNumAYN == 1 ?'red' : 'gray'}
+                                 rightTitleColor = {rowData.DDrugUseAYN == 1 ?'red' : 'gray'}
+                                 subTitleColor={rowData.DDrugDMNumYN == 1 ? 'gray' :  (rowData.DDrugNumAYN == 1 ?"red" : 'gray')}
                     />
                 </TouchableOpacity>
             )
@@ -228,11 +230,10 @@ var NewYwqd = React.createClass({
     quanxuan(){
         var data = [];
         for(var i = 0 ; i < this.state.tableData.length ; i++){
-            if (this.state.tableData[i].DDrugNumAYN != 1){
                 this.state.tableData[i].isSelected = true;
                 data.push(this.state.tableData[i].id)
-            }
         }
+        console.log(this.state.tableData)
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
         this.setState({
             dataSource: ds.cloneWithRows(this.state.tableData),

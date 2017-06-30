@@ -53,6 +53,9 @@ var ZXTable = React.createClass({
             .then((response) => response.json())
             .then((responseJson) => {
                 console.log(responseJson)
+                console.log('user')
+                console.log(Users.Users[0])
+
                 if (responseJson.isSucceed != 400){
                     //移除等待
                     this.setState({animating:false});
@@ -61,9 +64,24 @@ var ZXTable = React.createClass({
                     //ListView设置
 
                     var tableData = [];
-                    for (var i = 0 ; i < responseJson.data.length ; i++){
-                        var changku = responseJson.data[i];
-                        tableData.push(changku)
+                    if (Users.Users[0].UserSiteYN === 1){
+                        for (var i = 0 ; i < responseJson.data.length ; i++){
+                            var changku = responseJson.data[i];
+                            tableData.push(changku)
+                        }
+                    }else {
+                        //判断用户管理几个中心
+                        var sites = Users.Users[0].UserSite.split(",")
+                        for (var j = 0 ; j < sites.length ; j++){
+                            for (var i = 0 ; i < responseJson.data.length ; i++){
+                                console.log('sites==' + sites[j])
+                                console.log('SiteID==' + responseJson.data[i].SiteID)
+                                if (responseJson.data[i].SiteID == sites[j]){
+                                    var changku = responseJson.data[i];
+                                    tableData.push(changku)
+                                }
+                            }
+                        }
                     }
 
                     var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});

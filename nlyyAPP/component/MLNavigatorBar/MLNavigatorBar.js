@@ -50,25 +50,46 @@ var MLNavigatorBar = React.createClass({
     getDefaultProps(){
         return {
             title:"",
+            newTitle:"",
             isBack:true,
-            backFunc: Component.func
+            backFunc: Component.func,
+            newFunc: Component.func
         }
     },
     render() {
         if (this.props.isBack == true){
-            return (
-                <View>
-                    <View style={styles.daohangIOSStyle}/>
-                    <View style={styles.daohangStyle}>
-                        <TouchableOpacity style={{position:'absolute', left:0, bottom:7}} onPress={this.props.backFunc}>
-                            <Icon style={{marginLeft:15,marginRight:15}} name="angle-left" size={30} color="white" />
-                        </TouchableOpacity>
-                        <Text style={{color:'white',fontSize: 16}}>
-                            {this.props.title}
-                        </Text>
+            if (this.props.newTitle === ''){
+                return (
+                    <View>
+                        <View style={styles.daohangIOSStyle}/>
+                        <View style={styles.daohangStyle}>
+                            <TouchableOpacity style={{position:'absolute', left:0, bottom:7}} onPress={this.props.backFunc}>
+                                <Icon style={{marginLeft:15,marginRight:15}} name="angle-left" size={30} color="white" />
+                            </TouchableOpacity>
+                            <Text style={{color:'white',fontSize: 16}}>
+                                {this.props.title}
+                            </Text>
+                        </View>
                     </View>
-                </View>
-            );
+                );
+            }else {
+                return (
+                    <View>
+                        <View style={styles.daohangIOSStyle}/>
+                        <View style={styles.daohangStyle}>
+                            <TouchableOpacity style={{position:'absolute', left:0, bottom:7}} onPress={this.props.backFunc}>
+                                <Icon style={{marginLeft:15,marginRight:15}} name="angle-left" size={30} color="white" />
+                            </TouchableOpacity>
+                            <Text style={{color:'white',fontSize: 16}}>
+                                {this.props.title}
+                            </Text>
+                            <TouchableOpacity style={{position:'absolute', right:0, bottom:7}} onPress={this.props.newFunc}>
+                                <Icon style={{marginLeft:15,marginRight:15}} name={this.props.newTitle} size={30} color="white" />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                );
+            }
         }else{
             return (
                 <View>

@@ -47,6 +47,7 @@ var MLCyxjdnsfsszSR = React.createClass({
                                keyboardType="numeric"
                                clearButtonMode="always"
                                onChangeText={this.onZhanghao}//获取输入
+                               underlineColorAndroid={'transparent'}
                     />
                     <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getLogin}>
                         <Text style={{color:'white',fontSize: 14,marginLeft:15}}>

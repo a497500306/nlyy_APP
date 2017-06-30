@@ -148,23 +148,46 @@ var DjssztchwcLB = React.createClass({
                     <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'已经完成或者退出'} rightTitleColor = {'gray'}/>
                 )
             }else{
-                return (
-                    <TouchableOpacity onPress={()=> {
-                        //错误
-                        this.props.navigator.push({
-                            component: DjssztchwcQR, // 具体路由的版块
-                            //传递参数
-                            passProps: {
-                                //出生年月
-                                users: rowData.users,
-                                Random: rowData.Random
-                            }
-                        })
-                    }}>
-                        <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor={'black'}
-                                     rightTitle={'随机号:' + rowData.Random}/>
-                    </TouchableOpacity>
-                )
+                if (rowData.isSuccess == 1) {
+                    if (rowData.Random == -1) {
+                        return (
+                            <TouchableOpacity onPress={()=> {
+                                //错误
+                                this.props.navigator.push({
+                                    component: DjssztchwcQR, // 具体路由的版块
+                                    //传递参数
+                                    passProps: {
+                                        //出生年月
+                                        users: rowData.users,
+                                        Random: rowData.Random
+                                    }
+                                })
+                            }}>
+                            <MLTableCell title={'受试者编号:' + rowData.USubjID}
+                                         subTitle={"姓名缩写:" + rowData.SubjIni + "   " + ((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:无")) : "")}
+                                         subTitleColor={'black'} rightTitle={'随机号:未取'} rightTitleColor={'gray'}/>
+                            </TouchableOpacity>
+                        )
+                    } else {
+                        return (
+                            <TouchableOpacity onPress={()=> {
+                                //错误
+                                this.props.navigator.push({
+                                    component: DjssztchwcQR, // 具体路由的版块
+                                    //传递参数
+                                    passProps: {
+                                        //出生年月
+                                        users: rowData.users,
+                                        Random: rowData.Random
+                                    }
+                                })
+                            }}>
+                                <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor={'black'}
+                                             rightTitle={'随机号:' + rowData.Random}/>
+                            </TouchableOpacity>
+                        )
+                    }
+                }
             }
         }else{
             if (rowData.users.isOut == 1) {

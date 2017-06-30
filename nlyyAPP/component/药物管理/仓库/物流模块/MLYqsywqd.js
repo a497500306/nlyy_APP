@@ -54,6 +54,7 @@ var Yqsywqd = React.createClass({
         })
             .then((response) => response.json())
             .then((responseJson) => {
+                console.log('123123123')
                 console.log(responseJson)
                 if (responseJson.isSucceed != 400){
                     //移除等待

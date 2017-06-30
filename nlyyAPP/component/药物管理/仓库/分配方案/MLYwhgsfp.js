@@ -28,12 +28,15 @@ var FPChangku = require('../保存数据/FPChangku');
 var FPZhongxin = require('../保存数据/FPZhongxin');
 var FPQDData = require('../保存数据/FPQDData');
 var Changku = require('../../../../entity/Changku');
+var Button = require('apsl-react-native-button');
 
 var Ywhgsfp = React.createClass({
     getInitialState() {
         return {
             shuliang:"",
             animating: false,//是否显示菊花
+            isShowWait : false,
+            showLoginBtn : false,
         }
     },
 
@@ -50,19 +53,29 @@ var Ywhgsfp = React.createClass({
                                placeholder="请输入药物号个数"
                                keyboardType="numeric"
                                clearButtonMode="always"
+                               underlineColorAndroid={'transparent'}
                                onChangeText={this.onZhanghao}//获取输入
                     />
-                    <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getLogin}>
-                        <Text style={{color:'white',fontSize: 14,marginLeft:15}}>
-                            确 定
-                        </Text>
-                        <ActivityIndicator
-                            animating={this.state.animating}
-                            style={[styles.centering, {height: 30}]}
-                            size="small"
-                            color="white"
-                        />
-                    </TouchableOpacity>
+                    <Button
+                        style={{
+                            width:width - 20,
+                            height:40,
+                            borderColor: 'rgba(0,136,212,1.0)',
+                            backgroundColor: "rgba(0,136,212,1.0)",
+                            borderRadius: 5,
+                            borderWidth: 1,
+                            marginTop:10,
+                            marginLeft:10
+                        }}
+                        isLoading={this.state.isShowWait}
+                        isDisabled={this.state.showLoginBtn}
+                        textStyle={{
+                            color: 'white',
+                            fontSize:15
+                        }}
+                        onPress={this.getLogin.bind(this)}>
+                        确 定
+                    </Button>
                 </View>
             </View>
         );
@@ -75,7 +88,10 @@ var Ywhgsfp = React.createClass({
     //点击确定
     getLogin(){
         if (check(this.state.shuliang) == 1){
-            this.setState({animating:true});
+            this.setState({
+                animating:true,
+                isShowWait :true
+            });
             //发送网络请求
             fetch(settings.fwqUrl + "/app/getYwhgsfp", {
                 method: 'POST',
@@ -96,7 +112,8 @@ var Ywhgsfp = React.createClass({
             })
                 .then((response) => response.json())
                 .then((responseJson) => {
-                    this.setState({animating:false});
+                    this.setState({animating:false,
+                        isShowWait:false});
                     if (responseJson.isSucceed != 400){
                         //错误
                         Alert.alert(
@@ -108,7 +125,8 @@ var Ywhgsfp = React.createClass({
                             ]
                         )
                     }else {
-                        this.setState({animating:false});
+                        this.setState({animating:false,
+                            isShowWait:false});
                         console.log(responseJson.data)
                         FPQDData.FPQDData = responseJson.data
                         // 页面的切换
@@ -119,7 +137,8 @@ var Ywhgsfp = React.createClass({
                     }
                 })
                 .catch((error) => {//错误
-                    this.setState({animating:false});
+                    this.setState({animating:false,
+                        isShowWait:false});
                     console.log(error),
                         //错误
                         Alert.alert(

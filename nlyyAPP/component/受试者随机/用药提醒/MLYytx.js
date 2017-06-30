@@ -144,10 +144,10 @@ var Helper = React.createClass({
                         renderRow={this.renderRow}
                     />
                     <MLSelectionModal tableData={[
-                        "研究温馨提示：健康记心间，平安幸福每一天，请按医嘱和说明书及时服药。",
-                        "研究温馨提示：您今天遵医嘱按时服用药物3次了吗？",
-                        "研究温馨提示：请您遵医嘱按时服用相应药物，餐后服用，每日三次。",
-                        "研究温馨提示：请您遵医嘱按时服用药物。服用任何药物都有不同的副作用，且存在很大的个体差异，如有不适，请及时联系您的主治医生。"
+                        "研究温馨提示：健康记心间，平安幸福每一天，请按医嘱和说明书及时服药",
+                        "研究温馨提示：您今天遵医嘱按时服用药物3次了吗",
+                        "研究温馨提示：请您遵医嘱按时服用相应药物，餐后服用，每日三次",
+                        "研究温馨提示：请您遵医嘱按时服用药物。服用任何药物都有不同的副作用，且存在很大的个体差异，如有不适，请及时联系您的主治医生"
                     ]} isVisible={this.state.isModalOpen}
                              onClose={(text) => {
                                  this.setState({isModalOpen:false,isBJModalOpen:true,content:text})
@@ -285,9 +285,15 @@ var Helper = React.createClass({
                             pickerData: this.state.date,
                             selectedValue: [moment().format('YYYY'),moment().format('M'),moment().format('D')],
                             onPickerConfirm: pickedValue => {
-
-                                var kaishiDate = new Date(pickedValue[0], pickedValue[1], pickedValue[2]);
-                                if (kaishiDate < new Date()){
+                                console.log(pickedValue[0], pickedValue[1], pickedValue[2])
+                                var kaistiDateStr =  '';
+                                kaistiDateStr = (pickedValue[0].length == 1 ? ("0" + pickedValue[0]) : pickedValue[0]) + '' + "-" +
+                                (pickedValue[1].length == 1 ? ("0" + pickedValue[1]) : pickedValue[1]) + '' + "-" +
+                                    (pickedValue[2].length == 1 ? ("0" + pickedValue[2]) : pickedValue[2]) + ''
+                                var kaishiDate = moment(kaistiDateStr);
+                                console.log(kaistiDateStr)
+                                console.log(kaishiDate)
+                                if (kaishiDate < moment().add(-1,'days')){
                                     //错误
                                     Alert.alert(
                                         "提示",
@@ -459,8 +465,14 @@ var Helper = React.createClass({
             return
         }
         //判断结束是否大于
-        var kaishiDate = new Date(this.state.kaishiDate[0], this.state.kaishiDate[1], this.state.kaishiDate[2]);
-        var jiesuDate = new Date(this.state.jiesuDate[0], this.state.jiesuDate[1], this.state.jiesuDate[2]);
+        var kaistiDateStr = (this.state.kaishiDate[0].length == 1 ? ("0" + this.state.kaishiDate[0]) : this.state.kaishiDate[0]) + '' + "-" +
+            (this.state.kaishiDate[1].length == 1 ? ("0" + this.state.kaishiDate[1]) : this.state.kaishiDate[1]) + '' + "-" +
+            (this.state.kaishiDate[2].length == 1 ? ("0" + this.state.kaishiDate[2]) : this.state.kaishiDate[2]) + ''
+        var kaishiDate = moment(kaistiDateStr);
+        var jiesuDateStr = (this.state.jiesuDate[0].length == 1 ? ("0" + this.state.jiesuDate[0]) : this.state.jiesuDate[0]) + '' + "-" +
+            (this.state.jiesuDate[1].length == 1 ? ("0" + this.state.jiesuDate[1]) : this.state.jiesuDate[1]) + '' + "-" +
+            (this.state.jiesuDate[2].length == 1 ? ("0" + this.state.jiesuDate[2]) : this.state.jiesuDate[2]) + ''
+        var jiesuDate = moment(jiesuDateStr);
         if (kaishiDate > jiesuDate){
             //错误
             Alert.alert(
@@ -487,6 +499,9 @@ var Helper = React.createClass({
         this.setState({
             animating: true
         })
+        console.log('手机号');
+        console.log(this.props.phone);
+
         //获取中心数据网络请求
         fetch(settings.fwqUrl + "/app/getYytx", {
             method: 'POST',

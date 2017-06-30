@@ -149,23 +149,23 @@ var Cysxlsfb = React.createClass({
                         this.props.navigator.pop()
                     }}/>
 
-                    <Echarts option={option} height={300} />
-                    <ScrollView>
-                        <ScrollView horizontal={true} style={{height: 300,}}>
-                            {/*<Chart*/}
-                            {/*showYAxisLabels={false}*/}
-                            {/*showGrid={false}*/}
-                            {/*yAxisShortLabel = {true}*/}
-                            {/*style={{*/}
-                            {/*width: this.state.data.length * this.state.width,*/}
-                            {/*height: 200,*/}
-                            {/*marginTop:80*/}
-                            {/*}}*/}
-                            {/*data={this.state.data}*/}
-                            {/*type="bar"*/}
-                            {/*showDataPoint={false}*/}
-                            {/*/>*/}
-                        </ScrollView>
+                    <ScrollView showsHorizontalScrollIndicator = {true} horizontal={true} style={{height: 300}}>
+                        <View style={{height: 300,width:option.series[0].data.length < 10 ? width : option.series[0].data.length * 40}}>
+                            <Echarts option={option} height={300} width={option.series[0].data.length < 10 ? width : option.series[0].data.length * 40}/>
+                        </View>
+                        {/*<Chart*/}
+                        {/*showYAxisLabels={false}*/}
+                        {/*showGrid={false}*/}
+                        {/*yAxisShortLabel = {true}*/}
+                        {/*style={{*/}
+                        {/*width: this.state.data.length * this.state.width,*/}
+                        {/*height: 200,*/}
+                        {/*marginTop:80*/}
+                        {/*}}*/}
+                        {/*data={this.state.data}*/}
+                        {/*type="bar"*/}
+                        {/*showDataPoint={false}*/}
+                        {/*/>*/}
                     </ScrollView>
                 </View>
             );

@@ -22,6 +22,7 @@ var {width, height} = Dimensions.get('window');
 var settings = require('../../../settings');
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../../entity/Users');
+var Study = require('../../../entity/study');
 var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var researchParameter = require('../../../entity/researchParameter')
@@ -148,55 +149,66 @@ var FsywtxdxLB = React.createClass({
                     <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'已经完成或者退出'} rightTitleColor = {'gray'}/>
                 )
             }else{
-                return (
-                    <TouchableOpacity onPress={()=> {
-                        //错误
-                        Alert.alert(
-                            "提示:",
-                            "请选择你要操作的功能",
-                            [
-                                {text: '发送用药提醒短信', onPress: () => {
-                                    //判断该研究是否提供药物号
-                                    if (researchParameter.researchParameter.BlindSta == 1){
-                                        // 页面的切换
-                                        this.props.navigator.push({
-                                            //传递参数
-                                            passProps:{
-                                                userId : rowData.id,
-                                                phone : rowData.SubjMP
-                                            },
-                                            component: yytx, // 具体路由的版块
-                                        });
-                                    }else if (researchParameter.researchParameter.BlindSta == 2){
-                                        // 页面的切换
-                                        this.props.navigator.push({
-                                            //传递参数
-                                            passProps:{
-                                                userId : rowData.id,
-                                                phone : rowData.SubjMP
-                                            },
-                                            component: yytx, // 具体路由的版块
-                                        });
-                                    }else {
-                                        // 页面的切换
-                                        this.props.navigator.push({
-                                            //传递参数
-                                            passProps:{
-                                                userId : rowData.SubjMP,
-                                                phone : rowData.id
-                                            },
-                                            component: yytx, // 具体路由的版块
-                                        });
-                                    }
-                                }},
-                                {text: '取消'}
-                            ]
+                if (rowData.isSuccess == 1){
+                    if (rowData.Random == -1) {
+                        return(
+                            <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:无")) : "")}
+                                         subTitleColor={'black'} rightTitle={'随机号:未取'} rightTitleColor = {'gray'}/>
                         )
-                    }}>
-                        <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor={'black'}
-                                     rightTitle={'随机号:' + rowData.Random}/>
-                    </TouchableOpacity>
-                )
+                    }else{
+                        return (
+                            <TouchableOpacity onPress={()=> {
+                                console.log('xmxmxm')
+                                console.log(rowData)
+                                //错误
+                                Alert.alert(
+                                    "提示:",
+                                    "请选择你要操作的功能",
+                                    [
+                                        {text: '发送用药提醒短信', onPress: () => {
+                                            //判断该研究是否提供药物号
+                                            if (researchParameter.researchParameter.BlindSta == 1){
+                                                // 页面的切换
+                                                this.props.navigator.push({
+                                                    //传递参数
+                                                    passProps:{
+                                                        userId : rowData.id,
+                                                        phone : rowData.users.SubjMP
+                                                    },
+                                                    component: yytx, // 具体路由的版块
+                                                });
+                                            }else if (researchParameter.researchParameter.BlindSta == 2){
+                                                // 页面的切换
+                                                this.props.navigator.push({
+                                                    //传递参数
+                                                    passProps:{
+                                                        userId : rowData.id,
+                                                        phone : rowData.users.SubjMP
+                                                    },
+                                                    component: yytx, // 具体路由的版块
+                                                });
+                                            }else {
+                                                // 页面的切换
+                                                this.props.navigator.push({
+                                                    //传递参数
+                                                    passProps:{
+                                                        userId : rowData.id,
+                                                        phone : rowData.users.SubjMP
+                                                    },
+                                                    component: yytx, // 具体路由的版块
+                                                });
+                                            }
+                                        }},
+                                        {text: '取消'}
+                                    ]
+                                )
+                            }}>
+                                <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor={'black'}
+                                             rightTitle={'随机号:' + rowData.Random}/>
+                            </TouchableOpacity>
+                        )
+                    }
+                }
             }
         }else{
             return(

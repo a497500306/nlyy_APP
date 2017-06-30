@@ -184,9 +184,9 @@ var DjmLB = React.createClass({
                             {text: '审批通过', onPress: () => {
                                 this.rendershengpi(1,rowData)
                             }},
-                            {text: '审批拒绝', onPress: () => {
+                            /*{text: '审批拒绝', onPress: () => {
                                 this.rendershengpi(2,rowData)
-                            }},
+                            }},*/
                             {text: '查看进度', onPress: () => {
                                 // 页面的切换
                                 this.props.navigator.push({
@@ -211,6 +211,8 @@ var DjmLB = React.createClass({
 
     //设置左边图标
     renderNeirong(rowData){
+        console.log("11111")
+        console.log(rowData)
         if (this.props.UnblindingType == 4){
             var shengqingren = '';
             for (var i = 0 ; i < rowData.UserNam.length ; i++){
@@ -220,9 +222,9 @@ var DjmLB = React.createClass({
             var wangchengzhuantai = '';
             for (var i = 0 ; i < rowData.ToExamineUsers.length; i++){
                 if (rowData.ToExamineType[i] == 1){
-                    wangchengzhuantai = wangchengzhuantai + rowData.ToExamineUsers[0] + "审批通过;"
+                    wangchengzhuantai = wangchengzhuantai + rowData.ToExamineUsers[i] + "审批通过;"
                 }else{
-                    wangchengzhuantai = wangchengzhuantai + rowData.ToExamineUsers[0] + "审批不通过;"
+                    wangchengzhuantai = wangchengzhuantai + rowData.ToExamineUsers[i] + "审批不通过;"
                 }
             }
             return(
@@ -247,6 +249,14 @@ var DjmLB = React.createClass({
                     <Text style={{
                         marginTop : 5,
                         marginLeft : 10
+                    }}>{'不良事件因果关系:' + rowData.Causal[0]}</Text>
+                    <Text style={{
+                        marginTop : 5,
+                        marginLeft : 10
+                    }}>{'揭盲原因:' + rowData.Reason[0]}</Text>
+                    <Text style={{
+                        marginTop : 5,
+                        marginLeft : 10
                     }}>{'申请时间:' + moment(rowData.UnblApplDTC).format('YYYY-MM-DD HH:mm:ss')}</Text>
                     <Text style={{
                         marginTop : 5,
@@ -268,9 +278,9 @@ var DjmLB = React.createClass({
             var wangchengzhuantai = '';
             for (var i = 0 ; i < rowData.ToExamineUsers.length; i++){
                 if (rowData.ToExamineType[i] == 1){
-                    wangchengzhuantai = wangchengzhuantai + rowData.ToExamineUsers[0] + "审批通过;"
+                    wangchengzhuantai = wangchengzhuantai + rowData.ToExamineUsers[i] + "审批通过;"
                 }else{
-                    wangchengzhuantai = wangchengzhuantai + rowData.ToExamineUsers[0] + "审批不通过;"
+                    wangchengzhuantai = wangchengzhuantai + rowData.ToExamineUsers[i] + "审批不通过;"
                 }
             }
             return(
@@ -299,6 +309,14 @@ var DjmLB = React.createClass({
                     <Text style={{
                         marginTop : 5,
                         marginLeft : 10
+                    }}>{'不良事件因果关系:' + rowData.Causal[0]}</Text>
+                    <Text style={{
+                        marginTop : 5,
+                        marginLeft : 10
+                    }}>{'揭盲原因:' + rowData.Reason[0]}</Text>
+                    <Text style={{
+                        marginTop : 5,
+                        marginLeft : 10
                     }}>{'申请时间:' + moment(rowData.UnblApplDTC).format('YYYY-MM-DD HH:mm:ss')}</Text>
                     <Text style={{
                         marginTop : 5,
@@ -320,9 +338,9 @@ var DjmLB = React.createClass({
             var wangchengzhuantai = '';
             for (var i = 0 ; i < rowData.ToExamineUsers.length; i++){
                 if (rowData.ToExamineType[i] == 1){
-                    wangchengzhuantai = wangchengzhuantai + rowData.ToExamineUsers[0] + "审批通过;"
+                    wangchengzhuantai = wangchengzhuantai + rowData.ToExamineUsers[i] + "审批通过;"
                 }else{
-                    wangchengzhuantai = wangchengzhuantai + rowData.ToExamineUsers[0] + "审批不通过;"
+                    wangchengzhuantai = wangchengzhuantai + rowData.ToExamineUsers[i] + "审批不通过;"
                 }
             }
             return(
@@ -363,6 +381,14 @@ var DjmLB = React.createClass({
                     <Text style={{
                         marginTop : 5,
                         marginLeft : 10
+                    }}>{'不良事件因果关系:' + rowData.Causal[0]}</Text>
+                    <Text style={{
+                        marginTop : 5,
+                        marginLeft : 10
+                    }}>{'揭盲原因:' + rowData.Reason[0]}</Text>
+                    <Text style={{
+                        marginTop : 5,
+                        marginLeft : 10
                     }}>{'申请时间:' + moment(rowData.UnblApplDTC).format('YYYY-MM-DD HH:mm:ss')}</Text>
                     <Text style={{
                         marginTop : 5,
@@ -384,9 +410,9 @@ var DjmLB = React.createClass({
             var wangchengzhuantai = '';
             for (var i = 0 ; i < rowData.ToExamineUsers.length; i++){
                 if (rowData.ToExamineType[i] == 1){
-                    wangchengzhuantai = wangchengzhuantai + rowData.ToExamineUsers[0] + "审批通过;"
+                    wangchengzhuantai = wangchengzhuantai + rowData.ToExamineUsers[i] + "审批通过;"
                 }else{
-                    wangchengzhuantai = wangchengzhuantai + rowData.ToExamineUsers[0] + "审批不通过;"
+                    wangchengzhuantai = wangchengzhuantai + rowData.ToExamineUsers[i] + "审批不通过;"
                 }
             }
             return(
@@ -424,6 +450,14 @@ var DjmLB = React.createClass({
                         marginTop : 5,
                         marginLeft : 10
                     }}>{'申请类型:' + '单个受试者特定揭盲'}</Text>
+                    <Text style={{
+                        marginTop : 5,
+                        marginLeft : 10
+                    }}>{'不良事件因果关系:' + rowData.Causal[0]}</Text>
+                    <Text style={{
+                        marginTop : 5,
+                        marginLeft : 10
+                    }}>{'揭盲原因:' + rowData.Reason[0]}</Text>
                     <Text style={{
                         marginTop : 5,
                         marginLeft : 10

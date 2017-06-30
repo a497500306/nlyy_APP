@@ -50,6 +50,7 @@ var Qdfp = React.createClass({
                                placeholder="请输入低位药物号(如:0001)"
                                keyboardType="numeric"
                                clearButtonMode="always"
+                               underlineColorAndroid={'transparent'}
                                onChangeText={this.onZhanghao}//获取输入
                     />
 
@@ -58,6 +59,7 @@ var Qdfp = React.createClass({
                                placeholder="请输入高位药物号(如:0003)"
                                keyboardType="numeric"
                                clearButtonMode="always"
+                               underlineColorAndroid={'transparent'}
                                onChangeText={this.onGaowei}//获取输入
                     />
                     <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getLogin}>

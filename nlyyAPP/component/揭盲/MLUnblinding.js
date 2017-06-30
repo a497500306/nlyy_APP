@@ -57,7 +57,7 @@ var Unblinding = React.createClass({
                 data.UserFun == 'M5' || data.UserFun == 'M4' ||
                 data.UserFun == 'M2' || data.UserFun == 'M3' ||
                 data.UserFun == 'H2' || data.UserFun == 'H3' ||
-                data.UserFun == 'S1' || data.UserFun == 'C1'){
+                data.UserFun == 'S1' || data.UserFun == 'C1' || data.UserFun == 'H1'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
                     if (tableData[j] == '待揭盲'){

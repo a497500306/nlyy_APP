@@ -197,8 +197,7 @@ var DgzxSq = React.createClass({
             return(
                 <TouchableOpacity onPress={()=>{
                     Pickers.init({
-                        pickerData:['不良事件','完成研究','死亡','缺乏疗效','失访','研究用药依从性差','医生决定','怀孕','疾病进展','违反方案','疾病康复','筛选失败',
-                            '申办方终止研究','技术问题','受试者决定退出','其他'],
+                        pickerData:['本研究入组完成','申办方提前终止研究','其他'],
                         onPickerConfirm: pickedValue => {
                             //ListView设置
                             var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});

@@ -32,6 +32,7 @@ var Unblinding = require('../揭盲/MLUnblinding');
 var StopEntry = require('../停止入组/MLStopEntry');
 var ResearchAI = require('../研究管理/MLResearchAI');
 var Helper = require('../小帮手/MLHelper');
+var ImageList = require('../图片管理模块/入口/MLImagesList');
 
 var Home = React.createClass({
     getInitialState() {
@@ -86,9 +87,8 @@ var Home = React.createClass({
                 }
             }
             if (data.UserFun == 'H2' || data.UserFun == 'H3' ||
-                data.UserFun == 'S1' || data.UserFun == 'C1' ||
-                data.UserFun == 'M5' || data.UserFun == 'M4' ||
-                data.UserFun == 'M2' || data.UserFun == 'M3'){
+                data.UserFun == 'S1' || data.UserFun == 'C1' || data.UserFun == 'M4' ||
+                data.UserFun == 'M2' || data.UserFun == 'M3' || data.UserFun == 'H1'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
                     if (tableData[j].title == '揭盲'){
@@ -127,6 +127,8 @@ var Home = React.createClass({
                 }
             }
         }
+        tableData.push({title:'图片资料管理',imageTitle:'../../images/imageGL.png'});
+        tableData.push({title:'消息中心',imageTitle:'../../images/chat.png'});
         tableData.push({title:'小助手',imageTitle:'../../images/感叹号.png'});
 
         //ListView设置
@@ -293,6 +295,50 @@ var Home = React.createClass({
                                 <Image
                                     style={{width: 65, height: 65}}
                                     source={require('../../images/stop.png')}
+                                />
+                                <Text style={styles.text}>
+                                    {rowData.title}
+                                </Text>
+                            </View>
+                        </View>
+                        {/*<MLTableCell title={rowData.title} iconTitl={rowData.imageTitle} iconColor={rowData.iconColor}/>*/}
+                    </TouchableOpacity>
+                )
+            }
+            if (rowData.title == "图片资料管理") {
+                return (
+                    <TouchableOpacity onPress={()=> {
+                        this.props.navigator.push({
+                            component: ImageList, // 具体路由的版块
+                        });
+                    }}>
+                        <View>
+                            <View style={styles.row}>
+                                <Image
+                                    style={{width: 65, height: 65}}
+                                    source={require('../../images/imageGL.png')}
+                                />
+                                <Text style={styles.text}>
+                                    {rowData.title}
+                                </Text>
+                            </View>
+                        </View>
+                        {/*<MLTableCell title={rowData.title} iconTitl={rowData.imageTitle} iconColor={rowData.iconColor}/>*/}
+                    </TouchableOpacity>
+                )
+            }
+            if (rowData.title == "消息中心") {
+                return (
+                    <TouchableOpacity onPress={()=> {
+                        this.props.navigator.push({
+                            component: StopEntry, // 具体路由的版块
+                        });
+                    }}>
+                        <View>
+                            <View style={styles.row}>
+                                <Image
+                                    style={{width: 65, height: 65}}
+                                    source={require('../../images/chat.png')}
                                 />
                                 <Text style={styles.text}>
                                     {rowData.title}

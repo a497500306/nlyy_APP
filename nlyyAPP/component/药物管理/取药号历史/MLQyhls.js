@@ -146,9 +146,83 @@ var Quhls = React.createClass({
 
     //返回具体的cell
     renderRow(rowData,sectionID, rowID){
+        console.log(rowData)
         if (rowData.isOut == 1) {
             return(
-                <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " + ((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ('分组:' + rowData.Arm) : "") } subTitleColor = {'black'} rightTitle={'已经完成或退出'} rightTitleColor = {'gray'}/>
+                <TouchableOpacity onPress={()=> {
+                    if (researchParameter.researchParameter.DrugNOpen == 1){
+                        //错误
+                        Alert.alert(
+                            "提示:",
+                            "请选择你要操作的功能",
+                            [
+                                {text: '取药号历史', onPress: () => {
+                                    //判断该研究是否提供药物号
+                                    if (researchParameter.researchParameter.BlindSta == 1){
+                                        // 页面的切换
+                                        this.props.navigator.push({
+                                            //传递参数
+                                            passProps:{
+                                                userData : rowData
+                                            },
+                                            component: QywhlsLB, // 具体路由的版块
+                                        });
+                                    }else if (researchParameter.researchParameter.BlindSta == 2){
+                                        if (researchParameter.researchParameter.DrugNOpen == 1){
+                                            // 页面的切换
+                                            this.props.navigator.push({
+                                                //传递参数
+                                                passProps:{
+                                                    userData : rowData
+                                                },
+                                                component: QywhlsLB, // 具体路由的版块
+                                            });
+                                        }else{
+                                            //错误
+                                            Alert.alert(
+                                                '提示',
+                                                '该研究不提供药物号',
+                                                [
+                                                    {text: '确定'}
+                                                ]
+                                            )
+                                        }
+                                    }else {
+                                        if (researchParameter.researchParameter.DrugNOpen == 1){
+                                            /// 页面的切换
+                                            this.props.navigator.push({
+                                                //传递参数
+                                                passProps:{
+                                                    userData : rowData
+                                                },
+                                                component: QywhlsLB, // 具体路由的版块
+                                            });
+                                        }else{
+                                            Alert.alert(
+                                                '提示',
+                                                '该研究不提供药物号',
+                                                [
+                                                    {text: '确定'}
+                                                ]
+                                            )
+                                        }
+                                    }
+                                }},
+                                {text: '取消'}
+                            ]
+                        )
+                    }else{
+                        Alert.alert(
+                            '提示',
+                            '该研究不提供药物号',
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                    }
+                }}>
+                    <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " + ((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ('分组:' + rowData.Arm) : "") } subTitleColor = {'black'} rightTitle={'已经完成或退出'} rightTitleColor = {'gray'}/>
+                </TouchableOpacity>
             )
         }else {
             if (rowData.isSuccess == 1){

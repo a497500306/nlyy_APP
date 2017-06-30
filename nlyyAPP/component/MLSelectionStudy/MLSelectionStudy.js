@@ -17,6 +17,11 @@ import {
     Alert
 } from 'react-native';
 
+
+var List = require('../../node_modules/antd-mobile/lib/list/index');
+const Item = List.Item;
+const Brief = Item.Brief;
+
 var Home = require('../MLHome/MLHome');
 var UserData = require('../../entity/UserData');
 var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
@@ -110,68 +115,77 @@ var SelectionStudy = React.createClass({
     //返回具体的cell
     renderRow(rowData){
         return(
-            <TouchableOpacity onPress={()=>{
-                //发送登录网络请求
-                fetch(settings.fwqUrl + "/app/getStudyAndResearchParameter", {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json; charset=utf-8',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        StudyID: rowData[0].StudyID
-                    })
-                })
-                    .then((response) => response.json())
-                    .then((responseJson) => {
-                        if (responseJson.isSucceed == 200){
-                            //错误
-                            Alert.alert(
-                                '提示',
-                                responseJson.msg,
-                                [
-                                    {text: '确定'}
-                                ]
-                            )
-                        }else {
-                            //设置数据
-                            Users.Users = rowData,
-                            researchParameter.researchParameter = responseJson.researchParameter;
-                            study.study = responseJson.study;
-                            ExcludeStandard.ExcludeStandard = responseJson.ExcludeStandard;
-                            ApplicationAndAudit.ApplicationAndAudit = responseJson.ApplicationAndAudit;
-                            if (study.study.StudIsOffline == 1){
-                                //错误
-                                Alert.alert(
-                                    '提示',
-                                    '改研究已经下线',
-                                    [
-                                        {text: '确定'}
-                                    ]
-                                )
-                            }else{
-                                // 页面的切换
-                                this.props.navigator.push({
-                                    component: Home, // 具体路由的版块
-                                });
-                            }
-                        }
-                    })
-                    .catch((error) => {//错误
-                        this.setState({animating:false});
-                        console.log(error),
-                            //错误
-                            Alert.alert(
-                                '请检查您的网络111',
-                                null,
-                                [
-                                    {text: '确定'}
-                                ]
-                            )
-                    });
-            }}>
-                 <MLTableCell title={rowData[0].SponsorS} subTitle={rowData[0].StudNameS} subTitleColor={'gray'}/>
-            </TouchableOpacity>
+                <Item arrow="horizontal"
+                      multipleLine={true}
+                      wrap={true}
+                      align='middle'
+                      onClick={() => {
+                          //发送登录网络请求
+                          fetch(settings.fwqUrl + "/app/getStudyAndResearchParameter", {
+                              method: 'POST',
+                              headers: {
+                                  'Accept': 'application/json; charset=utf-8',
+                                  'Content-Type': 'application/json',
+                              },
+                              body: JSON.stringify({
+                                  StudyID: rowData[0].StudyID
+                              })
+                          })
+                              .then((response) => response.json())
+                              .then((responseJson) => {
+                                  if (responseJson.isSucceed == 200){
+                                      //错误
+                                      Alert.alert(
+                                          '提示',
+                                          responseJson.msg,
+                                          [
+                                              {text: '确定'}
+                                          ]
+                                      )
+                                  }else {
+                                      //设置数据
+                                      Users.Users = rowData,
+                                          researchParameter.researchParameter = responseJson.researchParameter;
+                                      study.study = responseJson.study;
+                                      ExcludeStandard.ExcludeStandard = responseJson.ExcludeStandard;
+                                      ApplicationAndAudit.ApplicationAndAudit = responseJson.ApplicationAndAudit;
+                                      if (study.study.StudIsOffline == 1){
+                                          //错误
+                                          Alert.alert(
+                                              '提示',
+                                              '该研究已经下线',
+                                              [
+                                                  {text: '确定'}
+                                              ]
+                                          )
+                                      }else{
+                                          // 页面的切换
+                                          this.props.navigator.push({
+                                              component: Home, // 具体路由的版块
+                                          });
+                                      }
+                                  }
+                              })
+                              .catch((error) => {//错误
+                                  this.setState({animating:false});
+                                  console.log(error),
+                                      //错误
+                                      Alert.alert(
+                                          '请检查您的网络111',
+                                          null,
+                                          [
+                                              {text: '确定'}
+                                          ]
+                                      )
+                              });
+                      }}
+                >
+                    {rowData[0].SponsorS}
+                    <Text style={{
+                        marginTop:5,
+                        color:'gray'
+                    }}>{rowData[0].StudNameS}</Text>
+                </Item>
         )
     },
 

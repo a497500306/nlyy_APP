@@ -23,6 +23,7 @@ var Zgfp = require('./分配方案/MLZgfp');
 var Qdfp = require('./分配方案/MLQdfp');
 var Zgjhqdfp = require('./分配方案/MLZgjhqdfp');
 var Znfp = require('./分配方案/MLZnfp');
+var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
 
 
 var Ywqd = require('./MLYwqd');
@@ -47,25 +48,41 @@ var FenpeiZX = React.createClass({
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
         return {
             //ListView设置
-            dataSource: ds.cloneWithRows(tableData)
+            dataSource: ds.cloneWithRows(tableData),
+            animating:false
         }
     },
 
     render() {
-        return (
-            <View style={styles.container}>
-                <MLNavigatorBar title={'分配到中心'} isBack={true} backFunc={() => {
-                    this.props.navigator.pop()
-                }}/>
-                <ListView
-                    dataSource={this.state.dataSource}//数据源
-                    renderRow={this.renderRow}
-                />
-                {/*<ScrollView>*/}
-                {/*{this.tableCell()}*/}
-                {/*</ScrollView>*/}
-            </View>
-        );
+        if (this.state.animating == true){
+            return (
+                <View style={styles.container}>
+
+                    <MLNavigatorBar title={'分配到中心'} isBack={true} backFunc={() => {
+                        this.props.navigator.pop()
+                    }}/>
+
+                    {/*设置完了加载的菊花*/}
+                    <MLActivityIndicatorView />
+                </View>
+
+            );
+        }else  {
+            return (
+                <View style={styles.container}>
+                    <MLNavigatorBar title={'分配到中心'} isBack={true} backFunc={() => {
+                        this.props.navigator.pop()
+                    }}/>
+                    <ListView
+                        dataSource={this.state.dataSource}//数据源
+                        renderRow={this.renderRow}
+                    />
+                    {/*<ScrollView>*/}
+                    {/*{this.tableCell()}*/}
+                    {/*</ScrollView>*/}
+                </View>
+            );
+        }
     },
 
     //返回具体的cell
@@ -90,6 +107,9 @@ var FenpeiZX = React.createClass({
                         component: Zgjhqdfp, // 具体路由的版块
                     });
                 }else if (rowData == '智能分配'){
+                    this.setState({
+                        animating:true
+                    })
                     //发送网络请求
                     fetch(settings.fwqUrl + "/app/getZnfp", {
                         method: 'POST',

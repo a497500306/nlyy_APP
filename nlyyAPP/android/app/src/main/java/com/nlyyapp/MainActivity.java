@@ -1,7 +1,6 @@
 package com.nlyyapp;
 
 import com.facebook.react.ReactActivity;
-import cn.reactnative.modules.update.UpdateContext;
 
 public class MainActivity extends ReactActivity {
 
@@ -16,7 +15,4 @@ public class MainActivity extends ReactActivity {
     }
 
 
-    protected String getJSBundleFile() {
-        return UpdateContext.getBundleUrl(this);
-    }
 }

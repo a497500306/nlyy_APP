@@ -35,6 +35,7 @@ var Dshlb = React.createClass({
     getInitialState() {
         return {
             //ListView设置
+            responseJson:null,
             dataSource: null,
             animating: true,//是否显示菊花
             cuowu: false,//是否显示错误
@@ -67,7 +68,10 @@ var Dshlb = React.createClass({
                     var tableData = responseJson.data;
 
                     var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-                    this.setState({dataSource: ds.cloneWithRows(tableData)});
+                    this.setState({
+                        dataSource: ds.cloneWithRows(tableData),
+                        responseJson:responseJson.qita
+                    });
                     //移除等待
                     this.setState({animating:false});
                     this.setState({cuowu:false});
@@ -134,16 +138,16 @@ var Dshlb = React.createClass({
     },
 
     //返回具体的cell
-    renderRow(rowData){
+    renderRow(rowData, sectionID, rowID){
         return(
             <View style={{marginTop: 10 , backgroundColor: 'white',borderBottomColor: '#dddddd', borderBottomWidth: 1,borderTopColor: '#dddddd', borderTopWidth: 1, }}>
-                <Text style={{marginTop: 5,marginLeft:10}}>{'研究编号:' + rowData.StudyID}</Text>
-                <Text style={{marginTop: 5,marginLeft:10}}>{'中心名称:' + rowData.SiteNam}</Text>
-                <Text style={{marginTop: 5,marginLeft:10}}>{'受试者入组是否中心之间竞争:' + '这是什么?'}</Text>
-                <Text style={{marginTop: 5,marginLeft:10}}>{'中心平均入组例数:' + '这是什么'}</Text>
-                <Text style={{marginTop: 5,marginLeft:10}}>{'中心目前已随机例数:' + '这是什么'}</Text>
+                <Text style={{marginTop: 5,marginLeft:10}}>{'研究编号:' + rowData.data.StudyID}</Text>
+                <Text style={{marginTop: 5,marginLeft:10}}>{'中心名称:' + rowData.data.SiteNam}</Text>
+                <Text style={{marginTop: 5,marginLeft:10}}>{'受试者入组是否中心之间竞争:' + rowData.qita.zxzjjz}</Text>
+                <Text style={{marginTop: 5,marginLeft:10}}>{'中心平均入组例数:' + rowData.qita.pjrzls}</Text>
+                <Text style={{marginTop: 5,marginLeft:10}}>{'中心目前已随机例数:' + rowData.qita.ysjls}</Text>
                 <Text style={{marginTop: 5,marginLeft:10}}>{'中心已停止受试者入组:' + '是'}</Text>
-                <Text style={{marginBottom: 5,marginTop: 5,marginLeft:10}}>{'停止入组日期:' + moment(rowData.StopItDate).format('YYYY-MM-DD HH:mm:ss')}</Text>
+                <Text style={{marginBottom: 5,marginTop: 5,marginLeft:10}}>{'停止入组日期:' + moment(rowData.data.StopItDate).format('YYYY-MM-DD HH:mm:ss')}</Text>
             </View>
         )
     },

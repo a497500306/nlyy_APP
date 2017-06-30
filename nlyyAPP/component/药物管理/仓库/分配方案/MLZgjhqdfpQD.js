@@ -209,6 +209,7 @@ var ZgjhqdfpQD = React.createClass({
                 },
                 body: JSON.stringify({
                     ids: this.state.xuanzhongData,
+                    StudyID:Users.Users[0].StudyID,
                     Users : Users.Users,
                     Address : FPChangku.FPChangku == null ? FPZhongxin.FPZhongxin : FPChangku.FPChangku,
                     Type : FPChangku.FPChangku == null ? 2 : 1,
