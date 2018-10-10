@@ -113,6 +113,8 @@ var Ywqd = React.createClass({
 
                     <MLNavigatorBar title={'分配清单'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -128,6 +130,8 @@ var Ywqd = React.createClass({
                         <View style={styles.container}>
                             <MLNavigatorBar title={'分配清单'} isBack={true} backFunc={() => {
                                 this.props.navigator.pop()
+                            }} leftTitle={'首页'} leftFunc={()=>{
+                                this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                             }}/>
                             <ScrollView>
                                 <View style={{backgroundColor: 'white'}}>
@@ -220,6 +224,8 @@ var Ywqd = React.createClass({
                         <View style={styles.container}>
                             <MLNavigatorBar title={'分配清单'} isBack={true} backFunc={() => {
                                 this.props.navigator.pop()
+                            }} leftTitle={'首页'} leftFunc={()=>{
+                                this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                             }}/>
                             <ScrollView>
                                 <View style={{backgroundColor: 'white'}}>
@@ -292,6 +298,8 @@ var Ywqd = React.createClass({
                         <View style={styles.container}>
                             <MLNavigatorBar title={'分配清单'} isBack={true} backFunc={() => {
                                 this.props.navigator.pop()
+                            }} leftTitle={'首页'} leftFunc={()=>{
+                                this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                             }}/>
                             <ScrollView>
                                 <View style={{backgroundColor: 'white'}}>
@@ -388,6 +396,8 @@ var Ywqd = React.createClass({
                         <View style={styles.container}>
                             <MLNavigatorBar title={'分配清单'} isBack={true} backFunc={() => {
                                 this.props.navigator.pop()
+                            }} leftTitle={'首页'} leftFunc={()=>{
+                                this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                             }}/>
                             <ScrollView>
                                 <View style={{backgroundColor: 'white'}}>

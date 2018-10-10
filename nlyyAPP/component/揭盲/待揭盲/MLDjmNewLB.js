@@ -95,6 +95,8 @@ var DjmNewLB = React.createClass({
 
                     <MLNavigatorBar title={'待揭盲'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -108,6 +110,8 @@ var DjmNewLB = React.createClass({
 
                     <MLNavigatorBar title={'待揭盲'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -121,6 +125,8 @@ var DjmNewLB = React.createClass({
 
                     <MLNavigatorBar title={'待揭盲'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     <ListView
@@ -361,10 +367,6 @@ var DjmNewLB = React.createClass({
                     <Text style={{
                         marginTop : 5,
                         marginLeft : 10
-                    }}>{'受试者手机号:' + rowData.Users.SubjMP}</Text>
-                    <Text style={{
-                        marginTop : 5,
-                        marginLeft : 10
                     }}>{'申请类型:' + '单个受试者紧急揭盲'}</Text>
                     <Text style={{
                         marginTop : 5,
@@ -430,10 +432,6 @@ var DjmNewLB = React.createClass({
                         marginTop : 5,
                         marginLeft : 10
                     }}>{'受试者姓名缩写:' + rowData.Users.SubjIni}</Text>
-                    <Text style={{
-                        marginTop : 5,
-                        marginLeft : 10
-                    }}>{'受试者手机号:' + rowData.Users.SubjMP}</Text>
                     <Text style={{
                         marginTop : 5,
                         marginLeft : 10

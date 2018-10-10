@@ -60,6 +60,8 @@ var FenpeiZX = React.createClass({
 
                     <MLNavigatorBar title={'分配到中心'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -72,6 +74,8 @@ var FenpeiZX = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'分配到中心'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ListView
                         dataSource={this.state.dataSource}//数据源

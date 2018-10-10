@@ -35,14 +35,24 @@ var MLTableCell = require('../../MLTableCell/MLTableCell');
 var XzsxcgsszQR = require('./MLXzsxcgsszQR')
 
 var Xzsxcgssz = React.createClass({
+    getDefaultProps(){
+        return {
+            data:null
+        }
+    },
 
     getInitialState() {
         var UserSite = '';
         for (var i = 0 ; i < Users.Users.length ; i++) {
             if (Users.Users[i].UserSite != null) {
-                UserSite = Users.Users[i].UserSite
+                if (Users.Users[i].UserFun == 'H2' || Users.Users[i].UserFun == 'H3' || Users.Users[i].UserFun == 'S1' ){
+                    UserSite = Users.Users[i].UserSite
+                }
             }
         }
+        console.log('123123');
+        console.log(Users.Users);
+        console.log(UserSite);
         var tableData = [];
 
         tableData.push('受试者出生日期')
@@ -76,8 +86,15 @@ var Xzsxcgssz = React.createClass({
         if (researchParameter.researchParameter.LabelStraH != null){
             tableData.push(researchParameter.researchParameter.LabelStraH)
         }
-        if (researchParameter.researchParameter.LabelStraI != null){
-            tableData.push(researchParameter.researchParameter.LabelStraI)
+        var isShowZhongXin = false;
+        if (UserSite.indexOf(',') != -1){
+            isShowZhongXin = true;
+            tableData.push('中心')
+        }else {
+            if (researchParameter.researchParameter.LabelStraI != null){
+                isShowZhongXin = true;
+                tableData.push(researchParameter.researchParameter.LabelStraI != null ? researchParameter.researchParameter.LabelStraI : '中心')
+            }
         }
         tableData.push('筛选结果')
         tableData.push('')
@@ -128,15 +145,15 @@ var Xzsxcgssz = React.createClass({
             languages:['javar','jss'],
             date : date,
             //出生年月
-            csDate:'',
+            csDate:(this.props.data == null ? '' : this.props.data.SubjDOB),
             //受试者性别
-            xb:'',
+            xb:(this.props.data == null ? '' : this.props.data.SubjSex),
+            //姓名缩写
+            name:(this.props.data == null ? '' : this.props.data.SubjIni),
+            //受试者手机号
+            phone:(this.props.data == null ? '' : this.props.data.SubjMP),
             //输入的第几个
             shuru:0,
-            //姓名缩写
-            name:'',
-            //受试者手机号
-            phone:'',
             //是否参加子研究
             zyj:'',
             LabelStraA:'',
@@ -148,6 +165,8 @@ var Xzsxcgssz = React.createClass({
             LabelStraG:'',
             LabelStraH:'',
             LabelStraI:UserSite,
+            newLabelStraI : UserSite.indexOf(',') != -1 ? '' : UserSite,
+            isShowZhongXin:isShowZhongXin,
             //是否显示moda
             isModalOpen:false,
             //输入框显示文字
@@ -158,13 +177,16 @@ var Xzsxcgssz = React.createClass({
         this.setState({isModalOpen: false});
     },
     render() {
-        console.log('11111')
+        console.log('researchParameter.researchParameter')
+        console.log(researchParameter.researchParameter)
         if (this.state.isLanguage == false){
             return (
                 <View style={styles.container}>
                     <MLNavigatorBar title={'新增筛选成功受试者'} isBack={true} backFunc={() => {
                         Pickers.hide();
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ListView
                         dataSource={this.state.dataSource}//数据源
@@ -193,6 +215,8 @@ var Xzsxcgssz = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'新增筛选成功受试者'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ListView
                         dataSource={this.state.dataSource}//数据源
@@ -406,7 +430,6 @@ var Xzsxcgssz = React.createClass({
             if (rowData == researchParameter.researchParameter.LabelStraG){
                 return(
                     <TouchableOpacity onPress={()=>{
-                        console.log(researchParameter.researchParameter.LabelStraGL.split(","))
                         Pickers.init({
                             pickerData: researchParameter.researchParameter.LabelStraGL.split(","),
                             onPickerConfirm: pickedValue => {
@@ -458,17 +481,122 @@ var Xzsxcgssz = React.createClass({
                 )
             }
         }
-        if (researchParameter.researchParameter.LabelStraI != null){
-            if (rowData == researchParameter.researchParameter.LabelStraI){
-                return(
-                    <MLTableCell title={rowData} rightTitle={this.state.LabelStraI} isArrow={false}/>
-                )
+        if (rowData == (researchParameter.researchParameter.LabelStraI != null ? researchParameter.researchParameter.LabelStraI : '中心')){
+            if (this.state.isShowZhongXin == true) {
+                if (this.state.LabelStraI.indexOf(',') != -1) {//需要选择中心
+                    var sites = this.state.LabelStraI.split(",");
+                    return (
+                        <TouchableOpacity onPress={() => {
+                            Pickers.init({
+                                pickerData: sites,
+                                onPickerConfirm: pickedValue => {
+                                    //ListView设置
+                                    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+                                    this.setState({
+                                        newLabelStraI: pickedValue[0],
+                                        LabelStraI: pickedValue[0],
+                                        dataSource: ds.cloneWithRows(this.state.tableData),
+                                    })
+
+                                },
+                                onPickerCancel: pickedValue => {
+                                    //ListView设置
+                                    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+                                    this.setState({
+                                        newLabelStraI: pickedValue[0],
+                                        LabelStraI: pickedValue[0],
+                                        dataSource: ds.cloneWithRows(this.state.tableData),
+                                    })
+                                },
+                                onPickerSelect: pickedValue => {
+                                }
+                            });
+                            Pickers.show();
+                        }}>
+                            <MLTableCell title={'中心'} rightTitle={this.state.newLabelStraI} isArrow={true}/>
+                        </TouchableOpacity>
+                    )
+                } else {//不需要选择中心
+                    return (
+                        <MLTableCell title={'中心'} rightTitle={this.state.newLabelStraI} isArrow={false}/>
+                    )
+                }
             }
         }
+        // if (researchParameter.researchParameter.LabelStraI != null){
+        //     if (rowData == researchParameter.researchParameter.LabelStraI){
+        //         if (this.state.LabelStraI.indexOf(',') != -1 ){
+        //             var sites = this.state.LabelStraI.split(",");
+        //             return(
+        //                 <TouchableOpacity onPress={()=>{
+        //                     Pickers.init({
+        //                         pickerData: sites,
+        //                         onPickerConfirm: pickedValue => {
+        //                             //ListView设置
+        //                             var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+        //                             this.setState({newLabelStraI:pickedValue[0],LabelStraI:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+        //
+        //                         },
+        //                         onPickerCancel: pickedValue => {
+        //                             //ListView设置
+        //                             var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+        //                             this.setState({newLabelStraI:pickedValue[0],LabelStraI:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+        //                         },
+        //                         onPickerSelect: pickedValue => {
+        //                         }
+        //                     });
+        //                     Pickers.show();
+        //                 }}>
+        //                     <MLTableCell title={rowData} rightTitle={this.state.newLabelStraI} isArrow={true}/>
+        //                 </TouchableOpacity>
+        //             )
+        //         }else {
+        //             return(
+        //                 <MLTableCell title={rowData} rightTitle={this.state.newLabelStraI} isArrow={false}/>
+        //             )
+        //         }
+        //     }
+        // }else if (this.state.newLabelStraI != '' && researchParameter.researchParameter.LabelStraI != null){
+        //     var sites = this.state.LabelStraI.split(",");
+        //     return(
+        //         <TouchableOpacity onPress={()=>{
+        //             Pickers.init({
+        //                 pickerData: sites,
+        //                 onPickerConfirm: pickedValue => {
+        //                     //ListView设置
+        //                     var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+        //                     this.setState({newLabelStraI:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+        //
+        //                 },
+        //                 onPickerCancel: pickedValue => {
+        //                     //ListView设置
+        //                     var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+        //                     this.setState({newLabelStraI:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+        //                 },
+        //                 onPickerSelect: pickedValue => {
+        //                 }
+        //             });
+        //             Pickers.show();
+        //         }}>
+        //             <MLTableCell title={rowData} rightTitle={this.state.newLabelStraI} isArrow={true}/>
+        //         </TouchableOpacity>
+        //     )
+        // }
         /*************/
-        if(rowData == "受试者出生日期") {
+
+         if(rowData == "受试者出生日期") {
             return(
                 <TouchableOpacity onPress={()=>{
+                    if (this.props.data != null){
+                        Alert.alert(
+                            '温馨提示',
+                            "登记受试者不可编辑该项",
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                        return
+                    }
                     Pickers.init({
                         pickerData: this.state.date,
                         selectedValue: [1960,1,1],
@@ -495,6 +623,16 @@ var Xzsxcgssz = React.createClass({
         if(rowData == "受试者性别") {
             return(
                 <TouchableOpacity onPress={()=>{
+                    if (this.props.data != null){
+                        Alert.alert(
+                            '温馨提示',
+                            "登记受试者不可编辑该项",
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                        return
+                    }
                     var data = ['男','女'];
                     Pickers.init({
                         pickerData: data,
@@ -524,6 +662,16 @@ var Xzsxcgssz = React.createClass({
         if (rowData == '受试者姓名缩写'){
             return(
                 <TouchableOpacity onPress={()=>{
+                    if (this.props.data != null){
+                        Alert.alert(
+                            '温馨提示',
+                            "登记受试者不可编辑该项",
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                        return
+                    }
                     Pickers.hide();
                     this.setState({isModalOpen:true,srkxswz:['受试者姓名缩写'],shuru:0})
                 }}>
@@ -531,10 +679,19 @@ var Xzsxcgssz = React.createClass({
                 </TouchableOpacity>
             )
         }
-
         if (rowData == '受试者手机号'){
             return(
                 <TouchableOpacity onPress={()=>{
+                    if (this.props.data != null){
+                        Alert.alert(
+                            '温馨提示',
+                            "登记受试者不可编辑该项",
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                        return
+                    }
                     Pickers.hide();
                     this.setState({isModalOpen:true,srkxswz:['受试者手机号'],shuru:1})
                 }}>
@@ -593,7 +750,7 @@ var Xzsxcgssz = React.createClass({
             )
         }
         return(
-            <MLTableCell title={rowData}/>
+            <MLTableCell title={rowData+'123'}/>
         )
     },
     IsNum(s)
@@ -613,6 +770,17 @@ var Xzsxcgssz = React.createClass({
             Alert.alert(
                 '出生年月为空',
                 null,
+                [
+                    {text: '确定'}
+                ]
+            )
+            return
+        }
+        if (this.state.newLabelStraI == ''){
+            //错误
+            Alert.alert(
+                '提示',
+                '没有选择中心',
                 [
                     {text: '确定'}
                 ]
@@ -676,6 +844,123 @@ var Xzsxcgssz = React.createClass({
                 return
             }
         }
+        if (researchParameter.researchParameter.LabelStraA != null){
+            if (this.state.LabelStraA == ''){
+                //错误
+                Alert.alert(
+                    '提示',
+                    '信息未填写完毕',
+                    [
+                        {text: '确定'}
+                    ]
+                )
+                return
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraB != null){
+            if (this.state.LabelStraB == ''){
+                //错误
+                Alert.alert(
+                    '提示',
+                    '信息未填写完毕',
+                    [
+                        {text: '确定'}
+                    ]
+                )
+                return
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraC != null){
+            if (this.state.LabelStraC == ''){
+                //错误
+                Alert.alert(
+                    '提示',
+                    '信息未填写完毕',
+                    [
+                        {text: '确定'}
+                    ]
+                )
+                return
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraD != null){
+            if (this.state.LabelStraD == ''){
+                //错误
+                Alert.alert(
+                    '提示',
+                    '信息未填写完毕',
+                    [
+                        {text: '确定'}
+                    ]
+                )
+                return
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraE != null){
+            if (this.state.LabelStraE == ''){
+                //错误
+                Alert.alert(
+                    '提示',
+                    '信息未填写完毕',
+                    [
+                        {text: '确定'}
+                    ]
+                )
+                return
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraF != null){
+            if (this.state.LabelStraF == ''){
+                //错误
+                Alert.alert(
+                    '提示',
+                    '信息未填写完毕',
+                    [
+                        {text: '确定'}
+                    ]
+                )
+                return
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraG != null){
+            if (this.state.LabelStraG == ''){
+                //错误
+                Alert.alert(
+                    '提示',
+                    '信息未填写完毕',
+                    [
+                        {text: '确定'}
+                    ]
+                )
+                return
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraH != null){
+            if (this.state.LabelStraH == ''){
+                //错误
+                Alert.alert(
+                    '提示',
+                    '信息未填写完毕',
+                    [
+                        {text: '确定'}
+                    ]
+                )
+                return
+            }
+        }
+        if (researchParameter.researchParameter.LabelStraI != null){
+            if (this.state.LabelStraI == ''){
+                //错误
+                Alert.alert(
+                    '提示',
+                    '信息未填写完毕',
+                    [
+                        {text: '确定'}
+                    ]
+                )
+                return
+            }
+        }
         this.setState({
             animating: true
         })
@@ -694,7 +979,7 @@ var Xzsxcgssz = React.createClass({
             },
             body: JSON.stringify({
                 StudyID: Users.Users[0].StudyID,
-                UserSite:UserSite
+                UserSite:this.state.newLabelStraI
             })
         })
             .then((response) => response.json())
@@ -737,8 +1022,10 @@ var Xzsxcgssz = React.createClass({
                             LabelStraG:this.state.LabelStraG,
                             LabelStraH:this.state.LabelStraH,
                             LabelStraI:this.state.LabelStraI,
+                            newLabelStraI:this.state.newLabelStraI,
                             //中心数据
-                            site:responseJson.site
+                            site:responseJson.site,
+                            data:this.props.data
                         }
                     });
                 }

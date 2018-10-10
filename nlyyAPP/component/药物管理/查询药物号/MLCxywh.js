@@ -44,6 +44,8 @@ var Cxywh = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'查询药物号' + this.props.drug} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ScrollView>
                         {/*设置箭头*/}

@@ -116,6 +116,8 @@ var DjssztchwcLB = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'选择受试者'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -128,6 +130,8 @@ var DjssztchwcLB = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'选择受试者'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ListView
                         dataSource={this.state.dataSource}//数据源
@@ -141,59 +145,74 @@ var DjssztchwcLB = React.createClass({
 
     //返回具体的cell
     renderRow(rowData,sectionID, rowID){
-        console.log(rowData)
-        if (rowData.isSuccess == 1) {
-            if (rowData.users.isOut == 1) {
-                return(
-                    <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'已经完成或者退出'} rightTitleColor = {'gray'}/>
-                )
-            }else{
-                if (rowData.isSuccess == 1) {
-                    if (rowData.Random == -1) {
-                        return (
-                            <TouchableOpacity onPress={()=> {
+
+        if (rowData.isOut == 1) {
+            return(
+                <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2) ? ((rowData.Arm != null ? ('分组:' + rowData.Arm) : "分组:无")) : "")} subTitleColor = {'black'} rightTitle={'已经完成或退出'} rightTitleColor = {'gray'}/>
+            )
+        }else {
+            if (rowData.isSuccess == 1){
+                if (rowData.Random == -1){
+                    if (rowData.persons.isBasicData == 1){
+                        return(
+                            <TouchableOpacity onPress={() => {
                                 //错误
                                 this.props.navigator.push({
                                     component: DjssztchwcQR, // 具体路由的版块
                                     //传递参数
                                     passProps: {
                                         //出生年月
-                                        users: rowData.users,
-                                        Random: rowData.Random
+                                        users: rowData.persons,
+                                        Random: rowData.persons.Random
                                     }
                                 })
                             }}>
-                            <MLTableCell title={'受试者编号:' + rowData.USubjID}
-                                         subTitle={"姓名缩写:" + rowData.SubjIni + "   " + ((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:无")) : "")}
-                                         subTitleColor={'black'} rightTitle={'随机号:未取'} rightTitleColor={'gray'}/>
+                                <MLTableCell title={'受试者编号:' + rowData.USubjID}
+                                         subTitle={"姓名缩写:" + rowData.SubjIni + "   " + ((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:无")) : "")}
+                                         subTitleColor={'black'} rightTitle={'筛选中受试者'} rightTitleColor = {'gray'}/>
                             </TouchableOpacity>
                         )
-                    } else {
+                    }else {
+                        var grps = researchParameter.researchParameter.NTrtGrp.split(",");
                         return (
-                            <TouchableOpacity onPress={()=> {
+                            <TouchableOpacity onPress={() => {
                                 //错误
                                 this.props.navigator.push({
                                     component: DjssztchwcQR, // 具体路由的版块
                                     //传递参数
                                     passProps: {
                                         //出生年月
-                                        users: rowData.users,
-                                        Random: rowData.Random
+                                        users: rowData.persons,
+                                        Random: rowData.persons.Random
                                     }
                                 })
                             }}>
-                                <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor={'black'}
-                                             rightTitle={'随机号:' + rowData.Random}/>
+                                <MLTableCell isArrow={false} title={'受试者编号:' + rowData.USubjID}
+                                             subTitle={"姓名缩写:" + rowData.SubjIni + "   " + ((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:无")) : "")}
+                                             subTitleColor={'black'}
+                                             rightTitle={grps.length == 1 ? '未给予研究治疗' : '随机号:未取'}/>
                             </TouchableOpacity>
                         )
                     }
+                }else {
+                    var grps = researchParameter.researchParameter.NTrtGrp.split(",");
+                    return(
+                        <TouchableOpacity onPress={()=>{
+                            //错误
+                            this.props.navigator.push({
+                                component: DjssztchwcQR, // 具体路由的版块
+                                //传递参数
+                                passProps: {
+                                    //出生年月
+                                    users: rowData.persons,
+                                    Random: rowData.persons.Random
+                                }
+                            })
+                        }}>
+                            <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2)? ('分组:' + (rowData.Arm == null ? "无" : rowData.Arm)) : "") } subTitleColor = {'black'} rightTitle={grps.length == 1 ? "给予研究治疗" : ('随机号:' + rowData.Random)} rightTitleColor = {'black'}/>
+                        </TouchableOpacity>
+                    )
                 }
-            }
-        }else{
-            if (rowData.users.isOut == 1) {
-                return(
-                    <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'已经完成或者退出'} rightTitleColor = {'gray'}/>
-                )
             }else {
                 return(
                     <TouchableOpacity onPress={()=> {
@@ -203,17 +222,92 @@ var DjssztchwcLB = React.createClass({
                             //传递参数
                             passProps: {
                                 //出生年月
-                                users: rowData.users,
-                                Random: rowData.Random,
+                                users: rowData.persons,
+                                Random: rowData.persons.Random,
                                 isShibai: true
                             }
                         })
                     }}>
-                        <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'筛选失败'} rightTitleColor = {'gray'}/>
+                        <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:不适用")) : "")} subTitleColor = {'black'} rightTitle={'筛选失败'} rightTitleColor = {'gray'}/>
                     </TouchableOpacity>
                 )
             }
         }
+
+
+        //
+        // if (rowData.isSuccess == 1) {
+        //     if (rowData.users.isOut == 1) {
+        //         return(
+        //             <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'已经完成或者退出'} rightTitleColor = {'gray'}/>
+        //         )
+        //     }else{
+        //         if (rowData.isSuccess == 1) {
+        //             if (rowData.Random == -1) {
+        //                 return (
+        //                     <TouchableOpacity onPress={()=> {
+        //                         //错误
+        //                         this.props.navigator.push({
+        //                             component: DjssztchwcQR, // 具体路由的版块
+        //                             //传递参数
+        //                             passProps: {
+        //                                 //出生年月
+        //                                 users: rowData.users,
+        //                                 Random: rowData.Random
+        //                             }
+        //                         })
+        //                     }}>
+        //                     <MLTableCell title={'受试者编号:' + rowData.USubjID}
+        //                                  subTitle={"姓名缩写:" + rowData.SubjIni + "   " + ((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:无")) : "")}
+        //                                  subTitleColor={'black'} rightTitle={'随机号:未取'} rightTitleColor={'gray'}/>
+        //                     </TouchableOpacity>
+        //                 )
+        //             } else {
+        //                 return (
+        //                     <TouchableOpacity onPress={()=> {
+        //                         //错误
+        //                         this.props.navigator.push({
+        //                             component: DjssztchwcQR, // 具体路由的版块
+        //                             //传递参数
+        //                             passProps: {
+        //                                 //出生年月
+        //                                 users: rowData.users,
+        //                                 Random: rowData.Random
+        //                             }
+        //                         })
+        //                     }}>
+        //                         <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor={'black'}
+        //                                      rightTitle={'随机号:' + rowData.Random}/>
+        //                     </TouchableOpacity>
+        //                 )
+        //             }
+        //         }
+        //     }
+        // }else{
+        //     if (rowData.users.isOut == 1) {
+        //         return(
+        //             <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'已经完成或者退出'} rightTitleColor = {'gray'}/>
+        //         )
+        //     }else {
+        //         return(
+        //             <TouchableOpacity onPress={()=> {
+        //                 //错误
+        //                 this.props.navigator.push({
+        //                     component: DjssztchwcQR, // 具体路由的版块
+        //                     //传递参数
+        //                     passProps: {
+        //                         //出生年月
+        //                         users: rowData.users,
+        //                         Random: rowData.Random,
+        //                         isShibai: true
+        //                     }
+        //                 })
+        //             }}>
+        //                 <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'筛选失败'} rightTitleColor = {'gray'}/>
+        //             </TouchableOpacity>
+        //         )
+        //     }
+        // }
     },
 });
 

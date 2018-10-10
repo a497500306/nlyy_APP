@@ -102,6 +102,8 @@ var Warehouse = React.createClass({
 
                     <MLNavigatorBar title={'仓库'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -115,6 +117,8 @@ var Warehouse = React.createClass({
 
                     <MLNavigatorBar title={'仓库'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -128,6 +132,8 @@ var Warehouse = React.createClass({
 
                     <MLNavigatorBar title={'仓库'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     <ListView

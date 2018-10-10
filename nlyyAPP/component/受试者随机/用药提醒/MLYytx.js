@@ -40,7 +40,8 @@ var Helper = React.createClass({
     getDefaultProps(){
         return {
             userId : null,
-            phone : null
+            phone : null,
+            patient: null
         }
     },
     getInitialState() {
@@ -138,6 +139,8 @@ var Helper = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'用药提醒'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ListView
                         dataSource={this.state.dataSource}//数据源
@@ -205,7 +208,7 @@ var Helper = React.createClass({
                                  }else if (this.state.isModel == 2){
                                      this.setState({isModalOpen:false,isBJModalOpen:false,tuisongnr2:"",dataSource: ds.cloneWithRows(this.state.tableData),})
                                  }else if (this.state.isModel == 3){
-                                     this.this.setState({isModalOpen:false,isBJModalOpen:false,tuisongnr3:"",dataSource: ds.cloneWithRows(this.state.tableData),})
+                                     this.setState({isModalOpen:false,isBJModalOpen:false,tuisongnr3:"",dataSource: ds.cloneWithRows(this.state.tableData),})
                                  }else{
                                      setState({isModalOpen:false,isBJModalOpen:false,srkxswz:['请输入推送内容']})
                                  }
@@ -217,6 +220,8 @@ var Helper = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'用药提醒'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ListView
                         dataSource={this.state.dataSource}//数据源
@@ -528,6 +533,10 @@ var Helper = React.createClass({
                 tuisong3 :  this.state.tuisong3,
                 //推送内容
                 tuisongnr3 :  this.state.tuisongnr3,
+                //添加的用户
+                users: Users.Users[0],
+                //受试者信息
+                patient:this.props.patient
             })
         })
             .then((response) => response.json())

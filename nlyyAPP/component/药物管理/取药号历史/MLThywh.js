@@ -116,6 +116,8 @@ var Thywh = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'替换药物号'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -128,6 +130,8 @@ var Thywh = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'替换药物号'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ListView
                         dataSource={this.state.dataSource}//数据源
@@ -163,7 +167,8 @@ var Thywh = React.createClass({
                         SiteID : UserSite,
                         StudyID : Users.Users[0].StudyID,
                         DrugNum : this.props.DrugNum,
-                        newDrug : rowData
+                        newDrug : rowData,
+                        user : Users.Users[0],
                     })
                 })
                     .then((response) => response.json())

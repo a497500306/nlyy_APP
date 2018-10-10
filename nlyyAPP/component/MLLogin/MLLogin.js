@@ -35,9 +35,9 @@ var {width, height} = Dimensions.get('window');
 
 var MLService = require('../../service/MLService');
 var UserData = require('../../entity/UserData');
-// var ProgressHUD = require('react-native-progress-hud');
 
-var t ;
+import JPushModule from 'jpush-react-native';
+// var ProgressHUD = require('react-native-progress-hud');
 
 var login = React.createClass({
     mixins: [TimerMixin],
@@ -46,14 +46,21 @@ var login = React.createClass({
         return {
             zhanghao:"",
             yanzhenma:"",
-            dataYZM:"3396721",//服务器传回的验证码
+            dataYZM:"190199",//服务器传回的验证码
             isYZMBtn:false,//是否可以点击验证码
             YZMBtnTime:0,//倒数时间
             animating: false,//是否显示菊花
+            registrationId:''
         }
     },
     // 复杂的操作:定时器\网络请求
     componentDidMount(){
+        var self = this;
+        JPushModule.getRegistrationID((registrationId) => {
+            self.setState({
+                registrationId:registrationId
+            })
+        });
         //计时器
         this.setInterval(
             () => {
@@ -158,7 +165,7 @@ var login = React.createClass({
     getIDCode(){
 
         //开启定时器倒数
-        this.setState({YZMBtnTime:30,isYZMBtn:true})
+        this.setState({YZMBtnTime:60,isYZMBtn:true})
         //判断手机号是否输入11位
         if (this.state.zhanghao.length == 11){
             //发送验证码网络请求
@@ -194,7 +201,7 @@ var login = React.createClass({
             // })
 
             //网络请求
-            fetch(settings.fwqUrl + "/app/getIDCode", {
+            fetch(settings.fwqUrl +"/app/getIDCode", {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json; charset=utf-8',
@@ -283,14 +290,15 @@ var login = React.createClass({
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                phone: this.state.zhanghao
+                phone: this.state.zhanghao,
+                platform:Platform.OS,
+                registrationId:this.state.registrationId
             })
         })
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({animating:false});
                 if (responseJson.isSucceed == 200){
-
                     Toast.hide()
                     Toast.fail(responseJson.msg, 1);
                 }else {
@@ -312,93 +320,6 @@ var login = React.createClass({
                 Toast.hide()
                 Toast.fail('请检查您的网络!!!', 1);
                 this.setState({animating:false});
-            });
-    },
-
-    //登录
-    getLogin1(){
-        // this.showProgressHUD();
-        if (this.state.zhanghao.length != 11){
-            Alert.alert(
-                '您输入的手机号有误',
-                null,
-                [
-                    {text: '确定'}
-                ]
-            );
-            return;
-        }
-        if (this.state.yanzhenma.length == 0){
-            Alert.alert(
-                '请输入验证码',
-                null,
-                [
-                    {text: '确定'}
-                ]
-            );
-            return;
-        }
-        if (this.state.dataYZM != this.state.yanzhenma){
-            Alert.alert(
-                '验证码输入错误',
-                null,
-                [
-                    {text: '确定'}
-                ]
-            );
-            return;
-        }
-        this.setState({animating:true});
-        //发送登录网络请求
-        fetch("http://192.168.1.18:8080//AndroidBackstage/sendNoteNoImg", {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json; charset=utf-8',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                noteName: this.state.zhanghao,
-                noteContent: this.state.zhanghao,
-                userID: this.state.zhanghao
-            })
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                this.setState({animating:false});
-                if (responseJson.isSucceed == 200){
-                    //错误
-                    Alert.alert(
-                        responseJson.msg,
-                        null,
-                        [
-                            {text: '确定'}
-                        ]
-                    )
-                }else {
-                    UserData.phone = this.state.zhanghao;
-                    UserData.data = responseJson.data;
-                    this.setState({animating:false});
-                    // 页面的切换
-                    this.props.navigator.replace({
-                        name:'选择研究',
-                        component: SelectionStudy, // 具体路由的版块
-                        params: {
-                            phone: '321321'
-                        }
-                    });
-                }
-            })
-            .catch((error) => {//错误
-                this.setState({animating:false});
-                console.log(error),
-                    //错误
-                    Alert.alert(
-                        '请检查您的网络111',
-                        null,
-                        [
-                            {text: '确定'}
-                        ]
-                    )
             });
     }
 })
@@ -473,8 +394,7 @@ const styles = StyleSheet.create({
         borderRadius:5,
     },
     biaoshiStyle:{
-        position:'absolute',
-        bottom:10,
+        marginTop:height - 300,
         alignItems: 'center',
         justifyContent:'center',
         width:width,

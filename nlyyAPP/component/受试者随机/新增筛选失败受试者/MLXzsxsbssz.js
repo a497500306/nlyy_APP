@@ -38,6 +38,11 @@ var XzsxsbsszQR = require('./MLXzsxsbsszQR');
 var XzsxsbsszYY = require('./MLXzsxsbsszYY');
 
 var Xzsxsbssz = React.createClass({
+    getDefaultProps(){
+        return {
+            data:null
+        }
+    },
     componentWillUnmount(){
         this.subscription.remove();
     },
@@ -60,6 +65,18 @@ var Xzsxsbssz = React.createClass({
         tableData.push('受试者出生日期')
         tableData.push('受试者性别')
         tableData.push('受试者姓名缩写')
+        //判断是否有多个中心
+        var UserSite = '';
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserSite != null) {
+                if (Users.Users[i].UserFun == 'H2' || Users.Users[i].UserFun == 'H3' || Users.Users[i].UserFun == 'S1' ){
+                    UserSite = Users.Users[i].UserSite
+                }
+            }
+        }
+        if (UserSite.indexOf(',') != -1 ){
+            tableData.push('中心')
+        }
         if (study.study.SubStudYN == 1){
             tableData.push('受试者是否参加子研究')
         }
@@ -119,21 +136,22 @@ var Xzsxsbssz = React.createClass({
             yydata : ['不良事件','完成研究','死亡','缺乏疗效','失访','研究用药依从性差','医生决定','怀孕','疾病进展','违反方案','疾病康复','筛选失败',
             '申办方终止研究','技术问题','受试者决定退出','其他'],
             //出生年月
-            csDate:'',
+            csDate:(this.props.data == null ? '' : this.props.data.SubjDOB),
             //受试者性别
-            xb:'',
+            xb:(this.props.data == null ? '' : this.props.data.SubjSex),
+            //姓名缩写
+            name:(this.props.data == null ? '' : this.props.data.SubjIni),
+            //受试者手机号
+            phone:(this.props.data == null ? '' : this.props.data.SubjMP),
             //输入的第几个
             shuru:0,
-            //姓名缩写
-            name:'',
-            //受试者手机号
-            phone:'',
             //是否参加子研究
             zyj:'',
             //是否显示moda
             isModalOpen:false,
             //输入框显示文字
-            srkxswz:['']
+            srkxswz:[''],
+            UserSite:UserSite.indexOf(',') != -1 ? '' : UserSite,
         }
     },
     closeModal() {
@@ -147,6 +165,8 @@ var Xzsxsbssz = React.createClass({
                     <MLNavigatorBar title={'新增筛选失败受试者'} isBack={true} backFunc={() => {
                         Pickers.hide();
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ListView
                         dataSource={this.state.dataSource}//数据源
@@ -175,6 +195,8 @@ var Xzsxsbssz = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'新增筛选成功受试者'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ListView
                         dataSource={this.state.dataSource}//数据源
@@ -230,6 +252,16 @@ var Xzsxsbssz = React.createClass({
         if(rowData == "受试者出生日期") {
             return(
                 <TouchableOpacity onPress={()=>{
+                    if (this.props.data != null){
+                        Alert.alert(
+                            '温馨提示',
+                            "登记受试者不可编辑该项",
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                        return
+                    }
                     Pickers.init({
                         pickerData: this.state.date,
                         selectedValue: [1960,1,1],
@@ -257,6 +289,16 @@ var Xzsxsbssz = React.createClass({
         if(rowData == "受试者性别") {
             return(
                 <TouchableOpacity onPress={()=>{
+                    if (this.props.data != null){
+                        Alert.alert(
+                            '温馨提示',
+                            "登记受试者不可编辑该项",
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                        return
+                    }
                     var data = ['男','女'];
                     Pickers.init({
                         pickerData: data,
@@ -286,6 +328,16 @@ var Xzsxsbssz = React.createClass({
         if (rowData == '受试者姓名缩写'){
             return(
                 <TouchableOpacity onPress={()=>{
+                    if (this.props.data != null){
+                        Alert.alert(
+                            '温馨提示',
+                            "登记受试者不可编辑该项",
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                        return
+                    }
                     Pickers.hide();
                     this.setState({isModalOpen:true,srkxswz:['受试者姓名缩写'],shuru:0})
                 }}>
@@ -293,10 +345,54 @@ var Xzsxsbssz = React.createClass({
                 </TouchableOpacity>
             )
         }
+        if (rowData == '中心'){
 
+            var UserSite = '';
+            for (var i = 0 ; i < Users.Users.length ; i++) {
+                if (Users.Users[i].UserSite != null) {
+                    if (Users.Users[i].UserFun == 'H2' || Users.Users[i].UserFun == 'H3' || Users.Users[i].UserFun == 'S1' ){
+                        UserSite = Users.Users[i].UserSite
+                    }
+                }
+            }
+            var sites = UserSite.split(",");
+            return(
+                <TouchableOpacity onPress={()=>{
+                    Pickers.init({
+                        pickerData: sites,
+                        onPickerConfirm: pickedValue => {
+                            //ListView设置
+                            var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                            this.setState({UserSite:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+
+                        },
+                        onPickerCancel: pickedValue => {
+                            //ListView设置
+                            var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                            this.setState({UserSite:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
+                        },
+                        onPickerSelect: pickedValue => {
+                        }
+                    });
+                    Pickers.show();
+                }}>
+                    <MLTableCell title={rowData} rightTitle={this.state.UserSite} isArrow={true}/>
+                </TouchableOpacity>
+            )
+        }
         if (rowData == '受试者手机'){
             return(
                 <TouchableOpacity onPress={()=>{
+                    if (this.props.data != null){
+                        Alert.alert(
+                            '温馨提示',
+                            "登记受试者不可编辑该项",
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                        return
+                    }
                     Pickers.hide();
                     this.setState({isModalOpen:true,srkxswz:['受试者手机'],shuru:1})
                 }}>
@@ -400,15 +496,20 @@ var Xzsxsbssz = React.createClass({
             )
             return
         }
+        if (this.state.UserSite == ''){
+            //错误
+            Alert.alert(
+                '提示',
+                '请选择中心',
+                [
+                    {text: '确定'}
+                ]
+            )
+            return
+        }
         this.setState({
             animating: true
         })
-        var UserSite = '';
-        for (var i = 0 ; i < Users.Users.length ; i++) {
-            if (Users.Users[i].UserSite != null) {
-                UserSite = Users.Users[i].UserSite
-            }
-        }
         //获取中心数据网络请求
         fetch(settings.fwqUrl + "/app/getSingleSite", {
             method: 'POST',
@@ -418,7 +519,7 @@ var Xzsxsbssz = React.createClass({
             },
             body: JSON.stringify({
                 StudyID: Users.Users[0].StudyID,
-                UserSite:UserSite
+                UserSite:this.state.UserSite
             })
         })
             .then((response) => response.json())
@@ -458,7 +559,8 @@ var Xzsxsbssz = React.createClass({
                             csDate:this.state.csDate,
                             zyj:this.state.zyj,
                             //中心数据
-                            site:responseJson.site
+                            site:responseJson.site,
+                            data:this.props.data
                         }
                     });
                 }

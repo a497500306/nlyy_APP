@@ -10,16 +10,22 @@ import {
     ScrollView,
     PanResponder,
     Animated,
-    Modal
+    Modal,
+    DeviceEventEmitter,
+    ActivityIndicator,
+    Alert
 } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
+// var ImageViewer1 = require('../../react-native-image-zoom-viewer1/index');
+var settings = require('../../settings');
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
-var Toast = require('../../node_modules/antd-mobile/lib/toast/index');
+var Users = require('../../entity/Users');
 import Button from 'apsl-react-native-button';
 import ActionSheet from 'react-native-actionsheet';
+var Toast = require('../../node_modules/antd-mobile/lib/toast/index');
 
-const buttons = ['取消', '作废', '冻结', '审核通过'];
+const buttons = ['取消', '作废(删除)', '返回'];
 const CANCEL_INDEX = 0;
 const DESTRUCTIVE_INDEX = 4;
 
@@ -30,6 +36,8 @@ const images = [{
 }, {
     url: 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460'
 }]
+
+var imageUrl = null
 
 export default class MLPhotoView extends Component {
     show() {
@@ -44,7 +52,9 @@ export default class MLPhotoView extends Component {
     // private zoomCurrentDistance = 0
     //传入值
     static defaultProps = {
-        imageUrl : ''
+        images : [],
+        isDelete:false,
+        data:null
     };
 
     //属性
@@ -53,7 +63,8 @@ export default class MLPhotoView extends Component {
         this.state = {
             height:0,
             width:0,
-            visible:true
+            visible:true,
+            images:this.props.images
         }
     }
 
@@ -105,94 +116,173 @@ export default class MLPhotoView extends Component {
 
     //耗时操作,网络请求
     componentDidMount(){
-        Toast.loading('加载图片中...',1160);
-        Image.getSize(this.props.imageUrl, (width1, height) => {
-            Toast.hide()
-            var i = 0 ;
-            i = width1/width;
-            this.setState({height:height/i})
-        });
+        // Image.getSize(this.props.images, (width1, height) => {
+        //     Toast.hide()
+        //     var i = 0 ;
+        //     i = width1/width;
+        //     this.setState({height:height/i})
+        // });
+        if (this.state.images.length == 0) {
+            //错误
+            Alert.alert(
+                '提示:',
+                '没有发现任何图片',
+                [
+                    {
+                        text: '确定', onPress: () => {
+                        this.setState({
+                            visible: false
+                        })
+
+                        this.props.navigator.pop()
+                    }
+                    }
+                ]
+            )
+        }
     }
 
     //渲染
     render() {
-        return(
-            <Modal visible={this.state.visible} transparent={true}>
-                <ImageViewer imageUrls={images} onClick={()=>{
-                    this.setState({
-                        visible:false
-                    })
-                    this.props.navigator.pop()
-                }}
-                renderHeader = {()=>{
-                    return(
-                        <View style={{flexDirection:'row',width:width,height:64,backgroundColor:'red'}}>
-                            <Button style={{
-                                width:60,
-                                height:34,
-                                marginTop:30,
-                                marginLeft:20,
-                                // 垂直居中 ---> 设置侧轴的对齐方式
-                                alignItems:'center',
-                                // 设置主轴的对齐方式
-                                justifyContent:'center',
-                                borderRadius: 5,
-                                borderWidth: 1,
-                                borderColor: 'white',
-                                color:'white'
-                            }}
-                                    textStyle={{
-                                        color: 'white',
-                                        fontSize:15
-                                    }}
-                                    onPress={()=>{
-                                this.setState({
-                                    visible:false
-                                })
-                                this.props.navigator.pop()
-                            }}>
-                                {'返 回'}
-                            </Button>
-                            <Button style={{
-                                width:60,
-                                height:34,
-                                marginTop:30,
-                                marginLeft:width - 60 - 20 - 20 - 60,
-                                // 垂直居中 ---> 设置侧轴的对齐方式
-                                alignItems:'center',
-                                // 设置主轴的对齐方式
-                                justifyContent:'center',
-                                borderRadius: 5,
-                                borderWidth: 1,
-                                borderColor: 'white',
-                            }}
-                                    textStyle={{
-                                        color: 'white',
-                                        fontSize:15
-                                    }}
-                                    onPress={()=>this.show(this)}>
-                                {'操 作'}
-                            </Button>
-                        </View>
-                    )
-                }}
-                />
-                <ActionSheet
-                    ref={(o) => this.ActionSheet = o}
-                    title="选择您的操作？"
-                    options={buttons}
-                    cancelButtonIndex={CANCEL_INDEX}
-                    destructiveButtonIndex={DESTRUCTIVE_INDEX}
-                    onPress={(sss)=>{
-                        this._handlePress(this)
-                        if (sss == 1){//点击修改备注
+        console.log('图片地址')
+        console.log(this.state.images)
+        if (this.state.images.length == 0){
+            return(
+                <View style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    backgroundColor: 'rgba(0,0,0,1.0)',
+                }}/>
+                    );
+        }else{
+            return(
+                <View style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    backgroundColor: 'rgba(0,0,0,1.0)',
+                }}>
+                    <Modal visible={this.state.visible} transparent={true} onRequestClose={() => {}}>
+                        <ImageViewer
+                            saveToLocalByLongPress={false}
+                            imageUrls={this.state.images}
+                            onClick={(data,url)=>{
+                                if (this.props.isDelete == true ){
+                                    this.show(this)
+                                }else{
+                                    this.setState({
+                                        visible:false
+                                    })
 
-                        }else if (sss == 2){//点击查看资料
+                                    this.props.navigator.pop()
+                                }
+                            }}
+                            loadingRender={()=>{
+                                return([
+                                    <View>
+                                        <ActivityIndicator
+                                            animating={this.state.animating}
+                                            style={[styles.centering, {height: 30}]}
+                                            size="small"
+                                            color="white"
+                                        />
+                                    </View>
+                                ])
+                            }}
+                            onChange={(index)=>{
+                                console.log('滑动时触发')
+                                imageUrl = this.state.images[index].url
+                            }}/>
+                        <ActionSheet
+                            ref={(o) => this.ActionSheet = o}
+                            title="选择您的操作？"
+                            options={buttons}
+                            cancelButtonIndex={CANCEL_INDEX}
+                            destructiveButtonIndex={DESTRUCTIVE_INDEX}
+                            onPress={(sss)=>{
+                                this._handlePress(this)
 
-                        }
-                    }}
-                />
-            </Modal>
+                                if (sss == 1){//点击删除
+                                    this.setState({
+                                        visible:false
+                                    })
+                                    var imageU = (imageUrl == null ? this.state.images[0].url : imageUrl)
+                                    console.log('删除的图片地址');
+                                    console.log(imageU)
+                                    fetch(settings.fwqUrl + "/app/getDeleteImageUrls", {
+                                        method: 'POST',
+                                        headers: {
+                                            'Accept': 'application/json; charset=utf-8',
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            StudyID : Users.Users[0].StudyID,
+                                            dataID : this.props.data.id,
+                                            imageUrl : imageU
+                                        })
+                                    })
+                                        .then((response) => response.json())
+                                        .then((responseJson) => {
+                                            if (responseJson.isSucceed == 400){
+                                                var images = this.state.images;
+                                                var index = 0;
+                                                for (var i = 0; i < images.length; i++) {
+                                                    if (images[i].url == imageU){
+                                                        index = i;
+                                                    }
+                                                }
+                                                images.splice(index, 1);
+                                                imageUrl = null
+                                                DeviceEventEmitter.emit('updateMoKuai');
+                                                if (images.length == 0) {
+                                                    this.setState({
+                                                        visible:false
+                                                    })
+
+                                                    this.props.navigator.pop();
+                                                    return;
+                                                }
+                                                this.setState({
+                                                    images:images,
+                                                    visible:true
+                                                })
+                                            }else{
+                                                Alert.alert(
+                                                    '提示:',
+                                                    responseJson.msg,
+                                                    [
+                                                        {text: '确定'}
+                                                    ]
+                                                )
+                                                return;
+                                            }
+                                        })
+                                        .catch((error) => {//错误
+                                            if (images.length == 0) {
+                                                imageUrl = null
+                                                DeviceEventEmitter.emit('updateMoKuai');
+                                                this.setState({
+                                                    visible:false
+                                                })
+
+                                                this.props.navigator.pop();
+                                                return;
+                                            }
+                                            Toast.fail('网络连接失败...',2);
+                                        });
+                                }else if (sss == 2){//点击退出
+                                    this.setState({
+                                        visible:false
+                                    })
+
+                                    this.props.navigator.pop()
+                                }
+                            }}
+                        />
+                    </Modal>
+                </View>
+            )
+        }
+
             /*
             <View backgroundColor={'black'} style={{flex: 1}}>
                 <ScrollView style={{
@@ -206,7 +296,6 @@ export default class MLPhotoView extends Component {
                 </ScrollView>
             </View>
             */
-        )
     };
 }
 

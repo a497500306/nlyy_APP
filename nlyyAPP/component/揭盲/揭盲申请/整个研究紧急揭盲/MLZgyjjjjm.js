@@ -105,6 +105,8 @@ var Zgyjjjjm = React.createClass({
                     <MLNavigatorBar title={'单个研究紧急揭盲'} isBack={true} backFunc={() => {
                         Pickers.hide();
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -119,6 +121,8 @@ var Zgyjjjjm = React.createClass({
                         <MLNavigatorBar title={'整个研究紧急揭盲'} isBack={true} backFunc={() => {
                             Pickers.hide();
                             this.props.navigator.pop()
+                        }} leftTitle={'首页'} leftFunc={()=>{
+                            this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                         }}/>
                         <ListView
                             dataSource={this.state.dataSource}//数据源

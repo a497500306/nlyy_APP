@@ -78,7 +78,7 @@ var DgssztdjmQR = React.createClass({
         tableData.push('受试者出生日期');
         tableData.push('受试者性别');
         tableData.push('受试者姓名缩写');
-        tableData.push('受试者手机号');
+        // tableData.push('受试者手机号');
         tableData.push('揭盲原因');
         tableData.push('选择不良事件因果关系');
         tableData.push('');
@@ -207,12 +207,12 @@ var DgssztdjmQR = React.createClass({
                 <MLTableCell title={rowData} rightTitle={this.props.users.SubjIni} isArrow={false}/>
             )
         }
-        if (rowData == '受试者手机号'){
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.users.SubjMP} isArrow={false}/>
-            )
-
-        }
+        // if (rowData == '受试者手机号'){
+        //     return(
+        //         <MLTableCell title={rowData} rightTitle={this.props.users.SubjMP} isArrow={false}/>
+        //     )
+        //
+        // }
         if (rowData == "揭盲原因") {
             return(
                 <TouchableOpacity onPress={()=>{

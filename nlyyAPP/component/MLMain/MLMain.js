@@ -10,16 +10,35 @@ import {
     StyleSheet,
     Text,
     View,
-    Navigator
+    Navigator,
+    DeviceEventEmitter,
+    Alert,
+    NativeModules
 } from 'react-native';
 
 var Login = require('../MLLogin/MLLogin')
 
 var Main = React.createClass({
+    componentDidMount(){
+        this.subscriptionStudOff = DeviceEventEmitter.addListener('subscriptionStudOff', this.subscriptionStudOff.bind(this));
+    },
+    subscriptionStudOff(){
+        Alert.alert(
+            '提示',
+            '研究被下线。',
+            [
+                {text: '确定'}
+            ]
+        );
+        this.props.navigator.resetTo({
+            name:'登陆',
+            component: Login, // 具体路由的版块
+        })
+    },
     render(){
         return(
             <Navigator
-                initialRoute={{name:'登录',component:Login}}
+                initialRoute={{name:'登陆',component:Login}}
                 configureScene={()=>{
                     return Navigator.SceneConfigs.PushFromRight;
                 }}

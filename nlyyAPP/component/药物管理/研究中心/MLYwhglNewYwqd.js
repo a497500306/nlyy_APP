@@ -50,6 +50,8 @@ var ZXYqsywqd = React.createClass({
 
                     <MLNavigatorBar title={'已签收药物清单'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     <ListView

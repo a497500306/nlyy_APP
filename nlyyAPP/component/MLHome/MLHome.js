@@ -21,11 +21,15 @@ import {
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
 import Icon from 'react-native-vector-icons/FontAwesome';
+var Popup = require('../../node_modules/antd-mobile/lib/popup/index');
+var List = require('../../node_modules/antd-mobile/lib/list/index');
 var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../entity/Users');
+var study = require('../../entity/study');
 var researchParameter = require('../../entity/researchParameter');
 var MLTableCell = require('../MLTableCell/MLTableCell');
 var PatientRM = require('../受试者随机/MLPatientRM');
+var MLMhcx = require('../受试者随机/模糊查询/MLMhcx');
 var DrugsAI = require('../药物管理/MLDrugsAI');
 var FollowUpAI = require('../随访管理/MLFollowUpAI');
 var Unblinding = require('../揭盲/MLUnblinding');
@@ -33,9 +37,13 @@ var StopEntry = require('../停止入组/MLStopEntry');
 var ResearchAI = require('../研究管理/MLResearchAI');
 var Helper = require('../小帮手/MLHelper');
 var ImageList = require('../图片管理模块/入口/MLImagesList');
+var MLUploadHistory = require('../图片管理模块/上传历史/MLUploadHistory');
+var MLNewsList = require('../消息中心/MLNewsList');
 
 var Home = React.createClass({
     getInitialState() {
+        console.log('researchParameter.researchParameter')
+        console.log(researchParameter.researchParameter)
         console.log(Users.Users)
         var tableData = [];
         for (var i = 0 ; i < Users.Users.length ; i++){
@@ -46,12 +54,12 @@ var Home = React.createClass({
                 data.UserFun == 'M7' || data.UserFun == 'M3' || data.UserFun == 'M1'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
-                    if (tableData[j].title == '受试者随机'){
+                    if (tableData[j].title == '受试者登记与随机'){
                         isY = true;
                     }
                 }
                 if (isY == false){
-                    tableData.push({title:'受试者随机',imageTitle:"people"})
+                    tableData.push({title:'受试者登记与随机',imageTitle:"people"})
                 }
                 // if (tableData.indexOf({title:'受试者随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'}) == -1){
                 //     tableData.push({title:'受试者随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'})
@@ -116,6 +124,7 @@ var Home = React.createClass({
             }
             if (data.UserFun == 'M1' || data.UserFun == 'H1' || data.UserFun == 'M4' ||
                 data.UserFun == 'M2' || data.UserFun == 'M3' || data.UserFun == 'C1'){
+                console.log('研究管理进来了')
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
                     if (tableData[j].title == '研究管理'){
@@ -126,8 +135,25 @@ var Home = React.createClass({
                     tableData.push({title:'研究管理',imageTitle:"key",iconColor:'rgba(0,136,212,1.0)'})
                 }
             }
+            if (data.UserFun == 'S1' || data.UserFun == 'H3' || data.UserFun == 'H2' ||
+                data.UserFun == 'H5' || data.UserFun == 'M7' || data.UserFun == 'M8' ||
+                data.UserFun == 'M4' || data.UserFun == 'M5' || data.UserFun == 'M1' ||
+                data.UserFun == 'C2'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j].title == '图片资料管理'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    if (researchParameter.researchParameter.CRFModeules != null || researchParameter.researchParameter.CRFMaxNum != null) {
+                        if (researchParameter.researchParameter.CRFModeules != "" || researchParameter.researchParameter.CRFMaxNum != '') {
+                            tableData.push({title: '图片资料管理', imageTitle: '../../images/imageGL.png'});
+                        }
+                    }
+                }
+            }
         }
-        tableData.push({title:'图片资料管理',imageTitle:'../../images/imageGL.png'});
         tableData.push({title:'消息中心',imageTitle:'../../images/chat.png'});
         tableData.push({title:'小助手',imageTitle:'../../images/感叹号.png'});
 
@@ -143,16 +169,16 @@ var Home = React.createClass({
     render() {
         return (
             <View style={styles.container}>
-                <MLNavigatorBar title={'首页'} isBack={true} backFunc={() => {
+                <MLNavigatorBar title={study.study.SponsorS} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
                 }}/>
                 <ListView
                     removeClippedSubviews={false}
+                    showsVerticalScrollIndicator={false}
                     pageSize={this.state.tableData.length}
                     contentContainerStyle={styles.list}
                     dataSource={this.state.dataSource}//数据源
                     renderRow={this.renderRow}
-                    showsVerticalScrollIndicator={false}
                 />
                 {/*<ScrollView>*/}
                 {/*{this.tableCell()}*/}
@@ -169,7 +195,7 @@ var Home = React.createClass({
                 <TouchableOpacity onPress={()=>{
                     //设置数据
                     // 页面的切换
-                    if (rowData.title == "受试者随机"){
+                    if (rowData.title == "受试者登记与随机"){
                         this.props.navigator.push({
                             component: PatientRM, // 具体路由的版块
                         });
@@ -261,7 +287,7 @@ var Home = React.createClass({
                     </TouchableOpacity>
                 )
             }
-            if (rowData.title == "受试者随机") {
+            if (rowData.title == "受试者登记与随机") {
                 return (
                     <TouchableOpacity onPress={()=> {
                         this.props.navigator.push({
@@ -306,11 +332,56 @@ var Home = React.createClass({
                 )
             }
             if (rowData.title == "图片资料管理") {
+                var array = ["请选择你想做的","模糊查询后添加","浏览历史图片","取消"];
                 return (
                     <TouchableOpacity onPress={()=> {
-                        this.props.navigator.push({
-                            component: ImageList, // 具体路由的版块
-                        });
+                        Popup.show(
+                            <View>
+                                <List renderHeader={this.renderHeader}
+                                      className="popup-list"
+                                >
+                                    {array.map((i, index) => (
+                                        <List.Item key={index}
+                                                   style = {{
+                                                       textAlign:'center'
+                                                   }}
+                                                   onClick={()=>{
+                                                       if (index == array.length - 1 || index == 0){
+                                                           Popup.hide();
+                                                           return;
+                                                       }
+                                                       if (index == 1){
+                                                           this.props.navigator.push({
+                                                               component: MLMhcx, // 具体路由的版块
+                                                               passProps:{
+                                                                   isImage:1
+                                                               }
+                                                           });
+                                                       }else if (index == 2){
+                                                           this.props.navigator.push({
+                                                               component: MLUploadHistory, // 具体路由的版块
+                                                           });
+
+                                                       }
+                                                       Popup.hide();
+                                                   }}
+                                        >
+                                            <View style={{
+                                                width:width - 30,
+                                                alignItems:'center',
+                                                justifyContent: 'center',
+                                            }}>
+                                                <Text style={{
+                                                    fontSize:index == 0 ? 12 : 16,
+                                                    color:(index == array.length - 1 ? 'red' : (index == 0 ? 'gray':'black'))
+                                                }}>{i}</Text>
+                                            </View>
+                                        </List.Item>
+                                    ))}
+                                </List>
+                            </View>,
+                            {maskClosable: true,animationType: 'slide-up' }
+                        )
                     }}>
                         <View>
                             <View style={styles.row}>
@@ -331,7 +402,7 @@ var Home = React.createClass({
                 return (
                     <TouchableOpacity onPress={()=> {
                         this.props.navigator.push({
-                            component: StopEntry, // 具体路由的版块
+                            component: MLNewsList, // 具体路由的版块
                         });
                     }}>
                         <View>
@@ -340,7 +411,8 @@ var Home = React.createClass({
                                     style={{width: 65, height: 65}}
                                     source={require('../../images/chat.png')}
                                 />
-                                <Text style={styles.text}>
+                                <Text style={styles.text}
+                                      numberOfLines={1}>
                                     {rowData.title}
                                 </Text>
                             </View>

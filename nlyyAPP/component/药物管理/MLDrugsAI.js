@@ -130,6 +130,8 @@ var DrugsAI = React.createClass({
             <View style={styles.container}>
                 <MLNavigatorBar title={'药物管理'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
+                }} leftTitle={'首页'} leftFunc={()=>{
+                    this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                 }}/>
                 <ListView
                     removeClippedSubviews={false}
@@ -218,7 +220,8 @@ var DrugsAI = React.createClass({
                     <View>
                         <View style={styles.row}>
                             <Icon name={rowData.imageTitle} size={60} color={rowData.iconColor} style={styles.thumb}/>
-                            <Text style={styles.text}>
+                            <Text style={styles.text}
+                                  numberOfLines={1}>
                                 {rowData.title}
                             </Text>
                         </View>

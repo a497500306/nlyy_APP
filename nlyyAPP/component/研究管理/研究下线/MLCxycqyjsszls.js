@@ -22,6 +22,7 @@ var Changku = require('../../../entity/Changku');
 var settings = require('../../../settings');
 var FPZhongxin = require('../../药物管理/仓库/保存数据/FPZhongxin');
 var FPChangku = require('../../药物管理/仓库/保存数据/FPChangku');
+var study = require('../../../entity/study');
 
 var Cxycqyjsszls = React.createClass({
 
@@ -134,9 +135,15 @@ var Cxycqyjsszls = React.createClass({
 
     //返回具体的cell
     renderRow(rowData){
-        return(
-            <MLTableCell title={rowData} rightTitle={this.state.data} isArrow = {false}/>
-        )
+        if (study.study.ExtStudYN == 1){
+            return(
+                <MLTableCell title={rowData} rightTitle={this.state.data} isArrow = {false}/>
+            )
+        }else{
+            return(
+                <MLTableCell title={rowData} rightTitle={"无"} isArrow = {false}/>
+            )
+        }
     },
 });
 

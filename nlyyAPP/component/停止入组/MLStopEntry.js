@@ -83,6 +83,8 @@ var StopEntry = React.createClass({
             <View style={styles.container}>
                 <MLNavigatorBar title={'停止入组'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
+                }} leftTitle={'首页'} leftFunc={()=>{
+                    this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                 }}/>
                 <ListView
                     dataSource={this.state.dataSource}//数据源

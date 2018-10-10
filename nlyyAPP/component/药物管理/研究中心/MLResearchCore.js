@@ -48,6 +48,8 @@ var ResearchCore = React.createClass({
             <View style={styles.container}>
                 <MLNavigatorBar title={'研究中心'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
+                }} leftTitle={'首页'} leftFunc={()=>{
+                    this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                 }}/>
                 <ListView
                     removeClippedSubviews={false}

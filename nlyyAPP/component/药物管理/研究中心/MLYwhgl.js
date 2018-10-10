@@ -46,14 +46,18 @@ var Ywhgl = React.createClass({
     componentDidMount(){
         var UserSite = '';
         for (var i = 0 ; i < Users.Users.length ; i++) {
-            if (Users.Users[i].UserSite != null) {
-                UserSite = Users.Users[i].UserSite
+            if (Users.Users[i].UserFun == 'H4'){
+                if (Users.Users[i].UserSite != null) {
+                    UserSite = Users.Users[i].UserSite
+                }
             }
         }
         var UserSiteYN = '';
         for (var i = 0 ; i < Users.Users.length ; i++) {
-            if (Users.Users[i].UserSiteYN != null) {
-                UserSiteYN = Users.Users[i].UserSiteYN
+            if (Users.Users[i].UserFun == 'H4') {
+                if (Users.Users[i].UserSiteYN != null) {
+                    UserSiteYN = Users.Users[i].UserSiteYN
+                }
             }
         }
         //网络请求
@@ -118,6 +122,8 @@ var Ywhgl = React.createClass({
 
                     <MLNavigatorBar title={'药物号管理'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -131,6 +137,8 @@ var Ywhgl = React.createClass({
 
                     <MLNavigatorBar title={'药物号管理'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     <ListView
@@ -155,7 +163,8 @@ var Ywhgl = React.createClass({
                         //传递参数
                         passProps:{
                             DrugId : rowData.id,
-                            UsedAddressId : rowData.Address.id
+                            UsedAddressId : rowData.Address.id,
+                            SiteID : rowData.Address.SiteID
                         },
                     });
                 }}>

@@ -42,6 +42,8 @@ var Yjfaxx = React.createClass({
             <View style={styles.container}>
                 <MLNavigatorBar title={'研究方案信息'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
+                }} leftTitle={'首页'} leftFunc={()=>{
+                    this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                 }}/>
                 <ScrollView>
                     <Image style={{width:width , height:this.state.height}} source={[

@@ -53,6 +53,7 @@ var Cyxjdnsfssz = React.createClass({
             srkxswz:['输入短信内容'],
             isModalOpen:false,
             phone:'',
+            patient:null,
             isBJModalOpen:false
         }
     },
@@ -136,7 +137,7 @@ var Cyxjdnsfssz = React.createClass({
         if (this.state.animating == true){
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'查阅下阶段内随访受试者'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'下阶段内随访受试者'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
 
@@ -148,7 +149,7 @@ var Cyxjdnsfssz = React.createClass({
         }else{
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'查阅下阶段内随访受试者'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'下阶段内随访受试者'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }}/>
                     <ListView
@@ -183,7 +184,9 @@ var Cyxjdnsfssz = React.createClass({
                                      body: JSON.stringify({
                                          content : text,
                                          phone : this.state.phone,
-                                         StudyID : Users.Users[0].StudyID
+                                         StudyID : Users.Users[0].StudyID,
+                                         users : Users.Users[0],
+                                         patient : this.state.patient
                                      })
                                  })
                                      .then((response) => response.json())
@@ -246,7 +249,7 @@ var Cyxjdnsfssz = React.createClass({
                     '请选择功能',
                     [
                         {text: '发送预约随访短信', onPress: () => {
-                            this.setState({isModalOpen:true,phone:rowData.users.user.SubjMP})
+                            this.setState({isModalOpen:true,phone:rowData.users.user.SubjMP,patient:rowData.users.user})
                         }},
 
                         {text: '取消'}
@@ -269,10 +272,6 @@ var Cyxjdnsfssz = React.createClass({
                     <Text style={{
                         marginTop : 5,
                         marginLeft : 10
-                    }}>{'随机号:' + rowData.users.user.Random}</Text>
-                    <Text style={{
-                        marginTop : 5,
-                        marginLeft : 10
                     }}>{'性别:' + rowData.users.user.SubjSex}</Text>
                     <Text style={{
                         marginTop : 5,
@@ -281,12 +280,12 @@ var Cyxjdnsfssz = React.createClass({
                     <Text style={{
                         marginTop : 5,
                         marginLeft : 10
-                    }}>{'是否完成基线访视:' + '是'}</Text>
+                    }}>{'受试者手机号:' + rowData.users.user.SubjMP}</Text>
                     <Text style={{
                         marginBottom : 5,
                         marginTop : 5,
                         marginLeft : 10
-                    }}>{'下一次访视是:' + (moment().add(rowData.Days, "days").format("YYYY-MM-DD"))}</Text>
+                    }}>{'下一次访视日期:' + (moment().add(rowData.Days, "days").format("YYYY-MM-DD"))}</Text>
                 </View>
             </TouchableOpacity>
         )

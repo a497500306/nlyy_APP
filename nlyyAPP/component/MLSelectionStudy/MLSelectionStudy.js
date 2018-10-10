@@ -26,10 +26,10 @@ var Home = require('../MLHome/MLHome');
 var UserData = require('../../entity/UserData');
 var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
 var MLTableCell = require('../MLTableCell/MLTableCell');
-var Users = require('../../entity/Users');
 var study = require('../../entity/study');
 var ExcludeStandard = require('../../entity/ExcludeStandard');
 var ApplicationAndAudit = require('../../entity/ApplicationAndAudit');
+var Users = require('../../entity/Users');
 var researchParameter = require('../../entity/researchParameter');
 var settings = require("../../settings");
 
@@ -150,7 +150,8 @@ var SelectionStudy = React.createClass({
                                       ExcludeStandard.ExcludeStandard = responseJson.ExcludeStandard;
                                       ApplicationAndAudit.ApplicationAndAudit = responseJson.ApplicationAndAudit;
                                       if (study.study.StudIsOffline == 1){
-                                          //错误
+                                          Users.Users = null
+                                              //错误
                                           Alert.alert(
                                               '提示',
                                               '该研究已经下线',

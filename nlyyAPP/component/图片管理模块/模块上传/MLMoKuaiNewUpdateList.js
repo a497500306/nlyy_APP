@@ -60,10 +60,12 @@ var MLMoKuaiNewUpdateList = React.createClass({
         // console.log('更新属性' + this.props.initialProps.weChatUser + "123")
         return (
             <View style={styles.container}>
-                <MLNavigatorBar title={'模块上传'} isBack={true} newTitle={"plus-circle"} backFunc={() => {
+                <MLNavigatorBar title={'按模块上传'} isBack={true} newTitle={"plus-circle"} backFunc={() => {
                     this.props.navigator.pop()
                 }} newFunc={()=>{
                     this.show(this)
+                }} leftTitle={'首页'} leftFunc={()=>{
+                    this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                 }}/>
                 <ListView
                     dataSource={this.state.dataSource}//数据源
@@ -83,8 +85,7 @@ var MLMoKuaiNewUpdateList = React.createClass({
                                 console.log('点击安卓相册');
                                 ImagePicker1.openPicker({
                                     cropping: false,
-                                    multiple: false,
-                                    compressImageQuality:0.5
+                                    multiple: false
                                 }).then(image => {
                                     console.log('图片地址');
                                     console.log(image.path);
@@ -109,6 +110,7 @@ var MLMoKuaiNewUpdateList = React.createClass({
                                         });
                                 })
                             }else {
+                                options.quality = 0.5;
                                 //启动相机：
                                 ImagePicker.launchCamera(options, (response) => {
                                     if (response.didCancel) {

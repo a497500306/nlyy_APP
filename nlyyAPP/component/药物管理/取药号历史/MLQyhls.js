@@ -121,6 +121,8 @@ var Quhls = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'取药物号历史'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }}  leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -133,6 +135,8 @@ var Quhls = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'取药物号历史'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }}  leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ListView
                         dataSource={this.state.dataSource}//数据源
@@ -221,28 +225,32 @@ var Quhls = React.createClass({
                         )
                     }
                 }}>
-                    <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " + ((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ('分组:' + rowData.Arm) : "") } subTitleColor = {'black'} rightTitle={'已经完成或退出'} rightTitleColor = {'gray'}/>
+                    <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " + ((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2) ? ('分组:' + rowData.Arm) : "") } subTitleColor = {'black'} rightTitle={'已经完成或退出'} rightTitleColor = {'gray'}/>
                 </TouchableOpacity>
             )
         }else {
             if (rowData.isSuccess == 1){
                 if (rowData.Random == -1){
+                    var grps = researchParameter.researchParameter.NTrtGrp.split(",");
+
                     return (
                         <TouchableOpacity onPress={()=> {
                             //错误
                             Alert.alert(
                                 '提示:',
-                                '未取随机号',
+                                grps.length == 1 ? '未给予研究治疗':'未取随机号',
                                 [
                                     {text: '确定'}
                                 ]
                             )
                         }}>
-                            <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:无")) : "")}
-                                         subTitleColor={'black'} rightTitle={'随机号:未取'}/>
+                            <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:无")) : "")}
+                                         subTitleColor={'black'} rightTitle={grps.length == 1 ? "未给予研究治疗" : '随机号:未取'}/>
                         </TouchableOpacity>
                     )
                 }else {
+
+                    var grps = researchParameter.researchParameter.NTrtGrp.split(",");
                     return(
                         <TouchableOpacity onPress={()=>{
                             if (researchParameter.researchParameter.DrugNOpen == 1){
@@ -341,13 +349,13 @@ var Quhls = React.createClass({
                                 )
                             }
                         }}>
-                            <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3)? ('分组:' + rowData.Arm) : "") } subTitleColor = {'black'} rightTitle={'随机号:' + rowData.Random} rightTitleColor = {'black'}/>
+                            <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2)? ('分组:' + rowData.Arm) : "") } subTitleColor = {'black'} rightTitle={grps.length == 1 ? "给予研究治疗":('随机号:' + rowData.Random)} rightTitleColor = {'black'}/>
                         </TouchableOpacity>
                     )
                 }
             }else {
                 return(
-                    <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:不适用")) : "")} subTitleColor = {'black'} rightTitle={'筛选失败'} rightTitleColor = {'gray'}/>
+                    <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:不适用")) : "")} subTitleColor = {'black'} rightTitle={'筛选失败'} rightTitleColor = {'gray'}/>
                 )
             }
         }

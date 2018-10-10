@@ -101,6 +101,8 @@ var Dqsywqd = React.createClass({
 
                     <MLNavigatorBar title={'待签收药物清单'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -114,6 +116,8 @@ var Dqsywqd = React.createClass({
 
                     <MLNavigatorBar title={'待签收药物清单'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     <ListView

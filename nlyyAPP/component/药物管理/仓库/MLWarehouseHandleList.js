@@ -64,6 +64,8 @@ var WarehouseHandleList = React.createClass({
             <View style={styles.container}>
                 <MLNavigatorBar title={Changku.Changku.DepotCity + '仓库'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
+                }} leftTitle={'首页'} leftFunc={()=>{
+                    this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                 }}/>
                 <ListView
                     removeClippedSubviews={false}

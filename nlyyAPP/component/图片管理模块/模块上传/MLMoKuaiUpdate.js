@@ -13,15 +13,13 @@ import {
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var MLMoKuaiUpdateList = require('./MLMoKuaiUpdateList')
+var researchParameter = require('../../../entity/researchParameter')
 
 var MLMoKuaiUpdate = React.createClass({
     getInitialState() {
 
         var tableData = [];
-
-        //判断用户类别
-        tableData.push('不良事件')
-        tableData.push('其他模块名字')
+        tableData = researchParameter.researchParameter.CRFModeules.split(",")
 
         //ListView设置
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
@@ -35,8 +33,10 @@ var MLMoKuaiUpdate = React.createClass({
         // console.log('更新属性' + this.props.initialProps.weChatUser + "123")
         return (
             <View style={styles.container}>
-                <MLNavigatorBar title={'模块上传'} isBack={true} backFunc={() => {
+                <MLNavigatorBar title={'按模块上传'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
+                }} leftTitle={'首页'} leftFunc={()=>{
+                    this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                 }}/>
                 <ListView
                     dataSource={this.state.dataSource}//数据源
@@ -48,29 +48,21 @@ var MLMoKuaiUpdate = React.createClass({
 
     //返回具体的cell
     renderRow(rowData){
-        if (rowData == "不良事件") {
-            return (
-                <TouchableOpacity onPress={()=> {
-                    // 页面的切换
-                    this.props.navigator.push({
-                        component: MLMoKuaiUpdateList, // 具体路由的版块
-                    });
-                }}>
-                    <MLTableCell title={rowData}/>
-                </TouchableOpacity>
-            )
-        } else {
-            return (
-                <TouchableOpacity onPress={()=> {
-                    // 页面的切换
-                    this.props.navigator.push({
-                        component: MLMoKuaiUpdateList, // 具体路由的版块
-                    });
-                }}>
-                    <MLTableCell title={rowData}/>
-                </TouchableOpacity>
-            )
-        }
+        return (
+            <TouchableOpacity onPress={()=> {
+                // 页面的切换
+                this.props.navigator.push({
+                    component: MLMoKuaiUpdateList, // 具体路由的版块
+                    //传递参数
+                    passProps:{
+                        data:this.props.data,
+                        name:rowData
+                    }
+                });
+            }}>
+                <MLTableCell title={rowData}/>
+            </TouchableOpacity>
+        )
     }
 })
 

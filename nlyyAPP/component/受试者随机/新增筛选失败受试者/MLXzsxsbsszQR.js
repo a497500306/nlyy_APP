@@ -51,7 +51,8 @@ var XzsxcgsszQR = React.createClass({
             xxb:'',
             xxc:'',
             xxd:'',
-            SelectExcludeStandard:null
+            SelectExcludeStandard:null,
+            data:null
         }
     },
     getInitialState() {
@@ -86,6 +87,8 @@ var XzsxcgsszQR = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'新增筛选失败受试者'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -98,6 +101,8 @@ var XzsxcgsszQR = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'新增筛选失败受试者'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ListView
                         dataSource={this.state.dataSource}//数据源
@@ -181,64 +186,136 @@ var XzsxcgsszQR = React.createClass({
         this.setState({
             animating: true
         })
-        //获取中心数据网络请求
-        fetch(settings.fwqUrl + "/app/getAddFailPatientData", {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json; charset=utf-8',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                StudyID: study.study.StudyID,
-                SiteID:this.props.site.SiteID,
-                ScreenYN:0,
-                ExcludeStandards:this.props.SelectExcludeStandard == null ? []:this.props.SelectExcludeStandard,
-                SubjectDOB:this.props.csDate,
-                SubjectSex:this.props.xb,
-                SubjectIn:this.props.name
-            })
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                this.setState({
-                    animating: false
+        if (this.props.data == null) {
+            //获取中心数据网络请求
+            fetch(settings.fwqUrl + "/app/getAddFailPatientData", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json; charset=utf-8',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    StudyID: study.study.StudyID,
+                    SiteID: this.props.site.SiteID,
+                    ScreenYN: 0,
+                    ExcludeStandards: this.props.SelectExcludeStandard == null ? [] : this.props.SelectExcludeStandard,
+                    SubjectDOB: this.props.csDate,
+                    SubjectSex: this.props.xb,
+                    SubjectIn: this.props.name
                 })
-                if (responseJson.isSucceed == 200){
-                    //错误
-                    Alert.alert(
-                        responseJson.msg,
-                        null,
-                        [
-                            {text: '确定'}
-                        ]
-                    )
-                }else {
-                    console.log(responseJson)
-                    //错误
-                    Alert.alert(
-                        "该受试者编号为:",
-                        responseJson.USubjectID,
-                        [
-                            {text: '确定', onPress: () => {this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[2])}}
-                        ]
-                    )
-                }
             })
-            .catch((error) => {//错误
-                this.setState({
-                    animating: false
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    this.setState({
+                        animating: false
+                    })
+                    if (responseJson.isSucceed == 200) {
+                        //错误
+                        Alert.alert(
+                            responseJson.msg,
+                            null,
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                    } else {
+                        console.log(responseJson)
+                        //错误
+                        Alert.alert(
+                            "该受试者编号为:",
+                            responseJson.USubjectID,
+                            [
+                                {
+                                    text: '确定', onPress: () => {
+                                    this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[2])
+                                }
+                                }
+                            ]
+                        )
+                    }
                 })
-                this.setState({animating:false});
-                console.log(error),
-                    //错误
-                    Alert.alert(
-                        '请检查您的网络111',
-                        null,
-                        [
-                            {text: '确定'}
-                        ]
-                    )
-            });
+                .catch((error) => {//错误
+                    this.setState({
+                        animating: false
+                    })
+                    this.setState({animating: false});
+                    console.log(error),
+                        //错误
+                        Alert.alert(
+                            '请检查您的网络111',
+                            null,
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                });
+        }else{
+            //获取中心数据网络请求
+            fetch(settings.fwqUrl + "/app/getAddBasisDataFailPatientData", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json; charset=utf-8',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id:this.props.data.id,
+                    USubjID: this.props.data.USubjID,
+                    SubjID: this.props.data.SubjID,
+                    StudyID: study.study.StudyID,
+                    SiteID: this.props.site.SiteID,
+                    ScreenYN: 0,
+                    ExcludeStandards: this.props.SelectExcludeStandard == null ? [] : this.props.SelectExcludeStandard,
+                    SubjectDOB: this.props.csDate,
+                    SubjectSex: this.props.xb,
+                    SubjectIn: this.props.name
+                })
+            })
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    this.setState({
+                        animating: false
+                    })
+                    if (responseJson.isSucceed == 200) {
+                        //错误
+                        Alert.alert(
+                            responseJson.msg,
+                            null,
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                    } else {
+                        console.log(responseJson)
+                        //错误
+                        Alert.alert(
+                            "该受试者编号为:",
+                            responseJson.USubjectID,
+                            [
+                                {
+                                    text: '确定', onPress: () => {
+                                    this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[2])
+                                }
+                                }
+                            ]
+                        )
+                    }
+                })
+                .catch((error) => {//错误
+                    this.setState({
+                        animating: false
+                    })
+                    this.setState({animating: false});
+                    console.log(error),
+                        //错误
+                        Alert.alert(
+                            '请检查您的网络111',
+                            null,
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                });
+        }
     },
 });
 

@@ -35,14 +35,14 @@ var MLTableCell = React.createClass({
             rightTitle: '',//右侧文字
             rightTitleColor: 'red',//右侧文字颜色
             isArrow:true,//是否显示箭头
-            cellHeight : 40,
+            cellHeight : 54,
             data:null, //数据
         }
     },
 
     render() {
         return (
-                <View style={styles.container}>
+                <View style={[styles.container,{height:this.props.cellHeight}]}>
                     {/*左边图标*/}
                     {this.renderLeftIcon()}
                     {/*左边文字*/}
@@ -70,10 +70,10 @@ var MLTableCell = React.createClass({
             if (this.props.subTitle != ''){
                 return(
                     <View style={{marginLeft:40}}>
-                        <Text style={{color:"black"}}>
+                        <Text  numberOfLines={10} style={{color:"black"}}>
                             {this.props.title}
                         </Text>
-                        <Text style={[{marginTop:Platform.OS == 'ios' ? 5: 0},{color:this.props.subTitleColor}]}>
+                        <Text numberOfLines={10} style={[{marginTop:Platform.OS == 'ios' ? 5: 0},{color:this.props.subTitleColor}]}>
                             {this.props.subTitle}
                         </Text>
                     </View>
@@ -81,7 +81,7 @@ var MLTableCell = React.createClass({
             }else {
                 return(
                     <View style={{marginLeft:40}}>
-                        <Text style={{color:"black"}}>
+                        <Text numberOfLines={10} style={{color:"black"}}>
                             {this.props.title}
                         </Text>
                     </View>
@@ -91,10 +91,10 @@ var MLTableCell = React.createClass({
             if (this.props.subTitle != ''){
                 return(
                     <View style={{marginLeft:10}}>
-                        <Text style={{color:"black"}}>
+                        <Text  numberOfLines={10} style={{color:"black"}}>
                             {this.props.title}
                         </Text>
-                        <Text style={[{marginTop:Platform.OS == 'ios' ? 5: 0},{color:this.props.subTitleColor}]}>
+                        <Text  numberOfLines={10} style={[{marginTop:Platform.OS == 'ios' ? 5: 0},{color:this.props.subTitleColor}]}>
                             {this.props.subTitle}
                         </Text>
                     </View>
@@ -102,7 +102,7 @@ var MLTableCell = React.createClass({
             }else {
                 return(
                     <View style={{marginLeft:10}}>
-                        <Text style={{color:"black"}}>
+                        <Text  numberOfLines={10} style={{color:"black"}}>
                             {this.props.title}
                         </Text>
                     </View>
@@ -114,8 +114,8 @@ var MLTableCell = React.createClass({
     //设置右边文字
     renderRightText(){
         return(
-            <View style={{position:'absolute', right:30, top:20}}>
-                <Text style={{color:this.props.rightTitleColor}}>
+            <View style={{position:'absolute', right:30, top:0,width:width / 2 - 20,height:54,justifyContent:'center'}}>
+                <Text style={{color:this.props.rightTitleColor,textAlign:'right',fontSize:13,backgroundColor:'rgba(0,0,0,0)'}}>
                     {this.props.rightTitle}
                 </Text>
             </View>
@@ -134,7 +134,7 @@ var MLTableCell = React.createClass({
 
 const styles = StyleSheet.create({
     container:{
-        height:54,
+
         backgroundColor:'white',
         borderBottomColor:'#dddddd',
         borderBottomWidth:0.5,

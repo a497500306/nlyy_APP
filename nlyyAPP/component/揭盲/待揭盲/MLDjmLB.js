@@ -95,6 +95,8 @@ var DjmLB = React.createClass({
 
                     <MLNavigatorBar title={'待揭盲'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -108,6 +110,8 @@ var DjmLB = React.createClass({
 
                     <MLNavigatorBar title={'待揭盲'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -121,6 +125,8 @@ var DjmLB = React.createClass({
 
                     <MLNavigatorBar title={'待揭盲'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     <ListView
@@ -148,7 +154,6 @@ var DjmLB = React.createClass({
                         console.log('有C1模块')
                     }
                 }
-                console.log(isSJHZY)
                 if (isSJHZY == true){//是随机化专员
                     //错误
                     Alert.alert(
@@ -184,9 +189,6 @@ var DjmLB = React.createClass({
                             {text: '审批通过', onPress: () => {
                                 this.rendershengpi(1,rowData)
                             }},
-                            /*{text: '审批拒绝', onPress: () => {
-                                this.rendershengpi(2,rowData)
-                            }},*/
                             {text: '查看进度', onPress: () => {
                                 // 页面的切换
                                 this.props.navigator.push({
@@ -203,7 +205,6 @@ var DjmLB = React.createClass({
                     )
                 }
             }}>
-                {/*设置内容*/}
                 {this.renderNeirong(rowData)}
             </TouchableOpacity>
         )
@@ -211,8 +212,6 @@ var DjmLB = React.createClass({
 
     //设置左边图标
     renderNeirong(rowData){
-        console.log("11111")
-        console.log(rowData)
         if (this.props.UnblindingType == 4){
             var shengqingren = '';
             for (var i = 0 ; i < rowData.UserNam.length ; i++){
@@ -373,10 +372,6 @@ var DjmLB = React.createClass({
                     <Text style={{
                         marginTop : 5,
                         marginLeft : 10
-                    }}>{'受试者手机号:' + rowData.Users.SubjMP}</Text>
-                    <Text style={{
-                        marginTop : 5,
-                        marginLeft : 10
                     }}>{'申请类型:' + '单个受试者紧急揭盲'}</Text>
                     <Text style={{
                         marginTop : 5,
@@ -442,10 +437,6 @@ var DjmLB = React.createClass({
                         marginTop : 5,
                         marginLeft : 10
                     }}>{'受试者姓名缩写:' + rowData.Users.SubjIni}</Text>
-                    <Text style={{
-                        marginTop : 5,
-                        marginLeft : 10
-                    }}>{'受试者手机号:' + rowData.Users.SubjMP}</Text>
                     <Text style={{
                         marginTop : 5,
                         marginLeft : 10

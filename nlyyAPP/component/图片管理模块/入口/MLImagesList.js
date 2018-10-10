@@ -16,6 +16,8 @@ import MLPhotoView from '../../MLPhotoView/MLPhotoView';
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var MLMoKuaiUpdate = require('../模块上传/MLMoKuaiUpdate');
+var MLPageNumberUpDate = require('../页码上传/MLPageNumberUpDate');
+var researchParameter = require('../../../entity/researchParameter');
 
 var MLImagesList = React.createClass({
     getInitialState() {
@@ -23,8 +25,12 @@ var MLImagesList = React.createClass({
         var tableData = [];
 
         //判断用户类别
-        tableData.push('页码上传')
-        tableData.push('模块上传')
+        if (researchParameter.researchParameter.CRFModeules != ''){
+            tableData.push('按模块上传')
+        }
+        if (researchParameter.researchParameter.CRFMaxNum != ''){
+            tableData.push('按页码上传')
+        }
 
         //ListView设置
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
@@ -33,13 +39,19 @@ var MLImagesList = React.createClass({
             dataSource: ds.cloneWithRows(tableData)
         }
     },
-
+    getDefaultProps(){
+        return {
+            data:null
+        }
+    },
     render() {
         // console.log('更新属性' + this.props.initialProps.weChatUser + "123")
         return (
             <View style={styles.container}>
                 <MLNavigatorBar title={'图片资料管理'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
+                }} leftTitle={'首页'} leftFunc={()=>{
+                    this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                 }}/>
                 <ListView
                     dataSource={this.state.dataSource}//数据源
@@ -51,16 +63,15 @@ var MLImagesList = React.createClass({
 
     //返回具体的cell
     renderRow(rowData){
-        if (rowData == "页码上传") {
+        if (rowData == "按页码上传") {
             return (
                 <TouchableOpacity onPress={()=> {
                     // 页面的切换
                     this.props.navigator.push({
-                        component: MLPhotoView, // 具体路由的版块http://codecloud.b0.upaiyun.com/wp-content/uploads/20160826_57c0288325536.png
+                        component: MLPageNumberUpDate, // 具体路由的版块
                         //传递参数
-                        passProps: {
-                            //出生年月
-                            imageUrl: 'http://codecloud.b0.upaiyun.com/wp-content/uploads/20160826_57c0288325536.png'
+                        passProps:{
+                            data:this.props.data
                         }
                     });
                 }}>
@@ -73,6 +84,10 @@ var MLImagesList = React.createClass({
                     // 页面的切换
                     this.props.navigator.push({
                         component: MLMoKuaiUpdate, // 具体路由的版块
+                        //传递参数
+                        passProps:{
+                            data:this.props.data
+                        }
                     });
                 }}>
                     <MLTableCell title={rowData}/>

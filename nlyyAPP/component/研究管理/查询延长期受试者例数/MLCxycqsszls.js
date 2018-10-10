@@ -76,6 +76,8 @@ var Cxycqsszls = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'查询延长期受试者例数'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -89,6 +91,8 @@ var Cxycqsszls = React.createClass({
                     <View style={styles.container}>
                         <MLNavigatorBar title={'查询延长期受试者例数'} isBack={true} backFunc={() => {
                             this.props.navigator.pop()
+                        }} leftTitle={'首页'} leftFunc={()=>{
+                            this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                         }}/>
                         <MLTableCell title={'无延长期研究'}/>
                     </View>

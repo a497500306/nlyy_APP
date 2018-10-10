@@ -45,6 +45,8 @@ var Zgjhqdfp = React.createClass({
             <View style={styles.container}>
                 <MLNavigatorBar title={'逐个结合区段分配'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
+                }} leftTitle={'首页'} leftFunc={()=>{
+                    this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                 }}/>
 
                 <View style={styles.zongViewStyle}>

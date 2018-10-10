@@ -359,7 +359,7 @@ var SszjxfsrqSZ = React.createClass({
                             });
                             Pickers.show();
                     }}>
-                        <MLTableCell title={rowData} rightTitle={this.props.users.baselineDate != null ? moment(this.props.users.baselineDate).format('YYYY-MM-DD') : ""} isArrow={true}/>
+                        <MLTableCell title={rowData} rightTitle={this.props.users.baselineDate != null ? moment(this.props.users.baselineDate).format('YYYY-M-D') : ""} isArrow={true}/>
 
                     </TouchableOpacity>
                 )
@@ -434,7 +434,7 @@ var SszjxfsrqSZ = React.createClass({
                             });
                             Pickers.show();
                     }}>
-                        <MLTableCell title={rowData} rightTitle={this.props.users.stopDrugDate != null ? moment(this.props.users.stopDrugDate).format('YYYY-MM-DD') : ""} isArrow={true}/>
+                        <MLTableCell title={rowData} rightTitle={this.props.users.stopDrugDate != null ? moment(this.props.users.stopDrugDate).format('YYYY-M-D') : ""} isArrow={true}/>
 
                         </TouchableOpacity>
                 )

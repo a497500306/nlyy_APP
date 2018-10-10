@@ -19,6 +19,7 @@ import {
 
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
+var ApplicationAndAudit = require('../../../../entity/ApplicationAndAudit');
 
 var settings = require("../../../../settings");
 var Users = require('../../../../entity/Users');
@@ -43,6 +44,8 @@ var Dgssztdjm = React.createClass({
             <View style={styles.container}>
                 <MLNavigatorBar title={'查询受试者'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
+                }} leftTitle={'首页'} leftFunc={()=>{
+                    this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                 }}/>
 
                 <View style={styles.zongViewStyle}>
@@ -76,12 +79,85 @@ var Dgssztdjm = React.createClass({
 
     //点击确定
     getLogin(){
-        var UserSite = '';
-        for (var i = 0 ; i < Users.Users.length ; i++) {
-            if (Users.Users[i].UserSite != null) {
-                UserSite = Users.Users[i].UserSite
+
+
+        var dgssztdjmSH = [];
+        var dgssztdjmSQ = [];
+        var dgsszjjjmSH = [];
+        var dgsszjjjmSQ = [];
+        var dgzxjjjmSH = [];
+        var dgzxjjjmSQ = [];
+        var zgyjjjjmSH = [];
+        var zgyjjjjmSQ = [];
+        for (var y = 0 ; y < ApplicationAndAudit.ApplicationAndAudit.length ; y++) {
+            if (ApplicationAndAudit.ApplicationAndAudit[y].EventApp == 1){
+                if (ApplicationAndAudit.ApplicationAndAudit[y].EventUnbApp == 1){
+                    dgssztdjmSQ = ApplicationAndAudit.ApplicationAndAudit[y].EventAppUsers.split(",");
+
+                }
+                if (ApplicationAndAudit.ApplicationAndAudit[y].EventUnbApp == 2){
+                    dgsszjjjmSQ = ApplicationAndAudit.ApplicationAndAudit[y].EventAppUsers.split(",");
+
+                }
+                if (ApplicationAndAudit.ApplicationAndAudit[y].EventUnbApp == 3){
+                    dgzxjjjmSQ = ApplicationAndAudit.ApplicationAndAudit[y].EventAppUsers.split(",");
+
+                }
+                if (ApplicationAndAudit.ApplicationAndAudit[y].EventUnbApp == 4){
+                    zgyjjjjmSQ = ApplicationAndAudit.ApplicationAndAudit[y].EventAppUsers.split(",");
+
+                }
+            }
+            if (ApplicationAndAudit.ApplicationAndAudit[y].EventRev == 1){
+                if (ApplicationAndAudit.ApplicationAndAudit[y].EventUnbRev == 1){
+                    dgssztdjmSH = ApplicationAndAudit.ApplicationAndAudit[y].EventAppUsers.split(",");
+
+                }
+                if (ApplicationAndAudit.ApplicationAndAudit[y].EventUnbRev == 2){
+                    dgsszjjjmSH = ApplicationAndAudit.ApplicationAndAudit[y].EventAppUsers.split(",");
+
+                }
+                if (ApplicationAndAudit.ApplicationAndAudit[y].EventUnbRev == 3){
+                    dgzxjjjmSH = ApplicationAndAudit.ApplicationAndAudit[y].EventAppUsers.split(",");
+
+                }
+                if (ApplicationAndAudit.ApplicationAndAudit[y].EventUnbRev == 4){
+                    zgyjjjjmSH = ApplicationAndAudit.ApplicationAndAudit[y].EventAppUsers.split(",");
+
+                }
             }
         }
+
+        var UserSite = '';
+        var UserSiteYN = '';
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            var data = Users.Users[i];
+            //判断用户类别
+            for (var y = 0; y < dgssztdjmSQ.length; y++) {
+                if (data.UserFun == dgssztdjmSQ[y]) {
+                    if (this.props.UnblindingType == 1){
+                        if (data.UserSiteYN == 1){
+                            UserSiteYN = 1
+                        }else{
+                            UserSite = data.UserSite
+                        }
+                    }
+                }
+            }
+            //判断用户类别
+            for (var y = 0; y < dgsszjjjmSQ.length; y++) {
+                if (data.UserFun == dgsszjjjmSQ[y]) {
+                    if (this.props.UnblindingType == 2){
+                        if (data.UserSiteYN == 1){
+                            UserSiteYN = 1
+                        }else{
+                            UserSite = data.UserSite
+                        }
+                    }
+                }
+            }
+        }
+
         this.setState({animating:true});
         //发送网络请求
         fetch(settings.fwqUrl + "/app/getVagueBasicsDataUser", {
@@ -91,6 +167,7 @@ var Dgssztdjm = React.createClass({
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                UserDepotYN:UserSiteYN,
                 str : this.state.shuliang,
                 SiteID : UserSite,
                 StudyID : Users.Users[0].StudyID
@@ -99,14 +176,16 @@ var Dgssztdjm = React.createClass({
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({animating:false});
-                if (responseJson.data.length == 0) {
+
+                if (responseJson.isSucceed == 200) {
                     Alert.alert(
                         '提示:',
-                        '未查到相关数据',
+                        responseJson.msg,
                         [
                             {text: '确定'}
                         ]
                     )
+                    return
                 }else{
                     // 页面的切换
                     this.props.navigator.push({
@@ -126,7 +205,7 @@ var Dgssztdjm = React.createClass({
                     //错误
                     Alert.alert(
                         '提示:',
-                        '请检查您的网络111',
+                        '请检查您的网络',
                         [
                             {text: '确定'}
                         ]

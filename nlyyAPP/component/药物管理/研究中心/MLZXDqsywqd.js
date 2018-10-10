@@ -43,14 +43,18 @@ var ZXDqsywqd = React.createClass({
     componentDidMount(){
         var UserSite = '';
         for (var i = 0 ; i < Users.Users.length ; i++) {
-            if (Users.Users[i].UserSite != null) {
-                UserSite = Users.Users[i].UserSite
+            if (Users.Users[i].UserFun == 'H4'){
+                if (Users.Users[i].UserSite != null) {
+                    UserSite = Users.Users[i].UserSite
+                }
             }
         }
         var UserSiteYN = '';
         for (var i = 0 ; i < Users.Users.length ; i++) {
-            if (Users.Users[i].UserSiteYN != null) {
-                UserSiteYN = Users.Users[i].UserSiteYN
+            if (Users.Users[i].UserFun == 'H4') {
+                if (Users.Users[i].UserSiteYN != null) {
+                    UserSiteYN = Users.Users[i].UserSiteYN
+                }
             }
         }
         //网络请求
@@ -115,6 +119,8 @@ var ZXDqsywqd = React.createClass({
 
                     <MLNavigatorBar title={'待签收药物清单'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -128,6 +134,8 @@ var ZXDqsywqd = React.createClass({
 
                     <MLNavigatorBar title={'待签收药物清单'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     <ListView
@@ -141,6 +149,8 @@ var ZXDqsywqd = React.createClass({
     },
     //返回具体的cell
     renderRow(rowData){
+        console.log('....sssss....')
+        console.log(rowData)
         var UserSite = '';
         for (var i = 0 ; i < Users.Users.length ; i++) {
             if (Users.Users[i].UserSite != null) {
@@ -178,7 +188,7 @@ var ZXDqsywqd = React.createClass({
                                 },
                                 body: JSON.stringify({
                                     id : rowData.id,
-                                    UsedCoreId : UserSite
+                                    UsedCoreId : rowData.Address.SiteID
                                 })
                             })
                                 .then((response) => response.json())

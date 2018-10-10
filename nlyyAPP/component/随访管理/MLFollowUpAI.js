@@ -31,6 +31,7 @@ var Sszjxfsrq = require('../随访管理/受试者基线访视日期/MLSszjxfsrq
 var CyxjdnsfsszSR = require('../随访管理/查阅下降段内随访受试者/MLCyxjdnsfsszSR');
 var Djssztchwc = require('../随访管理/登记受试者退出或完成/MLDjssztchwc');
 var Fsywtxdx = require('../随访管理/发送药物提醒短信/MLFsywtxdx');
+var MLSMSStatistics = require('../随访管理/发送受试者短信统计/MLSMSStatistics');
 
 var FollowUpAI = React.createClass({
     getInitialState() {
@@ -54,12 +55,12 @@ var FollowUpAI = React.createClass({
             if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
-                    if (tableData[j] == '查阅下阶段内随访受试者'){
+                    if (tableData[j] == '下阶段内随访受试者'){
                         isY = true;
                     }
                 }
                 if (isY == false){
-                    tableData.push('查阅下阶段内随访受试者')
+                    tableData.push('下阶段内随访受试者')
                 }
             }
             if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1'){
@@ -84,6 +85,17 @@ var FollowUpAI = React.createClass({
                     tableData.push('发送用药提醒短信')
                 }
             }
+            if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1'){
+                var isY = false
+                for (var j = 0 ; j < tableData.length ; j++){
+                    if (tableData[j] == '发送受试者短信统计'){
+                        isY = true;
+                    }
+                }
+                if (isY == false){
+                    tableData.push('发送受试者短信统计')
+                }
+            }
         }
 
         //ListView设置
@@ -99,6 +111,8 @@ var FollowUpAI = React.createClass({
             <View style={styles.container}>
                 <MLNavigatorBar title={'随访管理'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
+                }}  leftTitle={'首页'} leftFunc={()=>{
+                    this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                 }}/>
                 <ListView
                     dataSource={this.state.dataSource}//数据源
@@ -117,7 +131,7 @@ var FollowUpAI = React.createClass({
                     this.props.navigator.push({
                         component: Sszjxfsrq, // 具体路由的版块
                     });
-                }else if (rowData == '查阅下阶段内随访受试者'){
+                }else if (rowData == '下阶段内随访受试者'){
                     // 页面的切换
                     this.props.navigator.push({
                         component: CyxjdnsfsszSR, // 具体路由的版块
@@ -131,6 +145,11 @@ var FollowUpAI = React.createClass({
                     // 页面的切换
                     this.props.navigator.push({
                         component: Fsywtxdx, // 具体路由的版块
+                    });
+                }else if (rowData == '发送受试者短信统计'){
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: MLSMSStatistics, // 具体路由的版块
                     });
                 }
             }}>

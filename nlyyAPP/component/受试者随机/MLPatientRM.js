@@ -34,45 +34,45 @@ var PatientRM = React.createClass({
         for (var i = 0 ; i < Users.Users.length ; i++){
             var data = Users.Users[i];
             //判断用户类别
-            if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1' ){
-                var isY = false
-                for (var j = 0 ; j < tableData.length ; j++){
-                    if (tableData[j].title == '新增筛选成功受试者'){
-                        isY = true;
-                    }
-                }
-                if (isY == false){
-                    tableData.push({title:'新增筛选成功受试者',imageTitle:"user-plus",iconColor:'rgba(0,136,212,1.0)'})
-                }
-                // if (tableData.indexOf({title:'受试者随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'}) == -1){
-                //     tableData.push({title:'受试者随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'})
-                // }
-            }
+            // if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1' ){
+            //     var isY = false
+            //     for (var j = 0 ; j < tableData.length ; j++){
+            //         if (tableData[j].title == '新增筛选成功受试者'){
+            //             isY = true;
+            //         }
+            //     }
+            //     if (isY == false){
+            //         tableData.push({title:'新增筛选成功受试者',imageTitle:"user-plus",iconColor:'rgba(0,136,212,1.0)'})
+            //     }
+            //     // if (tableData.indexOf({title:'受试者随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'}) == -1){
+            //     //     tableData.push({title:'受试者随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'})
+            //     // }
+            // }
             if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
-                    if (tableData[j].title == '取随机号'){
+                    if (tableData[j].title == '登记与随机'){
                         isY = true;
                     }
                 }
                 if (isY == false){
-                    tableData.push({title:'取随机号',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'})
+                    tableData.push({title:'登记与随机',imageTitle:"users",iconColor:'rgba(0,136,212,1.0)'})
                 }
                 // if (tableData.indexOf({title:'药物管理',imageTitle:"medkit",iconColor:'rgba(0,136,212,1.0)'}) == -1){
                 //     tableData.push({title:'药物管理',imageTitle:"medkit",iconColor:'rgba(0,136,212,1.0)'})
                 // }
             }
-            if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1'){
-                var isY = false
-                for (var j = 0 ; j < tableData.length ; j++){
-                    if (tableData[j].title == '新增筛选失败受试者'){
-                        isY = true;
-                    }
-                }
-                if (isY == false){
-                    tableData.push({title:'新增筛选失败受试者',imageTitle:"user-times",iconColor:'rgba(0,136,212,1.0)'})
-                }
-            }
+            // if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1'){
+            //     var isY = false
+            //     for (var j = 0 ; j < tableData.length ; j++){
+            //         if (tableData[j].title == '新增筛选失败受试者'){
+            //             isY = true;
+            //         }
+            //     }
+            //     if (isY == false){
+            //         tableData.push({title:'新增筛选失败受试者',imageTitle:"user-times",iconColor:'rgba(0,136,212,1.0)'})
+            //     }
+            // }
             if (data.UserFun == 'H1' || data.UserFun == 'M1'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
@@ -99,12 +99,12 @@ var PatientRM = React.createClass({
                 data.UserFun == 'H3' || data.UserFun == 'M7'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
-                    if (tableData[j].title == '查阅退出或者完成例数分布'){
+                    if (tableData[j].title == '退出或完成例数分布'){
                         isY = true;
                     }
                 }
                 if (isY == false){
-                    tableData.push({title:'查阅退出或者完成例数分布',imageTitle:"bar-chart",iconColor:'rgba(0,136,212,1.0)'})
+                    tableData.push({title:'退出或完成例数分布',imageTitle:"bar-chart",iconColor:'rgba(0,136,212,1.0)'})
                 }
             }
             if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1' ||
@@ -158,8 +158,10 @@ var PatientRM = React.createClass({
     render() {
         return (
             <View style={styles.container}>
-                <MLNavigatorBar title={'受试者随机'} isBack={true} backFunc={() => {
+                <MLNavigatorBar title={'受试者登记与随机'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
+                }} leftTitle={'首页'} leftFunc={()=>{
+                    this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                 }}/>
                 <ListView
                     removeClippedSubviews={false}
@@ -187,7 +189,7 @@ var PatientRM = React.createClass({
                         //错误
                         Alert.alert(
                             '提示',
-                            '该中心已经停止入组',
+                            '中心停止入组',
                             [
                                 {text: '确定'}
                             ]
@@ -241,6 +243,7 @@ var PatientRM = React.createClass({
                                             {text: '确定'}
                                         ]
                                     )
+                                return
                             });
                     }
                 }else if (rowData.title == '新增筛选失败受试者' ){
@@ -249,7 +252,7 @@ var PatientRM = React.createClass({
                         //错误
                         Alert.alert(
                             '提示',
-                            '该中心已经停止入组',
+                            '中心停止入组',
                             [
                                 {text: '确定'}
                             ]
@@ -308,7 +311,7 @@ var PatientRM = React.createClass({
 
 
                     }
-                }else if (rowData.title == '取随机号'){
+                }else if (rowData.title == '登记与随机'){
                     //设置数据
                     console.log(Users.Users)
                     // 页面的切换
@@ -336,7 +339,7 @@ var PatientRM = React.createClass({
                     this.props.navigator.push({
                         component: Cysjlsfb, // 具体路由的版块
                     });
-                }else if (rowData.title == '查阅退出或者完成例数分布'){
+                }else if (rowData.title == '退出或完成例数分布'){
                     //设置数据
                     console.log(Users.Users)
                     // 页面的切换
@@ -348,7 +351,8 @@ var PatientRM = React.createClass({
                 <View>
                     <View style={styles.row}>
                         <Icon name={rowData.imageTitle} size={60} color={rowData.iconColor} style={styles.thumb}/>
-                        <Text style={styles.text}>
+                        <Text style={styles.text}
+                              numberOfLines={1}>
                             {rowData.title}
                         </Text>
                     </View>

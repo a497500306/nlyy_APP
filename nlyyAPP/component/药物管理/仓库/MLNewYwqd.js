@@ -230,6 +230,7 @@ var NewYwqd = React.createClass({
 
     //点击全选
     quanxuan(){
+        //this.state.xuanzhongData.length
         var data = [];
         for(var i = 0 ; i < this.state.tableData.length ; i++){
                 this.state.tableData[i].isSelected = true;
@@ -238,7 +239,8 @@ var NewYwqd = React.createClass({
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
         this.setState({
             dataSource: ds.cloneWithRows(this.state.tableData),
-            xuanzhongData : data
+            xuanzhongData : data,
+            title:'确 定( ' + data.length + ' )'
         });
     },
 

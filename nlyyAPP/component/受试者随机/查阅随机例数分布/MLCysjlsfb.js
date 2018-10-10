@@ -134,6 +134,8 @@ var Cysxlsfb = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'查阅随机例数分布'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -146,6 +148,8 @@ var Cysxlsfb = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'查阅随机例数分布'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ScrollView showsHorizontalScrollIndicator = {true} horizontal={true} style={{height: 300}}>
                         <View style={{height: 300,width:option.series[0].data.length < 10 ? width : option.series[0].data.length * 40}}>

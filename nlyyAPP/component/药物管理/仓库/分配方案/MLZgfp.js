@@ -108,6 +108,8 @@ var Zgfp = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'逐个分配'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -120,8 +122,11 @@ var Zgfp = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'逐个分配'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ListView
+                        removeClippedSubviews={false}
                         dataSource={this.state.dataSource}//数据源
                         renderRow={this.renderRow}
                     />

@@ -12,6 +12,9 @@ import {
     Alert
 } from 'react-native';
 
+var List = require('../../../node_modules/antd-mobile/lib/list/index');
+const Item = List.Item;
+const Brief = Item.Brief;
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var Users = require('../../../entity/Users');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
@@ -52,30 +55,42 @@ var ZXTable = React.createClass({
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson)
-                console.log('user')
-                console.log(Users.Users[0])
-
                 if (responseJson.isSucceed != 400){
                     //移除等待
                     this.setState({animating:false});
                     this.setState({cuowu:true});
                 }else{
-                    //ListView设置
 
+                    //ListView设置
                     var tableData = [];
-                    if (Users.Users[0].UserSiteYN === 1){
+                    //判断用户负责中心
+                    var UserSite = '';
+                    for (var i = 0 ; i < Users.Users.length ; i++) {
+                        if (Users.Users[i].UserFun == 'M6'){
+                            if (Users.Users[i].UserSite != null) {
+                                UserSite = Users.Users[i].UserSite
+                            }
+                        }
+                    }
+                    //判断用户是否负责全部中心
+                    for (var i = 0 ; i < Users.Users.length ; i++) {
+                        if (Users.Users[i].UserFun == 'M6'){
+                            if (Users.Users[i].UserSiteYN == 1) {
+                                UserSite = ''
+                            }
+                        }
+                    }
+
+                    if (UserSite == ''){//负责全部中心
                         for (var i = 0 ; i < responseJson.data.length ; i++){
                             var changku = responseJson.data[i];
                             tableData.push(changku)
                         }
-                    }else {
+                    }else{
                         //判断用户管理几个中心
-                        var sites = Users.Users[0].UserSite.split(",")
+                        var sites = UserSite.split(",")
                         for (var j = 0 ; j < sites.length ; j++){
                             for (var i = 0 ; i < responseJson.data.length ; i++){
-                                console.log('sites==' + sites[j])
-                                console.log('SiteID==' + responseJson.data[i].SiteID)
                                 if (responseJson.data[i].SiteID == sites[j]){
                                     var changku = responseJson.data[i];
                                     tableData.push(changku)
@@ -158,17 +173,26 @@ var ZXTable = React.createClass({
     //返回具体的cell
     renderRow(rowData){
         return(
-            <TouchableOpacity onPress={()=>{
-                //设置数据
-                FPZhongxin.FPZhongxin = rowData;
-                FPChangku.FPChangku = null;
-                // 页面的切换
-                this.props.navigator.push({
-                    component: FenpeiZX, // 具体路由的版块
-                });
-            }}>
-                <MLTableCell title={rowData.SiteNam}  subTitle = {"中心编号:" + rowData.SiteID} subTitleColor = {'black'} />
-            </TouchableOpacity>
+            <Item arrow="horizontal"
+                  multipleLine={true}
+                  wrap={true}
+                  align='middle'
+                  onClick={() => {
+                      //设置数据
+                      FPZhongxin.FPZhongxin = rowData;
+                      FPChangku.FPChangku = null;
+                      // 页面的切换
+                      this.props.navigator.push({
+                          component: FenpeiZX, // 具体路由的版块
+                      });
+                  }}
+            >
+                {rowData.SiteNam}
+                <Text style={{
+                    marginTop:5,
+                    color:'gray'
+                }}>{"中心编号:" + rowData.SiteID}</Text>
+            </Item>
         )
     },
 });

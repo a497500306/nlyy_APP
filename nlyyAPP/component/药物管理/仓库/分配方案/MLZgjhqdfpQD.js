@@ -113,6 +113,8 @@ var ZgjhqdfpQD = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'逐个结合区段分配'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -125,6 +127,8 @@ var ZgjhqdfpQD = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'逐个结合区段分配'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ListView
                         dataSource={this.state.dataSource}//数据源
@@ -210,7 +214,7 @@ var ZgjhqdfpQD = React.createClass({
                 body: JSON.stringify({
                     ids: this.state.xuanzhongData,
                     StudyID:Users.Users[0].StudyID,
-                    Users : Users.Users,
+                    Users : Users.Users[0],
                     Address : FPChangku.FPChangku == null ? FPZhongxin.FPZhongxin : FPChangku.FPChangku,
                     Type : FPChangku.FPChangku == null ? 2 : 1,
                     DepotGNYN : Changku.Changku == null == null ? 0 : Changku.Changku.DepotGNYN,//是否为主仓库:1是,0不是

@@ -39,7 +39,9 @@ var Mhcx = React.createClass({
             * 1.揭盲申请--单个受试者特定揭盲
             *
             * */
-            isVC:0
+            isVC:0,
+            //是否是图片上传
+            isImage:0
         }
     },
     render() {
@@ -47,6 +49,8 @@ var Mhcx = React.createClass({
             <View style={styles.container}>
                 <MLNavigatorBar title={'模糊查询'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
+                }} leftTitle={'首页'} leftFunc={()=>{
+                    this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                 }}/>
 
                 <View style={styles.zongViewStyle}>
@@ -83,9 +87,36 @@ var Mhcx = React.createClass({
         var UserSite = '';
         for (var i = 0 ; i < Users.Users.length ; i++) {
             if (Users.Users[i].UserSite != null) {
-                UserSite = Users.Users[i].UserSite
+                if (Users.Users[i].UserFun == 'H2' || Users.Users[i].UserFun == 'H3' || Users.Users[i].UserFun == 'S1' ||
+                    Users.Users[i].UserFun == 'H4' || Users.Users[i].UserFun == 'H1' || Users.Users[i].UserFun == 'M8' || Users.Users[i].UserFun == 'H5'){
+                    UserSite = Users.Users[i].UserSite
+                }
             }
         }
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserFun == 'H2' || Users.Users[i].UserFun == 'H3' || Users.Users[i].UserFun == 'S1' ||
+                Users.Users[i].UserFun == 'H4' || Users.Users[i].UserFun == 'H1'){
+                if (Users.Users[i].UserSiteYN == 1) {
+                    UserSite = ''
+                }
+            }
+        }
+        if (this.props.isImage == 1){
+            for (var i = 0 ; i < Users.Users.length ; i++) {
+                var data = Users.Users[i]
+                if (data.UserFun == 'S1' || data.UserFun == 'H3' || data.UserFun == 'H2' ||
+                    data.UserFun == 'H5' || data.UserFun == 'M7' || data.UserFun == 'M8' ||
+                    data.UserFun == 'M4' || data.UserFun == 'M5' || data.UserFun == 'M1' ||
+                    data.UserFun == 'C2'){
+                    if (Users.Users[i].UserSiteYN == 1) {
+                        UserSite = ''
+                    }else{
+                        UserSite = data.UserSite
+                    }
+                }
+            }
+        }
+
         this.setState({animating:true});
         //发送网络请求
         fetch(settings.fwqUrl + "/app/getVagueBasicsData", {
@@ -102,6 +133,7 @@ var Mhcx = React.createClass({
         })
             .then((response) => response.json())
             .then((responseJson) => {
+                console.log(responseJson.data)
                 this.setState({animating:false});
                 if (responseJson.data.length == 0) {
                     Alert.alert(
@@ -112,7 +144,17 @@ var Mhcx = React.createClass({
                         ]
                     )
                 }else{
-                    if (this.props.isVC == 1){
+                    if (this.props.isImage == 1){
+                        // 页面的切换
+                        this.props.navigator.push({
+                            component: Qsjh, // 具体路由的版块
+                            //传递参数
+                            passProps:{
+                                data:responseJson.data,
+                                isImage: 1
+                            }
+                        });
+                    }else if (this.props.isVC == 1){
                         // 页面的切换
                         this.props.navigator.push({
                             component: Qsjh, // 具体路由的版块

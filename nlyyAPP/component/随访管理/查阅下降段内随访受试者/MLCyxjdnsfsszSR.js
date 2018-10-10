@@ -36,8 +36,10 @@ var MLCyxjdnsfsszSR = React.createClass({
     render() {
         return (
             <View style={styles.container}>
-                <MLNavigatorBar title={'查阅下阶段内随访受试者'} isBack={true} backFunc={() => {
+                <MLNavigatorBar title={'下阶段内随访受试者'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
+                }} leftTitle={'首页'} leftFunc={()=>{
+                    this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                 }}/>
 
                 <View style={styles.zongViewStyle}>

@@ -16,9 +16,11 @@ import {
     ActivityIndicator,
 
 } from 'react-native';
+
 //时间操作
 var moment = require('moment');
 moment().format();
+
 import Pickers from 'react-native-picker';
 var study = require('../../../entity/study');
 var researchParameter = require('../../../entity/researchParameter');
@@ -114,7 +116,9 @@ var DjssztchwcQR = React.createClass({
         // tableData.push('随机号');
         tableData.push('选择受试者完成状态');
         tableData.push('录入受试者完成或退出日期');
-        tableData.push('选择是否参加延长期研究');
+        if (study.study.ExtStudYN == 1){
+            tableData.push('选择是否参加延长期研究');
+        }
         tableData.push('');
 
         //ListView设置
@@ -144,6 +148,8 @@ var DjssztchwcQR = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'设置基线访视日期'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -157,6 +163,8 @@ var DjssztchwcQR = React.createClass({
                     <View style={styles.container}>
                         <MLNavigatorBar title={'登记受试者退出或完成'} isBack={true} backFunc={() => {
                             this.props.navigator.pop()
+                        }} leftTitle={'首页'} leftFunc={()=>{
+                            this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                         }}/>
                         <ListView
                             dataSource={this.state.dataSource}//数据源
@@ -169,6 +177,8 @@ var DjssztchwcQR = React.createClass({
                     <View style={styles.container}>
                         <MLNavigatorBar title={'登记受试者退出或完成'} isBack={true} backFunc={() => {
                             this.props.navigator.pop()
+                        }} leftTitle={'首页'} leftFunc={()=>{
+                            this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                         }}/>
                         <ListView
                             dataSource={this.state.dataSource}//数据源
@@ -443,16 +453,18 @@ var DjssztchwcQR = React.createClass({
             )
             return
         }
-        if (this.state.shifouchanjia.length == 0){
-            //错误
-            Alert.alert(
-                '提示',
-                '请选择是否参加延长期研究',
-                [
-                    {text: '确定'}
-                ]
-            )
-            return
+        if (study.study.ExtStudYN == 1){
+            if (this.state.shifouchanjia.length == 0){
+                //错误
+                Alert.alert(
+                    '提示',
+                    '请选择是否参加延长期研究',
+                    [
+                        {text: '确定'}
+                    ]
+                )
+                return
+            }
         }
 
         this.setState({

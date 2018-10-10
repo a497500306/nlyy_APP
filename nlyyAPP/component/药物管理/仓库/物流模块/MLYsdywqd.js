@@ -51,6 +51,7 @@ var Ysdywqd = React.createClass({
             body: JSON.stringify({
                 UsedAddressId : Changku.Changku.id,
                 UserMP : Users.Users[0].UserMP,
+                SiteID : Users.Users[0].SiteID,
             })
         })
             .then((response) => response.json())

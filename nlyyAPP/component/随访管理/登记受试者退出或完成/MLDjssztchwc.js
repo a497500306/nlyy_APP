@@ -39,6 +39,8 @@ var Djssztchwc = React.createClass({
             <View style={styles.container}>
                 <MLNavigatorBar title={'查询受试者'} isBack={true} backFunc={() => {
                     this.props.navigator.pop()
+                }} leftTitle={'首页'} leftFunc={()=>{
+                    this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                 }}/>
 
                 <View style={styles.zongViewStyle}>
@@ -80,7 +82,7 @@ var Djssztchwc = React.createClass({
         }
         this.setState({animating:true});
         //发送网络请求
-        fetch(settings.fwqUrl + "/app/getVagueBasicsDataUser", {
+        fetch(settings.fwqUrl + "/app/getVagueBasicsData", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json; charset=utf-8',

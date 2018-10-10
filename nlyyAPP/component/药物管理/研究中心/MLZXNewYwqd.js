@@ -42,7 +42,8 @@ var NewYwqd = React.createClass({
             animating: true,//是否显示菊花
             title:'确 定',
             tableData:[],
-            xuanzhongData:[]
+            xuanzhongData:[],
+            SiteID:null
         }
     },
     getDefaultProps(){
@@ -72,7 +73,7 @@ var NewYwqd = React.createClass({
             },
             body: JSON.stringify({
                 DrugId : this.props.DrugId,
-                UsedCoreId : UserSite
+                UsedCoreId : this.props.SiteID
             })
         })
             .then((response) => response.json())
@@ -237,7 +238,8 @@ var NewYwqd = React.createClass({
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
         this.setState({
             dataSource: ds.cloneWithRows(this.state.tableData),
-            xuanzhongData : data
+            xuanzhongData : data,
+            title:'确 定( ' + data.length + ' )'
         });
     },
 

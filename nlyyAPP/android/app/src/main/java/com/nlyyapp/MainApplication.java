@@ -3,7 +3,10 @@ package com.nlyyapp;
 import android.app.Application;
 import android.util.Log;
 
+import cn.jpush.reactnativejpush.JPushPackage;
 import com.facebook.react.ReactApplication;
+import com.zmxv.RNSound.RNSoundPackage;
+import com.rnim.rn.audio.ReactNativeAudioPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.beefe.picker.PickerViewPackage;
@@ -27,9 +30,13 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSoundPackage(),
+            new ReactNativeAudioPackage(),
             new PickerPackage(),
             new ImagePickerPackage(),
-            new PickerViewPackage()
+            new PickerViewPackage(),
+              //加入 JPushPackage
+              new JPushPackage(true, true)
       );
     }
   };

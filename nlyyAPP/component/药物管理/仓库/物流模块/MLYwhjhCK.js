@@ -99,6 +99,8 @@ var YwghgCK = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'药物清单'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -111,6 +113,8 @@ var YwghgCK = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'药物清单'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ListView
                         dataSource={this.state.dataSource}//数据源
@@ -195,7 +199,7 @@ var YwghgCK = React.createClass({
                 },
                 body: JSON.stringify({
                     ids: this.state.xuanzhongData,
-                    Users : Users.Users,
+                    Users : Users.Users[0],
                     Address : FPChangku.FPChangku == null ? FPZhongxin.FPZhongxin : FPChangku.FPChangku,
                     Type : FPChangku.FPChangku == null ? 2 : 1
                 })

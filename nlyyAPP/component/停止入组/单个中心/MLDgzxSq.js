@@ -20,6 +20,10 @@ import {
 var moment = require('moment');
 moment().format();
 
+var List = require('../../../node_modules/antd-mobile/lib/list/index');
+const Item = List.Item;
+const Brief = Item.Brief;
+
 import Pickers from 'react-native-picker';
 
 // var Modal = require('react-native-modal');
@@ -75,6 +79,8 @@ var DgzxSq = React.createClass({
                     <MLNavigatorBar title={'申请'} isBack={true} backFunc={() => {
                         Pickers.hide();
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ListView
                         dataSource={this.state.dataSource}//数据源
@@ -87,6 +93,8 @@ var DgzxSq = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'申请'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ListView
                         dataSource={this.state.dataSource}//数据源
@@ -135,6 +143,19 @@ var DgzxSq = React.createClass({
         }
         if (rowData == "中心名称") {
             return(
+                /*
+            <Item arrow="horizontal"
+                  multipleLine={true}
+                  wrap={true}
+                  align='middle'
+            >
+                {rowData}
+                <Text style={{
+                    marginTop:5,
+                    color:'gray'
+                }}>{FPZhongxin.FPZhongxin.SiteNam}</Text>
+            </Item>
+            */
                 <MLTableCell title={rowData} rightTitle={FPZhongxin.FPZhongxin.SiteNam} isArrow={false}/>
             )
         }

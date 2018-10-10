@@ -139,8 +139,10 @@ var CytchwclsfbZX = React.createClass({
         if (this.state.animating == true){
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'查阅退出或完成例数分布'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'退出或完成例数分布'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -151,8 +153,10 @@ var CytchwclsfbZX = React.createClass({
         }else {
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={'查阅退出或完成例数分布'} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={'退出或完成例数分布'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     <ScrollView showsHorizontalScrollIndicator = {true} horizontal={true} style={{height: 300}}>

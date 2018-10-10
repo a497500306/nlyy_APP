@@ -117,6 +117,8 @@ var FsywtxdxLB = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'选择受试者'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
 
                     {/*设置完了加载的菊花*/}
@@ -129,6 +131,8 @@ var FsywtxdxLB = React.createClass({
                 <View style={styles.container}>
                     <MLNavigatorBar title={'选择受试者'} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
+                    }} leftTitle={'首页'} leftFunc={()=>{
+                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
                     <ListView
                         dataSource={this.state.dataSource}//数据源
@@ -142,79 +146,175 @@ var FsywtxdxLB = React.createClass({
 
     //返回具体的cell
     renderRow(rowData,sectionID, rowID){
-        console.log(rowData)
-        if (rowData.isSuccess == 1) {
-            if (rowData.users.isOut == 1) {
-                return(
-                    <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'已经完成或者退出'} rightTitleColor = {'gray'}/>
-                )
-            }else{
-                if (rowData.isSuccess == 1){
-                    if (rowData.Random == -1) {
-                        return(
-                            <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:无")) : "")}
-                                         subTitleColor={'black'} rightTitle={'随机号:未取'} rightTitleColor = {'gray'}/>
-                        )
-                    }else{
-                        return (
-                            <TouchableOpacity onPress={()=> {
-                                console.log('xmxmxm')
-                                console.log(rowData)
-                                //错误
-                                Alert.alert(
-                                    "提示:",
-                                    "请选择你要操作的功能",
-                                    [
-                                        {text: '发送用药提醒短信', onPress: () => {
-                                            //判断该研究是否提供药物号
-                                            if (researchParameter.researchParameter.BlindSta == 1){
-                                                // 页面的切换
-                                                this.props.navigator.push({
-                                                    //传递参数
-                                                    passProps:{
-                                                        userId : rowData.id,
-                                                        phone : rowData.users.SubjMP
-                                                    },
-                                                    component: yytx, // 具体路由的版块
-                                                });
-                                            }else if (researchParameter.researchParameter.BlindSta == 2){
-                                                // 页面的切换
-                                                this.props.navigator.push({
-                                                    //传递参数
-                                                    passProps:{
-                                                        userId : rowData.id,
-                                                        phone : rowData.users.SubjMP
-                                                    },
-                                                    component: yytx, // 具体路由的版块
-                                                });
-                                            }else {
-                                                // 页面的切换
-                                                this.props.navigator.push({
-                                                    //传递参数
-                                                    passProps:{
-                                                        userId : rowData.id,
-                                                        phone : rowData.users.SubjMP
-                                                    },
-                                                    component: yytx, // 具体路由的版块
-                                                });
-                                            }
-                                        }},
-                                        {text: '取消'}
-                                    ]
-                                )
-                            }}>
-                                <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor={'black'}
-                                             rightTitle={'随机号:' + rowData.Random}/>
-                            </TouchableOpacity>
-                        )
-                    }
-                }
-            }
-        }else{
+
+
+        if (rowData.isOut == 1) {
             return(
-                <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'筛选失败'} rightTitleColor = {'gray'}/>
+                <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.persons.USubjID} subTitle={"姓名缩写:" + rowData.persons.SubjIni + "   " +((rowData.persons.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2) ? ((rowData.persons.Arm != null ? ('分组:' + rowData.persons.Arm) : "分组:无")) : "")} subTitleColor = {'black'} rightTitle={'已经完成或退出'} rightTitleColor = {'gray'}/>
             )
+        }else {
+            if (rowData.isSuccess == 1){
+                if (rowData.Random == -1){
+                    if (rowData.persons.isBasicData == 1){
+                        return(
+                            <MLTableCell title={'受试者编号:' + rowData.USubjID}
+                                         subTitle={"姓名缩写:" + rowData.SubjIni + "   " + ((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:无")) : "")}
+                                         subTitleColor={'black'} rightTitle={'筛选中受试者'} rightTitleColor = {'gray'}/>
+                        )
+                    }else {
+                        var grps = researchParameter.researchParameter.NTrtGrp.split(",");
+                        if (grps.length == 1) {
+                            return (
+                                <MLTableCell isArrow={false} title={'受试者编号:' + rowData.persons.USubjID}
+                                             subTitle={"姓名缩写:" + rowData.persons.SubjIni + "   " + ((rowData.persons.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2) ? ((rowData.persons.Arm != null ? ('' + rowData.persons.Arm) : "分组:无")) : "")}
+                                             subTitleColor={'black'} rightTitle={'未给予研究治疗'}/>
+                            )
+                        } else {
+                            return (
+                                <MLTableCell isArrow={false} title={'受试者编号:' + rowData.persons.USubjID}
+                                             subTitle={"姓名缩写:" + rowData.persons.SubjIni + "   " + ((rowData.persons.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2) ? ((rowData.persons.Arm != null ? ('' + rowData.persons.Arm) : "分组:无")) : "")}
+                                             subTitleColor={'black'} rightTitle={'随机号:未取'}/>
+                            )
+                        }
+                    }
+                }else {
+                    var grps = researchParameter.researchParameter.NTrtGrp.split(",");
+                    return(
+                        <TouchableOpacity onPress={()=>{
+                            //错误
+                            Alert.alert(
+                                "提示:",
+                                "请选择你要操作的功能",
+                                [
+                                    {text: '发送用药提醒短信', onPress: () => {
+                                        //判断该研究是否提供药物号
+                                        if (researchParameter.researchParameter.BlindSta == 1){
+                                            // 页面的切换
+                                            this.props.navigator.push({
+                                                //传递参数
+                                                passProps:{
+                                                    userId : rowData.persons.id,
+                                                    phone : rowData.persons.SubjMP,
+                                                    patient: rowData.persons
+                                                },
+                                                component: yytx, // 具体路由的版块
+                                            });
+                                        }else if (researchParameter.researchParameter.BlindSta == 2){
+                                            // 页面的切换
+                                            this.props.navigator.push({
+                                                //传递参数
+                                                passProps:{
+                                                    userId : rowData.persons.id,
+                                                    phone : rowData.persons.SubjMP,
+                                                    patient: rowData.persons
+                                                },
+                                                component: yytx, // 具体路由的版块
+                                            });
+                                        }else {
+                                            // 页面的切换
+                                            this.props.navigator.push({
+                                                //传递参数
+                                                passProps:{
+                                                    userId : rowData.persons.id,
+                                                    phone : rowData.persons.SubjMP,
+                                                    patient: rowData.persons
+                                                },
+                                                component: yytx, // 具体路由的版块
+                                            });
+                                        }
+                                    }},
+                                    {text: '取消'}
+                                ]
+                            )
+                        }}>
+                            <MLTableCell title={'受试者编号:' + rowData.persons.USubjID} subTitle={"姓名缩写:" + rowData.persons.SubjIni + "   " +((rowData.persons.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2)? ('分组:' + (rowData.persons.Arm == null ? "无" : rowData.persons.Arm)) : "") } subTitleColor = {'black'} rightTitle={grps.length == 1 ? "给予研究治疗" :('随机号:' + rowData.persons.Random)} rightTitleColor = {'black'}/>
+                        </TouchableOpacity>
+                    )
+                }
+            }else {
+                return(
+                    <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:不适用")) : "")} subTitleColor = {'black'} rightTitle={'筛选失败'} rightTitleColor = {'gray'}/>
+                )
+            }
         }
+
+
+
+        // if (rowData.isSuccess == 1) {
+        //     if (rowData.users.isOut == 1) {
+        //         return(
+        //             <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'已经完成或者退出'} rightTitleColor = {'gray'}/>
+        //         )
+        //     }else{
+        //         if (rowData.isSuccess == 1){
+        //             if (rowData.Random == -1) {
+        //                 return(
+        //                     <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={"姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2) ? ((rowData.Arm != null ? ('' + rowData.Arm) : "分组:无")) : "")}
+        //                                  subTitleColor={'black'} rightTitle={'随机号:未取'} rightTitleColor = {'gray'}/>
+        //                 )
+        //             }else{
+        //                 return (
+        //                     <TouchableOpacity onPress={()=> {
+        //                         console.log('xmxmxm')
+        //                         console.log(rowData)
+        //                         //错误
+        //                         Alert.alert(
+        //                             "提示:",
+        //                             "请选择你要操作的功能",
+        //                             [
+        //                                 {text: '发送用药提醒短信', onPress: () => {
+        //                                     //判断该研究是否提供药物号
+        //                                     if (researchParameter.researchParameter.BlindSta == 1){
+        //                                         // 页面的切换
+        //                                         this.props.navigator.push({
+        //                                             //传递参数
+        //                                             passProps:{
+        //                                                 userId : rowData.id,
+        //                                                 phone : rowData.users.SubjMP,
+        //                                                 patient: rowData.users
+        //                                             },
+        //                                             component: yytx, // 具体路由的版块
+        //                                         });
+        //                                     }else if (researchParameter.researchParameter.BlindSta == 2){
+        //                                         // 页面的切换
+        //                                         this.props.navigator.push({
+        //                                             //传递参数
+        //                                             passProps:{
+        //                                                 userId : rowData.id,
+        //                                                 phone : rowData.users.SubjMP,
+        //                                                 patient: rowData.users
+        //                                             },
+        //                                             component: yytx, // 具体路由的版块
+        //                                         });
+        //                                     }else {
+        //                                         // 页面的切换
+        //                                         this.props.navigator.push({
+        //                                             //传递参数
+        //                                             passProps:{
+        //                                                 userId : rowData.id,
+        //                                                 phone : rowData.users.SubjMP,
+        //                                                 patient: rowData.users
+        //                                             },
+        //                                             component: yytx, // 具体路由的版块
+        //                                         });
+        //                                     }
+        //                                 }},
+        //                                 {text: '取消'}
+        //                             ]
+        //                         )
+        //                     }}>
+        //                         <MLTableCell title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor={'black'}
+        //                                      rightTitle={'随机号:' + rowData.Random}/>
+        //                     </TouchableOpacity>
+        //                 )
+        //             }
+        //         }
+        //     }
+        // }else{
+        //     return(
+        //         <MLTableCell isArrow = {false} title={'受试者编号:' + rowData.USubjID} subTitle={rowData.SubjIni} subTitleColor = {'black'} rightTitle={'筛选失败'} rightTitleColor = {'gray'}/>
+        //     )
+        // }
     },
 });
 
