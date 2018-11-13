@@ -715,6 +715,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 7TXF746582;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -1172,7 +1173,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Knowlands MedPharm Consulting Co., Ltd (7TXF746582)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7TXF746582;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1211,7 +1212,7 @@
 				CODE_SIGN_ENTITLEMENTS = nlyyAPP/nlyyAPP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Knowlands MedPharm Consulting Co., Ltd (7TXF746582)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7TXF746582;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
