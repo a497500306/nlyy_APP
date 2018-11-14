@@ -866,7 +866,7 @@ var MLPageNumberUpDate = React.createClass({
                                 },
                                 body: JSON.stringify({
                                     id : self.state.modelData.id,
-                                    imageUrl: 'http://oxpati5fy.bkt.clouddn.com/' + responseJson.key,
+                                    imageUrl: settings.imageUrl + responseJson.key,
                                     StudyID : Users.Users[0].StudyID,
                                     Subjects : this.props.data,
                                     CRFModeulesName : "页码",
@@ -944,7 +944,7 @@ var MLPageNumberUpDate = React.createClass({
                                     },
                                     body: JSON.stringify({
                                         id: self.state.modelData.id,
-                                        imageUrl: 'http://oxpati5fy.bkt.clouddn.com/' + responseJson.key,
+                                        imageUrl: settings.imageUrl + responseJson.key,
                                         StudyID: Users.Users[0].StudyID,
                                         Subjects: this.props.data,
                                         CRFModeulesName: "页码",
@@ -1003,7 +1003,7 @@ var MLPageNumberUpDate = React.createClass({
                                 },
                                 body: JSON.stringify({
                                     id: self.state.modelData.id,
-                                    imageUrl: 'http://oxpati5fy.bkt.clouddn.com/' + responseJson.key,
+                                    imageUrl: settings.imageUrl + responseJson.key,
                                     StudyID: Users.Users[0].StudyID,
                                     Subjects: this.props.data,
                                     CRFModeulesName: "页码",
@@ -1082,7 +1082,7 @@ var MLPageNumberUpDate = React.createClass({
                                     },
                                     body: JSON.stringify({
                                         id: self.state.modelData.id,
-                                        imageUrl: 'http://oxpati5fy.bkt.clouddn.com/' + responseJson.key,
+                                        imageUrl: settings.imageUrl + responseJson.key,
                                         StudyID: Users.Users[0].StudyID,
                                         Subjects: this.props.data,
                                         CRFModeulesName: "页码",

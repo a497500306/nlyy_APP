@@ -15,7 +15,8 @@ import {
     TextInput,
     Platform,
     ActivityIndicator,
-    Image
+    Image,
+    Linking
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -29,6 +30,8 @@ var TimerMixin = require('react-timer-mixin');//定时器
 
 var SelectionStudy = require('../MLSelectionStudy/MLSelectionStudy');
 
+var netTool = require('../../kit/net/netTool'); //网络请求
+
 var settings = require("../../settings");
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
@@ -39,44 +42,108 @@ var UserData = require('../../entity/UserData');
 import JPushModule from 'jpush-react-native';
 // var ProgressHUD = require('react-native-progress-hud');
 
-var login = React.createClass({
-    mixins: [TimerMixin],
+export default class Login extends Component{
+    // mixins: [TimerMixin]
 
-    getInitialState() {
-        return {
-            zhanghao:"",
-            yanzhenma:"",
-            dataYZM:"190199",//服务器传回的验证码
-            isYZMBtn:false,//是否可以点击验证码
-            YZMBtnTime:0,//倒数时间
-            animating: false,//是否显示菊花
-            registrationId:''
-        }
-    },
+    state =  {
+        zhanghao:"",
+        yanzhenma:"",
+        dataYZM:"190199",//服务器传回的验证码
+        isYZMBtn:false,//是否可以点击验证码
+        YZMBtnTime:0,//倒数时间
+        animating: false,//是否显示菊花
+        registrationId:''
+    }
     // 复杂的操作:定时器\网络请求
-    componentDidMount(){
+    async componentDidMount(){
         var self = this;
         JPushModule.getRegistrationID((registrationId) => {
             self.setState({
                 registrationId:registrationId
             })
         });
-        //计时器
-        this.setInterval(
-            () => {
-                // 页面的切换
-                if (this.state.YZMBtnTime != 0){
-                    console.log(this.state.YZMBtnTime)
-                    this.setState({YZMBtnColor: 'gray'});
-                    this.setState({YZMBtnTime:this.state.YZMBtnTime-1})
-                }else{
-                    this.setState({YZMBtnColor: 'rgba(0,136,212,1.0)'});
-                    this.setState({isYZMBtn:false})
-                }
-            },
-            1000
-        );
-    },
+        // //计时器
+        // this.setInterval(
+        //     () => {
+        //         // 页面的切换
+        //         if (this.state.YZMBtnTime != 0){
+        //             console.log(this.state.YZMBtnTime)
+        //             this.setState({YZMBtnColor: 'gray'});
+        //             this.setState({YZMBtnTime:this.state.YZMBtnTime-1})
+        //         }else{
+        //             this.setState({YZMBtnColor: 'rgba(0,136,212,1.0)'});
+        //             this.setState({isYZMBtn:false})
+        //         }
+        //     },
+        //     1000
+        // );
+        //异步转同步
+        // let data = await doSomething(0)
+        // await doOther(data)
+        // console.log('///')
+
+        netTool.post(settings.fwqUrl +"/app/getDetectNewVersion",{version : settings.version})
+        .then((responseJson) => {
+            console.log("更新")
+            console.log(responseJson.title , responseJson.text , responseJson.updateType)
+            this.showUpdate(responseJson.title , responseJson.text , responseJson.updateType)
+        })
+        .catch((error)=>{
+
+        })
+    }
+
+    // 显示更新
+    showUpdate=(title,text,updateType)=>{
+        if (updateType == 0) {
+            return
+        }
+        //1.普通更新,2.强制更新
+        var url = Platform.OS == 'ios' ? 'https://itunes.apple.com/cn/app/qq/id1219210291?mt=8' : 'https://a.app.qq.com/o/simple.jsp?pkgname=com.nlyyapp&channel=0002160650432d595942&fromcase=60001'
+        console.log("URL++"+url)
+        let btns = updateType == 2 ? [
+            {text:'更新',onPress:()=>{
+                console.log('点击跳转');
+                Linking.openURL(url)
+                .catch((err)=>{
+                  console.log('An error occurred', err);
+                });
+
+                this.showUpdate(title,text,updateType)
+            }}
+        ] : [
+            {text:'更新',onPress:()=>{
+                console.log('点击跳转222');
+                Linking.openURL(url)
+                .catch((err)=>{
+                  console.log('An error occurred', err);
+                });
+            }},{text:'取消'}]
+        Alert.alert(
+            title,
+            text,
+            btns
+        )
+    }
+    
+
+    componentWillUnmount = () => {
+        clearInterval(this.interval)
+    }
+
+    countDown = seconds => {
+
+        this.setState({ YZMBtnTime: seconds }, () => {
+            this.interval = setInterval(() => this.tick(), 1000);
+        });
+    };
+
+    tick = () => {
+        const { YZMBtnTime } = this.state;
+        if (YZMBtnTime) return this.setState({ YZMBtnTime: YZMBtnTime - 1 });
+        clearInterval(this.interval);
+    };
+
     render(){
         return(
             <View style={styles.container}>
@@ -104,7 +171,7 @@ var login = React.createClass({
                                    clearButtonMode="while-editing"
                                    onChangeText={this.onYanzhenma}//获取输入
                         />
-                         <TouchableOpacity style={styles.yanzhengmaBtnStyle} onPress={this.getIDCode} disabled={this.state.isYZMBtn}>
+                         <TouchableOpacity style={styles.yanzhengmaBtnStyle} onPress={this.getIDCode} disabled={this.state.YZMBtnTime?true:false}>
                             <Text style={{color:'white',fontSize: 14}}>
                                 {this.state.YZMBtnTime===0 ? '发送验证码':this.state.YZMBtnTime + 's后重发'}
                             </Text>
@@ -142,30 +209,31 @@ var login = React.createClass({
                 </View>
             </View>
         )
-    },
+    }
 
-    onChange(files, type, index) {
+    onChange = (files, type, index)=> {
         console.log(files, type, index);
         this.setState({
             files,
         });
-    },
+    }
 
     //输入账号时
-    onZhanghao(text){
+    onZhanghao = (text) =>{
         this.setState({zhanghao: text});
-    },
+    }
 
     //输入验证码时
-    onYanzhenma(text){
+    onYanzhenma =(text)=>{
         this.setState({yanzhenma: text});
-    },
+    }
 
     //获取验证码
-    getIDCode(){
-
+    getIDCode =()=>{
+        console.log('go!!')
         //开启定时器倒数
-        this.setState({YZMBtnTime:60,isYZMBtn:true})
+        // this.setState({YZMBtnTime:60,isYZMBtn:true})
+        this.countDown(60)
         //判断手机号是否输入11位
         if (this.state.zhanghao.length == 11){
             //发送验证码网络请求
@@ -245,10 +313,10 @@ var login = React.createClass({
                 ]
             )
         }
-    },
+    }
 
     //登录
-    getLogin(){
+    getLogin =()=>{
         // this.showProgressHUD();
         if (this.state.zhanghao.length != 11){
             Alert.alert(
@@ -322,7 +390,7 @@ var login = React.createClass({
                 this.setState({animating:false});
             });
     }
-})
+}
 
 
 const styles = StyleSheet.create({
@@ -403,4 +471,4 @@ const styles = StyleSheet.create({
 });
 
 //输出
-module.exports = login
+// module.exports = login

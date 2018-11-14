@@ -16,7 +16,8 @@ import {
     NativeModules
 } from 'react-native';
 
-var Login = require('../MLLogin/MLLogin')
+// var Login = require('../MLLogin/MLLogin')
+import Login from '../MLLogin/MLLogin'
 
 var Main = React.createClass({
     componentDidMount(){
