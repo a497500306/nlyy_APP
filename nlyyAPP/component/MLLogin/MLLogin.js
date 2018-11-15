@@ -103,7 +103,6 @@ export default class Login extends Component{
         console.log("URL++"+url)
         let btns = updateType == 2 ? [
             {text:'更新',onPress:()=>{
-                console.log('点击跳转');
                 Linking.openURL(url)
                 .catch((err)=>{
                   console.log('An error occurred', err);
@@ -113,7 +112,6 @@ export default class Login extends Component{
             }}
         ] : [
             {text:'更新',onPress:()=>{
-                console.log('点击跳转222');
                 Linking.openURL(url)
                 .catch((err)=>{
                   console.log('An error occurred', err);
@@ -401,7 +399,7 @@ const styles = StyleSheet.create({
     },
     daohangIOSStyle:{
         width:width,
-        height:Platform.OS == 'ios' ? 20 : 0,
+        height:Platform.OS == 'ios' ? (height == 812 ? 24 + 20 : 20) : 0,
         backgroundColor:'rgba(0,136,212,1.0)',
     },
     daohangStyle:{
@@ -462,7 +460,7 @@ const styles = StyleSheet.create({
         borderRadius:5,
     },
     biaoshiStyle:{
-        marginTop:height - 300,
+        marginTop:height - (height == 812 ? 300 + 24 + 20 : 300),
         alignItems: 'center',
         justifyContent:'center',
         width:width,

@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     },
     daohangIOSStyle:{
         width:width,
-        height:Platform.OS == 'ios' ? 20 : 0,
+        height:Platform.OS == 'ios' ? (height == 812 ? 24 + 20 : 100) : 0,
         backgroundColor:'rgba(0,136,212,1.0)',
     },
 });
