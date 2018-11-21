@@ -85,6 +85,8 @@ var Mhcx = React.createClass({
     //点击确定
     getLogin(){
         var UserSite = '';
+        console.log("身份")
+        console.log(Users.Users)
         for (var i = 0 ; i < Users.Users.length ; i++) {
             if (Users.Users[i].UserSite != null) {
                 if (Users.Users[i].UserFun == 'H2' || Users.Users[i].UserFun == 'H3' || Users.Users[i].UserFun == 'S1' ||

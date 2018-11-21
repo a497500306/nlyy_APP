@@ -24,6 +24,9 @@ var BB = require('../../node_modules/antd-mobile/lib/button/index');
 
 var Toast = require('../../node_modules/antd-mobile/lib/toast/index');
 
+// var Modal = require('../../node_modules/antd-mobile/lib/modal/index');
+// const AlertModal = Modal.alert
+
 var ImagePicker = require('../../node_modules/antd-mobile/lib/image-picker/index');
 
 var TimerMixin = require('react-timer-mixin');//定时器
@@ -120,8 +123,13 @@ export default class Login extends Component{
         Alert.alert(
             title,
             text,
-            btns
+            btns,
+            {cancelable : false}
         )
+        // const alertInstance = AlertModal('Delete', 'Are you sure???', [
+        //     { text: 'Cancel', onPress: () => console.log('cancel'), style: 'default' },
+        //     { text: 'OK', onPress: () => console.log('ok') },
+        //   ]);
     }
     
 
