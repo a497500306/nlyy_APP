@@ -17,7 +17,8 @@ import {
     Platform,
     DatePickerAndroid,
     DatePickerIOS,
-    Modal
+    Modal,
+    InteractionManager
 } from 'react-native';
 
 import Echarts from 'native-echarts';
@@ -31,24 +32,7 @@ var {width, height} = Dimensions.get('window');
 var settings = require('../../../settings');
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
-var option = {
-    title: {
-        text: 'ECharts demo'
-    },
-    tooltip: {},
-    legend: {
-        data:['中心人数']
-    },
-    xAxis: {
-        data: ['01','02','03']
-    },
-    yAxis: {},
-    series: [{
-        name: '中心人数',
-        type: 'bar',
-        data: [1, 0, 10]
-    }]
-};
+
 const data = [
     [0, 3],
     [1, 5],
@@ -61,17 +45,35 @@ var Cysxlsfb = React.createClass({
             animating: true,//是否显示菊花
             data:[],
             width:0,
-            option:null,
             startModalVisible:false,
             endModalVisible:false,
             startingDate: null,
             endDate: null,
+            total:0,
+            option:{
+                title: {
+                    text: 'ECharts demo'
+                },
+                tooltip: {},
+                legend: {
+                    data:['中心人数']
+                },
+                xAxis: {
+                    data: ['01','02','03']
+                },
+                yAxis: {},
+                series: [{
+                    name: '中心人数',
+                    type: 'bar',
+                    data: [1, 0, 10]
+                }]
+            }
         }
     },
     //耗时操作,网络请求
     componentDidMount(){
         //发送登录网络请求
-        fetch(settings.fwqUrl + "/app/getCysjlsfb", {
+        fetch(settings.fwqUrl + "/app/getNewCysjlsfb", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json; charset=utf-8',
@@ -105,7 +107,7 @@ var Cysxlsfb = React.createClass({
                             distance: 8
                         }
                     };
-                    option = {
+                    var option = {
                         title: {
                             text: '查阅随机例数分布'
                         },
@@ -127,9 +129,20 @@ var Cysxlsfb = React.createClass({
                     }
 
                     if (((width - 20)/responseJson.data.length) < 40){
-                        this.setState({animating:false,data:responseJson.data, width: 40});
+                        this.setState({
+                            animating:false,
+                            data:responseJson.data,
+                            width: 40,
+                            total : responseJson.total,
+                            option : option
+                        });
                     }else{
-                        this.setState({animating:false, data:responseJson.data, width: ((width - 20 )/responseJson.data.length)});
+                        this.setState({
+                            animating:false, 
+                            data:responseJson.data, width: ((width - 20 )/responseJson.data.length),
+                            total : responseJson.total,
+                            option : option
+                        });
                     }
                 }
             })
@@ -171,8 +184,8 @@ var Cysxlsfb = React.createClass({
                     }} leftTitle={'首页'} leftFunc={()=>{
                         this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
-                    <ScrollView showsHorizontalScrollIndicator = {true} horizontal={true} style={{height: 300}}>
-                        <View style={{height: 300,width:option.series[0].data.length < 10 ? width : option.series[0].data.length * 40}}>
+                    <ScrollView ref={(view) => { this.myScrollView = view; }} showsHorizontalScrollIndicator = {true} horizontal={true} style={{height: 300}}>
+                        <View style={{height: 300,width:this.state.option.series[0].data.length < 10 ? width : this.state.option.series[0].data.length * 40}}>
                             <View style = {{
                                 height : 44,
                                 left : 8,
@@ -196,7 +209,17 @@ var Cysxlsfb = React.createClass({
                                 </Text>
                             </TouchableOpacity>
                             
-                            <Echarts option={option} height={300} width={option.series[0].data.length < 10 ? width : option.series[0].data.length * 40}/>
+                            <Echarts option={this.state.option} height={300} width={this.state.option.series[0].data.length < 10 ? width : this.state.option.series[0].data.length * 40}/>
+                            
+                            <View style = {{
+                                height : 44,
+                                left : 8,
+                                justifyContent : 'center'
+                            }}><Text style={{
+                                fontSize : 18,
+                                fontWeight: 'bold'
+                            }}>{'研究合计总例数：' + this.state.total}</Text></View>
+                            
                             <Modal visible={this.state.startModalVisible} transparent={true}>
                                 <View style={[styles.container,{justifyContent: 'center',backgroundColor:'rgba(0,0,0,0.5)'}]}>
                                     <View style={{backgroundColor:'white'}}>
@@ -252,11 +275,9 @@ var Cysxlsfb = React.createClass({
     getQuery(){
 
         Toast.loading('请稍候...',60);
-        netTool.post(settings.fwqUrl +"/app/getNewCysjlsfb",{StudyID : Users.Users[0].StudyID,startDate:this.state.startDate,endDate:this.state.endDate})
+        netTool.post(settings.fwqUrl +"/app/getNewCysjlsfb",{StudyID : Users.Users[0].StudyID,startingDate:this.state.startingDate,endDate:this.state.endDate})
         .then((responseJson) => {
             Toast.hide()
-            console.log(内容)
-            console.log(responseJson.data)
             if (responseJson.isSucceed != 400){
                 //移除等待
                 this.setState({animating:false});
@@ -278,7 +299,7 @@ var Cysxlsfb = React.createClass({
                         distance: 8
                     }
                 };
-                option = {
+                var option = {
                     title: {
                         text: '查阅随机例数分布'
                     },
@@ -300,9 +321,29 @@ var Cysxlsfb = React.createClass({
                 }
 
                 if (((width - 20)/responseJson.data.length) < 40){
-                    this.setState({animating:false,data:responseJson.data, width: 40});
+                    this.setState({
+                        animating:false,
+                        data:responseJson.data, 
+                        width: 40,
+                        total : responseJson.total,
+                        option : option
+                    });
+                    InteractionManager.runAfterInteractions(() => {
+                        this.myScrollView.scrollTo({ x: 1, y: 0, animated: false});
+                        this.myScrollView.scrollTo({ x: 0, y: 0, animated: true});
+                     });
                 }else{
-                    this.setState({animating:false, data:responseJson.data, width: ((width - 20 )/responseJson.data.length)});
+                    this.setState({
+                        animating:false, 
+                        data:responseJson.data, 
+                        width: ((width - 20 )/responseJson.data.length),
+                        total : responseJson.total,
+                        option : option
+                    });
+                    InteractionManager.runAfterInteractions(() => {
+                        this.myScrollView.scrollTo({ x: 1, y: 0, animated: false});
+                        this.myScrollView.scrollTo({ x: 0, y: 0, animated: true});
+                     });
                 }
             }
         })
@@ -312,26 +353,49 @@ var Cysxlsfb = React.createClass({
     },
 
     //开始时间
-    getStartDate(){
+    async getStartDate(){
         if (Platform.OS == "ios"){
             this.setState({
                 startModalVisible : true,
-                startingDate: new Date()
+                startingDate: (this.state.startingDate == null ? new Date() : this.state.startingDate)
             })
         }else{
-            
+            try {
+                const {action, year, month, day} = await DatePickerAndroid.open({
+                  // 要设置默认值为今天的话，使用`new Date()`即可。
+                  // 下面显示的会是2020年5月25日。月份是从0开始算的。
+                  date: (this.state.startingDate == null ? new Date() : this.state.startingDate),
+                  maxDate : new Date()
+                });
+                if (action !== DatePickerAndroid.dismissedAction) {
+                    this.setState({startingDate: new Date(year,month,day)})
+                }
+              } catch ({code, message}) {
+                console.warn('Cannot open date picker', message);
+              }
         }
     },
 
     //结束时间
-    getEndDate(){
+    async getEndDate(){
         if (Platform.OS == "ios"){
             this.setState({
                 endModalVisible : true,
-                endDate: new Date()
+                endDate: (this.state.endDate == null ? new Date() : this.state.endDate)
             })
         }else{
-            
+            try {
+                const {action, year, month, day} = await DatePickerAndroid.open({
+                  date: (this.state.endDate == null ? new Date() : this.state.endDate),
+                  maxDate : new Date()
+                });
+                if (action !== DatePickerAndroid.dismissedAction) {
+                  // 这里开始可以处理用户选好的年月日三个参数：year, month (0-11), day
+                    this.setState({endDate: new Date(year,month,day)})
+                }
+              } catch ({code, message}) {
+                console.warn('Cannot open date picker', message);
+              }
         }
     },
 
