@@ -32,6 +32,8 @@ var {width, height} = Dimensions.get('window');
 var settings = require('../../../settings');
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
+var moment = require('moment');
+moment().format();
 
 const data = [
     [0, 3],
@@ -50,6 +52,8 @@ var Cysxlsfb = React.createClass({
             startingDate: null,
             endDate: null,
             total:0,
+            queryTime : moment().format('YYYY/MM/DD HH:mm:ss'),
+            names : [],
             option:{
                 title: {
                     text: 'ECharts demo'
@@ -108,9 +112,6 @@ var Cysxlsfb = React.createClass({
                         }
                     };
                     var option = {
-                        title: {
-                            text: '查阅随机例数分布'
-                        },
                         tooltip: {},
                         legend: {
                             data:['中心人数']
@@ -134,14 +135,18 @@ var Cysxlsfb = React.createClass({
                             data:responseJson.data,
                             width: 40,
                             total : responseJson.total,
-                            option : option
+                            option : option,
+                            queryTime : moment().format('YYYY/MM/DD HH:mm:ss'),
+                            names: responseJson.names
                         });
                     }else{
                         this.setState({
                             animating:false, 
                             data:responseJson.data, width: ((width - 20 )/responseJson.data.length),
                             total : responseJson.total,
-                            option : option
+                            option : option,
+                            queryTime : moment().format('YYYY/MM/DD HH:mm:ss'),
+                            names: responseJson.names
                         });
                     }
                 }
@@ -184,8 +189,8 @@ var Cysxlsfb = React.createClass({
                     }} leftTitle={'首页'} leftFunc={()=>{
                         this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
                     }}/>
-                    <ScrollView ref={(view) => { this.myScrollView = view; }} showsHorizontalScrollIndicator = {true} horizontal={true} style={{height: 300}}>
-                        <View style={{height: 300,width:this.state.option.series[0].data.length < 10 ? width : this.state.option.series[0].data.length * 40}}>
+                    <ScrollView showsHorizontalScrollIndicator = {true} style={{flex: 1}}>
+                        <View style={{width:width}}>
                             <View style = {{
                                 height : 44,
                                 left : 8,
@@ -196,11 +201,11 @@ var Cysxlsfb = React.createClass({
                             }}>选择查询日期</Text></View>
                             <View style = {{flexDirection : 'row', justifyContent:'space-around' , alignItems : 'center', width : width , height : 44}}>
                                 <TouchableOpacity onPress={this.getStartDate}>
-                                    <Text style = {{color : 'rgba(0,136,212,1.0)' , fontSize : 15}}>{this.state.startingDate == null ? '开始时间' : this.state.startingDate.toLocaleDateString()}</Text>
+                                    <Text style = {{color : 'rgba(0,136,212,1.0)' , fontSize : 15}}>{this.state.startingDate == null ? '开始时间' : moment(this.state.startingDate).format('YYYY/MM/DD HH:mm:ss')}</Text>
                                 </TouchableOpacity>
                                 <Text style = {{color : 'gray' , fontSize : 15}}>至</Text>
                                 <TouchableOpacity onPress={this.getEndDate}>
-                                    <Text style = {{color : 'rgba(0,136,212,1.0)' , fontSize : 15}}>{this.state.endDate == null ? '结束时间' : this.state.endDate.toLocaleDateString()}</Text>
+                                    <Text style = {{color : 'rgba(0,136,212,1.0)' , fontSize : 15}}>{this.state.endDate == null ? '结束时间' : moment(this.state.endDate).format('YYYY/MM/DD HH:mm:ss')}</Text>
                                 </TouchableOpacity>
                             </View>
                             <TouchableOpacity style={styles.dengluBtnStyle} onPress={this.getQuery}>
@@ -208,8 +213,20 @@ var Cysxlsfb = React.createClass({
                                     查 询
                                 </Text>
                             </TouchableOpacity>
-                            
-                            <Echarts option={this.state.option} height={300} width={this.state.option.series[0].data.length < 10 ? width : this.state.option.series[0].data.length * 40}/>
+
+                            <View style = {{
+                                height : 44,
+                                left : 8,
+                                justifyContent : 'center'
+                            }}><Text style={{
+                                fontSize : 18,
+                                fontWeight: 'bold'
+                            }}>{'查询时间：' + this.state.queryTime}</Text></View>
+                            <ScrollView ref={(view) => { this.myScrollView = view; }} horizontal={true} >
+                            <View style={{justifyContent:"center" , height: 250,width:this.state.option.series[0].data.length < 10 ? width : this.state.option.series[0].data.length * 40}}>
+                                <Echarts option={this.state.option} height={320} width={this.state.option.series[0].data.length < 10 ? width : this.state.option.series[0].data.length * 40}/>
+                            </View>
+                            </ScrollView>
                             
                             <View style = {{
                                 height : 44,
@@ -219,14 +236,16 @@ var Cysxlsfb = React.createClass({
                                 fontSize : 18,
                                 fontWeight: 'bold'
                             }}>{'研究合计总例数：' + this.state.total}</Text></View>
-                            
+                            {this.setNamesView()}
+                        </View>
+                    </ScrollView>
                             <Modal visible={this.state.startModalVisible} transparent={true}>
                                 <View style={[styles.container,{justifyContent: 'center',backgroundColor:'rgba(0,0,0,0.5)'}]}>
                                     <View style={{backgroundColor:'white'}}>
                                         <DatePickerIOS
                                             date={this.state.startingDate}
                                             maximumDate={new Date()}
-                                            mode={'date'}
+                                            mode={'datetime'}
                                             onDateChange={this.setStartDate}
                                         />
                                         <TouchableOpacity style={[styles.dengluBtnStyle]} onPress={this.getChooseOK}>
@@ -248,7 +267,7 @@ var Cysxlsfb = React.createClass({
                                         <DatePickerIOS
                                             date={this.state.endDate}
                                             maximumDate={new Date()}
-                                            mode={'date'}
+                                            mode={'datetime'}
                                             onDateChange={this.setEndDate}
                                         />
                                         <TouchableOpacity style={[styles.dengluBtnStyle]} onPress={this.getChooseOK}>
@@ -264,11 +283,28 @@ var Cysxlsfb = React.createClass({
                                     </View>
                                 </View>
                             </Modal>
-                        </View>
-                    </ScrollView>
                 </View>
             );
         }
+    },
+
+    setNamesView(){
+        var cells = []
+        for (var i = 0 ; i < this.state.names.length ; i++) {
+            var name = this.state.names[i]
+            var data = this.state.data[i]
+            cells.push(
+                <View style = {{
+                                marginTop : 5,
+                                marginLeft : 8,
+                                marginRight : 8,
+                                justifyContent : 'center'
+                            }}><Text style={{
+                                fontSize : 14,
+                            }}>{data[0] + '：' + name}</Text></View>
+            )
+        }
+        return cells
     },
 
     //查询
@@ -300,9 +336,6 @@ var Cysxlsfb = React.createClass({
                     }
                 };
                 var option = {
-                    title: {
-                        text: '查阅随机例数分布'
-                    },
                     tooltip: {},
                     legend: {
                         data:['中心人数']
@@ -326,7 +359,9 @@ var Cysxlsfb = React.createClass({
                         data:responseJson.data, 
                         width: 40,
                         total : responseJson.total,
-                        option : option
+                        option : option,
+                        queryTime : moment().format('YYYY/MM/DD HH:mm:ss'),
+                        names: responseJson.names
                     });
                     InteractionManager.runAfterInteractions(() => {
                         this.myScrollView.scrollTo({ x: 1, y: 0, animated: false});
@@ -338,7 +373,9 @@ var Cysxlsfb = React.createClass({
                         data:responseJson.data, 
                         width: ((width - 20 )/responseJson.data.length),
                         total : responseJson.total,
-                        option : option
+                        option : option,
+                        queryTime : moment().format('YYYY/MM/DD HH:mm:ss'),
+                        names: responseJson.names
                     });
                     InteractionManager.runAfterInteractions(() => {
                         this.myScrollView.scrollTo({ x: 1, y: 0, animated: false});
@@ -387,7 +424,7 @@ var Cysxlsfb = React.createClass({
             try {
                 const {action, year, month, day} = await DatePickerAndroid.open({
                   date: (this.state.endDate == null ? new Date() : this.state.endDate),
-                  maxDate : new Date()
+                  maxDate : moment().add(1, 'days').toDate()
                 });
                 if (action !== DatePickerAndroid.dismissedAction) {
                   // 这里开始可以处理用户选好的年月日三个参数：year, month (0-11), day
