@@ -25,8 +25,6 @@ import {
 
 import Echarts from 'native-echarts';
 import Chart from 'react-native-chart';
-var Toast = require('../../../node_modules/antd-mobile/lib/toast/index');
-var netTool = require('../../../kit/net/netTool'); //网络请求
 
 var Users = require('../../../entity/Users');
 var Dimensions = require('Dimensions');
@@ -34,6 +32,8 @@ var {width, height} = Dimensions.get('window');
 var settings = require('../../../settings');
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
 var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityIndicatorView');
+var Toast = require('../../../node_modules/antd-mobile/lib/toast/index');
+var netTool = require('../../../kit/net/netTool'); //网络请求
 var moment = require('moment');
 moment().format();
 const data = [
@@ -312,6 +312,10 @@ var Cysxlsfb = React.createClass({
 
     //查询
     getQuery(){
+        if (moment(this.state.startingDate) > moment(this.state.endDate)) {
+            Toast.fail('请选择正确的时间', 1);
+            return
+        }
         Toast.loading('请稍候...',60);
         netTool.post(settings.fwqUrl +"/app/getNewCysxsblsfb",{StudyID : Users.Users[0].StudyID,startingDate:this.state.startingDate,endDate:this.state.endDate})
         .then((responseJson) => {

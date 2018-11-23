@@ -318,6 +318,10 @@ var CytchwclsfbZX = React.createClass({
 
     //查询
     getQuery(){
+        if (moment(this.state.startingDate) > moment(this.state.endDate)) {
+            Toast.fail('请选择正确的时间', 1);
+            return
+        }
         Toast.loading('请稍候...',60);
         netTool.post(settings.fwqUrl +"/app/getNewCytchwclsfbZX",{
             StudyID : Users.Users[0].StudyID,
