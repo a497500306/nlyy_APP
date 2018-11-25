@@ -42,15 +42,19 @@ var MLTableCell = React.createClass({
 
     render() {
         return (
-                <View style={[styles.container,{height:this.props.cellHeight}]}>
-                    {/*左边图标*/}
-                    {this.renderLeftIcon()}
-                    {/*左边文字*/}
-                    {this.renderLeftText()}
-                    {/*设置右边文字*/}
-                    {this.renderRightText()}
-                    {/*设置箭头*/}
-                    {this.renderRightView()}
+                <View style={[styles.container,{minHeight:this.props.cellHeight}]}>
+                    <View>
+                        {/*左边图标*/}
+                        {this.renderLeftIcon()}
+                        {/*左边文字*/}
+                        {this.renderLeftText()}
+                    </View>
+                    <View style={{flexDirection : "row"}}>
+                        {/*设置右边文字*/}
+                        {this.renderRightText()}
+                        {/*设置箭头*/}
+                        {this.renderRightView()}
+                    </View>
                 </View>
         );
     },
@@ -69,7 +73,7 @@ var MLTableCell = React.createClass({
         if (this.props.iconTitl != ''){
             if (this.props.subTitle != ''){
                 return(
-                    <View style={{marginLeft:40}}>
+                    <View style={{marginLeft:40,marginTop:10,marginBottom:10}}>
                         <Text  numberOfLines={10} style={{color:"black"}}>
                             {this.props.title}
                         </Text>
@@ -80,7 +84,7 @@ var MLTableCell = React.createClass({
                 )
             }else {
                 return(
-                    <View style={{marginLeft:40}}>
+                    <View style={{marginLeft:40,marginTop:10,marginBottom:10}}>
                         <Text numberOfLines={10} style={{color:"black"}}>
                             {this.props.title}
                         </Text>
@@ -90,7 +94,7 @@ var MLTableCell = React.createClass({
         }else{
             if (this.props.subTitle != ''){
                 return(
-                    <View style={{marginLeft:10}}>
+                    <View style={{marginLeft:10,marginTop:10,marginBottom:10}}>
                         <Text  numberOfLines={10} style={{color:"black"}}>
                             {this.props.title}
                         </Text>
@@ -101,7 +105,7 @@ var MLTableCell = React.createClass({
                 )
             }else {
                 return(
-                    <View style={{marginLeft:10}}>
+                    <View style={{marginLeft:10,marginTop:10,marginBottom:10}}>
                         <Text  numberOfLines={10} style={{color:"black"}}>
                             {this.props.title}
                         </Text>
@@ -114,7 +118,7 @@ var MLTableCell = React.createClass({
     //设置右边文字
     renderRightText(){
         return(
-            <View style={{position:'absolute', right:30, top:0,width:width / 2 - 20,height:54,justifyContent:'center'}}>
+            <View style={{justifyContent:'center', right:15}}>
                 <Text style={{color:this.props.rightTitleColor,textAlign:'right',fontSize:13,backgroundColor:'rgba(0,0,0,0)'}}>
                     {this.props.rightTitle}
                 </Text>
@@ -126,7 +130,7 @@ var MLTableCell = React.createClass({
     renderRightView(){
         if (this.props.isArrow == true){
             return(
-                <Icon name="angle-right" size={30} color='rgba(191,191,191,1.0)' style={{position:'absolute', right:10, bottom:12}}/>
+                <Icon name="angle-right" size={30} color='rgba(191,191,191,1.0)' style={{justifyContent:'center', right:10}}/>
             )
         }
     }
@@ -141,7 +145,7 @@ const styles = StyleSheet.create({
 
         flexDirection:'row',
         // 主轴的对齐方式
-        justifyContent:'flex-start',
+        justifyContent:'space-between',
         // 垂直居中
         alignItems:'center'
     }

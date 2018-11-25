@@ -51,7 +51,8 @@ var Home = React.createClass({
             //判断用户类别
             if (data.UserFun == 'H1' || data.UserFun == 'H2' ||
                 data.UserFun == 'H3' || data.UserFun == 'S1' ||
-                data.UserFun == 'M7' || data.UserFun == 'M3' || data.UserFun == 'M1'){
+                data.UserFun == 'M7' || data.UserFun == 'M3' || 
+                data.UserFun == 'M1' || data.UserFun == 'M4'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
                     if (tableData[j].title == '受试者登记与随机'){

@@ -108,7 +108,7 @@ var PatientRM = React.createClass({
                 }
             }
             if (data.UserFun == 'H2' || data.UserFun == 'H3' || data.UserFun == 'S1' ||
-                data.UserFun == 'H4' || data.UserFun == 'H1'){
+                data.UserFun == 'H4' || data.UserFun == 'H1' || data.UserFun == 'M4'){
                 var isY = false
                 for (var j = 0 ; j < tableData.length ; j++){
                     if (tableData[j].title == '模糊查询'){
