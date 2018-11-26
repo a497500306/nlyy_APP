@@ -654,7 +654,7 @@ var Qsjh = React.createClass({
                         if (grps.length != 1 && rowData.persons.RandomDate != null && rowData.persons.RandomUserPhone != null){
                             randomStr = "\n随机时间:" + moment(rowData.persons.RandomDate).format('YYYY/MM/DD HH:mm:ss') + "\n操作用户:" + rowData.persons.RandomUserPhone.substr(rowData.persons.RandomUserPhone.length - 4)
                         } else if (grps.length == 1 && rowData.persons.RandomDate != null && rowData.persons.RandomUserPhone != null){
-                            randomStr = "\n给予时间:" + moment(rowData.persons.RandomDate).format('YYYY/MM/DD HH:mm:ss') + "\n操作用户:" + rowData.persons.RandomUserPhone.substr(rowData.persons.RandomUserPhone.length - 4)
+                            randomStr = "\n入组时间:" + moment(rowData.persons.RandomDate).format('YYYY/MM/DD HH:mm:ss') + "\n操作用户:" + rowData.persons.RandomUserPhone.substr(rowData.persons.RandomUserPhone.length - 4)
                         }
                         var userDataStr = ("姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2)? ('分组:' + (rowData.Arm == null ? "无" : rowData.Arm)) : ""))
                         return(
