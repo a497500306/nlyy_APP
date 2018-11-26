@@ -652,8 +652,11 @@ var Qsjh = React.createClass({
                         var grps = researchParameter.researchParameter.NTrtGrp.split(",");
                         var randomStr = ""
                         if (grps.length != 1 && rowData.persons.RandomDate != null && rowData.persons.RandomUserPhone != null){
-                            randomStr = "\n操作时间:" + moment(rowData.persons.RandomDate).format('YYYY/MM/DD HH:mm:ss') + "\n操作用户:" + rowData.persons.RandomUserPhone.substr(rowData.persons.RandomUserPhone.length - 4)
-                        } 
+                            randomStr = "\n随机时间:" + moment(rowData.persons.RandomDate).format('YYYY/MM/DD HH:mm:ss') + "\n操作用户:" + rowData.persons.RandomUserPhone.substr(rowData.persons.RandomUserPhone.length - 4)
+                        } else if (grps.length == 1 && rowData.persons.RandomDate != null && rowData.persons.RandomUserPhone != null){
+                            randomStr = "\n给予时间:" + moment(rowData.persons.RandomDate).format('YYYY/MM/DD HH:mm:ss') + "\n操作用户:" + rowData.persons.RandomUserPhone.substr(rowData.persons.RandomUserPhone.length - 4)
+                        }
+                        var userDataStr = ("姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2)? ('分组:' + (rowData.Arm == null ? "无" : rowData.Arm)) : ""))
                         return(
                             <TouchableOpacity onPress={()=>{
                                 if (this.props.isImage == 1){
@@ -752,7 +755,14 @@ var Qsjh = React.createClass({
                             }}>
                                 <MLTableCell 
                                 title={'受试者编号:' + rowData.USubjID} 
-                                subTitle={("姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2)? ('分组:' + (rowData.Arm == null ? "无" : rowData.Arm)) : "") + randomStr)} 
+                                // subTitle={("姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2)? ('分组:' + (rowData.Arm == null ? "无" : rowData.Arm)) : "") + randomStr)} 
+                                subTitle={([
+                                <Text>{userDataStr}</Text>,
+                                <Text style={{
+                                    fontSize:12,
+                                    color:'gray'
+                                }}>{randomStr}</Text>
+                                ])} 
                                 subTitleColor = {'black'} 
                                 rightTitle={grps.length == 1 ? "给予研究治疗":'随机号:' + rowData.Random} 
                                 rightTitleColor = {'black'}/>

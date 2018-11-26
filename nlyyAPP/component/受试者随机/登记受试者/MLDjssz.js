@@ -468,28 +468,28 @@ var Xzsxcgssz = React.createClass({
             )
             return
         }
-        if (this.state.phone.length != 11){
-            //错误
-            Alert.alert(
-                '请输入正确的手机号',
-                null,
-                [
-                    {text: '确定'}
-                ]
-            )
-            return
-        }else if (/^\d+$/.test(this.state.phone) == false){
-            //判断是否为数字
-            //错误
-            Alert.alert(
-                '请输入正确的手机号',
-                null,
-                [
-                    {text: '确定'}
-                ]
-            )
-            return
-        }
+        // if (this.state.phone.length != 11){
+        //     //错误
+        //     Alert.alert(
+        //         '请输入正确的手机号',
+        //         null,
+        //         [
+        //             {text: '确定'}
+        //         ]
+        //     )
+        //     return
+        // }else if (/^\d+$/.test(this.state.phone) == false){
+        //     //判断是否为数字
+        //     //错误
+        //     Alert.alert(
+        //         '请输入正确的手机号',
+        //         null,
+        //         [
+        //             {text: '确定'}
+        //         ]
+        //     )
+        //     return
+        // }
         this.setState({
             animating: true
         })

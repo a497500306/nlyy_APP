@@ -49,7 +49,7 @@ var MLTableCell = React.createClass({
                         {/*左边文字*/}
                         {this.renderLeftText()}
                     </View>
-                    <View style={{flexDirection : "row"}}>
+                    <View style={{marginLeft:20, flexDirection : "row"}}>
                         {/*设置右边文字*/}
                         {this.renderRightText()}
                         {/*设置箭头*/}
@@ -118,8 +118,10 @@ var MLTableCell = React.createClass({
     //设置右边文字
     renderRightText(){
         return(
-            <View style={{justifyContent:'center', right:15}}>
-                <Text style={{color:this.props.rightTitleColor,textAlign:'right',fontSize:13,backgroundColor:'rgba(0,0,0,0)'}}>
+            <View style={{justifyContent:'center', right:15 ,maxWidth:width/2.0}}>
+                <Text 
+                numberOfLines={10}
+                style={{color:this.props.rightTitleColor,textAlign:'right',fontSize:13,backgroundColor:'rgba(0,0,0,0)'}}>
                     {this.props.rightTitle}
                 </Text>
             </View>
@@ -138,7 +140,7 @@ var MLTableCell = React.createClass({
 
 const styles = StyleSheet.create({
     container:{
-
+        
         backgroundColor:'white',
         borderBottomColor:'#dddddd',
         borderBottomWidth:0.5,
@@ -147,7 +149,8 @@ const styles = StyleSheet.create({
         // 主轴的对齐方式
         justifyContent:'space-between',
         // 垂直居中
-        alignItems:'center'
+        alignItems:'center',
+        width:width
     }
 });
 

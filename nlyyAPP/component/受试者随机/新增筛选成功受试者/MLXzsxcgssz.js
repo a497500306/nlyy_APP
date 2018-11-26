@@ -523,65 +523,6 @@ var Xzsxcgssz = React.createClass({
                 }
             }
         }
-        // if (researchParameter.researchParameter.LabelStraI != null){
-        //     if (rowData == researchParameter.researchParameter.LabelStraI){
-        //         if (this.state.LabelStraI.indexOf(',') != -1 ){
-        //             var sites = this.state.LabelStraI.split(",");
-        //             return(
-        //                 <TouchableOpacity onPress={()=>{
-        //                     Pickers.init({
-        //                         pickerData: sites,
-        //                         onPickerConfirm: pickedValue => {
-        //                             //ListView设置
-        //                             var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-        //                             this.setState({newLabelStraI:pickedValue[0],LabelStraI:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
-        //
-        //                         },
-        //                         onPickerCancel: pickedValue => {
-        //                             //ListView设置
-        //                             var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-        //                             this.setState({newLabelStraI:pickedValue[0],LabelStraI:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
-        //                         },
-        //                         onPickerSelect: pickedValue => {
-        //                         }
-        //                     });
-        //                     Pickers.show();
-        //                 }}>
-        //                     <MLTableCell title={rowData} rightTitle={this.state.newLabelStraI} isArrow={true}/>
-        //                 </TouchableOpacity>
-        //             )
-        //         }else {
-        //             return(
-        //                 <MLTableCell title={rowData} rightTitle={this.state.newLabelStraI} isArrow={false}/>
-        //             )
-        //         }
-        //     }
-        // }else if (this.state.newLabelStraI != '' && researchParameter.researchParameter.LabelStraI != null){
-        //     var sites = this.state.LabelStraI.split(",");
-        //     return(
-        //         <TouchableOpacity onPress={()=>{
-        //             Pickers.init({
-        //                 pickerData: sites,
-        //                 onPickerConfirm: pickedValue => {
-        //                     //ListView设置
-        //                     var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-        //                     this.setState({newLabelStraI:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
-        //
-        //                 },
-        //                 onPickerCancel: pickedValue => {
-        //                     //ListView设置
-        //                     var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-        //                     this.setState({newLabelStraI:pickedValue[0],dataSource: ds.cloneWithRows(this.state.tableData),})
-        //                 },
-        //                 onPickerSelect: pickedValue => {
-        //                 }
-        //             });
-        //             Pickers.show();
-        //         }}>
-        //             <MLTableCell title={rowData} rightTitle={this.state.newLabelStraI} isArrow={true}/>
-        //         </TouchableOpacity>
-        //     )
-        // }
         /*************/
 
          if(rowData == "受试者出生日期") {
@@ -809,28 +750,28 @@ var Xzsxcgssz = React.createClass({
             )
             return
         }
-        if (this.state.phone.length != 11){
-            //错误
-            Alert.alert(
-                '请输入正确的手机号',
-                null,
-                [
-                    {text: '确定'}
-                ]
-            )
-            return
-        }else if (/^\d+$/.test(this.state.phone) == false){
-            //判断是否为数字
-                //错误
-                Alert.alert(
-                    '请输入正确的手机号',
-                    null,
-                    [
-                        {text: '确定'}
-                    ]
-                )
-                return
-        }
+        // if (this.state.phone.length != 11){
+        //     //错误
+        //     Alert.alert(
+        //         '请输入正确的手机号',
+        //         null,
+        //         [
+        //             {text: '确定'}
+        //         ]
+        //     )
+        //     return
+        // }else if (/^\d+$/.test(this.state.phone) == false){
+        //     //判断是否为数字
+        //         //错误
+        //         Alert.alert(
+        //             '请输入正确的手机号',
+        //             null,
+        //             [
+        //                 {text: '确定'}
+        //             ]
+        //         )
+        //         return
+        // }
         if (study.study.SubStudYN == 1){
             if (this.state.zyj.length == 0){
                 //错误
