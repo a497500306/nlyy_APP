@@ -43,7 +43,7 @@ var MLTableCell = React.createClass({
     render() {
         return (
                 <View style={[styles.container,{minHeight:this.props.cellHeight}]}>
-                    <View>
+                    <View style={{flexDirection : "row"}}>
                         {/*左边图标*/}
                         {this.renderLeftIcon()}
                         {/*左边文字*/}
@@ -63,7 +63,9 @@ var MLTableCell = React.createClass({
     renderLeftIcon(){
         if (this.props.iconTitl != ''){
             return(
-                <Icon name={this.props.iconTitl} size={20} color={this.props.iconColor} style={{position:'absolute', left:10, bottom:17}}/>
+                <View style={{justifyContent:'center', left:10}}>
+                    <Icon name={this.props.iconTitl} size={20} color={this.props.iconColor}/>
+                </View>
             )
         }
     },
@@ -73,7 +75,7 @@ var MLTableCell = React.createClass({
         if (this.props.iconTitl != ''){
             if (this.props.subTitle != ''){
                 return(
-                    <View style={{marginLeft:40,marginTop:10,marginBottom:10}}>
+                    <View style={{marginLeft:20,marginTop:10,marginBottom:10}}>
                         <Text  numberOfLines={10} style={{color:"black"}}>
                             {this.props.title}
                         </Text>
@@ -84,7 +86,7 @@ var MLTableCell = React.createClass({
                 )
             }else {
                 return(
-                    <View style={{marginLeft:40,marginTop:10,marginBottom:10}}>
+                    <View style={{marginLeft:20,marginTop:10,marginBottom:10}}>
                         <Text numberOfLines={10} style={{color:"black"}}>
                             {this.props.title}
                         </Text>

@@ -383,6 +383,7 @@ var NewYwqd = React.createClass({
                             });
 
                     }},
+                    {text: '销毁'},
                     {text: '取消'}
                 ]
             )

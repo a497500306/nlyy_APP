@@ -30,6 +30,10 @@ var FPChangku = require('../仓库/保存数据/FPChangku');
 var FPZhongxin = require('../仓库/保存数据/FPZhongxin');
 var FPQDData = require('../仓库/保存数据/FPQDData');
 import Icon from 'react-native-vector-icons/FontAwesome';
+var Popup = require('../../../node_modules/antd-mobile/lib/popup/index');
+var List = require('../../../node_modules/antd-mobile/lib/list/index');
+
+var netTool = require('../../../kit/net/netTool'); //网络请求
 
 var NewYwqd = React.createClass({
     //初始化设置
@@ -170,6 +174,20 @@ var NewYwqd = React.createClass({
 
     //返回具体的cell
     renderRow(rowData,sectionID, rowID){
+        var title = (rowData.DDrugDMNumYN == 1 ? ('已废弃  ' +  (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  ')) : (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  '))
+        if (rowData.isRecycling == 1) {
+            title = "已回收"
+        }
+        if (rowData.isDestroy == 1) {
+            title = "已销毁"
+        }
+        var titleColor = rowData.DDrugDMNumYN == 1 ? 'gray' :  (rowData.DDrugNumAYN == 1 ?"red" : 'gray')
+        if (rowData.isRecycling == 1) {
+            titleColor = 'gray'
+        }
+        if (rowData.isDestroy == 1) {
+            titleColor = 'gray'
+        }
         if (this.state.tableData[rowID].isSelected == true){
             return(
                 <TouchableOpacity onPress={()=>{
@@ -195,10 +213,10 @@ var NewYwqd = React.createClass({
                     console.log(this.state.xuanzhongData)
                 }}>
                     <MLTableCell title={rowData.DrugNum}
-                                 subTitle={(rowData.DDrugDMNumYN == 1 ? ('已废弃  ' +  (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  ')) : (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  '))}
+                                 subTitle={title}
+                                 subTitleColor={titleColor}
                                  rightTitle={rowData.DDrugUseAYN == 1 ?'已发放' : '未发放'} isArrow = {false}  iconTitl='check' iconColor='rgba(0,136,212,1.0)'
                                  rightTitleColor = {rowData.DDrugUseAYN == 1 ?'red' : 'gray'}
-                                 subTitleColor={rowData.DDrugDMNumYN == 1 ? 'gray' :  (rowData.DDrugNumAYN == 1 ?"red" : 'gray')}
                     />
                 </TouchableOpacity>
             )
@@ -217,10 +235,10 @@ var NewYwqd = React.createClass({
                     this.state.title = '确 定( ' + this.state.xuanzhongData.length + ' )'
                 }}>
                     <MLTableCell title={rowData.DrugNum}
-                                 subTitle={(rowData.DDrugDMNumYN == 1 ? ('已废弃  ' +  (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  ')) : (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  '))}
+                                 subTitle={title}
+                                 subTitleColor={titleColor}
                                  rightTitle={rowData.DDrugUseAYN == 1 ?'已发放' : '未发放'} isArrow = {false}
                                  rightTitleColor = {rowData.DDrugUseAYN == 1 ?'red' : 'gray'}
-                                 subTitleColor={rowData.DDrugDMNumYN == 1 ? 'gray' :  (rowData.DDrugNumAYN == 1 ?"red" : 'gray')}
                     />
                 </TouchableOpacity>
             )
@@ -246,147 +264,69 @@ var NewYwqd = React.createClass({
     //点击确定
     getLogin(){
         if (this.state.xuanzhongData.length != 0){
+
+            var self = this
+            var array = ["请选择你想做的","激活","废弃","销毁","取消"];
+            Popup.show(
+                <View>
+                    <List renderHeader={this.renderHeader}
+                          className="popup-list"
+                    >
+                        {array.map((i, index) => (
+                            <List.Item key={index}
+                                       style = {{
+                                           textAlign:'center'
+                                       }}
+                                       onClick={()=>{
+                                           if (index == array.length - 1 || index == 0){
+                                               Popup.hide();
+                                               return;
+                                           }
+                                           if (index == 1){
+                                            self.activation()
+                                           }else if (index == 2){
+                                            self.discard()
+                                           }else if (index == 3){
+                                            self.destroy()
+                                           }
+                                           Popup.hide();
+                                       }}
+                            >
+                                <View style={{
+                                    width:width - 30,
+                                    alignItems:'center',
+                                    justifyContent: 'center',
+                                }}>
+                                    <Text style={{
+                                        fontSize:index == 0 ? 12 : 16,
+                                        color:(index == array.length - 1 ? 'red' : (index == 0 ? 'gray':'black'))
+                                    }}>{i}</Text>
+                                </View>
+                            </List.Item>
+                        ))}
+                    </List>
+                </View>,
+                {maskClosable: true,animationType: 'slide-up' }
+            )
+/*
             //弹出提示
             Alert.alert(
                 '提示:',
                 '请选择功能',
                 [
                     {text: '激活', onPress: () => {
-                        //判断药物号是否被激活
-                        for(var i = 0 ; i < this.state.tableData.length ; i++){
-                            if (this.state.tableData[i].isSelected == true){
-                                if (this.state.tableData[i].DDrugNumAYN == 1){
-                                    //错误
-                                    Alert.alert(
-                                        '提示:',
-                                        '该（批）药物号已（部分）被激活，请勿重复激活',
-                                        [
-                                            {text: '确定'}
-                                        ]
-                                    );
-                                    return;
-                                }
-                            }
-                        }
-                        //发送激活请求
-                        //发送网络请求
-                        fetch(settings.fwqUrl + "/app/getSelectedActivation", {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json; charset=utf-8',
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                ids: this.state.xuanzhongData
-                            })
-                        })
-                            .then((response) => response.json())
-                            .then((responseJson) => {
-                                this.setState({animating:false});
-                                if (responseJson.isSucceed != 400){
-                                    //错误
-                                    Alert.alert(
-                                        '提示:',
-                                        responseJson.msg,
-                                        [
-                                            {text: '确定'}
-                                        ]
-                                    )
-                                }else {
-                                    //错误
-                                    Alert.alert(
-                                        '提示:',
-                                        responseJson.msg,
-                                        [
-
-                                            {text: '确定', onPress: () => this.props.navigator.pop()}
-                                        ]
-                                    )
-                                }
-                            })
-                            .catch((error) => {//错误
-                                this.setState({animating:false});
-                                console.log(error),
-                                    //错误
-                                    Alert.alert(
-                                        '提示:',
-                                        '请检查您的网络111',
-                                        [
-                                            {text: '确定'}
-                                        ]
-                                    )
-                            });
+                        
                     }},
 
                     {text: '废弃', onPress: () => {
-                        //判断药物号是否被废弃
-                        for(var i = 0 ; i < this.state.tableData.length ; i++){
-                            if (this.state.tableData[i].isSelected == true){
-                                if (this.state.tableData[i].DDrugDMNumYN == 1){
-                                    //错误
-                                    Alert.alert(
-                                        '提示:',
-                                        '该（批）药物号已（部分）被废弃，请勿重复废弃',
-                                        [
-                                            {text: '确定'}
-                                        ]
-                                    );
-                                    return;
-                                }
-                            }
-                        }
-                        //发送废弃请求//发送网络请求
-                        fetch(settings.fwqUrl + "/app/getSelectedAbandoned", {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json; charset=utf-8',
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                ids: this.state.xuanzhongData
-                            })
-                        })
-                            .then((response) => response.json())
-                            .then((responseJson) => {
-                                this.setState({animating:false});
-                                if (responseJson.isSucceed != 400){
-                                    //错误
-                                    Alert.alert(
-                                        '提示:',
-                                        responseJson.msg,
-                                        [
-                                            {text: '确定'}
-                                        ]
-                                    )
-                                }else {
-                                    //错误
-                                    Alert.alert(
-                                        '提示:',
-                                        responseJson.msg,
-                                        [
-
-                                            {text: '确定', onPress: () => this.props.navigator.pop()}
-                                        ]
-                                    )
-                                }
-                            })
-                            .catch((error) => {//错误
-                                this.setState({animating:false});
-                                console.log(error),
-                                    //错误
-                                    Alert.alert(
-                                        '提示:',
-                                        '请检查您的网络111',
-                                        [
-                                            {text: '确定'}
-                                        ]
-                                    )
-                            });
+                        
 
                     }},
+                    {text: '销毁'},
                     {text: '取消'}
                 ]
             )
+            */
         }else{
             //错误
             Alert.alert(
@@ -397,6 +337,239 @@ var NewYwqd = React.createClass({
                 ]
             )
         }
+    },
+
+    // 激活
+    activation(){
+        //判断药物号是否被激活
+        for(var i = 0 ; i < this.state.tableData.length ; i++){
+            if (this.state.tableData[i].isSelected == true){
+                if (this.state.tableData[i].isRecycling == 1){
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        '该（批）药物号已（部分）被回收，无法激活',
+                        [
+                            {text: '确定'}
+                        ]
+                    );
+                    return;
+                }
+                if (this.state.tableData[i].isDestroy == 1){
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        '该（批）药物号已（部分）被销毁，无法激活',
+                        [
+                            {text: '确定'}
+                        ]
+                    );
+                    return;
+                }
+                if (this.state.tableData[i].DDrugNumAYN == 1){
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        '该（批）药物号已（部分）被激活，请勿重复激活',
+                        [
+                            {text: '确定'}
+                        ]
+                    );
+                    return;
+                }
+            }
+        }
+        //发送激活请求
+        //发送网络请求
+        fetch(settings.fwqUrl + "/app/getSelectedActivation", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json; charset=utf-8',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ids: this.state.xuanzhongData
+            })
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({animating:false});
+                if (responseJson.isSucceed != 400){
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        responseJson.msg,
+                        [
+                            {text: '确定'}
+                        ]
+                    )
+                }else {
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        responseJson.msg,
+                        [
+
+                            {text: '确定', onPress: () => this.props.navigator.pop()}
+                        ]
+                    )
+                }
+            })
+            .catch((error) => {//错误
+                this.setState({animating:false});
+                console.log(error),
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        '请检查您的网络111',
+                        [
+                            {text: '确定'}
+                        ]
+                    )
+            });
+    },
+
+    // 废弃
+    discard(){
+        //判断药物号是否被废弃
+        for(var i = 0 ; i < this.state.tableData.length ; i++){
+            if (this.state.tableData[i].isSelected == true){
+                if (this.state.tableData[i].isRecycling == 1){
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        '该（批）药物号已（部分）被回收，无法废弃',
+                        [
+                            {text: '确定'}
+                        ]
+                    );
+                    return;
+                }
+                if (this.state.tableData[i].isDestroy == 1){
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        '该（批）药物号已（部分）被销毁，无法废弃',
+                        [
+                            {text: '确定'}
+                        ]
+                    );
+                    return;
+                }
+                if (this.state.tableData[i].DDrugDMNumYN == 1){
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        '该（批）药物号已（部分）被废弃，请勿重复废弃',
+                        [
+                            {text: '确定'}
+                        ]
+                    );
+                    return;
+                }
+            }
+        }
+        //发送废弃请求//发送网络请求
+        fetch(settings.fwqUrl + "/app/getSelectedAbandoned", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json; charset=utf-8',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ids: this.state.xuanzhongData
+            })
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({animating:false});
+                if (responseJson.isSucceed != 400){
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        responseJson.msg,
+                        [
+                            {text: '确定'}
+                        ]
+                    )
+                }else {
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        responseJson.msg,
+                        [
+
+                            {text: '确定', onPress: () => this.props.navigator.pop()}
+                        ]
+                    )
+                }
+            })
+            .catch((error) => {//错误
+                this.setState({animating:false});
+                console.log(error),
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        '请检查您的网络111',
+                        [
+                            {text: '确定'}
+                        ]
+                    )
+            });
+    },
+
+    //销毁
+    destroy(){
+        //判断药物号是否被废弃
+        for(var i = 0 ; i < this.state.tableData.length ; i++){
+            if (this.state.tableData[i].isSelected == true){
+                if (this.state.tableData[i].isDestroy == 1){
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        '该（批）药物号已（部分）被销毁，请勿重复废弃',
+                        [
+                            {text: '确定'}
+                        ]
+                    );
+                    return;
+                }
+            }
+        }
+        netTool.post(settings.fwqUrl +"/app/getSelectedDestroy",{ids: this.state.xuanzhongData})
+        .then((responseJson) => {
+            this.setState({animating:false});
+                if (responseJson.isSucceed != 400){
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        responseJson.msg,
+                        [
+                            {text: '确定'}
+                        ]
+                    )
+                }else {
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        responseJson.msg,
+                        [
+
+                            {text: '确定', onPress: () => this.props.navigator.pop()}
+                        ]
+                    )
+                }
+        })
+        .catch((error)=>{
+            //错误
+            Alert.alert(
+                '提示:',
+                '请检查您的网络111',
+                [
+                    {text: '确定'}
+                ]
+            )
+        })
     }
 });
 
