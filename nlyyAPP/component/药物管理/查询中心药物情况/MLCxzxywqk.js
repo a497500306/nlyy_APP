@@ -236,6 +236,8 @@ var Cxzxywqk = React.createClass({
         tableData.push('已揭盲药物量')
         tableData.push('已替换药物量')
         tableData.push('已废弃药物量')
+        tableData.push('已回收药物量')
+        tableData.push('已销毁药物量')
 
         //ListView设置
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
@@ -277,6 +279,8 @@ var Cxzxywqk = React.createClass({
                     tableData.push('已揭盲药物量')
                     tableData.push('已替换药物量')
                     tableData.push('已废弃药物量')
+                    tableData.push('已回收药物量')
+                    tableData.push('已销毁药物量')
                     var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
                     this.setState({dataSource: ds.cloneWithRows(tableData)});
                     //移除等待
@@ -390,6 +394,20 @@ var Cxzxywqk = React.createClass({
         if(rowData == "已废弃药物量") {
             if (this.state.data != null){
                 berStr = this.state.data.data.YFQYWL
+            }else{
+                berStr = ''
+            }
+        }
+        if(rowData == "已回收药物量") {
+            if (this.state.data != null){
+                berStr = this.state.data.data.YHSYWL
+            }else{
+                berStr = ''
+            }
+        }
+        if(rowData == "已销毁药物量") {
+            if (this.state.data != null){
+                berStr = this.state.data.data.YXHYWL
             }else{
                 berStr = ''
             }

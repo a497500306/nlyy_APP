@@ -188,6 +188,15 @@ var NewYwqd = React.createClass({
         if (rowData.isDestroy == 1) {
             titleColor = 'gray'
         }
+        var text = rowData.DDrugUseAYN == 1 ?'已发放' : '未发放'
+        if (rowData.isRecycling == 1){
+            text = '已回收'
+        }
+        var textColor = rowData.DDrugUseAYN == 1 ?'red' : 'gray'
+        if (rowData.isRecycling == 1){
+            textColor = 'gray'
+        }
+
         if (this.state.tableData[rowID].isSelected == true){
             return(
                 <TouchableOpacity onPress={()=>{
@@ -215,8 +224,10 @@ var NewYwqd = React.createClass({
                     <MLTableCell title={rowData.DrugNum}
                                  subTitle={title}
                                  subTitleColor={titleColor}
-                                 rightTitle={rowData.DDrugUseAYN == 1 ?'已发放' : '未发放'} isArrow = {false}  iconTitl='check' iconColor='rgba(0,136,212,1.0)'
-                                 rightTitleColor = {rowData.DDrugUseAYN == 1 ?'red' : 'gray'}
+                                 rightTitle={text} 
+                                 isArrow = {false}  
+                                 iconTitl='check' iconColor='rgba(0,136,212,1.0)'
+                                 rightTitleColor = {textColor}
                     />
                 </TouchableOpacity>
             )
@@ -237,8 +248,8 @@ var NewYwqd = React.createClass({
                     <MLTableCell title={rowData.DrugNum}
                                  subTitle={title}
                                  subTitleColor={titleColor}
-                                 rightTitle={rowData.DDrugUseAYN == 1 ?'已发放' : '未发放'} isArrow = {false}
-                                 rightTitleColor = {rowData.DDrugUseAYN == 1 ?'red' : 'gray'}
+                                 rightTitle={text} isArrow = {false}
+                                 rightTitleColor = {textColor}
                     />
                 </TouchableOpacity>
             )
