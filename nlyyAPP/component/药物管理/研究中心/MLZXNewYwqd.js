@@ -266,7 +266,7 @@ var NewYwqd = React.createClass({
         if (this.state.xuanzhongData.length != 0){
 
             var self = this
-            var array = ["请选择你想做的","激活","废弃","销毁","取消"];
+            var array = ["请选择你想做的","激活","废弃","销毁","撤回销毁","取消"];
             Popup.show(
                 <View>
                     <List renderHeader={this.renderHeader}
@@ -288,6 +288,8 @@ var NewYwqd = React.createClass({
                                             self.discard()
                                            }else if (index == 3){
                                             self.destroy()
+                                           }else if (index == 4){
+                                            self.cancelDestroy()
                                            }
                                            Popup.hide();
                                        }}
@@ -362,7 +364,8 @@ var NewYwqd = React.createClass({
                         '该（批）药物号已（部分）被销毁，无法激活',
                         [
                             {text: '确定'}
-                        ]
+                        ],
+                        {cancelable : false}
                     );
                     return;
                 }
@@ -411,7 +414,8 @@ var NewYwqd = React.createClass({
                         [
 
                             {text: '确定', onPress: () => this.props.navigator.pop()}
-                        ]
+                        ],
+                        {cancelable : false}
                     )
                 }
             })
@@ -500,7 +504,8 @@ var NewYwqd = React.createClass({
                         [
 
                             {text: '确定', onPress: () => this.props.navigator.pop()}
-                        ]
+                        ],
+                        {cancelable : false}
                     )
                 }
             })
@@ -527,7 +532,75 @@ var NewYwqd = React.createClass({
                     //错误
                     Alert.alert(
                         '提示:',
-                        '该（批）药物号已（部分）被销毁，请勿重复废弃',
+                        '该（批）药物号已（部分）被销毁，请勿重复销毁',
+                        [
+                            {text: '确定'}
+                        ]
+                    );
+                    return;
+                }
+                if (this.state.tableData[i].DDrugUseAYN == 1 && this.state.tableData[i].isRecycling != 1) {
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        '该（批）药物号已（部分）已发放，无法销毁',
+                        [
+                            {text: '确定'}
+                        ]
+                    );
+                    return;
+                }
+                
+            }
+        }
+        netTool.post(settings.fwqUrl +"/app/getSelectedDestroy",{ids: this.state.xuanzhongData})
+        .then((responseJson) => {
+            this.setState({animating:false});
+                if (responseJson.isSucceed != 400){
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        responseJson.msg,
+                        [
+                            {text: '确定'}
+                        ],
+                        {cancelable : false}
+                    )
+                }else {
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        responseJson.msg,
+                        [
+
+                            {text: '确定', onPress: () => this.props.navigator.pop()}
+                        ],
+                        {cancelable : false}
+                    )
+                }
+        })
+        .catch((error)=>{
+            //错误
+            Alert.alert(
+                '提示:',
+                '请检查您的网络111',
+                [
+                    {text: '确定'}
+                ]
+            )
+        })
+    },
+
+    // 销毁撤回
+    cancelDestroy(){
+        //判断药物号是否被废弃
+        for(var i = 0 ; i < this.state.tableData.length ; i++){
+            if (this.state.tableData[i].isSelected == true){
+                if (this.state.tableData[i].isDestroy != 1){
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        '该（批）药物号已（部分）未被销毁，请勿撤回销毁',
                         [
                             {text: '确定'}
                         ]
@@ -536,7 +609,7 @@ var NewYwqd = React.createClass({
                 }
             }
         }
-        netTool.post(settings.fwqUrl +"/app/getSelectedDestroy",{ids: this.state.xuanzhongData})
+        netTool.post(settings.fwqUrl +"/app/getCancelSelectedDestroy",{ids: this.state.xuanzhongData})
         .then((responseJson) => {
             this.setState({animating:false});
                 if (responseJson.isSucceed != 400){
@@ -556,7 +629,8 @@ var NewYwqd = React.createClass({
                         [
 
                             {text: '确定', onPress: () => this.props.navigator.pop()}
-                        ]
+                        ],
+                        {cancelable : false}
                     )
                 }
         })

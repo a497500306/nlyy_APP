@@ -76,7 +76,9 @@ var Quhls = React.createClass({
             })
                 .then((response) => response.json())
                 .then((responseJson) => {
+                    console.log("-------------");
                     console.log(responseJson);
+                    console.log("-------------");
                     if (responseJson.isSucceed != 400){
                         //移除等待
                         this.setState({animating:false});

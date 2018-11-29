@@ -32,6 +32,12 @@ var MLActivityIndicatorView = require('../../MLActivityIndicatorView/MLActivityI
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var researchParameter = require('../../../entity/researchParameter')
 import Icon from 'react-native-vector-icons/FontAwesome';
+var Popup = require('../../../node_modules/antd-mobile/lib/popup/index');
+var List = require('../../../node_modules/antd-mobile/lib/list/index');
+
+var netTool = require('../../../kit/net/netTool'); //网络请求
+
+var Toast = require('../../../node_modules/antd-mobile/lib/toast/index');
 
 var QuhlsLB = React.createClass({
     getDefaultProps(){
@@ -40,86 +46,196 @@ var QuhlsLB = React.createClass({
             isTihuan : false
         }
     },
+    //耗时操作,网络请求
+    componentDidMount(){
+        //发送登录网络请求
+        fetch(settings.fwqUrl + "/app/getMedicationHistoryType", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json; charset=utf-8',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({DrugNums : this.props.userData.Drug , StudyID : Users.Users[0].StudyID})
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                //移除等待
+                this.setState({animating:false});
+                if (responseJson.isSucceed == 400){//ListView设置
+                    var tableData = this.props.userData.Drug;
+                    var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+                    this.setState({
+                        dataSource: ds.cloneWithRows(tableData),
+                        data : responseJson.data
+                    })        
+                }else {
+                    //错误
+                    Alert.alert(
+                        '提示:',
+                        responseJson.msg,
+                        [
+                            {text: '确定'}
+                        ],
+                        {cancelable : false}
+                    )
+                }
+            })
+            .catch((error) => {//错误
+                //移除等待,弹出错误
+                this.setState({animating:false});
+                //错误
+                Alert.alert(
+                    '提示:',
+                    '请检查您的网络',
+                    [
+                        {text: '确定'}
+                    ]
+                )
+
+            });
+
+        // netTool.post(settings.fwqUrl +"/app/getMedicationHistoryType",{DrugNums : this.props.userData.Drug , StudyID : Users.Users[0].StudyID})
+        // .then((responseJson) => {
+        //     //移除等待
+            
+        //     this.setState({animating:false});
+            // if (responseJson.isSucceed != 400){//ListView设置
+            //     // var tableData = this.props.userData.Drug;
+            //     // var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+            //     // this.setState({
+            //     //     dataSource: ds.cloneWithRows(tableData),
+            //     // })        
+            // }else {
+            //     //错误
+            //     Alert.alert(
+            //         '提示:',
+            //         responseJson.msg,
+            //         [
+
+            //             {text: '确定', onPress: () => this.props.navigator.pop()}
+            //         ],
+            //         {cancelable : false}
+            //     )
+            // }
+        // })
+        // .catch((error)=>{
+        //     //错误
+        //     Alert.alert(
+        //         '提示:',
+        //         '请检查您的网络111',
+        //         [
+        //             {text: '确定'}
+        //         ]
+        //     )
+        // })
+    },
 
     //初始化设置
     getInitialState() {
-        //ListView设置
-        var tableData = this.props.userData.Drug;
+
         var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
         return {
             //ListView设置
-            dataSource: ds.cloneWithRows(tableData),
+            dataSource: ds.cloneWithRows([]),
             animating: true,//是否显示菊花
             tableData:[],
+            data : {}
         }
     },
 
     render() {
-        if (this.props.isTihuan == false){
-            return (
-                <View style={styles.container}>
-                    <MLNavigatorBar title={'取药物号历史'} isBack={true} backFunc={() => {
-                        this.props.navigator.pop()
-                    }} leftTitle={'首页'} leftFunc={()=>{
-                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
-                    }}/>
-                    <ListView
-                        dataSource={this.state.dataSource}//数据源
-                        renderRow={this.renderRow}
-                    />
-                </View>
+        // if (this.state.animating == true){
+        //     return (
+        //         <View style={styles.container}>
+        //             <MLNavigatorBar title={'药物操作'} isBack={true} backFunc={() => {
+        //                 this.props.navigator.pop()
+        //             }}/>
 
-            );
-        }else{
-            return (
-                <View style={styles.container}>
-                    <MLNavigatorBar title={'替换药物号'} isBack={true} backFunc={() => {
-                        this.props.navigator.pop()
-                    }} leftTitle={'首页'} leftFunc={()=>{
-                        this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
-                    }}/>
-                    <ListView
-                        dataSource={this.state.dataSource}//数据源
-                        renderRow={this.renderRow}
-                    />
-                </View>
+        //             {/*设置完了加载的菊花*/}
+        //             <MLActivityIndicatorView />
+        //         </View>
 
-            );
-        }
-
+        //     );
+        // }else{
+            if (this.props.isTihuan == false){
+                return (
+                    <View style={styles.container}>
+                        <MLNavigatorBar title={'取药物号历史'} isBack={true} backFunc={() => {
+                            this.props.navigator.pop()
+                        }} leftTitle={'首页'} leftFunc={()=>{
+                            this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
+                        }}/>
+                        <ListView
+                            dataSource={this.state.dataSource}//数据源
+                            renderRow={this.renderRow}
+                        />
+                    </View>
+    
+                );
+            }else{
+                return (
+                    <View style={styles.container}>
+                        <MLNavigatorBar title={'替换药物号'} isBack={true} backFunc={() => {
+                            this.props.navigator.pop()
+                        }} leftTitle={'首页'} leftFunc={()=>{
+                            this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
+                        }}/>
+                        <ListView
+                            dataSource={this.state.dataSource}//数据源
+                            renderRow={this.renderRow}
+                        />
+                    </View>
+    
+                );
+            }
+        // }
     },
 
     //返回具体的cell
     renderRow(rowData,sectionID, rowID){
-        console.log("321321")
-        console.log(this.props.userData)
+        console.log(this.state.data)
+
+        var reg = new RegExp("替换药物号为")
+        var DrugNum = rowData.replace(reg,"")
+        var isRecycling = this.state.data[DrugNum]
+        console.log(isRecycling)
+        var isRecyclingStr = ""
+        if (isRecycling == 1){
+            isRecyclingStr = "(已回收)"
+        }
         if (this.props.isTihuan == false) {
             if (this.props.userData.persons.StudyDCross.length != 0){
                 return (
-                    <MLTableCell title={'受试者编号:' + this.props.userData.USubjID} subTitle={'药物号:' + rowData + '\n' + this.props.userData.persons.StudyDCross[rowID]}
+                    <TouchableOpacity onPress={()=>this.getLogin(DrugNum,isRecycling)}>
+                    <MLTableCell title={'受试者编号:' + this.props.userData.USubjID} subTitle={'药物号:' + rowData + '\n' + this.props.userData.persons.StudyDCross[rowID] + isRecyclingStr}
                                  subTitleColor={'black'}
                                  rightTitle={moment(this.props.userData.DrugDate[rowID]).format('YYYY-MM-DD HH:mm:ss')}
                                  rightTitleColor={'black'} isArrow={false}
                                  cellHeight = {64}
                     />
+                    </TouchableOpacity>
                 )
             }else if (this.props.userData.persons.DrugDose.length != 0){
                 return (
-                    <MLTableCell title={'受试者编号:' + this.props.userData.USubjID} subTitle={'药物号:' + rowData + '\n' + this.props.userData.persons.DrugDose[rowID]}
+                    <TouchableOpacity onPress={()=>this.getLogin(DrugNum,isRecycling)}>
+                    <MLTableCell title={'受试者编号:' + this.props.userData.USubjID} subTitle={'药物号:' + rowData + '\n' + this.props.userData.persons.DrugDose[rowID] + isRecyclingStr}
                                  subTitleColor={'black'}
                                  rightTitle={moment(this.props.userData.DrugDate[rowID]).format('YYYY-MM-DD HH:mm:ss')}
                                  rightTitleColor={'black'} isArrow={false}
                                  cellHeight = {64}
                     />
+                    </TouchableOpacity>
                 )
             }else{
                 return (
-                    <MLTableCell title={'受试者编号:' + this.props.userData.USubjID} subTitle={'药物号:' + rowData}
+                    <TouchableOpacity onPress={()=>this.getLogin(DrugNum,isRecycling)}>
+                    <MLTableCell title={'受试者编号:' + this.props.userData.USubjID} subTitle={'药物号:' + rowData + isRecyclingStr}
                                  subTitleColor={'black'}
                                  rightTitle={moment(this.props.userData.DrugDate[rowID]).format('YYYY-MM-DD HH:mm:ss')}
                                  rightTitleColor={'black'} isArrow={false}
                                  cellHeight = {54}
                     />
+                    </TouchableOpacity>
                 )
             }
         }else {
@@ -292,6 +408,80 @@ var QuhlsLB = React.createClass({
                 </TouchableOpacity>
             )
         }
+    },
+
+    // 点击回收药物号
+    getLogin(rowData,isRecycling){
+        var self = this
+        var array = ["请选择你想做的","回收","取消"];
+        if (isRecycling == 1) {
+            array = ["请选择你想做的","回收撤回","取消"];
+        }
+        Popup.show(
+            <View>
+                <List renderHeader={this.renderHeader}
+                      className="popup-list"
+                >
+                    {array.map((i, index) => (
+                        <List.Item key={index}
+                                   style = {{
+                                       textAlign:'center'
+                                   }}
+                                   onClick={()=>{
+                                       if (index == array.length - 1 || index == 0){
+                                           Popup.hide();
+                                           return;
+                                       }
+                                       if (index == 1){
+                                           var url = "/app/getAddRecycling"
+                                           if (isRecycling == 1){
+                                               url = "/app/getCancelRecycling"
+                                           }
+                                           Toast.loading('请稍候...',60);
+                                        netTool.post(settings.fwqUrl + url,{DrugNum : rowData , StudyID : Users.Users[0].StudyID})
+                                        .then((responseJson) => {
+                                            Toast.hide()
+                                            //错误
+                                            Alert.alert(
+                                                '提示:',
+                                                responseJson.msg,
+                                                [
+                                                    {text: '确定', onPress: () => this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[2])}
+                                                ],
+                                                {cancelable : false}
+                                            )
+                                        })
+                                        .catch((error)=>{
+                                            Toast.hide()
+                                            //错误
+                                            Alert.alert(
+                                                '提示:',
+                                                '请检查您的网络111',
+                                                [
+                                                    {text: '确定'}
+                                                ]
+                                            )
+                                        })
+                                       }
+                                       Popup.hide();
+                                   }}
+                        >
+                            <View style={{
+                                width:width - 30,
+                                alignItems:'center',
+                                justifyContent: 'center',
+                            }}>
+                                <Text style={{
+                                    fontSize:index == 0 ? 12 : 16,
+                                    color:(index == array.length - 1 ? 'red' : (index == 0 ? 'gray':'black'))
+                                }}>{i}</Text>
+                            </View>
+                        </List.Item>
+                    ))}
+                </List>
+            </View>,
+            {maskClosable: true,animationType: 'slide-up' }
+        )
     },
 
     //交叉设计取随机号
