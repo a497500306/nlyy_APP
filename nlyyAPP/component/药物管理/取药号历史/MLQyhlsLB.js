@@ -66,7 +66,8 @@ var QuhlsLB = React.createClass({
                     var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
                     this.setState({
                         dataSource: ds.cloneWithRows(tableData),
-                        data : responseJson.data
+                        data : responseJson.data,
+                        DDrugDMNumYNs : responseJson.DDrugDMNumYNs
                     })        
                 }else {
                     //错误
@@ -139,7 +140,8 @@ var QuhlsLB = React.createClass({
             dataSource: ds.cloneWithRows([]),
             animating: true,//是否显示菊花
             tableData:[],
-            data : {}
+            data : {},
+            DDrugDMNumYNs :{}
         }
     },
 
@@ -198,6 +200,7 @@ var QuhlsLB = React.createClass({
         var reg = new RegExp("替换药物号为")
         var DrugNum = rowData.replace(reg,"")
         var isRecycling = this.state.data[DrugNum]
+        var DDrugDMNumYN = this.state.DDrugDMNumYNs[DrugNum]
         console.log(isRecycling)
         var isRecyclingStr = ""
         if (isRecycling == 1){
@@ -206,7 +209,7 @@ var QuhlsLB = React.createClass({
         if (this.props.isTihuan == false) {
             if (this.props.userData.persons.StudyDCross.length != 0){
                 return (
-                    <TouchableOpacity onPress={()=>this.getLogin(DrugNum,isRecycling)}>
+                    <TouchableOpacity onPress={()=>this.getLogin(DrugNum,isRecycling,DDrugDMNumYN)}>
                     <MLTableCell title={'受试者编号:' + this.props.userData.USubjID} subTitle={'药物号:' + rowData + '\n' + this.props.userData.persons.StudyDCross[rowID] + isRecyclingStr}
                                  subTitleColor={'black'}
                                  rightTitle={moment(this.props.userData.DrugDate[rowID]).format('YYYY-MM-DD HH:mm:ss')}
@@ -217,7 +220,7 @@ var QuhlsLB = React.createClass({
                 )
             }else if (this.props.userData.persons.DrugDose.length != 0){
                 return (
-                    <TouchableOpacity onPress={()=>this.getLogin(DrugNum,isRecycling)}>
+                    <TouchableOpacity onPress={()=>this.getLogin(DrugNum,isRecycling,DDrugDMNumYN)}>
                     <MLTableCell title={'受试者编号:' + this.props.userData.USubjID} subTitle={'药物号:' + rowData + '\n' + this.props.userData.persons.DrugDose[rowID] + isRecyclingStr}
                                  subTitleColor={'black'}
                                  rightTitle={moment(this.props.userData.DrugDate[rowID]).format('YYYY-MM-DD HH:mm:ss')}
@@ -228,7 +231,7 @@ var QuhlsLB = React.createClass({
                 )
             }else{
                 return (
-                    <TouchableOpacity onPress={()=>this.getLogin(DrugNum,isRecycling)}>
+                    <TouchableOpacity onPress={()=>this.getLogin(DrugNum,isRecycling,DDrugDMNumYN)}>
                     <MLTableCell title={'受试者编号:' + this.props.userData.USubjID} subTitle={'药物号:' + rowData + isRecyclingStr}
                                  subTitleColor={'black'}
                                  rightTitle={moment(this.props.userData.DrugDate[rowID]).format('YYYY-MM-DD HH:mm:ss')}
@@ -411,7 +414,19 @@ var QuhlsLB = React.createClass({
     },
 
     // 点击回收药物号
-    getLogin(rowData,isRecycling){
+    getLogin(rowData,isRecycling,DDrugDMNumYN){
+        
+        if (DDrugDMNumYN == 1){
+            //错误
+            Alert.alert(
+                '提示:',
+                "药物号被替换",
+                [
+                    {text: '确定', onPress: () => this.props.navigator.pop}
+                ]
+            )
+            return
+        }
         var self = this
         var array = ["请选择你想做的","回收","取消"];
         if (isRecycling == 1) {
@@ -446,7 +461,7 @@ var QuhlsLB = React.createClass({
                                                 '提示:',
                                                 responseJson.msg,
                                                 [
-                                                    {text: '确定', onPress: () => this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[2])}
+                                                    {text: '确定', onPress: () => this.props.navigator.pop}
                                                 ],
                                                 {cancelable : false}
                                             )
