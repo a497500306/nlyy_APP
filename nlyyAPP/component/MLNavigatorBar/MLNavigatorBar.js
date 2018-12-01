@@ -90,7 +90,8 @@ var MLNavigatorBar = React.createClass({
             isBack:true,
             backFunc: Component.func,
             newFunc: Component.func,
-            leftFunc: Component.func
+            leftFunc: Component.func,
+            rightFunc: Component.func,
         }
     },
     render() {
