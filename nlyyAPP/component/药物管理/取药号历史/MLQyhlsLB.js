@@ -48,6 +48,11 @@ var QuhlsLB = React.createClass({
     },
     //耗时操作,网络请求
     componentDidMount(){
+        this.getData()
+    },
+
+    //获取数据
+    getData(){
         //发送登录网络请求
         fetch(settings.fwqUrl + "/app/getMedicationHistoryType", {
             method: 'POST',
@@ -59,6 +64,7 @@ var QuhlsLB = React.createClass({
         })
             .then((response) => response.json())
             .then((responseJson) => {
+                Toast.hide()
                 //移除等待
                 this.setState({animating:false});
                 if (responseJson.isSucceed == 400){//ListView设置
@@ -94,41 +100,6 @@ var QuhlsLB = React.createClass({
                 )
 
             });
-
-        // netTool.post(settings.fwqUrl +"/app/getMedicationHistoryType",{DrugNums : this.props.userData.Drug , StudyID : Users.Users[0].StudyID})
-        // .then((responseJson) => {
-        //     //移除等待
-            
-        //     this.setState({animating:false});
-            // if (responseJson.isSucceed != 400){//ListView设置
-            //     // var tableData = this.props.userData.Drug;
-            //     // var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
-            //     // this.setState({
-            //     //     dataSource: ds.cloneWithRows(tableData),
-            //     // })        
-            // }else {
-            //     //错误
-            //     Alert.alert(
-            //         '提示:',
-            //         responseJson.msg,
-            //         [
-
-            //             {text: '确定', onPress: () => this.props.navigator.pop()}
-            //         ],
-            //         {cancelable : false}
-            //     )
-            // }
-        // })
-        // .catch((error)=>{
-        //     //错误
-        //     Alert.alert(
-        //         '提示:',
-        //         '请检查您的网络111',
-        //         [
-        //             {text: '确定'}
-        //         ]
-        //     )
-        // })
     },
 
     //初始化设置
@@ -455,13 +426,14 @@ var QuhlsLB = React.createClass({
                                            Toast.loading('请稍候...',60);
                                         netTool.post(settings.fwqUrl + url,{DrugNum : rowData , StudyID : Users.Users[0].StudyID})
                                         .then((responseJson) => {
-                                            Toast.hide()
+                                            // Toast.hide()
+                                            this.getData()
                                             //错误
                                             Alert.alert(
                                                 '提示:',
                                                 responseJson.msg,
                                                 [
-                                                    {text: '确定', onPress: () => this.props.navigator.pop}
+                                                    {text: '确定'}
                                                 ],
                                                 {cancelable : false}
                                             )
