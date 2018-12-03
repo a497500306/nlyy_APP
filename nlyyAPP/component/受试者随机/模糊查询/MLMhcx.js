@@ -153,7 +153,8 @@ var Mhcx = React.createClass({
                             //传递参数
                             passProps:{
                                 data:responseJson.data,
-                                isImage: 1
+                                isImage: 1,
+                                msg:this.state.shuliang
                             }
                         });
                     }else if (this.props.isVC == 1){
