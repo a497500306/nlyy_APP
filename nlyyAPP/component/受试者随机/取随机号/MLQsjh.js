@@ -15,9 +15,11 @@ import {
     ActivityIndicator,
     Alert,
     ListView,
-    DeviceEventEmitter
+    DeviceEventEmitter,
+    Modal
 } from 'react-native';
 
+import Pickers from 'react-native-picker';
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
 var yytx = require('../用药提醒/MLYytx');
@@ -35,9 +37,13 @@ var Djssz = require('../登记受试者/MLDjssz');
 var Popup = require('../../../node_modules/antd-mobile/lib/popup/index');
 var NewIcon = require('../../../node_modules/antd-mobile/lib/icon/index');
 var List = require('../../../node_modules/antd-mobile/lib/list/index');
+var NetTool = require('../../../kit/net/netTool');
+
+var Toast = require('../../../node_modules/antd-mobile/lib/toast/index');
 // var Mhcx = require('../模糊查询/MLMhcx')
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ActionSheet from 'react-native-actionsheet';
+// import { Modal } from 'antd-mobile';
 
 const buttons = ['取消', '添加筛选成功受试者','添加筛选失败受试者','登记受试者'];
 const CANCEL_INDEX = 0;
@@ -57,7 +63,8 @@ var Qsjh = React.createClass({
     getDefaultProps(){
         return {
             data:null,
-            isImage:0
+            isImage:0,
+            msg:"",//搜索关键字
         }
     },
     //初始化设置
@@ -67,6 +74,12 @@ var Qsjh = React.createClass({
             dataSource: null,
             animating: true,//是否显示菊花
             tableData:[],
+            isScreen:false,
+            zhongxin:"",
+            suiji:"",
+            tupian:"",
+            bianhao:"",
+            shuju:""
         }
     },
     componentWillUnmount(){
@@ -254,6 +267,7 @@ var Qsjh = React.createClass({
                             }
                         }}
                     />
+                    {this.screenUI()}
                 </View>
 
             );
@@ -269,6 +283,12 @@ var Qsjh = React.createClass({
                         this.props.navigator.pop()
                     }}  leftTitle={'首页'} leftFunc={()=>{
                         this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
+                    }}  rightTitle={this.props.isImage == 1 ? "筛选" : ""} newFunc = {()=>{
+                        if (this.props.isImage != 1) {
+                            return
+                        }
+                        this.screen()
+                        
                     }}/>
                     <ListView
                         removeClippedSubviews={false}
@@ -303,8 +323,8 @@ var Qsjh = React.createClass({
                             }
                         }}
                     />
+                    {this.screenUI()}
                 </View>
-
             );
         }
     },
@@ -975,6 +995,190 @@ var Qsjh = React.createClass({
             component: MLUpdateUser, // 具体路由的版块
         });
     },
+
+    //筛选
+    screen(){
+        this.setState({
+            isScreen : true
+        })
+    },
+
+    screenUI(){
+        return([
+            <Modal visible={this.state.isScreen} transparent={true}>
+                <View style={[styles.container,{justifyContent: 'center',backgroundColor:'rgba(0,0,0,0.5)'}]}>
+                    <View style={{backgroundColor:'white'}}>
+                        <TouchableOpacity style = {[styles.screenStayle]} onPress={()=>{this.clickScreen("zhongxin")}}>
+                            <Text style = {[styles.selectTitleStayle]}>中心：</Text>
+                            <Text style = {[styles.selectTextStayle]}>{this.state.zhongxin == "" ? "未选择" : this.state.zhongxin}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {[styles.screenStayle]} onPress={()=>{this.clickScreen("suiji")}}>
+                            <Text style = {[styles.selectTitleStayle]}>随机状态：</Text>
+                            <Text style = {[styles.selectTextStayle]}>{this.state.suiji == "" ? "未选择" : this.state.suiji}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {[styles.screenStayle]} onPress={()=>{this.clickScreen("tupian")}}>
+                            <Text style = {[styles.selectTitleStayle]}>是否上传图片：</Text>
+                            <Text style = {[styles.selectTextStayle]}>{this.state.tupian == "" ? "未选择" : this.state.tupian}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {[styles.screenStayle]} onPress={()=>{this.clickScreen("bianhao")}}>
+                            <Text style = {[styles.selectTitleStayle]}>受试者编号：</Text>
+                            <Text style = {[styles.selectTextStayle]}>{this.state.bianhao == "" ? "未选择" : this.state.bianhao}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {[styles.screenStayle]} onPress={()=>{this.clickScreen("shuju")}}>
+                            <Text style = {[styles.selectTitleStayle]}>页码/模块数据行状态：</Text>
+                            <Text style = {[styles.selectTextStayle]}>{this.state.shuju == "" ? "未选择" : this.state.shuju}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.dengluBtnStyle,{marginTop:20}]} onPress={()=>{this.clickScreenConfirm()}}>
+                            <Text style={{color:'white',fontSize: 14}}>
+                                确 定
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.dengluBtnStyle]} onPress={()=>{
+                            Pickers.hide();
+                            this.setState({
+                                isScreen : false,
+                                zhongxin:"",
+                                suiji:"",
+                                tupian:"",
+                                bianhao:"",
+                                shuju:""
+                            })
+                            }}>
+                            <Text style={{color:'white',fontSize: 14}}>
+                                取 消
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
+        ])
+    },
+
+    //筛选条件
+    clickScreen(type){
+
+        var array = [];
+        if (type == "zhongxin"){
+            for (var i = 0 ; i < Users.Users.length ; i++) {
+                if (Users.Users[i].UserSite != null) {
+                    if (Users.Users[i].UserSite.indexOf(',') != -1 ) {
+                        var sites = Users.Users[i].UserSite.split(",");
+                        for (var j = 0 ; j < sites.length ; j++) {
+                            array.push(sites[j]) 
+                        }
+                    }else{
+                        array.push(Users.Users[i].UserSite) 
+                    }
+                }
+            }
+            //去重
+            array = Array.from(new Set(array))
+         }else if (type == "suiji"){
+            array = ["筛选中","已随机","筛选失败","已完成或退出"];
+        }else if (type == "tupian"){
+            array = ["是","否"];
+        }else if (type == "bianhao"){
+            array = ["按编号排序"];
+        }else if (type == "shuju"){
+            array = ["点击上传图片","等待核查","正在核查","质疑处理中","冻结"];
+        }
+
+        Pickers.init({
+            pickerData: array,
+            onPickerConfirm: pickedValue => {
+                if (type == "zhongxin"){
+                    this.setState({zhongxin:pickedValue[0]})
+                 }else if (type == "suiji"){
+                    this.setState({suiji:pickedValue[0]})
+                }else if (type == "tupian"){
+                    this.setState({tupian:pickedValue[0]})
+                }else if (type == "bianhao"){
+                    this.setState({bianhao:pickedValue[0]})
+                }else if (type == "shuju"){
+                    this.setState({shuju:pickedValue[0]})
+                }
+            },
+            onPickerCancel: pickedValue => {
+                
+            },
+            onPickerSelect: pickedValue => {
+
+            }
+        });
+        Pickers.show();
+    },
+
+    clickScreenConfirm(){
+        Pickers.hide();
+        this.setState({
+            isScreen : false,
+        })
+        var UserSite = '';
+        console.log("身份")
+        console.log(Users.Users)
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserSite != null) {
+                if (Users.Users[i].UserFun == 'H2' || Users.Users[i].UserFun == 'H3' || Users.Users[i].UserFun == 'S1' ||
+                    Users.Users[i].UserFun == 'H4' || Users.Users[i].UserFun == 'H1' || Users.Users[i].UserFun == 'M8' || Users.Users[i].UserFun == 'H5'){
+                    UserSite = Users.Users[i].UserSite
+                }
+            }
+        }
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserFun == 'H2' || Users.Users[i].UserFun == 'H3' || Users.Users[i].UserFun == 'S1' ||
+                Users.Users[i].UserFun == 'H4' || Users.Users[i].UserFun == 'H1'){
+                if (Users.Users[i].UserSiteYN == 1) {
+                    UserSite = ''
+                }
+            }
+        }
+        if (this.props.isImage == 1){
+            for (var i = 0 ; i < Users.Users.length ; i++) {
+                var data = Users.Users[i]
+                if (data.UserFun == 'S1' || data.UserFun == 'H3' || data.UserFun == 'H2' ||
+                    data.UserFun == 'H5' || data.UserFun == 'M7' || data.UserFun == 'M8' ||
+                    data.UserFun == 'M4' || data.UserFun == 'M5' || data.UserFun == 'M1' ||
+                    data.UserFun == 'C2'){
+                    if (Users.Users[i].UserSiteYN == 1) {
+                        UserSite = ''
+                    }else{
+                        UserSite = data.UserSite
+                    }
+                }
+            }
+        }
+        Toast.loading('查询中...',60);
+        NetTool.post(settings.fwqUrl +"/app/getImageVagueBasicsDataUser",{
+            str : this.state.shuliang,
+            SiteID : UserSite,
+            StudyID : Users.Users[0].StudyID,
+            zhongxin : this.state.zhongxin,
+            suiji : this.state.suiji,
+            tupian : this.state.tupian,
+            bianhao : this.state.bianhao,
+            shuju : this.state.shuju,
+        })
+        .then((responseJson) => {
+            Toast.hide()
+            //ListView设置
+            var tableData = responseJson.data;
+            this.state.tableData = tableData;
+            var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
+            this.setState({dataSource: ds.cloneWithRows(this.state.tableData)});
+
+        })
+        .catch((error)=>{
+            Toast.hide()
+            //错误
+            Alert.alert(
+                '请检查您的网络111',
+                null,
+                [
+                    {text: '确定'}
+                ]
+            )
+        })
+    }
 });
 
 
@@ -985,6 +1189,42 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         backgroundColor: 'rgba(233,234,239,1.0)',
     },
+
+    dengluBtnStyle:{
+        // 设置主轴的方向
+        flexDirection:'row',
+        // 垂直居中 ---> 设置侧轴的对齐方式
+        alignItems:'center',
+        // 设置主轴的对齐方式
+        justifyContent:'center',
+        width:width - 40,
+        marginBottom:20,
+        marginLeft:20,
+        height:40,
+        backgroundColor:'rgba(0,136,212,1.0)',
+        // 设置圆角
+        borderRadius:5,
+    },
+
+    screenStayle:{
+        marginLeft:20,
+        height:40,
+        marginRight:20,
+        borderBottomWidth : 1,
+        borderColor : "rgba(0,136,212,1.0)",
+        // 设置主轴的方向
+        flexDirection:'row',
+        alignItems:'center',
+    },
+
+    selectTitleStayle:{
+        fontSize: 14,
+    },
+
+    selectTextStayle:{
+        fontSize: 14,
+        color: 'gray'
+    }
 });
 
 // 输出组件类
