@@ -24,6 +24,11 @@ var MLNavigatorBar = require('../MLNavigatorBar/MLNavigatorBar');
 var MLLookNews = require('./查看消息/MLLookNews');
 var MLAddNews = require('./发送消息/MLAddNews')
 var settings = require("../../settings");
+var Popup = require('../../node_modules/antd-mobile/lib/popup/index');
+
+var netTool = require('../../kit/net/netTool'); //网络请求
+
+var Toast = require('../../node_modules/antd-mobile/lib/toast/index');
 //时间操作
 var moment = require('moment');
 moment().format();
@@ -143,10 +148,24 @@ var NewsList = React.createClass({
     },
     //返回具体的cell
     renderRow(rowData){
-        console.log('233232')
-        console.log(rowData)
+        var markTypeStr = ""
+        //标记状态,0:未解决,1:已解决,2:不需要解决,3:取消标记
+        if (rowData.markType == 0){
+            markTypeStr = "未解决"
+        }else if (rowData.markType == 1){
+            markTypeStr = "已解决"
+        }else if (rowData.markType == 2){
+            markTypeStr = "不需要解决"
+        }else if (rowData.markType == 3){
+            markTypeStr = ""
+        }
         return(
-            <TouchableOpacity onPress={()=> {
+            <TouchableOpacity 
+            onLongPress={()=>{
+                //错误
+                this.cellOnLongPress(rowData)
+            }}
+            onPress={()=> {
 
                 // 页面的切换
                 this.props.navigator.push({
@@ -162,8 +181,7 @@ var NewsList = React.createClass({
                     borderBottomColor:'#dddddd',
                     borderBottomWidth:0.5,
                     backgroundColor:'white',
-                    width:width,
-                    height:54
+                    width:width
                 }}>
                     <View style={{
                         flexDirection:'row',
@@ -181,13 +199,91 @@ var NewsList = React.createClass({
                             color:rowData.voiceType == 0 ? 'red' : 'gray'
                         }}>{rowData.voiceType == 0 ? '未读' : '已读'}</Text>
                     </View>
-                    <Text style={{
-                        left:15,
-                    }}>{moment(rowData.Date).format("YYYY/MM/DD H:mm:ss")}</Text>
+                    <View style={{
+                        flexDirection:'row',
+                        width:width,
+                        height:22,
+                        justifyContent:'space-between'
+                    }}>
+                        <Text style={{
+                            left:15,
+                        }}>{moment(rowData.Date).format("YYYY/MM/DD H:mm:ss")}</Text>
+                        <Text style={{
+                            right:15,
+                            // color:rowData.voiceType == 0 ? 'red' : 'gray'
+                        }}>{markTypeStr}</Text>
+                    </View>
                 </View>
             </TouchableOpacity>
         )
     },
+
+    // 长按回调
+    cellOnLongPress(rowData){
+        var array = ["请选择你想做的","已解决","不需要解决","取消标记","取消"];
+        Popup.show(
+            <View>
+                <List renderHeader={this.renderHeader}
+                      className="popup-list"
+                >
+                    {array.map((i, index) => (
+                        <List.Item key={index}
+                                   style = {{
+                                       textAlign:'center'
+                                   }}
+                                   onClick={()=>{
+                                       if (index == array.length - 1 || index == 0){
+                                           Popup.hide();
+                                           return;
+                                       }
+                                       
+                                       var url = "/app/getMarkType"
+                                       Toast.loading('请稍候...',60);
+                                    netTool.post(settings.fwqUrl + url,{messageIDNum : rowData.messageIDNum , markType : index})
+                                    .then((responseJson) => {
+                                        Toast.hide()
+                                        this.updateNews()
+                                        //错误
+                                        Alert.alert(
+                                            '提示:',
+                                            responseJson.msg,
+                                            [
+                                                {text: '确定'}
+                                            ],
+                                            {cancelable : false}
+                                        )
+                                    })
+                                    .catch((error)=>{
+                                        Toast.hide()
+                                        //错误
+                                        Alert.alert(
+                                            '提示:',
+                                            '请检查您的网络111',
+                                            [
+                                                {text: '确定'}
+                                            ]
+                                        )
+                                    })
+                                    Popup.hide();
+                                   }}
+                        >
+                            <View style={{
+                                width:width - 30,
+                                alignItems:'center',
+                                justifyContent: 'center',
+                            }}>
+                                <Text style={{
+                                    fontSize:index == 0 ? 12 : 16,
+                                    color:(index == array.length - 1 ? 'red' : (index == 0 ? 'gray':'black'))
+                                }}>{i}</Text>
+                            </View>
+                        </List.Item>
+                    ))}
+                </List>
+            </View>,
+            {maskClosable: true,animationType: 'slide-up' }
+        )
+    }
 });
 
 const styles = StyleSheet.create({
