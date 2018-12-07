@@ -69,7 +69,6 @@ var MLQuestion = React.createClass({
             isPlaying:false,
             moban:[],
             text:'',
-            replyData:null
         }
         this.prepareRecordingPath = this.prepareRecordingPath.bind(this);     //执行录音的方法
         this.checkPermission = this.checkPermission.bind(this);               //检测是否授权
@@ -212,10 +211,7 @@ var MLQuestion = React.createClass({
     componentDidMount () {
         // 页面加载完成后获取权限
         this.checkPermission().then((hasPermission) => {
-            this.setState({ 
-                hasPermission ,
-                replyData : this.props.replyData
-            });
+            this.setState({ hasPermission });
 
             //如果未授权, 则执行下面的代码
             if (!hasPermission) return;
@@ -297,7 +293,7 @@ var MLQuestion = React.createClass({
             }
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={(this.state.replyData != null ? '回复' : '质疑')} isBack={true} rightTitle={"发送"} backFunc={() => {
+                    <MLNavigatorBar title={(this.props.replyData != null ? '回复' : '质疑')} isBack={true} rightTitle={"发送"} backFunc={() => {
                         Toast.hide();
                         this.props.navigator.pop()
                     }} newFunc={()=>{
@@ -440,7 +436,7 @@ var MLQuestion = React.createClass({
         }else {
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={(this.state.replyData != null ? '回复' : '质疑')} isBack={true} rightTitle={"发送"} backFunc={() => {
+                    <MLNavigatorBar title={(this.props.replyData != null ? '回复' : '质疑')} isBack={true} rightTitle={"发送"} backFunc={() => {
                         Toast.hide();
                         this.props.navigator.pop()
                     }} newFunc={()=>{
@@ -672,7 +668,7 @@ var MLQuestion = React.createClass({
     //确定
     getLogin(){
         console.log('发送')
-        console.log(this.state.replyData)
+        console.log(this.props.replyData)
         if (this.state.zhanghao.length == 0 && this.state.finished == false){
             //错误
             Alert.alert(
@@ -711,14 +707,14 @@ var MLQuestion = React.createClass({
                         body: JSON.stringify({
                             "StudyID": Users.Users[0].StudyID,    //研究编号
                             "addUsers": Users.Users[0], //添加这条数据的医生
-                            "Users": (this.state.replyData != null ? this.state.replyData.addUsers : this.props.data.Users), //质疑的医生
+                            "Users": (this.props.replyData != null ? this.props.replyData.addUsers : this.props.data.Users), //质疑的医生
                             "CRFModeule": this.props.data,//研究数据
                             "voiceUrls": responseJson.url,//语音路径
                             "text": this.state.zhanghao,//内容
                             "isReply" : this.props.isReply,
-                            "GroupUsers" : (this.state.replyData != null ? this.state.replyData.GroupUsers : null),
-                            "messageIDNum" : (this.state.replyData != null ? this.state.replyData.messageIDNum : null),
-                            "markType" : (this.state.replyData != null ? this.state.replyData.markType : null),
+                            "GroupUsers" : (this.props.replyData != null ? this.props.replyData.GroupUsers : null),
+                            "messageIDNum" : (this.props.replyData != null ? this.props.replyData.messageIDNum : null),
+                            "markType" : (this.props.replyData != null ? this.props.replyData.markType : null),
                         })
                     })
                         .then((response) => response.json())
@@ -770,14 +766,14 @@ var MLQuestion = React.createClass({
                 body: JSON.stringify({
                     "StudyID": Users.Users[0].StudyID,    //研究编号
                     "addUsers": Users.Users[0], //添加这条数据的医生
-                    "Users": (this.state.replyData != null ? this.state.replyData.addUsers : this.props.data.Users), //质疑的医生
+                    "Users": (this.props.replyData != null ? this.props.replyData.addUsers : this.props.data.Users), //质疑的医生
                     "CRFModeule": this.props.data,//研究数据
                     "voiceUrls": '',//语音路径
                     "text": this.state.zhanghao,//内容
                     "isReply" : this.props.isReply,
-                    "GroupUsers" : (this.state.replyData != null ? this.state.replyData.GroupUsers : null),
-                    "messageIDNum" : (this.state.replyData != null ? this.state.replyData.messageIDNum : null),
-                    "markType" : (this.state.replyData != null ? this.state.replyData.markType : null),
+                    "GroupUsers" : (this.props.replyData != null ? this.props.replyData.GroupUsers : null),
+                    "messageIDNum" : (this.props.replyData != null ? this.props.replyData.messageIDNum : null),
+                    "markType" : (this.props.replyData != null ? this.props.replyData.markType : null),
                 })
             })
                 .then((response) => response.json())
