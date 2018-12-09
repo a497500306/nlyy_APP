@@ -31,6 +31,11 @@ var Button = require('apsl-react-native-button');
 var WingBlank = require('../../../node_modules/antd-mobile/lib/wing-blank/index');
 var WhiteSpace = require('../../../node_modules/antd-mobile/lib/white-space/index');
 // var Button = require('../../../node_modules/antd-mobile/lib/button/index');
+var Popup = require('../../../node_modules/antd-mobile/lib/popup/index');
+var List = require('../../../node_modules/antd-mobile/lib/list/index');
+
+var netTool = require('../../../kit/net/netTool'); //网络请求
+
 
 import MLPhotoView from '../../MLPhotoView/MLPhotoView';
 
@@ -68,7 +73,8 @@ var MLLookNews = React.createClass({
             audioPath: AudioUtils.DocumentDirectoryPath + '/test.aac',          //路径下的文件名
             hasPermission: undefined,
             zhanghao:'',//输入的文字'
-            isPlaying:false
+            isPlaying:false,
+            data : this.props.data
         }
         this.prepareRecordingPath = this.prepareRecordingPath.bind(this);     //执行录音的方法
         this.checkPermission = this.checkPermission.bind(this);               //检测是否授权
@@ -160,7 +166,7 @@ var MLLookNews = React.createClass({
 
         Toast.loading('正在播放录音...',1000);
         console.log('播放录音')
-        console.log(this.props.data.voiceUrls)
+        console.log(this.state.data.voiceUrls)
         // 使用 setTimeout 是因为, 为避免发生一些问题 react-native-sound中
         setTimeout(() => {
             var sound = new Sound(this.props.data.voiceUrls, '', (error) => {
@@ -212,28 +218,29 @@ var MLLookNews = React.createClass({
     },
     render(){
         console.log('传递的数据');
-        console.log(this.props.data);
-        if (this.props.data.CRFModeule != null){
+        console.log(this.state.data);
+        var markTypeStr = ""
+        if (this.state.data.CRFModeule != null){
             var rightTitle = '';
             var TitleColor = ''
-            if (this.props.data.CRFModeule.imageType == 0){
+            if (this.state.data.CRFModeule.imageType == 0){
                 rightTitle = '点击上传图片';
                 TitleColor = 'red';
-            }else if (this.props.data.CRFModeule.imageType == 1){
-                rightTitle = '等待核查(' + this.props.data.CRFModeule.imageUrls.length + ')';
+            }else if (this.state.data.CRFModeule.imageType == 1){
+                rightTitle = '等待核查(' + this.state.data.CRFModeule.imageUrls.length + ')';
                 TitleColor = 'gray';
-            }else if (this.props.data.CRFModeule.imageType == 2){
-                rightTitle = '正在审核(' + this.props.data.CRFModeule.imageUrls.length + ')';
+            }else if (this.state.data.CRFModeule.imageType == 2){
+                rightTitle = '正在审核(' + this.state.data.CRFModeule.imageUrls.length + ')';
                 TitleColor = 'gray';
-            }else if (this.props.data.CRFModeule.imageType == 3){
-                rightTitle = '冻结(' + this.props.data.CRFModeule.imageUrls.length + ')';
+            }else if (this.state.data.CRFModeule.imageType == 3){
+                rightTitle = '冻结(' + this.state.data.CRFModeule.imageUrls.length + ')';
                 TitleColor = 'black';
-            }else if (this.props.data.CRFModeule.imageType == 6){
-                rightTitle = '质疑处理中(' + this.props.data.CRFModeule.imageUrls.length + ')';
+            }else if (this.state.data.CRFModeule.imageType == 6){
+                rightTitle = '质疑处理中(' + this.state.data.CRFModeule.imageUrls.length + ')';
                 TitleColor = 'black';
-            }else if (this.props.data.CRFModeule.imageType == 4){
+            }else if (this.state.data.CRFModeule.imageType == 4){
                 return (<View/>)
-            }else if (this.props.data.CRFModeule.imageType == 5){
+            }else if (this.state.data.CRFModeule.imageType == 5){
                 return (<View/>)
             }
             return (
@@ -247,13 +254,15 @@ var MLLookNews = React.createClass({
                     }} leftTitle={'首页'} leftFunc={()=>{
                         Toast.hide();
                         this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
+                    }} right2Title={'标记'} right2Func={()=>{
+                        this.cellOnLongPress()
                     }}/>
                     <ScrollView
                         dataSource={this.state.dataSource}//数据源
                         renderRow={this.renderRow}
                     >
                         <TouchableOpacity onPress={()=> {
-                            if (this.props.data.CRFModeule.imageUrls.length == 0){
+                            if (this.state.data.CRFModeule.imageUrls.length == 0){
                                 //错误
                                 Alert.alert(
                                     '提示:',
@@ -265,9 +274,9 @@ var MLLookNews = React.createClass({
                                 return;
                             }
                             var images = [];
-                            for (var i= 0 ; i < this.props.data.CRFModeule.imageUrls.length ; i++){
+                            for (var i= 0 ; i < this.state.data.CRFModeule.imageUrls.length ; i++){
                                 var json = {
-                                    url : this.props.data.CRFModeule.imageUrls[i]
+                                    url : this.state.data.CRFModeule.imageUrls[i]
                                 }
                                 images.push(json)
                             }
@@ -281,11 +290,11 @@ var MLLookNews = React.createClass({
                                 }
                             });
                         }}>
-                            <MLTableCell title={this.props.data.CRFModeule.CRFModeulesName + (this.props.data.CRFModeule.CRFModeulesNum + 1)} rightTitle={rightTitle} rightTitleColor = {TitleColor}/>
+                            <MLTableCell title={this.state.data.CRFModeule.CRFModeulesName + (this.state.data.CRFModeule.CRFModeulesNum + 1)} rightTitle={rightTitle} rightTitleColor = {TitleColor}/>
                         </TouchableOpacity>
                         <View style={{top:10,height: 170}}>
                             <TextInput
-                                value={this.props.data.text}
+                                value={this.state.data.text}
                                 editable={false}
                                 onChangeText={this.onZhanghao}//获取输入
                                 style={{
@@ -306,7 +315,7 @@ var MLLookNews = React.createClass({
                                 placeholder={'请输入你的质疑...'}
                             />
                         </View>
-                        {this.props.data.voiceUrls != '' ? [<View style={{height: 70,width:width,flexDirection:'row',justifyContent:'center'}}>
+                        {this.state.data.voiceUrls != '' ? [<View style={{height: 70,width:width,flexDirection:'row',justifyContent:'center'}}>
                             <Button
                                 style={{
                                     width:(width/3)-20,
@@ -343,6 +352,8 @@ var MLLookNews = React.createClass({
                     }} leftTitle={'首页'} leftFunc={()=>{
                         Toast.hide();
                         this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
+                    }} right2Title={'标记'} right2Func={()=>{
+                        this.cellOnLongPress()
                     }}/>
                     <ScrollView
                         dataSource={this.state.dataSource}//数据源
@@ -350,7 +361,7 @@ var MLLookNews = React.createClass({
                     >
                         <View style={{top:10,height: 170}}>
                             <TextInput
-                                value={this.props.data.text}
+                                value={this.state.data.text}
                                 editable={false}
                                 onChangeText={this.onZhanghao}//获取输入
                                 style={{
@@ -371,7 +382,7 @@ var MLLookNews = React.createClass({
                                 placeholder={'请输入你的质疑...'}
                             />
                         </View>
-                        {this.props.data.voiceUrls != '' ? [<View style={{height: 70,width:width,flexDirection:'row',justifyContent:'center'}}>
+                        {this.state.data.voiceUrls != '' ? [<View style={{height: 70,width:width,flexDirection:'row',justifyContent:'center'}}>
                             <Button
                                 style={{
                                     width:(width/3)-20,
@@ -408,11 +419,82 @@ var MLLookNews = React.createClass({
             //传递参数
             passProps: {
                 //出生年月
-                replyData: this.props.data,
-                data:this.props.data.CRFModeule,
+                replyData: this.state.data,
+                data:this.state.data.CRFModeule,
                 isReply:true
             }
         });
+    },
+    // 长按回调
+    cellOnLongPress(rowData){
+        var array = ["请选择你想做的","已解决","不需要解决","取消标记","取消"];
+        Popup.show(
+            <View>
+                <List renderHeader={this.renderHeader}
+                      className="popup-list"
+                >
+                    {array.map((i, index) => (
+                        <List.Item key={index}
+                                   style = {{
+                                       textAlign:'center'
+                                   }}
+                                   onClick={()=>{
+                                       if (index == array.length - 1 || index == 0){
+                                           Popup.hide();
+                                           return;
+                                       }
+                                       
+                                       var url = "/app/getMarkType"
+                                       Toast.loading('请稍候...',60);
+                                    netTool.post(settings.fwqUrl + url,{messageIDNum : this.state.data.messageIDNum , markType : index})
+                                    .then((responseJson) => {
+                                        DeviceEventEmitter.emit('updateNews');
+                                        Toast.hide()
+                                        let data = this.state.data
+                                        data.markType = index
+                                        this.setState({
+                                            data : data
+                                        })
+                                        //错误
+                                        Alert.alert(
+                                            '提示:',
+                                            responseJson.msg,
+                                            [
+                                                {text: '确定'}
+                                            ],
+                                            {cancelable : false}
+                                        )
+                                    })
+                                    .catch((error)=>{
+                                        Toast.hide()
+                                        //错误
+                                        Alert.alert(
+                                            '提示:',
+                                            '请检查您的网络111',
+                                            [
+                                                {text: '确定'}
+                                            ]
+                                        )
+                                    })
+                                    Popup.hide();
+                                   }}
+                        >
+                            <View style={{
+                                width:width - 30,
+                                alignItems:'center',
+                                justifyContent: 'center',
+                            }}>
+                                <Text style={{
+                                    fontSize:index == 0 ? 12 : 16,
+                                    color:(index == array.length - 1 ? 'red' : (index == 0 ? 'gray':'black'))
+                                }}>{i}</Text>
+                            </View>
+                        </List.Item>
+                    ))}
+                </List>
+            </View>,
+            {maskClosable: true,animationType: 'slide-up' }
+        )
     }
 })
 const styles = StyleSheet.create({

@@ -86,10 +86,12 @@ var MLNavigatorBar = React.createClass({
             title:"",
             newTitle:"",
             rightTitle:"",
+            right2Title:"",
             leftTitle:"",
             isBack:true,
             backFunc: Component.func,
             newFunc: Component.func,
+            right2Func: Component.func,
             leftFunc: Component.func,
             rightFunc: Component.func,
         }
@@ -117,6 +119,18 @@ var MLNavigatorBar = React.createClass({
                             <Text style={{color:'white',fontSize: 16}}>
                                 {this.props.title}
                             </Text>
+                            {
+                                this.props.right2Title == "" ? [] : [
+                                    <TouchableOpacity style={{position:'absolute', right: 10 + 10 + 40, bottom:11}} onPress={this.props.right2Func}>
+                                    <Text style={{
+                                        marginLeft:15,marginRight:10,
+                                        width:40,
+                                        color:'white',
+                                        fontSize:15
+                                    }}>{this.props.right2Title}</Text>
+                                </TouchableOpacity>
+                                ]
+                            }
                         </View>
                     </View>
                 );
@@ -140,6 +154,18 @@ var MLNavigatorBar = React.createClass({
                             <Text style={{color:'white',fontSize: 16}}>
                                 {this.props.title}
                             </Text>
+                            {
+                                this.props.right2Title == "" ? [] : [
+                                    <TouchableOpacity style={{position:'absolute', right: 10 + 10 + 40, bottom:15}} onPress={this.props.right2Func}>
+                                    <Text style={{
+                                        marginLeft:0,marginRight:0,
+                                        width:40,
+                                        color:'white',
+                                        fontSize:15
+                                    }}>{this.props.right2Title}</Text>
+                                </TouchableOpacity>
+                                ]
+                            }
                             <TouchableOpacity style={{position:'absolute', right:0, bottom:11}} onPress={this.props.newFunc}>
                                 {this.props.newTitle != '' ? [
                                     <Icon style={{marginLeft:15,marginRight:15}} name={this.props.newTitle} size={25} color="white" />

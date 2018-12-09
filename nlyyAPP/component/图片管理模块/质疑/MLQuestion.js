@@ -68,7 +68,7 @@ var MLQuestion = React.createClass({
             zhanghao:'',//输入的文字,
             isPlaying:false,
             moban:[],
-            text:''
+            text:'',
         }
         this.prepareRecordingPath = this.prepareRecordingPath.bind(this);     //执行录音的方法
         this.checkPermission = this.checkPermission.bind(this);               //检测是否授权
@@ -667,6 +667,8 @@ var MLQuestion = React.createClass({
     },
     //确定
     getLogin(){
+        console.log('发送')
+        console.log(this.props.replyData)
         if (this.state.zhanghao.length == 0 && this.state.finished == false){
             //错误
             Alert.alert(
@@ -687,8 +689,6 @@ var MLQuestion = React.createClass({
                 name: 'test.aac'
             };
             formData.append("voice", file);
-            console.log(formData)
-            console.log('2222222222')
             fetch(settings.fwqUrl + "/app/voiceUpdata", {
                 method: 'POST',
                 headers: {
@@ -713,6 +713,8 @@ var MLQuestion = React.createClass({
                             "text": this.state.zhanghao,//内容
                             "isReply" : this.props.isReply,
                             "GroupUsers" : (this.props.replyData != null ? this.props.replyData.GroupUsers : null),
+                            "messageIDNum" : (this.props.replyData != null ? this.props.replyData.messageIDNum : null),
+                            "markType" : (this.props.replyData != null ? this.props.replyData.markType : null),
                         })
                     })
                         .then((response) => response.json())
@@ -770,6 +772,8 @@ var MLQuestion = React.createClass({
                     "text": this.state.zhanghao,//内容
                     "isReply" : this.props.isReply,
                     "GroupUsers" : (this.props.replyData != null ? this.props.replyData.GroupUsers : null),
+                    "messageIDNum" : (this.props.replyData != null ? this.props.replyData.messageIDNum : null),
+                    "markType" : (this.props.replyData != null ? this.props.replyData.markType : null),
                 })
             })
                 .then((response) => response.json())

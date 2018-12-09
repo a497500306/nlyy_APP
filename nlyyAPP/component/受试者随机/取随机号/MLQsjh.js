@@ -283,13 +283,15 @@ var Qsjh = React.createClass({
                         this.props.navigator.pop()
                     }}  leftTitle={'首页'} leftFunc={()=>{
                         this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
-                    }}  rightTitle={this.props.isImage == 1 ? "筛选" : ""} newFunc = {()=>{
-                        if (this.props.isImage != 1) {
-                            return
-                        }
-                        this.screen()
+                    }}  
+                    // rightTitle={this.props.isImage == 1 ? "筛选" : ""} newFunc = {()=>{
+                    //     if (this.props.isImage != 1) {
+                    //         return
+                    //     }
+                    //     this.screen()
                         
-                    }}/>
+                    // }}
+                    />
                     <ListView
                         removeClippedSubviews={false}
                         showsVerticalScrollIndicator={false}
