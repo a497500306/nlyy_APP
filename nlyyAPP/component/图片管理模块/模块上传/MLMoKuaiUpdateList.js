@@ -229,7 +229,7 @@ var MLMoKuaiUpdateList = React.createClass({
         if (this.state.animating == true){
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={this.props.data.USubjID + this.props.name} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={this.props.data.USubjID + this.props.name + "111"} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }} leftTitle={'首页'} leftFunc={()=>{
                         this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
@@ -243,7 +243,7 @@ var MLMoKuaiUpdateList = React.createClass({
         }else if (isShowJ == true){
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={this.props.data.USubjID + this.props.name} isBack={true} newTitle={"plus-circle"} backFunc={() => {
+                    <MLNavigatorBar title={this.props.data.USubjID + this.props.name + "111"} isBack={true} newTitle={"plus-circle"} backFunc={() => {
                         this.props.navigator.pop()
                     }} newFunc={()=>{
                         //错误
@@ -1158,21 +1158,24 @@ var MLMoKuaiUpdateList = React.createClass({
                         })
                             .then((response) => response.json())
                             .then((responseJson) => {
+                                let json = {
+                                    id: self.state.modelData.id,
+                                    imageUrl: settings.imageUrl + responseJson.key,
+                                    StudyID: Users.Users[0].StudyID,
+                                    Subjects: this.props.data,
+                                    CRFModeulesName: this.props.name,
+                                    uploadUserPhone:Users.Users[0].UserMP,
+                                    uploadName:this.state.modelData.CRFModeulesName + (this.state.modelData.CRFModeulesNum + 1),
+                                }
+                                console.log("测试2222")
+                                console.log(json)
                                 fetch(settings.fwqUrl + "/app/getAddImageUrls", {
                                     method: 'POST',
                                     headers: {
                                         'Accept': 'application/json; charset=utf-8',
                                         'Content-Type': 'application/json',
                                     },
-                                    body: JSON.stringify({
-                                        id: self.state.modelData.id,
-                                        imageUrl: settings.imageUrl + responseJson.key,
-                                        StudyID: Users.Users[0].StudyID,
-                                        Subjects: this.props.data,
-                                        CRFModeulesName: this.props.name,
-                                        uploadUserPhone:Users.Users[0].UserMP,
-                                        uploadName:this.state.modelData.CRFModeulesName + (this.state.modelData.CRFModeulesNum + 1),
-                                    })
+                                    body: JSON.stringify(json)
                                 })
                                     .then((response) => response.json())
                                     .then((responseJson) => {

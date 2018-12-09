@@ -14,6 +14,9 @@ import {
     Alert,
     DeviceEventEmitter
 } from 'react-native';
+
+var uuid = require('uuid');
+import Qiniu,{Auth,ImgOps,Conf,Rs,Rpc} from 'react-native-qiniu';
 var settings = require('../../../settings');
 var Users = require('../../../entity/Users');
 var MLNavigatorBar = require('../../MLNavigatorBar/MLNavigatorBar');
@@ -21,6 +24,7 @@ var MLQuestion = require('../../图片管理模块/质疑/MLQuestion');
 var MLTableCell = require('../../MLTableCell/MLTableCell');
 var researchParameter = require('../../../entity/researchParameter')
 var Toast = require('../../../node_modules/antd-mobile/lib/toast/index');
+import ActionSheet from 'react-native-actionsheet';
 import Sound from 'react-native-sound';                        // 播放声音组件
 import {AudioRecorder, AudioUtils} from 'react-native-audio';
 // let audioPath = AudioUtils.DocumentDirectoryPath + '/test.aac';
@@ -36,8 +40,28 @@ var List = require('../../../node_modules/antd-mobile/lib/list/index');
 
 var netTool = require('../../../kit/net/netTool'); //网络请求
 
+var ImagePicker = require('react-native-image-picker');
 
 import MLPhotoView from '../../MLPhotoView/MLPhotoView';
+
+var buttons = ['取消', '拍照', '相册中选择'];
+const CANCEL_INDEX = 0;
+const DESTRUCTIVE_INDEX = 4;
+var friendId = 0;
+var seveRowData = {};
+var options = {
+    title: 'Select Avatar',
+    customButtons: [
+        {name: 'fb', title: 'Choose Photo from Facebook'},
+    ],
+    storageOptions: {
+        skipBackup: true,
+        path: 'images',
+    },
+    mediaType:'photo',
+    quality:0.4
+};
+
 
 var MLLookNews = React.createClass({
     componentDidMount(){
@@ -64,6 +88,54 @@ var MLLookNews = React.createClass({
             data:null
         }
     },
+
+    show() {
+        this.timer = setTimeout(
+            () => { this.ActionSheet.show(); },
+            500
+        );
+        return;
+        /*
+        Popup.show(
+            <List renderHeader={() => `选择您的功能`}>
+                <List.Item
+                    justify = 'center'
+                    onClick={() => {
+                        Popup.hide()
+                        this.upImage(1,this)
+                    }}
+
+                >
+                    <View style={{justifyContent:'center',alignItems:'center'}} >
+                    <Text textAlign = 'center' width={width} style={{fontSize: 20}}>相机</Text>
+                    </View>
+                </List.Item>
+                <List.Item
+                    justify = 'center'
+                    onClick={() => {
+                        Popup.hide()
+                        this.upImage(2,this)
+                    }}
+                >
+                    <View style={{justifyContent:'center',alignItems:'center'}} >
+                        <Text textAlign = 'center' width={width} style={{fontSize: 20}}>相册</Text>
+                    </View>
+                </List.Item>
+                <List.Item
+                    onClick={() => {
+                        Popup.hide()
+                    }}
+                >
+                    <View style={{justifyContent:'center',alignItems:'center'}} >
+                        <Text textAlign = 'center' width={width} style={{fontSize: 20}}>取消</Text>
+                    </View></List.Item>
+            </List>
+        , { animationType: 'slide-up', maskClosable: false })
+        */
+    },
+    _handlePress(index) {
+    },
+
     getInitialState() {
         return {
             currentTime: 0.0,                                                   //开始录音到现在的持续时间
@@ -262,6 +334,8 @@ var MLLookNews = React.createClass({
                         renderRow={this.renderRow}
                     >
                         <TouchableOpacity onPress={()=> {
+                            this.clickModel()
+                            return
                             if (this.state.data.CRFModeule.imageUrls.length == 0){
                                 //错误
                                 Alert.alert(
@@ -338,6 +412,17 @@ var MLLookNews = React.createClass({
                             </Button>
                         </View>] : [<View/>]}
                     </ScrollView>
+                    <ActionSheet
+                        ref={(o) => this.ActionSheet = o}
+                        title="选择您的操作？"
+                        options={buttons}
+                        cancelButtonIndex={CANCEL_INDEX}
+                        destructiveButtonIndex={DESTRUCTIVE_INDEX}
+                        onPress={(sss)=>{
+                            this._handlePress(this)
+                            this.upImage(sss,this)
+                        }}
+                    />
                 </View>
             );
         }else{
@@ -405,10 +490,313 @@ var MLLookNews = React.createClass({
                             </Button>
                         </View>] : [<View/>]}
                     </ScrollView>
+                    <ActionSheet
+                        ref={(o) => this.ActionSheet = o}
+                        title="选择您的操作？"
+                        options={buttons}
+                        cancelButtonIndex={CANCEL_INDEX}
+                        destructiveButtonIndex={DESTRUCTIVE_INDEX}
+                        onPress={(sss)=>{
+                            this._handlePress(this)
+                            this.upImage(sss,this)
+                        }}
+                    />
                 </View>
             );
         }
 
+    },
+
+    //图片上传
+    upImage(sss,self){
+        this._handlePress(this)
+        if (sss == 1){//点击修改备注
+            console.log('点击相机');
+            if (Platform.OS != 'ios'){
+                console.log('点击安卓拍照');
+                ImagePicker1.openCamera({
+                    cropping: false,
+                    multiple: false
+                }).then(image => {
+                    console.log('received image', image);
+                    Toast.loading('请稍后...',60);
+
+                    /******************/
+                    //要上传的空间
+                    var keyStr = uuid.v4() + '.png';
+                    var putPolicy = new Auth.PutPolicy2(
+                        {scope: "nlyy-app:" + keyStr}
+                    );
+                    var uptoken = putPolicy.token();
+                    let formData = new FormData();
+                    let file = {uri: image.path, type: 'multipart/form-data', name: keyStr};
+                    formData.append('key',keyStr);
+                    formData.append('token',uptoken);
+                    formData.append("file", file);
+                    fetch(Conf.UP_HOST, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                        },
+                        body: formData,
+                    })
+                        .then((response) => response.json())
+                        .then((responseJson) => {
+                            let json = {
+                                id: self.state.data.CRFModeule.id,
+                                imageUrl: settings.imageUrl + responseJson.key,
+                                StudyID: Users.Users[0].StudyID,
+                                Subjects: self.state.data.CRFModeule.Subjects,
+                                CRFModeulesName: self.state.data.CRFModeule.CRFModeulesName,
+                                uploadUserPhone:Users.Users[0].UserMP,
+                                uploadName:self.state.data.CRFModeule.CRFModeulesName + (self.state.data.CRFModeule.CRFModeulesNum + 1),
+                            }
+                            fetch(settings.fwqUrl + "/app/getAddImageUrls", {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json; charset=utf-8',
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(json)
+                            })
+                                .then((response) => response.json())
+                                .then((responseJson) => {
+                                    Toast.success('添加成功...',1);
+                                    self.updateModelData()
+                                })
+                                .catch((error) => {//错误
+                                    Toast.fail('网络连接失败!!!!',1);
+                                });
+                        })
+                        .catch((error) => {
+                            Toast.fail('网络连接失败!!!!!',1);
+                        });
+                }).catch(e => alert(e));
+            }else {
+                //启动相机：
+                options.quality = 0.5;
+                ImagePicker.launchCamera(options, (response) => {
+                    if (response.didCancel) {
+                        console.log('User cancelled image picker');
+                    }
+                    else if (response.error) {
+                        console.log('ImagePicker Error: ', response.error);
+                    }
+                    else if (response.customButton) {
+                        console.log('User tapped custom button: ', response.customButton);
+                    }
+                    else {
+                        Toast.loading('请稍后...',60);
+                        let source = { uri: response.uri };
+                        console.log('相册 = ', source);
+
+                        // You can also display the image using data:
+                        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+                        this.setState({
+                            avatarSource: source
+                        });
+
+                        /******************/
+                        //要上传的空间
+                        var keyStr = uuid.v4() + '.png';
+                        var putPolicy = new Auth.PutPolicy2(
+                            {scope: "nlyy-app:" + keyStr}
+                        );
+                        var uptoken = putPolicy.token();
+                        let formData = new FormData();
+                        let file = {uri: source.uri, type: 'multipart/form-data', name: keyStr};
+                        formData.append('key',keyStr);
+                        formData.append('token',uptoken);
+                        formData.append("file", file);
+                        fetch(Conf.UP_HOST, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'multipart/form-data',
+                            },
+                            body: formData,
+                        })
+                            .then((response) => response.json())
+                            .then((responseJson) => {
+                                let json = {
+                                    id: self.state.data.CRFModeule.id,
+                                    imageUrl: settings.imageUrl + responseJson.key,
+                                    StudyID: Users.Users[0].StudyID,
+                                    Subjects: self.state.data.CRFModeule.Subjects,
+                                    CRFModeulesName: self.state.data.CRFModeule.CRFModeulesName,
+                                    uploadUserPhone:Users.Users[0].UserMP,
+                                    uploadName:self.state.data.CRFModeule.CRFModeulesName + (self.state.data.CRFModeule.CRFModeulesNum + 1),
+                                }
+                                    console.log("测试111")
+                                    console.log(json)
+                                fetch(settings.fwqUrl + "/app/getAddImageUrls", {
+                                    method: 'POST',
+                                    headers: {
+                                        'Accept': 'application/json; charset=utf-8',
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify(json)
+                                })
+                                    .then((response) => response.json())
+                                    .then((responseJson) => {
+                                        Toast.success('添加成功...',1);
+                                        self.updateModelData()
+                                    })
+                                    .catch((error) => {//错误
+                                        Toast.fail('网络连接失败.',1);
+                                    });
+                            })
+                            .catch((error) => {
+                                console.log(error)
+                                Toast.fail('网络连接失败..',1);
+                            });
+                    }
+                });
+            }
+        }else if (sss == 2){//点击相册
+            if (Platform.OS != 'ios'){
+                ImagePicker1.openPicker({
+                    cropping: false,
+                    multiple: false
+                }).then(image => {
+                    Toast.loading('请稍后...',60);
+
+                    /******************/
+                    //要上传的空间
+                    var keyStr = uuid.v4() + '.png';
+                    var putPolicy = new Auth.PutPolicy2(
+                        {scope: "nlyy-app:" + keyStr}
+                    );
+                    var uptoken = putPolicy.token();
+                    let formData = new FormData();
+                    let file = {uri: image.path, type: 'multipart/form-data', name: keyStr};
+                    formData.append('key',keyStr);
+                    formData.append('token',uptoken);
+                    formData.append("file", file);
+                    fetch(Conf.UP_HOST, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                        },
+                        body: formData,
+                    })
+                        .then((response) => response.json())
+                        .then((responseJson) => {
+                            let json = {
+                                id: self.state.data.CRFModeule.id,
+                                imageUrl: settings.imageUrl + responseJson.key,
+                                StudyID: Users.Users[0].StudyID,
+                                Subjects: self.state.data.CRFModeule.Subjects,
+                                CRFModeulesName: self.state.data.CRFModeule.CRFModeulesName,
+                                uploadUserPhone:Users.Users[0].UserMP,
+                                uploadName:self.state.data.CRFModeule.CRFModeulesName + (self.state.data.CRFModeule.CRFModeulesNum + 1),
+                            }
+                            fetch(settings.fwqUrl + "/app/getAddImageUrls", {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json; charset=utf-8',
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(json)
+                            })
+                                .then((response) => response.json())
+                                .then((responseJson) => {
+                                    Toast.success('添加成功...',1);
+                                    self.updateModelData()
+                                })
+                                .catch((error) => {//错误
+                                    Toast.fail('网络连接失败...',1);
+                                });
+                        })
+                        .catch((error) => {
+                            Toast.fail('网络连接失败....',1);
+                        });
+                })
+            }else {
+                console.log('点击相册');
+                options.quality = 0.5;
+                // Open Image Library:
+                ImagePicker.launchImageLibrary(options, (response) => {
+                    if (response.didCancel) {
+                        console.log('User cancelled image picker');
+                    }
+                    else if (response.error) {
+                        console.log('ImagePicker Error: ', response.error);
+                    }
+                    else if (response.customButton) {
+                        console.log('User tapped custom button: ', response.customButton);
+                    }
+                    else {
+                        Toast.loading('请稍后...', 60);
+                        let source = {uri: response.uri};
+                        console.log('相册 = ', source);
+
+                        // You can also display the image using data:
+                        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+                        this.setState({
+                            avatarSource: source
+                        });
+
+
+                        /******************/
+                        //要上传的空间
+                        var keyStr = uuid.v4() + '.png';
+                        var putPolicy = new Auth.PutPolicy2(
+                            {scope: "nlyy-app:" + keyStr}
+                        );
+                        var uptoken = putPolicy.token();
+                        let formData = new FormData();
+                        let file = {uri: source.uri, type: 'multipart/form-data', name: keyStr};
+                        formData.append('key',keyStr);
+                        formData.append('token',uptoken);
+                        formData.append("file", file);
+                        fetch(Conf.UP_HOST, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'multipart/form-data',
+                            },
+                            body: formData,
+                        })
+                            .then((response) => response.json())
+                            .then((responseJson) => {
+                                let json = {
+                                    id: self.state.data.CRFModeule.id,
+                                    imageUrl: settings.imageUrl + responseJson.key,
+                                    StudyID: Users.Users[0].StudyID,
+                                    Subjects: self.state.data.CRFModeule.Subjects,
+                                    CRFModeulesName: self.state.data.CRFModeule.CRFModeulesName,
+                                    uploadUserPhone:Users.Users[0].UserMP,
+                                    uploadName:self.state.data.CRFModeule.CRFModeulesName + (self.state.data.CRFModeule.CRFModeulesNum + 1),
+                                }
+                                console.log("测试2222")
+                                console.log(json)
+                                fetch(settings.fwqUrl + "/app/getAddImageUrls", {
+                                    method: 'POST',
+                                    headers: {
+                                        'Accept': 'application/json; charset=utf-8',
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify(json)
+                                })
+                                    .then((response) => response.json())
+                                    .then((responseJson) => {
+                                        Toast.success('添加成功...', 1);
+                                        self.updateModelData()
+                                    })
+                                    .catch((error) => {//错误
+                                        Toast.fail('网络连接失败.....', 1);
+                                    });
+                            })
+                            .catch((error) => {
+                                console.log('11122233111error');
+                                console.log(error)
+                                Toast.fail('网络连接失败!', 1);
+                            });
+                    }
+                });
+            }
+        }
     },
 
     //点击回复
@@ -488,6 +876,603 @@ var MLLookNews = React.createClass({
                                     fontSize:index == 0 ? 12 : 16,
                                     color:(index == array.length - 1 ? 'red' : (index == 0 ? 'gray':'black'))
                                 }}>{i}</Text>
+                            </View>
+                        </List.Item>
+                    ))}
+                </List>
+            </View>,
+            {maskClosable: true,animationType: 'slide-up' }
+        )
+    },
+
+    // 更新数据
+    updateModelData(){
+        DeviceEventEmitter.emit('updateNews');
+        Toast.loading('请稍后...',60);
+        fetch(settings.fwqUrl + "/app/getUserModeulesData", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json; charset=utf-8',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id : this.state.data.CRFModeule.id
+            })
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                Toast.hide()
+                if (responseJson.isSucceed == 400){
+                    let data = this.state.data
+                    data.CRFModeule = responseJson.data
+                    this.setState({
+                        data : data
+                    })
+                }
+            })
+            .catch((error) => {//错误
+
+            });
+    },
+
+    clickModel(){
+        var isYijinShenhe = false;
+        var shenheStr = "核查无误";
+        var isShenhe = false;
+        for (var i = 0 ; i < Users.Users.length ;i++){
+            if (
+                Users.Users[i].UserFun == "S1" || Users.Users[i].UserFun == "H3" ||
+                Users.Users[i].UserFun == "H2" || Users.Users[i].UserFun == "H5" ||
+                Users.Users[i].UserFun == "M1" || Users.Users[i].UserFun == "M8" ||
+                Users.Users[i].UserFun == "M4" || Users.Users[i].UserFun == "M5" ||
+                Users.Users[i].UserFun == "M7"
+
+            ){
+                isShenhe = true
+            }
+        }
+        for (var j = 0 ; j < this.state.data.CRFModeule.ReviewPhones.length ; j++){
+            if (Users.Users[0].UserMP == this.state.data.CRFModeule.ReviewPhones[j]){
+                isYijinShenhe = true;
+                shenheStr = '撤销核查'
+            }
+        }
+        var gongneng = {
+            "查看图片" : {text: '查看图片', onPress: () => {
+                var images = [];
+                if (this.state.data.CRFModeule.imageUrls.length == 0){
+                    Alert.alert(
+                        '提示:',
+                        '未上传图片',
+                        [
+                            {text: '确定'}
+                        ]
+                    )
+                    return;
+                }
+                for (var i= 0 ; i < this.state.data.CRFModeule.imageUrls.length ; i++){
+                    var json = {
+                        url : this.state.data.CRFModeule.imageUrls[i]
+                    }
+                    images.push(json)
+                }
+                var isDelete = false;
+                for (var mm = 0 ; mm < Users.Users.length ; mm++){
+                    if (Users.Users[mm].UserFun == "H2" || Users.Users[mm].UserFun == "H3" ||
+                        Users.Users[mm].UserFun == "H5" || Users.Users[mm].UserFun == "S1"
+                    ) {
+                        isDelete = true;
+                    }
+                }
+                //图片状态,0:没有上传图片,1:等待审核,2:正在审核,3:审核通过,4:冻结,5:作废,6:质疑中
+                if (this.state.data.CRFModeule.imageType == 2 || this.state.data.CRFModeule.imageType == 3 || this.state.data.CRFModeule.imageType == 4){
+                    isDelete = false;
+                }
+                // 页面的切换
+                this.props.navigator.push({
+                    component: MLPhotoView, // 具体路由的版块http://codecloud.b0.upaiyun.com/wp-content/uploads/20160826_57c0288325536.png
+                    //传递参数
+                    passProps: {
+                        //出生年月
+                        images: images,
+                        isDelete:isDelete,
+                        data:this.state.data.CRFModeule
+                    }
+                });
+            }},
+            "查看被质疑的图片" : {text: '查看被质疑的图片', onPress: () => {
+                if (this.state.data.CRFModeule.questionImageUrls.length == 0){
+                    Alert.alert(
+                        '提示:',
+                        '未上传图片',
+                        [
+                            {text: '确定'}
+                        ]
+                    )
+                    return;
+                }
+                var images = [];
+                for (var i= 0 ; i < this.state.data.CRFModeule.questionImageUrls.length ; i++){
+                    var json = {
+                        url : this.state.data.CRFModeule.questionImageUrls[i]
+                    }
+                    images.push(json)
+                }
+                // 页面的切换
+                this.props.navigator.push({
+                    component: MLPhotoView, // 具体路由的版块http://codecloud.b0.upaiyun.com/wp-content/uploads/20160826_57c0288325536.png
+                    //传递参数
+                    passProps: {
+                        //出生年月
+                        images: images
+                    }
+                });
+            }},
+            "撤销质疑" : {text: '撤销质疑', onPress:()=>{
+                if (this.state.data.CRFModeule.questionImageUrls.length == 0){
+                    Alert.alert(
+                        '提示:',
+                        '没有任何上传内容，不能撤销质疑',
+                        [
+                            {text: '确定'}
+                        ]
+                    )
+                }else{
+                    Toast.loading('请稍后...',60);
+                    fetch(settings.fwqUrl + "/app/getRevokedAddQuestion", {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json; charset=utf-8',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            id : this.state.data.CRFModeule.id,
+                            StudyID : Users.Users[0].StudyID
+                        })
+                    })
+                        .then((response) => response.json())
+                        .then((responseJson) => {
+                            if (responseJson.isSucceed == 400) {
+                                Toast.success('撤销成功...', 1);
+                                this.updateModelData()
+                            }else{
+                                Toast.fail(responseJson.msg,1);
+                            }
+                        })
+                        .catch((error) => {//错误
+                            Toast.fail('网络连接失败!!',1);
+                        });
+                }
+            }},
+            "质疑":{text: '质疑', onPress: () => {
+                if (this.state.data.CRFModeule.imageUrls.length == 0){
+                    Alert.alert(
+                        '提示:',
+                        '没有任何上传内容，不能质疑',
+                        [
+                            {text: '确定'}
+                        ]
+                    )
+                }else {
+                    // 页面的切换
+                    this.props.navigator.push({
+                        component: MLQuestion, // 具体路由的版块http://codecloud.b0.upaiyun.com/wp-content/uploads/20160826_57c0288325536.png
+                        //传递参数
+                        passProps: {
+                            //出生年月
+                            data: this.state.data.CRFModeule
+                        }
+                    });
+                }
+            }},
+            "继续上传" : {text: '继续上传', onPress: () => {
+                this.show(this)
+            }},
+            "重新上传" : {text: '重新上传', onPress: () => {
+                this.show(this)
+            }},
+            "重新提交核查" : {text: '重新提交核查', onPress: () => {
+                Toast.loading('请稍后...',60);
+                fetch(settings.fwqUrl + "/app/getQuestionRevoked", {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json; charset=utf-8',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id : this.state.data.CRFModeule.id,
+                        StudyID : Users.Users[0].StudyID,
+                        Subjects: this.state.data.CRFModeule.Subjects,
+                        CRFModeulesName : this.state.data.CRFModeule.CRFModeulesName
+                    })
+                })
+                    .then((response) => response.json())
+                    .then((responseJson) => {
+                        if (responseJson.isSucceed == 400) {
+                            Toast.success('添加成功...', 1);
+                            this.updateModelData()
+                        }else{
+                            Toast.fail(responseJson.msg,1);
+                        }
+                    })
+                    .catch((error) => {//错误
+                        Toast.fail('网络连接失败!!!',1);
+                    });
+            }},
+            "shenheStr" : {text: shenheStr, onPress: () => {
+                if (this.state.data.CRFModeule.imageUrls.length == 0){
+                    Alert.alert(
+                        '提示:',
+                        '没有任何上传内容，不能核查',
+                        [
+                            {text: '确定'}
+                        ]
+                    )
+                    return;
+                }
+                if (isYijinShenhe == false){
+                    Toast.loading('请稍后...',60);
+                    //审核无误
+                    //发送登录网络请求
+                    fetch(settings.fwqUrl + "/app/getReviewCorrect", {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json; charset=utf-8',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            StudyID : Users.Users[0].StudyID,
+                            Subjects : this.state.data.CRFModeule.Subjects,
+                            CRFModeulesName : this.state.data.CRFModeule.CRFModeulesName,
+                            id : this.state.data.CRFModeule.id,
+                            ReviewPhones:Users.Users[0].UserMP
+                        })
+                    })
+                        .then((response) => response.json())
+                        .then((responseJson) => {
+                            console.log(responseJson);
+                            if (responseJson.isSucceed != 400){
+                                Toast.hide()
+                                //移除等待
+                                this.setState({animating:false});
+                                Alert.alert(
+                                    '提示:',
+                                    responseJson.msg,
+                                    [
+                                        {text: '确定'}
+                                    ]
+                                )
+                            }else{
+                                Toast.success('核查成功...',1);
+                                //ListView设置
+                                this.updateModelData()
+                            }
+                        })
+                        .catch((error) => {//错误
+                            Toast.hide()
+                            //移除等待,弹出错误
+                            this.setState({animating:false});
+                            //错误
+                            Alert.alert(
+                                '提示:',
+                                '请检查您的网络',
+                                [
+                                    {text: '确定'}
+                                ]
+                            )
+
+                        });
+                }else{
+                    //撤销审核无误
+                    //审核无误
+                    //发送登录网络请求Toast.hide()
+                    Toast.loading('请稍后...',60);
+                    fetch(settings.fwqUrl + "/app/getRevokedReviewCorrect", {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json; charset=utf-8',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            StudyID : Users.Users[0].StudyID,
+                            Subjects : this.state.data.CRFModeule.Subjects,
+                            CRFModeulesName : this.state.data.CRFModeule.CRFModeulesName,
+                            id : this.state.data.CRFModeule.id,
+                            ReviewPhones:Users.Users[0].UserMP
+                        })
+                    })
+                        .then((response) => response.json())
+                        .then((responseJson) => {
+                            console.log(responseJson);
+                            if (responseJson.isSucceed != 400){
+                                Toast.hide()
+                                //移除等待
+                                this.setState({animating:false});
+                                Alert.alert(
+                                    '提示:',
+                                    responseJson.msg,
+                                    [
+                                        {text: '确定'}
+                                    ]
+                                )
+                            }else{
+                                Toast.success('撤销成功...',1);
+                                //ListView设置
+                                this.updateModelData()
+                            }
+                        })
+                        .catch((error) => {//错误
+                            Toast.hide()
+                            //移除等待,弹出错误
+                            this.setState({animating:false});
+                            //错误
+                            Alert.alert(
+                                '提示:',
+                                '请检查您的网络',
+                                [
+                                    {text: '确定'}
+                                ]
+                            )
+
+                        });
+                }
+            }},
+        }
+
+        if (this.state.data.CRFModeule.imageType == 0){
+            var isShow = false;
+            for (var i = 0 ; i < Users.Users.length ; i++){
+                if (Users.Users[i].UserFun == "S1" || Users.Users[i].UserFun == "H3" || Users.Users[i].UserFun == "H2" ||
+                    Users.Users[i].UserFun == "H5"){
+                    isShow = true;
+                }
+            }
+            if (isShow == true){
+                this.show(this)
+            }
+        }else if (this.state.data.CRFModeule.imageType == 1){
+            var isShenhe = false;
+            var isYijinShenhe = false;
+            var shenheStr = "核查无误";
+            var isShow = false;
+            for (var i = 0 ; i < Users.Users.length ;i++){
+                if (
+                    Users.Users[i].UserFun == "M8" || Users.Users[i].UserFun == "M4" ||
+                    Users.Users[i].UserFun == "M7"
+                ){
+                    isShenhe = true
+                }
+                if (Users.Users[i].UserFun == "S1" || Users.Users[i].UserFun == "H3" || Users.Users[i].UserFun == "H2" ||
+                    Users.Users[i].UserFun == "H5"){
+                    isShow = true;
+                }
+            }
+            for (var j = 0 ; j < this.state.data.CRFModeule.ReviewPhones.length ; j++){
+                if (Users.Users[0].UserMP == this.state.data.CRFModeule.ReviewPhones[j]){
+                    isYijinShenhe = true;
+                    shenheStr = '撤销核查'
+                }
+            }
+            if (isShenhe == true){
+                var alerts = [
+                    gongneng.查看图片,
+                    gongneng.shenheStr,
+                    {text: '取消'}
+                ]
+                if (isShow == true){
+                    alerts.splice(0, 0, gongneng.继续上传)
+                }
+                //判断是否显示质疑
+                var isShowzhiyi = false;
+                for (var i = 0 ; i < Users.Users.length ; i++){
+                    if (Users.Users[i].UserFun == "M7" || Users.Users[i].UserFun == "M8" ||
+                        Users.Users[i].UserFun == "M5" || Users.Users[i].UserFun == "M4"){
+                        isShowzhiyi = true;
+                    }
+                }
+                if (isShowzhiyi == true){
+                    alerts.splice(0, 0, gongneng.质疑);
+                }
+                //错误
+                // Alert.alert(
+                //     "提示:",
+                //     "选择功能",
+                //     alerts
+                // )
+
+                this.ssssxxx(alerts,this.state.data.CRFModeule)
+            }else{
+                var alerts = [
+                    gongneng.查看图片,
+                    {text: '取消'}
+                ]
+                if (isShow == true){
+                    alerts.splice(0, 0, gongneng.继续上传)
+                }
+                //判断是否显示质疑
+                var isShowzhiyi = false;
+                for (var i = 0 ; i < Users.Users.length ; i++){
+                    if (Users.Users[i].UserFun == "M7" || Users.Users[i].UserFun == "M8" ||
+                        Users.Users[i].UserFun == "M4" || Users.Users[i].UserFun == "M5"){
+                        isShowzhiyi = true;
+                    }
+                }
+                if (isShowzhiyi == true){
+                    alerts.splice(0, 0, gongneng.质疑);
+                }
+                //错误
+                // Alert.alert(
+                //     "提示:",
+                //     "选择功能",
+                //     alerts
+                // )
+
+                this.ssssxxx(alerts,this.state.data.CRFModeule)
+            }
+        }else if (this.state.data.CRFModeule.imageType == 2){//直接查看图片
+            console.log('点击正在核查')
+            console.log(this.state.data.CRFModeule.ReviewPhones)
+            var isShenhe = false;
+            var isYijinShenhe = false;
+            var shenheStr = "核查无误";
+            for (var i = 0 ; i < Users.Users.length ;i++){
+                if (Users.Users[i].UserFun == "M8" || Users.Users[i].UserFun == "M4" ||
+                    Users.Users[i].UserFun == "M7"){
+                    isShenhe = true
+                }
+            }
+            for (var j = 0 ; j < this.state.data.CRFModeule.ReviewPhones.length ; j++){
+                if (Users.Users[0].UserMP == this.state.data.CRFModeule.ReviewPhones[j]){
+                    isYijinShenhe = true;
+                    shenheStr = '撤销核查'
+                }
+            }
+            var alerts = [
+                gongneng.查看图片,
+                gongneng.shenheStr,
+                {text: '取消'}
+            ]
+            //判断是否显示质疑
+            var isShowzhiyi = false;
+            for (var i = 0 ; i < Users.Users.length ; i++){
+                if (Users.Users[i].UserFun == "M7" || Users.Users[i].UserFun == "M8" ||
+                    Users.Users[i].UserFun == "M4" || Users.Users[i].UserFun == "M5"){
+                    isShowzhiyi = true;
+                }
+            }
+            if (isShowzhiyi == true){
+                alerts.splice(0, 0, gongneng.质疑);
+            }
+            if (isShenhe == true){
+                //错误
+                this.ssssxxx(alerts,this.state.data.CRFModeule)
+            }else{
+                var alerts = [
+                    gongneng.查看图片,
+                    {text: '取消'}
+                ]
+                //判断是否显示质疑
+                var isShowzhiyi = false;
+                for (var i = 0 ; i < Users.Users.length ; i++){
+                    if (Users.Users[i].UserFun == "M7" || Users.Users[i].UserFun == "M8" ||
+                        Users.Users[i].UserFun == "M4" || Users.Users[i].UserFun == "M5"){
+                        isShowzhiyi = true;
+                    }
+                }
+                if (isShowzhiyi == true){
+                    alerts.splice(0, 0, gongneng.质疑);
+                }
+                //错误
+                this.ssssxxx(alerts,this.state.data.CRFModeule)
+            }
+        }else if (this.state.data.CRFModeule.imageType == 3){//直接查看图片
+            var isShenhe = false;
+            var isShow = false;
+            var isYijinShenhe = false;
+            var shenheStr = '';
+            var alerts = [
+                gongneng.查看图片,
+                {text: '取消'}
+            ]
+            for (var i = 0 ; i < Users.Users.length ;i++){
+                if (
+                    Users.Users[i].UserFun == "M8" || Users.Users[i].UserFun == "M4" ||
+                    Users.Users[i].UserFun == "M7"
+                ){
+                    isShenhe = true
+                }
+                if (Users.Users[i].UserFun == "S1" || Users.Users[i].UserFun == "H3" || Users.Users[i].UserFun == "H2" ||
+                    Users.Users[i].UserFun == "H5"){
+                    isShow = true;
+                }
+            }
+            for (var j = 0 ; j < this.state.data.CRFModeule.ReviewPhones.length ; j++){
+                if (Users.Users[0].UserMP == this.state.data.CRFModeule.ReviewPhones[j]){
+                    isYijinShenhe = true;
+                    shenheStr = '撤销核查'
+                    alerts.splice(0, 0, gongneng.shenheStr)
+                }
+            }
+            //判断是否显示质疑
+            var isShowzhiyi = false;
+            for (var i = 0 ; i < Users.Users.length ; i++){
+                if (Users.Users[i].UserFun == "M7" || Users.Users[i].UserFun == "M8" ||
+                    Users.Users[i].UserFun == "M4" || Users.Users[i].UserFun == "M5"){
+                    isShowzhiyi = true;
+                }
+            }
+            if (isShowzhiyi == true){
+                alerts.splice(0, 0, gongneng.质疑);
+            }
+            this.ssssxxx(alerts,this.state.data.CRFModeule)
+        }else if (this.state.data.CRFModeule.imageType == 6){
+            var alerts = [
+                gongneng.查看图片,
+                // gongneng.查看被质疑的图片,
+                {text: '取消'}
+            ]
+            var isShow = false;
+            for (var i = 0 ; i < Users.Users.length ;i++){
+                if (Users.Users[i].UserFun == "S1" || Users.Users[i].UserFun == "H3" || Users.Users[i].UserFun == "H2" ||
+                    Users.Users[i].UserFun == "H5"){
+                    isShow = true;
+                }
+            }
+            if (isShow == true){
+                // alerts.splice(0, 0, gongneng.重新提交核查);
+                alerts.splice(0, 0, gongneng.继续上传)
+            }
+            var sssxxx = false
+            for (var i = 0 ; i < Users.Users.length ; i++){
+                if (Users.Users[i].UserFun == "M7" || Users.Users[i].UserFun == "M8" ||
+                    Users.Users[i].UserFun == "M4" || Users.Users[i].UserFun == "M5"){
+                    sssxxx = true;
+                }
+            }
+            if (sssxxx == true){
+                alerts.splice(0, 0, gongneng.撤销质疑);
+            }
+            this.ssssxxx(alerts,this.state.data.CRFModeule)
+        }
+    },
+
+    ssssxxx(array,rowData){
+        console.log('sssssssss')
+        array.splice(0, 0, {text:'请选择功能'});
+        Popup.show(
+            <View>
+                <List renderHeader={this.renderHeader}
+                      className="popup-list"
+                >
+                    {array.map((i, index) => (
+                        <List.Item key={index}
+                                   style = {{
+                                       textAlign:'center'
+                                   }}
+                                   onClick={()=>{
+                                       if (index == array.length - 1 || index == 0){
+                                           Popup.hide();
+                                           return;
+                                       }
+                                       Popup.hide();
+
+                                       Toast.loading('请稍后...', 0.5);
+                                       this.timer = setTimeout(
+                                           () => {
+                                               i.onPress(); },
+                                           500
+                                       );
+                                   }}
+                        >
+                            <View style={{
+                                width:width - 30,
+                                alignItems:'center',
+                                justifyContent: 'center',
+                            }}>
+                                <Text style={{
+                                    fontSize:index == 0 ? 12 : 16,
+                                    color:(index == array.length - 1 ? 'red' : (index == 0 ? 'gray':'black'))
+                                }}>{i.text}</Text>
                             </View>
                         </List.Item>
                     ))}
