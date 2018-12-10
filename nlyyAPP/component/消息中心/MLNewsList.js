@@ -51,6 +51,7 @@ var NewsList = React.createClass({
             yonghuID:"",
             yuedu:"",
             biaoji:"",
+            yemamokuai:"",
             userData:[],
             USubjIDs:[],
             selectUser : null
@@ -71,6 +72,7 @@ var NewsList = React.createClass({
     //耗时操作,网络请求
     componentDidMount(){
         this.subscription = DeviceEventEmitter.addListener('updateNews',this.updateNews);
+        this.subscription = DeviceEventEmitter.addListener('updateMoKuai',this.updateNews);
         this.httpData()
         this.getUserData()
 
@@ -388,17 +390,13 @@ var NewsList = React.createClass({
                             <Text style = {[styles.selectTitleStayle]}>中心：</Text>
                             <Text style = {[styles.selectTextStayle]}>{this.state.zhongxin == "" ? "未选择" : this.state.zhongxin}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style = {[styles.screenStayle]} onPress={()=>{this.clickScreen("suiji")}}>
-                            <Text style = {[styles.selectTitleStayle]}>随机状态：</Text>
-                            <Text style = {[styles.selectTextStayle]}>{this.state.suiji == "" ? "未选择" : this.state.suiji}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {[styles.screenStayle]} onPress={()=>{this.clickScreen("tupian")}}>
-                            <Text style = {[styles.selectTitleStayle]}>是否上传图片：</Text>
-                            <Text style = {[styles.selectTextStayle]}>{this.state.tupian == "" ? "未选择" : this.state.tupian}</Text>
-                        </TouchableOpacity>
                         <TouchableOpacity style = {[styles.screenStayle]} onPress={()=>{this.clickScreen("yonghuID")}}>
                             <Text style = {[styles.selectTitleStayle]}>受试者编号：</Text>
                             <Text style = {[styles.selectTextStayle]}>{this.state.yonghuID == "" ? "未选择" : this.state.yonghuID}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {[styles.screenStayle]} onPress={()=>{this.clickScreen("shuju")}}>
+                            <Text style = {[styles.selectTitleStayle]}>页码/模块数据行状态：</Text>
+                            <Text style = {[styles.selectTextStayle]}>{this.state.shuju == "" ? "未选择" : this.state.shuju}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style = {[styles.screenStayle]} onPress={()=>{this.clickScreen("yuedu")}}>
                             <Text style = {[styles.selectTitleStayle]}>已读/未读：</Text>
@@ -455,13 +453,29 @@ var NewsList = React.createClass({
             }
             //去重
             array = Array.from(new Set(array))
+            if (array.length == 0){
+                Alert.alert(
+                    '提示:',
+                    '无中心可选',
+                    [
+                        {text: '确定'}
+                    ]
+                )
+                return
+            }
          }else if (type == "suiji"){
             array = ["筛选中","已随机","筛选失败","已完成或退出"];
         }else if (type == "tupian"){
             array = ["是","否"];
         }else if (type == "yonghuID"){
             if (this.state.USubjIDs.length == 0){
-                Toast.fail("没有受试者", 1);
+                Alert.alert(
+                    '提示:',
+                    '没有受试者',
+                    [
+                        {text: '确定'}
+                    ]
+                )
                 return
             }
             array = this.state.USubjIDs;
@@ -471,6 +485,8 @@ var NewsList = React.createClass({
             array = ["已读","未读"];
         }else if (type == "biaoji"){
             array = ["未解决","已解决","不需要解决"];
+        }else if (type == "yemamokuai") {
+            array = ["页码","模块"];
         }
 
         Pickers.init({

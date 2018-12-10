@@ -65,6 +65,43 @@ var options = {
 
 var MLLookNews = React.createClass({
     componentDidMount(){
+        this.subscription = DeviceEventEmitter.addListener('updateMoKuai',this.updateModelData);
+        this.getData()
+        
+    },
+
+    // 更新数据
+    updateModelData(){
+        DeviceEventEmitter.emit('updateNews');
+        Toast.loading('请稍后...',60);
+        fetch(settings.fwqUrl + "/app/getUserModeulesData", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json; charset=utf-8',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id : this.state.data.CRFModeule.id
+            })
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                Toast.hide()
+                if (responseJson.isSucceed == 400){
+                    let data = this.state.data
+                    data.CRFModeule = responseJson.data
+                    this.setState({
+                        data : data
+                    })
+                }
+            })
+            .catch((error) => {//错误
+
+            });
+    },
+
+    //标记已读
+    getData(){
         fetch(settings.fwqUrl + "/app/getNewsHaveRead", {
             method: 'POST',
             headers: {
@@ -83,6 +120,7 @@ var MLLookNews = React.createClass({
 
             });
     },
+
     getDefaultProps(){
         return {
             data:null

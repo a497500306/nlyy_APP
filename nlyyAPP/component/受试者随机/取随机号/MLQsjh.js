@@ -1075,6 +1075,17 @@ var Qsjh = React.createClass({
             }
             //去重
             array = Array.from(new Set(array))
+            array = Array.from(new Set(array))
+            if (array.length == 0){
+                Alert.alert(
+                    '提示:',
+                    "无中心可选",
+                    [
+                        {text: '确定'}
+                    ]
+                )
+                return
+            }
          }else if (type == "suiji"){
             array = ["筛选中","已随机","筛选失败","已完成或退出"];
         }else if (type == "tupian"){

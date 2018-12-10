@@ -171,7 +171,7 @@ var MLNavigatorBar = React.createClass({
                                     <Icon style={{marginLeft:15,marginRight:15}} name={this.props.newTitle} size={25} color="white" />
                                 ] : [
                                     <Text style={{
-                                        marginLeft:15,marginRight:10,
+                                        marginLeft:15,marginRight:10,marginBottom:4,
                                         width:40,
                                         color:'white',
                                         fontSize:15

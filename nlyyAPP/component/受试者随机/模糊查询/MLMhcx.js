@@ -230,13 +230,30 @@ var Mhcx = React.createClass({
             }
             //去重
             array = Array.from(new Set(array))
+            if (array.length == 0){
+
+                Alert.alert(
+                    '提示:',
+                    "无中心可选",
+                    [
+                        {text: '确定'}
+                    ]
+                )
+                return
+            }
          }else if (type == "suiji"){
             array = ["筛选中","已随机","筛选失败","已完成或退出"];
         }else if (type == "tupian"){
             array = ["是","否"];
         }else if (type == "yonghuID"){
             if (this.state.USubjIDs.length == 0){
-                Toast.fail("没有受试者", 1);
+                Alert.alert(
+                    '提示:',
+                    "没有受试者",
+                    [
+                        {text: '确定'}
+                    ]
+                )
                 return
             }
             array = this.state.USubjIDs;
@@ -322,17 +339,26 @@ var Mhcx = React.createClass({
         })
         .then((responseJson) => {
             Toast.hide()
-            // 页面的切换
-            this.props.navigator.push({
-                component: Qsjh, // 具体路由的版块
-                //传递参数
-                passProps:{
-                    data:responseJson.data,
-                    isImage: 1,
-                    msg:this.state.shuliang
-                }
-            });
-
+            if (responseJson.data.length == 0) {
+                Alert.alert(
+                    '提示:',
+                    '未查到相关数据',
+                    [
+                        {text: '确定'}
+                    ]
+                )
+            }else{
+                // 页面的切换
+                this.props.navigator.push({
+                    component: Qsjh, // 具体路由的版块
+                    //传递参数
+                    passProps:{
+                        data:responseJson.data,
+                        isImage: 1,
+                        msg:this.state.shuliang
+                    }
+                });
+            }
         })
         .catch((error)=>{
             Toast.hide()

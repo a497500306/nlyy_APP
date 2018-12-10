@@ -229,7 +229,7 @@ var MLMoKuaiUpdateList = React.createClass({
         if (this.state.animating == true){
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={this.props.data.USubjID + this.props.name + "111"} isBack={true} backFunc={() => {
+                    <MLNavigatorBar title={this.props.data.USubjID + this.props.name} isBack={true} backFunc={() => {
                         this.props.navigator.pop()
                     }} leftTitle={'首页'} leftFunc={()=>{
                         this.props.navigator.popToRoute(this.props.navigator.getCurrentRoutes()[1])
@@ -243,7 +243,7 @@ var MLMoKuaiUpdateList = React.createClass({
         }else if (isShowJ == true){
             return (
                 <View style={styles.container}>
-                    <MLNavigatorBar title={this.props.data.USubjID + this.props.name + "111"} isBack={true} newTitle={"plus-circle"} backFunc={() => {
+                    <MLNavigatorBar title={this.props.data.USubjID + this.props.name} isBack={true} newTitle={"plus-circle"} backFunc={() => {
                         this.props.navigator.pop()
                     }} newFunc={()=>{
                         //错误
