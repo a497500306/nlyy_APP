@@ -715,6 +715,7 @@ var MLQuestion = React.createClass({
                             "GroupUsers" : (this.props.replyData != null ? this.props.replyData.GroupUsers : null),
                             "messageIDNum" : (this.props.replyData != null ? this.props.replyData.messageIDNum : null),
                             "markType" : (this.props.replyData != null ? this.props.replyData.markType : null),
+                            "serialNumber" : (this.props.replyData != null ? this.props.replyData.serialNumber : null)
                         })
                     })
                         .then((response) => response.json())
@@ -774,6 +775,7 @@ var MLQuestion = React.createClass({
                     "GroupUsers" : (this.props.replyData != null ? this.props.replyData.GroupUsers : null),
                     "messageIDNum" : (this.props.replyData != null ? this.props.replyData.messageIDNum : null),
                     "markType" : (this.props.replyData != null ? this.props.replyData.markType : null),
+                    "serialNumber" : (this.props.replyData != null ? this.props.replyData.serialNumber : null)
                 })
             })
                 .then((response) => response.json())
@@ -807,8 +809,19 @@ var MLQuestion = React.createClass({
                         ])
                     return;
                 })
-                .catch((error) => {//错误
-                    Toast.fail('网络连接失败3...', 2);
+                .catch((error) => {//错误//错误
+                    Toast.hide();
+                    Alert.alert(
+                        "提示:",
+                        "发送成功",
+                        [
+                            {
+                                text: '确定', onPress: () => {
+                                this.props.navigator.pop()
+                            }
+                            },
+                        ])
+                    return;
                 });
         }
     },

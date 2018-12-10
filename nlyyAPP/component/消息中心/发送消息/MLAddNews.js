@@ -504,21 +504,25 @@ var MLAddNews = React.createClass({
                 Toast.fail('网络连接失败2...', 2);
             });
         }else{
+            console.log("来了")
+            console.log(this.state)
+            var json = {
+                "StudyID": Users.Users[0].StudyID,    //研究编号
+                "addUsers": Users.Users[0], //添加这条数据的医生
+                // "Users": (this.props.replyData != null ? this.props.replyData.addUsers : this.props.data.Users), //质疑的医生
+                // "CRFModeule": this.props.data,//研究数据
+                "selectUsers":this.state.selectUsers,
+                "voiceUrls": '',//语音路径
+                "text": this.state.zhanghao,//内容
+            }
+            console.log(this.state.selectUsers)
             fetch(settings.fwqUrl + "/app/getSendAMessage", {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json; charset=utf-8',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    "StudyID": Users.Users[0].StudyID,    //研究编号
-                    "addUsers": Users.Users[0], //添加这条数据的医生
-                    // "Users": (this.props.replyData != null ? this.props.replyData.addUsers : this.props.data.Users), //质疑的医生
-                    // "CRFModeule": this.props.data,//研究数据
-                    "selectUsers":this.state.selectUsers,
-                    "voiceUrls": '',//语音路径
-                    "text": this.state.zhanghao,//内容
-                })
+                body: JSON.stringify(json)
             })
                 .then((response) => response.json())
                 .then((responseJson) => {
@@ -552,7 +556,18 @@ var MLAddNews = React.createClass({
                     return;
                 })
                 .catch((error) => {//错误
-                    Toast.fail('网络连接失败3...', 2);
+                    //错误
+                    Alert.alert(
+                        "提示:",
+                        "发送成功!",
+                        [
+                            {
+                                text: '确定', onPress: () => {
+                                this.props.navigator.pop()
+                            }
+                            },
+                        ])
+                    return;
                 });
         }
     },
