@@ -293,9 +293,16 @@ var SszjxfsrqSZ = React.createClass({
                 )
             }
         }if (rowData == '随机号'){
-            return(
-                <MLTableCell title={rowData} rightTitle={this.props.users.Random == '' ? '没取随机号' : this.props.users.Random} isArrow={false}/>
-            )
+            var grps = researchParameter.researchParameter.NTrtGrp.split(",");
+            if (grps.length == 1){
+                return(
+                        <View/>
+                )
+            }else{
+                return(
+                    <MLTableCell title={rowData} rightTitle={this.props.users.Random == '' ? '没取随机号' : this.props.users.Random} isArrow={false}/>
+                )
+            }
 
         }
         if (rowData == '基线访视日期'){

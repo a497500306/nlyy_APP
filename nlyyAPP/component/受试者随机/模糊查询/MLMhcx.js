@@ -20,6 +20,7 @@ import {
 var Dimensions = require('Dimensions');
 var {width, height} = Dimensions.get('window');
 import Pickers from 'react-native-picker';
+var researchParameter = require('../../../entity/researchParameter');
 
 var settings = require("../../../settings");
 var Users = require('../../../entity/Users');
@@ -172,7 +173,7 @@ var Mhcx = React.createClass({
                     <Text style = {[styles.selectTextStayle]}>{this.state.zhongxin == "" ? "未选择" : this.state.zhongxin}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style = {[styles.screenStayle]} onPress={()=>{this.clickScreen("suiji")}}>
-                    <Text style = {[styles.selectTitleStayle]}>随机状态：</Text>
+                    <Text style = {[styles.selectTitleStayle]}>{researchParameter.researchParameter.NTrtGrp.split(",").length == 1 ? "入组状态：" :"随机状态："}</Text>
                     <Text style = {[styles.selectTextStayle]}>{this.state.suiji == "" ? "未选择" : this.state.suiji}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style = {[styles.screenStayle]} onPress={()=>{this.clickScreen("tupian")}}>
@@ -243,6 +244,9 @@ var Mhcx = React.createClass({
             }
          }else if (type == "suiji"){
             array = ["筛选中","已随机","筛选失败","已完成或退出"];
+            if (researchParameter.researchParameter.NTrtGrp.split(",").length == 1) {
+                array = ["筛选中","已入组","筛选失败","已完成或退出"];
+            }
         }else if (type == "tupian"){
             array = ["是","否"];
         }else if (type == "yonghuID"){
@@ -331,7 +335,7 @@ var Mhcx = React.createClass({
             SiteID : UserSite,
             StudyID : Users.Users[0].StudyID,
             zhongxin : this.state.zhongxin,
-            suiji : this.state.suiji,
+            suiji : this.state.suiji == "已入组" ? "已随机" : this.state.suiji,
             tupian : this.state.tupian,
             bianhao : this.state.bianhao,
             yonghuID : this.state.yonghuID,
