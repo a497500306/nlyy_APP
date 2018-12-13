@@ -72,7 +72,6 @@ var MLLookNews = React.createClass({
 
     // 更新数据
     updateModelData(){
-        DeviceEventEmitter.emit('updateNews');
         Toast.loading('请稍后...',60);
         fetch(settings.fwqUrl + "/app/getUserModeulesData", {
             method: 'POST',

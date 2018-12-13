@@ -59,7 +59,7 @@
   
 #if DEBUG
   // 原来的jsCodeLocation
-  jsCodeLocation = [NSURL URLWithString:@"http://192.168.0.108:8081/index.ios.bundle?platform=ios&dev=true"];
+  jsCodeLocation = [NSURL URLWithString:@"http://172.16.11.141:8081/index.ios.bundle?platform=ios&dev=true"];
 #else
   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"bundle/index.ios" withExtension:@"jsbundle"];
 #endif
