@@ -339,7 +339,7 @@ var MLLookNews = React.createClass({
                 rightTitle = '等待核查(' + this.state.data.CRFModeule.imageUrls.length + ')';
                 TitleColor = 'gray';
             }else if (this.state.data.CRFModeule.imageType == 2){
-                rightTitle = '正在审核(' + this.state.data.CRFModeule.imageUrls.length + ')';
+                rightTitle = '正在核查(' + this.state.data.CRFModeule.imageUrls.length + ')';
                 TitleColor = 'gray';
             }else if (this.state.data.CRFModeule.imageType == 3){
                 rightTitle = '冻结(' + this.state.data.CRFModeule.imageUrls.length + ')';
@@ -404,7 +404,7 @@ var MLLookNews = React.createClass({
                             <MLTableCell title={this.state.data.CRFModeule.CRFModeulesName + (this.state.data.CRFModeule.CRFModeulesNum + 1)} rightTitle={rightTitle} rightTitleColor = {TitleColor}/>
                         </TouchableOpacity>
                         <View style={{top:10,height: 170}}>
-                            <MLTableCell title={"发送人：" + this.state.data.addUsers.UserNam} isArrow = {false}/>
+                            {/* <MLTableCell title={"发送人：" + this.state.data.addUsers.UserNam} isArrow = {false}/> */}
                             <TextInput
                                 value={this.state.data.text}
                                 editable={false}
@@ -424,7 +424,7 @@ var MLLookNews = React.createClass({
                                     alignItems:'flex-start',
                                 }}
                                 multiline={true}
-                                placeholder={'请输入你的质疑...'}
+                                placeholder={(this.props.replyData != null ? '请输入你的回复...' : '请输入你的质疑...')}
                             />
                         </View>
                         {this.state.data.voiceUrls != '' ? [<View style={{height: 70,width:width,flexDirection:'row',justifyContent:'center'}}>
@@ -483,7 +483,7 @@ var MLLookNews = React.createClass({
                         renderRow={this.renderRow}
                     >
                         <View style={{top:10,height: 170}}>
-                            <MLTableCell title={"发送人：" + this.state.data.addUsers.UserNam} isArrow = {false}/>
+                            {/* <MLTableCell title={"发送人：" + this.state.data.addUsers.UserNam} isArrow = {false}/> */}
                             <TextInput
                                 value={this.state.data.text}
                                 editable={false}
@@ -503,7 +503,7 @@ var MLLookNews = React.createClass({
                                     alignItems:'flex-start',
                                 }}
                                 multiline={true}
-                                placeholder={'请输入你的质疑...'}
+                                placeholder={(this.props.replyData != null ? '请输入你的回复...' : '请输入你的质疑...')}
                             />
                         </View>
                         {this.state.data.voiceUrls != '' ? [<View style={{height: 70,width:width,flexDirection:'row',justifyContent:'center'}}>

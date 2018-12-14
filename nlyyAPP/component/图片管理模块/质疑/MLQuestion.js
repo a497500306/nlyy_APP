@@ -276,7 +276,7 @@ var MLQuestion = React.createClass({
                 rightTitle = '等待核查(' + this.props.data.imageUrls.length + ')';
                 TitleColor = 'gray';
             }else if (this.props.data.imageType == 2){
-                rightTitle = '正在审核(' + this.props.data.imageUrls.length + ')';
+                rightTitle = '正在核查(' + this.props.data.imageUrls.length + ')';
                 TitleColor = 'gray';
             }else if (this.props.data.imageType == 3){
                 rightTitle = '冻结(' + this.props.data.imageUrls.length + ')';
@@ -347,8 +347,30 @@ var MLQuestion = React.createClass({
                         }}>
                             <MLTableCell title={'快捷模板'} rightTitle={this.state.moban.length} rightTitleColor = {'gray'}/>
                         </TouchableOpacity>
-                        <View style={{height: 220}}>
+                        <View>
+                            {/* {this.props.replyData != null ? [
                             <MLTableCell title={"回复给：" + this.props.replyData.addUsers.UserNam} isArrow = {false}/>
+                            ] : [
+                                <View/>
+                            ]} */}
+                            <View style = {{
+                                    backgroundColor : "white" , 
+                                    width:width , 
+                                    borderBottomColor:'#dddddd',
+                                    borderBottomWidth:0.5,
+                                }}>
+                                    <Text style={{
+                                        backgroundColor : "white",
+                                        marginTop : 10,
+                                        marginBottom : 10,
+                                        marginLeft : 10,
+                                        marginRight : 10,
+                                        color:"gray",
+                                        fontSize: 16,
+                                    }}>
+                                        {"回复：" + this.props.replyData.text}
+                                    </Text>
+                                </View>
                             <TextInput
                                 onChangeText={this.onZhanghao}//获取输入
                                 style={{
@@ -366,7 +388,7 @@ var MLQuestion = React.createClass({
                                     alignItems:'flex-start',
                                 }}
                                 multiline={true}
-                                placeholder={'请输入你的质疑...'}
+                                placeholder={(this.props.replyData != null ? '请输入你的回复...' : '请输入你的质疑...')}
                                 defaultValue={this.state.text}
                             />
                         </View>
@@ -461,8 +483,34 @@ var MLQuestion = React.createClass({
                         }}>
                             <MLTableCell title={'快捷模板'} rightTitle={this.state.moban.length} rightTitleColor = {'gray'}/>
                         </TouchableOpacity>
-                        <View style={{height: 220}}>
+                        <View>
+                        {/* {this.props.replyData != null ? [
                             <MLTableCell title={"回复给：" + this.props.replyData.addUsers.UserNam} isArrow = {false}/>
+                            ] : [
+                                <View/>
+                            ]} */}
+                            {this.props.replyData != null ? [
+                                <View style = {{
+                                    backgroundColor : "white" , 
+                                    width:width , 
+                                    borderBottomColor:'#dddddd',
+                                    borderBottomWidth:0.5,
+                                }}>
+                                    <Text style={{
+                                        backgroundColor : "white",
+                                        marginTop : 10,
+                                        marginBottom : 10,
+                                        marginLeft : 10,
+                                        marginRight : 10,
+                                        color:"gray",
+                                        fontSize: 16,
+                                    }}>
+                                        {"回复：" + this.props.replyData.text}
+                                    </Text>
+                                </View>
+                            ] : [
+                                <View/>
+                            ]}
                             <TextInput
                                 onChangeText={this.onZhanghao}//获取输入
                                 style={{
@@ -480,7 +528,7 @@ var MLQuestion = React.createClass({
                                     alignItems:'flex-start',
                                 }}
                                 multiline={true}
-                                placeholder={'请输入你的质疑...'}
+                                placeholder={(this.props.replyData != null ? '请输入你的回复...' : '请输入你的质疑...')}
                                 defaultValue={this.state.text}
                             />
                         </View>
@@ -562,7 +610,7 @@ var MLQuestion = React.createClass({
                 rightTitle = '等待核查(' + this.props.data.imageUrls.length + ')';
                 TitleColor = 'gray';
             }else if (this.props.data.imageType == 2){
-                rightTitle = '正在审核(' + this.props.data.imageUrls.length + ')';
+                rightTitle = '正在核查(' + this.props.data.imageUrls.length + ')';
                 TitleColor = 'gray';
             }else if (this.props.data.imageType == 3){
                 rightTitle = '冻结(' + this.props.data.imageUrls.length + ')';
@@ -617,7 +665,7 @@ var MLQuestion = React.createClass({
                             alignItems:'flex-start',
                         }}
                         multiline={true}
-                        placeholder={'请输入你的质疑...'}
+                        placeholder={(this.props.replyData != null ? '请输入你的回复...' : '请输入你的质疑...')}
                     />
                 </View>
             )

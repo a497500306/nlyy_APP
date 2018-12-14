@@ -44,7 +44,9 @@ var Mhcx = React.createClass({
             shuju:"",
             userData:[],
             USubjIDs:[],
-            selectUser : null
+            selectUser : null,
+            // 全部中心号
+            sites:[]
         }
     },
     getDefaultProps(){
@@ -59,6 +61,7 @@ var Mhcx = React.createClass({
             isImage:0
         }
     },
+    
 
     // 慢操作放在这里
     componentDidMount(){
@@ -129,6 +132,43 @@ var Mhcx = React.createClass({
                 )
             })
         }
+        //判断用户是否为全部中心权限
+        var isUserSiteYN = false
+        for (var i = 0 ; i < Users.Users.length ; i++) {
+            if (Users.Users[i].UserSiteYN == 1) {
+                isUserSiteYN = true
+                break
+            }
+        }
+        if (isUserSiteYN == true){
+            this.getSite()
+        }
+    },
+    // 获取全部中心
+    getSite(){
+        NetTool.post(settings.fwqUrl +"/app/getSite",{
+            StudyID : Users.Users[0].StudyID,
+        })
+        .then((responseJson) => {
+            var siteIDs = []
+            for (var i = 0 ; i < responseJson.data.length ; i++) {
+                siteIDs.push(responseJson.data[i].SiteID)
+            }
+            this.setState({
+                sites : siteIDs
+            })
+        })
+        .catch((error)=>{
+            Toast.hide()
+            //错误
+            Alert.alert(
+                '请检查您的网络111',
+                null,
+                [
+                    {text: '确定'}
+                ]
+            )
+        })
     },
     render() {
         return (
@@ -217,15 +257,19 @@ var Mhcx = React.createClass({
 
         var array = [];
         if (type == "zhongxin"){
-            for (var i = 0 ; i < Users.Users.length ; i++) {
-                if (Users.Users[i].UserSite != null) {
-                    if (Users.Users[i].UserSite.indexOf(',') != -1 ) {
-                        var sites = Users.Users[i].UserSite.split(",");
-                        for (var j = 0 ; j < sites.length ; j++) {
-                            array.push(sites[j]) 
+            if (this.state.sites.length != 0){
+                array = this.state.sites
+            }else{
+                for (var i = 0 ; i < Users.Users.length ; i++) {
+                    if (Users.Users[i].UserSite != null) {
+                        if (Users.Users[i].UserSite.indexOf(',') != -1 ) {
+                            var sites = Users.Users[i].UserSite.split(",");
+                            for (var j = 0 ; j < sites.length ; j++) {
+                                array.push(sites[j]) 
+                            }
+                        }else{
+                            array.push(Users.Users[i].UserSite) 
                         }
-                    }else{
-                        array.push(Users.Users[i].UserSite) 
                     }
                 }
             }
