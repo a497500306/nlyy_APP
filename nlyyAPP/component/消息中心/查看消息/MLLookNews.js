@@ -404,6 +404,7 @@ var MLLookNews = React.createClass({
                             <MLTableCell title={this.state.data.CRFModeule.CRFModeulesName + (this.state.data.CRFModeule.CRFModeulesNum + 1)} rightTitle={rightTitle} rightTitleColor = {TitleColor}/>
                         </TouchableOpacity>
                         <View style={{top:10,height: 170}}>
+                            <MLTableCell title={"发送人：" + this.state.data.addUsers.UserNam} isArrow = {false}/>
                             <TextInput
                                 value={this.state.data.text}
                                 editable={false}
@@ -482,6 +483,7 @@ var MLLookNews = React.createClass({
                         renderRow={this.renderRow}
                     >
                         <View style={{top:10,height: 170}}>
+                            <MLTableCell title={"发送人：" + this.state.data.addUsers.UserNam} isArrow = {false}/>
                             <TextInput
                                 value={this.state.data.text}
                                 editable={false}

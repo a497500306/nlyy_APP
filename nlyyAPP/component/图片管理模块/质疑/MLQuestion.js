@@ -347,7 +347,8 @@ var MLQuestion = React.createClass({
                         }}>
                             <MLTableCell title={'快捷模板'} rightTitle={this.state.moban.length} rightTitleColor = {'gray'}/>
                         </TouchableOpacity>
-                        <View style={{height: 170}}>
+                        <View style={{height: 220}}>
+                            <MLTableCell title={"回复给：" + this.props.replyData.addUsers.UserNam} isArrow = {false}/>
                             <TextInput
                                 onChangeText={this.onZhanghao}//获取输入
                                 style={{
@@ -460,7 +461,8 @@ var MLQuestion = React.createClass({
                         }}>
                             <MLTableCell title={'快捷模板'} rightTitle={this.state.moban.length} rightTitleColor = {'gray'}/>
                         </TouchableOpacity>
-                        <View style={{height: 170}}>
+                        <View style={{height: 220}}>
+                            <MLTableCell title={"回复给：" + this.props.replyData.addUsers.UserNam} isArrow = {false}/>
                             <TextInput
                                 onChangeText={this.onZhanghao}//获取输入
                                 style={{
