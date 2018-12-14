@@ -69,15 +69,11 @@ var NewsList = React.createClass({
     },
     //更新数据
     updateNews(){
-        //错误
-        Alert.alert(
-            '更新数据',
-            null,
-            [
-                {text: '确定'}
-            ]
-        )
-        this.httpData()
+        if (this.state.zhongxin == "" && this.state.yonghuID == "" && this.state.suiji == "" && this.state.yuedu == "" && this.state.biaoji == ""){
+            this.httpData()
+        }else{
+            this.clickScreenConfirm()
+        }
     },
     //耗时操作,网络请求
     componentDidMount(){
@@ -570,6 +566,14 @@ var NewsList = React.createClass({
     },
 
     clickScreenConfirm(){
+        if (this.state.zhongxin == "" && this.state.yonghuID == "" && this.state.suiji == "" && this.state.yuedu == "" && this.state.biaoji == ""){
+            this.httpData()
+            Pickers.hide();
+            this.setState({
+                isScreen : false,
+            })
+            return
+        }
         Pickers.hide();
         this.setState({
             isScreen : false,
