@@ -217,6 +217,19 @@ var QuhlsLB = React.createClass({
                 <TouchableOpacity onPress={()=>{
                     console.log('111111')
                     console.log(this.props.userData)
+
+                    var isRecycling = this.state.data[DrugNum]
+                    if(isRecycling == 1) {
+                        //错误
+                        Alert.alert(
+                            '提示:',
+                            "已回收药物号不能替换",
+                            [
+                                {text: '确定'}
+                            ]
+                        )
+                        return;
+                    }
                     Alert.alert(
                         "提示:",
                         "是否确定替换药物号",
@@ -373,7 +386,7 @@ var QuhlsLB = React.createClass({
                     )
                 }}>
                     <MLTableCell title={'受试者编号:' + this.props.userData.USubjID}
-                                 subTitle={'药物号:' + rowData + (this.props.userData.persons.DrugDose.length != 0 ? ('\n' + this.props.userData.persons.DrugDose[rowID]) : (this.props.userData.persons.StudyDCross.length != 0 ? ('\n' + this.props.userData.persons.StudyDCross[rowID]) : ''))}
+                                 subTitle={'药物号:' + rowData + (this.props.userData.persons.DrugDose.length != 0 ? ('\n' + this.props.userData.persons.DrugDose[rowID]) : (this.props.userData.persons.StudyDCross.length != 0 ? ('\n' + this.props.userData.persons.StudyDCross[rowID]) : '')) + isRecyclingStr}
                                  subTitleColor = {'black'}
                                  rightTitle={moment(this.props.userData.DrugDate[rowID]).format('YYYY-MM-DD HH:mm:ss')}
                                  rightTitleColor = {'black'}
