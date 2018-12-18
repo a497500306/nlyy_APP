@@ -176,10 +176,10 @@ var NewYwqd = React.createClass({
     renderRow(rowData,sectionID, rowID){
         var title = (rowData.DDrugDMNumYN == 1 ? ('已废弃  ' +  (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  ')) : (rowData.DDrugNumAYN == 1 ?'已激活  ' : '未激活  '))
         if (rowData.isRecycling == 1) {
-            title = "已回收"
+            title = title + "已回收  "
         }
         if (rowData.isDestroy == 1) {
-            title = "已销毁"
+            title = title + "已销毁"
         }
         var titleColor = rowData.DDrugDMNumYN == 1 ? 'gray' :  (rowData.DDrugNumAYN == 1 ?"red" : 'gray')
         if (rowData.isRecycling == 1) {
@@ -189,9 +189,9 @@ var NewYwqd = React.createClass({
             titleColor = 'gray'
         }
         var text = rowData.DDrugUseAYN == 1 ?'已发放' : '未发放'
-        if (rowData.isRecycling == 1){
-            text = '已回收'
-        }
+        // if (rowData.isRecycling == 1){
+        //     text = '已回收'
+        // }
         var textColor = rowData.DDrugUseAYN == 1 ?'red' : 'gray'
         if (rowData.isRecycling == 1){
             textColor = 'gray'
@@ -550,18 +550,19 @@ var NewYwqd = React.createClass({
                     );
                     return;
                 }
-                if (this.state.tableData[i].DDrugUseAYN == 1 && this.state.tableData[i].isRecycling != 1) {
-                    //错误
-                    Alert.alert(
-                        '提示:',
-                        '该（批）药物号已（部分）已发放，无法销毁',
-                        [
-                            {text: '确定'}
-                        ]
-                    );
-                    return;
+                if (this.state.tableData[i].DDrugDMNumYN != 1) {
+                    if (this.state.tableData[i].DDrugUseAYN == 1 && this.state.tableData[i].isRecycling != 1) {
+                        //错误
+                        Alert.alert(
+                            '提示:',
+                            '该（批）药物号已（部分）已发放，无法销毁',
+                            [
+                                {text: '确定'}
+                            ]
+                        );
+                        return;
+                    }
                 }
-                
             }
         }
         netTool.post(settings.fwqUrl +"/app/getSelectedDestroy",{ids: this.state.xuanzhongData})
