@@ -353,7 +353,8 @@ var MLQuestion = React.createClass({
                             ] : [
                                 <View/>
                             ]} */}
-                            <View style = {{
+                            {this.props.replyData != null ? [
+                                <View style = {{
                                     backgroundColor : "white" , 
                                     width:width , 
                                     borderBottomColor:'#dddddd',
@@ -371,6 +372,10 @@ var MLQuestion = React.createClass({
                                         {"回复：" + this.props.replyData.text}
                                     </Text>
                                 </View>
+                            ] : [
+                                <View/>
+                            ]}
+                            
                             <TextInput
                                 onChangeText={this.onZhanghao}//获取输入
                                 style={{
@@ -489,7 +494,7 @@ var MLQuestion = React.createClass({
                             ] : [
                                 <View/>
                             ]} */}
-                            {this.props.replyData != null ? [
+                            {this.props.replyData.text != null ? [
                                 <View style = {{
                                     backgroundColor : "white" , 
                                     width:width , 

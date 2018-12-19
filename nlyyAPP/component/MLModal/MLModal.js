@@ -28,6 +28,7 @@ var MLModal = React.createClass({
             placeholders:[''],
             content : null,
             isVisible:true,
+            value:'',
             //点击确定返回
             onClose: noop,
             quxiao: noop,
@@ -131,9 +132,6 @@ var MLModal = React.createClass({
         var {
             onClose,
         } = this.props;
-        this.setState({
-            isVisible:false
-        })
         if (this.state.titles.length != 0){
             //返回出去
             onClose(this.state.titles);
@@ -144,6 +142,10 @@ var MLModal = React.createClass({
             //返回出去
             onClose(this.props.content);
         }
+        this.setState({
+            isVisible:false,
+            titles : ''
+        })
     }
 });
 

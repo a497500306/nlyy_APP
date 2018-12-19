@@ -28,6 +28,9 @@ var researchParameter = require('../../../entity/researchParameter')
 var SszjxfsrqSZ = require('./MLSszjxfsrqSZ')
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+var moment = require('moment');
+moment().format();
+
 var SszjxfsrqCXJG = React.createClass({
     getDefaultProps(){
         return {
@@ -170,6 +173,14 @@ var SszjxfsrqCXJG = React.createClass({
                     }
                 }else {
                     var grps = researchParameter.researchParameter.NTrtGrp.split(",");
+                        var randomStr = ""
+                        if (grps.length != 1 && rowData.persons.RandomDate != null && rowData.persons.RandomUserPhone != null){
+                            randomStr = "\n随机时间:" + moment(rowData.persons.RandomDate).format('YYYY/MM/DD HH:mm:ss') + "\n操作用户:" + rowData.persons.RandomUserPhone.substr(rowData.persons.RandomUserPhone.length - 4)
+                        } else if (grps.length == 1 && rowData.persons.RandomDate != null && rowData.persons.RandomUserPhone != null){
+                            randomStr = "\n入组时间:" + moment(rowData.persons.RandomDate).format('YYYY/MM/DD HH:mm:ss') + "\n操作用户:" + rowData.persons.RandomUserPhone.substr(rowData.persons.RandomUserPhone.length - 4)
+                        }
+                        var userDataStr = ("姓名缩写:" + rowData.SubjIni + "   " +((rowData.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2)? ('分组:' + (rowData.Arm == null ? "无" : rowData.Arm)) : ""))
+                        
                     return(
                         <TouchableOpacity onPress={()=>{
                             //错误
@@ -183,7 +194,17 @@ var SszjxfsrqCXJG = React.createClass({
                                 }
                             })
                         }}>
-                            <MLTableCell title={'受试者编号:' + rowData.persons.USubjID} subTitle={"姓名缩写:" + rowData.persons.SubjIni + "   " +((rowData.persons.isUnblinding == 1 || researchParameter.researchParameter.BlindSta == 3 || researchParameter.researchParameter.BlindSta == 2)? ('分组:' + (rowData.persons.Arm == null ? "无" : rowData.persons.Arm)) : "") } subTitleColor = {'black'} rightTitle={grps.length == 1 ? "给予研究治疗":('随机号:' + rowData.persons.Random)} rightTitleColor = {'black'}/>
+                            <MLTableCell 
+                            title={'受试者编号:' + rowData.persons.USubjID} 
+                            subTitle={([
+                                <Text>{userDataStr}</Text>,
+                                <Text style={{
+                                    fontSize:12,
+                                    color:'gray'
+                                }}>{randomStr}</Text>
+                                ])} 
+                            subTitleColor = {'black'} rightTitle={grps.length == 1 ? "给予研究治疗":('随机号:' + rowData.persons.Random)} 
+                            rightTitleColor = {'black'}/>
                         </TouchableOpacity>
                     )
                 }
