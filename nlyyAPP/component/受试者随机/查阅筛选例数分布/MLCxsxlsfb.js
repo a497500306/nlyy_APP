@@ -430,7 +430,7 @@ var Cysxlsfb = React.createClass({
             try {
                 const {action, year, month, day} = await DatePickerAndroid.open({
                   date: (this.state.endDate == null ? new Date() : this.state.endDate),
-                  maxDate : new Date()
+                  maxDate : moment().add(1, 'days').toDate()
                 });
                 if (action !== DatePickerAndroid.dismissedAction) {
                   // 这里开始可以处理用户选好的年月日三个参数：year, month (0-11), day
