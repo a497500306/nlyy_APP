@@ -213,7 +213,17 @@ var Cysxlsfb = React.createClass({
                                     查 询
                                 </Text>
                             </TouchableOpacity>
-
+                            <View style={{
+                                left : 8,
+                                right : 8
+                            }}>
+                                {
+                                    Platform.OS == "ios" ? [] : 
+                                    [
+                                        <Text>{'*开始时间和结束时间默认为选择日期的0:00:00'}</Text>
+                                    ]
+                            }
+                            </View>
                             <View style = {{
                                 height : 44,
                                 left : 8,

@@ -274,13 +274,13 @@ var Cxzxywqk = React.createClass({
                     tableData.push('中心编号')
                     tableData.push('目前库存量')
                     tableData.push('已签收药物量')
+                    tableData.push('已销毁药物量')
                     tableData.push('已激活药物量')
                     tableData.push('已发放药物量')
+                    tableData.push('已回收药物量')
                     tableData.push('已揭盲药物量')
                     tableData.push('已替换药物量')
                     tableData.push('已废弃药物量')
-                    tableData.push('已回收药物量')
-                    tableData.push('已销毁药物量')
                     var ds = new ListView.DataSource({rowHasChanged:(r1, r2) => r1 !== r2});
                     this.setState({dataSource: ds.cloneWithRows(tableData)});
                     //移除等待
