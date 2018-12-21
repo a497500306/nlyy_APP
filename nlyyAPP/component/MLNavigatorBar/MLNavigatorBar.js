@@ -103,16 +103,37 @@ var MLNavigatorBar = React.createClass({
                     <View>
                         <View style={styles.daohangIOSStyle}/>
                         <View style={styles.daohangStyle}>
-                            <TouchableOpacity style={{position:'absolute', left:0, bottom:7}} onPress={this.props.backFunc}>
-                                <Icon style={{marginLeft:15,marginRight:15}} name="angle-left" size={25} color="white" />
+                            <TouchableOpacity style={{position:'absolute', left:0, bottom:0}} onPress={this.props.backFunc}>
+                            <View style = {{
+                                        justifyContent: 'center',
+                                        alignItems:'center',
+                                        height : 44,
+                                        width:44,
+                                    }}>
+                                    <Icon name="angle-left" size={30} color="white" />
+                                    </View>
                             </TouchableOpacity>
                             {this.props.leftTitle == '' ? [] : (this.props.leftTitle == "首页" ? [
-                                <TouchableOpacity style={{position:'absolute', left:25 + 15, bottom:7}} onPress={this.props.leftFunc}>
-                                    <Icon style={{marginLeft:15,marginRight:15}} name="home" size={25} color="white" />
+                                <TouchableOpacity style={{position:'absolute', left:44, bottom:0}} onPress={this.props.leftFunc}>
+                                <View style = {{
+                                        justifyContent: 'center',
+                                        alignItems:'center',
+                                        height : 44,
+                                        width:44,
+                                    }}>
+                                    <Icon name="home" size={25} color="white" />
+                                    </View>
                                 </TouchableOpacity>
                             ] : [
-                                <TouchableOpacity style={{position:'absolute', left:25 + 15, bottom:7}} onPress={this.props.leftFunc}>
-                                    <Text style={{marginLeft:15,marginRight:15,color:'white',fontSize:15,height:20}}>{this.props.leftTitle}</Text>
+                                <TouchableOpacity style={{position:'absolute', left:44, bottom:0}} onPress={this.props.leftFunc}>
+                                <View style = {{
+                                        justifyContent: 'center',
+                                        alignItems:'center',
+                                        height : 44,
+                                        width:44,
+                                    }}>
+                                    <Text style={{color:'white',fontSize:15}}>{this.props.leftTitle}</Text>
+                                    </View>
                                 </TouchableOpacity>
                             ])}
 
@@ -139,12 +160,26 @@ var MLNavigatorBar = React.createClass({
                     <View>
                         <View style={styles.daohangIOSStyle}/>
                         <View style={styles.daohangStyle}>
-                            <TouchableOpacity style={{position:'absolute', left:0, bottom:7}} onPress={this.props.backFunc}>
-                                <Icon style={{marginLeft:15,marginRight:15}} name="angle-left" size={30} color="white" />
+                            <TouchableOpacity style={{position:'absolute', left:0, bottom:0}} onPress={this.props.backFunc}>
+                            <View style = {{
+                                        justifyContent: 'center',
+                                        alignItems:'center',
+                                        height : 44,
+                                        width:44,
+                                    }}>
+                                    <Icon name="angle-left" size={30} color="white" />
+                                    </View>
                             </TouchableOpacity>
                             {this.props.leftTitle == '' ? [] : (this.props.leftTitle == "首页" ? [
-                                <TouchableOpacity style={{position:'absolute', left:25 + 15, bottom:7}} onPress={this.props.leftFunc}>
-                                    <Icon style={{marginLeft:15,marginRight:15}} name="home" size={25} color="white" />
+                                <TouchableOpacity style={{position:'absolute', left:44, bottom:0}} onPress={this.props.leftFunc}>
+                                <View style = {{
+                                        justifyContent: 'center',
+                                        alignItems:'center',
+                                        height : 44,
+                                        width:44,
+                                    }}>
+                                    <Icon name="home" size={25} color="white" />
+                                    </View>
                                 </TouchableOpacity>
                             ] : [
                                 <TouchableOpacity style={{position:'absolute', left:25 + 15, bottom:7}} onPress={this.props.leftFunc}>
@@ -156,26 +191,44 @@ var MLNavigatorBar = React.createClass({
                             </Text>
                             {
                                 this.props.right2Title == "" ? [] : [
-                                    <TouchableOpacity style={{position:'absolute', right: 10 + 10 + 40, bottom:15}} onPress={this.props.right2Func}>
+                                    <TouchableOpacity style={{position:'absolute', right: 10 + 10 + 40, bottom:0}} onPress={this.props.right2Func}>
+                                    <View style = {{
+                                        justifyContent: 'center',
+                                        alignItems:'center',
+                                        height : 44,
+                                        width:44,
+                                    }}>
                                     <Text style={{
                                         marginLeft:0,marginRight:0,
-                                        width:40,
                                         color:'white',
-                                        fontSize:15
+                                        fontSize:15,
                                     }}>{this.props.right2Title}</Text>
+                                    </View>
                                 </TouchableOpacity>
                                 ]
                             }
-                            <TouchableOpacity style={{position:'absolute', right:0, bottom:11}} onPress={this.props.newFunc}>
+                            <TouchableOpacity style={{position:'absolute', right:8, bottom:0}} onPress={this.props.newFunc}>
                                 {this.props.newTitle != '' ? [
-                                    <Icon style={{marginLeft:15,marginRight:15}} name={this.props.newTitle} size={25} color="white" />
+                                    <View style = {{
+                                        justifyContent: 'center',
+                                        alignItems:'center',
+                                        height : 44,
+                                        width:44,
+                                    }}>
+                                    <Icon name={this.props.newTitle} size={25} color="white" />
+                                    </View>
                                 ] : [
+                                    <View style = {{
+                                        justifyContent: 'center',
+                                        alignItems:'center',
+                                        height : 44,
+                                        width:44,
+                                    }}>
                                     <Text style={{
-                                        marginLeft:15,marginRight:10,marginBottom:4,
-                                        width:40,
                                         color:'white',
                                         fontSize:15
                                     }}>{this.props.rightTitle}</Text>
+                                    </View>
                                 ]}
                                 </TouchableOpacity>
                         </View>
