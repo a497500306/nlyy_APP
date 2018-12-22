@@ -744,6 +744,12 @@ var MLQuestion = React.createClass({
                 name: 'test.aac'
             };
             formData.append("voice", file);
+            var users = null
+            if (this.props.replyData == null) {
+                users = (this.props.Users.SynchronizeUser == null ? this.props.Users.Users : this.props.Users.SynchronizeUser) 
+            }else{
+                users = (this.props.replyData.SynchronizeUser == null ? this.props.replyData.addUsers : this.props.replyData.SynchronizeUser) 
+            }
             fetch(settings.fwqUrl + "/app/voiceUpdata", {
                 method: 'POST',
                 headers: {
@@ -762,7 +768,8 @@ var MLQuestion = React.createClass({
                         body: JSON.stringify({
                             "StudyID": Users.Users[0].StudyID,    //研究编号
                             "addUsers": Users.Users[0], //添加这条数据的医生
-                            "Users": (this.props.replyData != null ? this.props.replyData.addUsers : this.props.data.Users), //质疑的医生
+                            "Users": users,
+                            // "Users": (this.props.replyData != null ? this.props.replyData.addUsers : this.props.data.Users), //质疑的医生
                             "CRFModeule": this.props.data,//研究数据
                             "voiceUrls": responseJson.url,//语音路径
                             "text": this.state.zhanghao,//内容
@@ -813,6 +820,14 @@ var MLQuestion = React.createClass({
                 Toast.fail('网络连接失败2...', 2);
             });
         }else{
+            var users = null
+            if (this.props.replyData == null) {
+                users = (this.props.Users.SynchronizeUser == null ? this.props.Users.Users : this.props.Users.SynchronizeUser) 
+            }else{
+                users = (this.props.replyData.SynchronizeUser == null ? this.props.replyData.addUsers : this.props.replyData.SynchronizeUser) 
+            }
+            // (this.props.replyData != null ? this.props.replyData.addUsers : this.props.data.Users), //质疑的医生
+                   
             fetch(settings.fwqUrl + "/app/getAddQuestion", {
                 method: 'POST',
                 headers: {
@@ -822,7 +837,8 @@ var MLQuestion = React.createClass({
                 body: JSON.stringify({
                     "StudyID": Users.Users[0].StudyID,    //研究编号
                     "addUsers": Users.Users[0], //添加这条数据的医生
-                    "Users": (this.props.replyData != null ? this.props.replyData.addUsers : this.props.data.Users), //质疑的医生
+                    "Users": users,
+                    // "Users": (this.props.replyData != null ? this.props.replyData.addUsers : this.props.data.Users), //质疑的医生
                     "CRFModeule": this.props.data,//研究数据
                     "voiceUrls": '',//语音路径
                     "text": this.state.zhanghao,//内容

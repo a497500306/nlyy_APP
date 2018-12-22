@@ -556,7 +556,21 @@ var NewsList = React.createClass({
                 }
             },
             onPickerCancel: pickedValue => {
-                
+                if (type == "zhongxin"){
+                    this.setState({zhongxin:""})
+                 }else if (type == "suiji"){
+                    this.setState({suiji:""})
+                }else if (type == "tupian"){
+                    this.setState({tupian:""})
+                }else if (type == "yonghuID"){
+                    this.setState({yonghuID:""})
+                }else if (type == "shuju"){
+                    this.setState({shuju:""})
+                }else if (type == "yuedu"){
+                    this.setState({yuedu:""})
+                }else if (type == "biaoji"){
+                    this.setState({biaoji:""})
+                }
             },
             onPickerSelect: pickedValue => {
 
