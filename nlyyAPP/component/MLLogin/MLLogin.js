@@ -47,7 +47,6 @@ import JPushModule from 'jpush-react-native';
 
 export default class Login extends Component{
     // mixins: [TimerMixin]
-
     state =  {
         zhanghao:"",
         yanzhenma:"",

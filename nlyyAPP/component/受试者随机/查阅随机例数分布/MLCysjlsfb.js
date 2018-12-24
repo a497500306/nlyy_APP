@@ -220,7 +220,7 @@ var Cysxlsfb = React.createClass({
                                 {
                                     Platform.OS == "ios" ? [] : 
                                     [
-                                        <Text>{'*开始时间和结束时间默认为选择日期的0:00:00'}</Text>
+                                        <Text>{'*开始时间和结束时间默认为选择日期的00:00:00'}</Text>
                                     ]
                             }
                             </View>
