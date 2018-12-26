@@ -748,7 +748,8 @@ var MLQuestion = React.createClass({
             if (this.props.replyData == null) {
                 users = this.props.data.Users
             }else{
-                users = (this.props.replyData.SynchronizeUser == null ? this.props.replyData.addUsers : this.props.replyData.SynchronizeUser) 
+                // users = (this.props.replyData.SynchronizeUser == null ? this.props.replyData.addUsers : this.props.replyData.SynchronizeUser) 
+                users = this.props.replyData.addUsers
             }
             fetch(settings.fwqUrl + "/app/voiceUpdata", {
                 method: 'POST',
@@ -824,7 +825,8 @@ var MLQuestion = React.createClass({
             if (this.props.replyData == null) {
                 users = this.props.data.Users
             }else{
-                users = (this.props.replyData.SynchronizeUser == null ? this.props.replyData.addUsers : this.props.replyData.SynchronizeUser) 
+                // users = (this.props.replyData.SynchronizeUser == null ? this.props.replyData.addUsers : this.props.replyData.SynchronizeUser) 
+                users = this.props.replyData.addUsers
             }
             // (this.props.replyData != null ? this.props.replyData.addUsers : this.props.data.Users), //质疑的医生
                    
