@@ -580,7 +580,7 @@ var NewsList = React.createClass({
     },
 
     clickScreenConfirm(){
-        if (this.state.zhongxin == "" && this.state.yonghuID == "" && this.state.suiji == "" && this.state.yuedu == "" && this.state.biaoji == ""){
+        if (this.state.zhongxin == "" && this.state.shuju == "" && this.state.yonghuID == "" && this.state.suiji == "" && this.state.yuedu == "" && this.state.biaoji == ""){
             this.httpData()
             Pickers.hide();
             this.setState({
