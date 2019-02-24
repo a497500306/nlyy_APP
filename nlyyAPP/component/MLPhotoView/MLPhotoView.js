@@ -60,11 +60,20 @@ export default class MLPhotoView extends Component {
     //属性
     constructor(props){
         super(props);
+        var newImages = []
+        for (var i = 0 ; i < this.props.images.length ; i++) {
+            var imageUrlOBJ = this.props.images[i]
+            var imageUrl = imageUrlOBJ.url
+            imageUrl = imageUrl.replace("http://oxpati5fy.bkt.clouddn.com/",settings.imageUrl);
+            newImages.push({
+                url : imageUrl
+            })
+        }
         this.state = {
             height:0,
             width:0,
             visible:true,
-            images:this.props.images
+            images:newImages
         }
     }
 
